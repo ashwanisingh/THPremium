@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/baseLayoutLeftPadding"
+    android:paddingTop="@dimen/baseLayoutTopPadding"
+    android:paddingRight="@dimen/baseLayoutRightPadding">
+
+    <ImageButton
+        android:id="@+id/backBtn"
+        style="@style/backBtnStyle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+
+        />
+
+    <FrameLayout
+        android:id="@+id/part1"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/backBtnMarginTop"
+        android:background="@color/colorAccent"
+        android:paddingLeft="@dimen/baseLayoutLeftPadding"
+        android:paddingRight="@dimen/baseLayoutRightPadding"
+        app:layout_constraintDimensionRatio="@string/become_member_part1"
+        app:layout_constraintEnd_toStartOf="@+id/guideline1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/backBtn"></FrameLayout>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="1" />
+
+
+    <!--======== Above is Part 1=================================-->
+
+    <FrameLayout
+        android:id="@+id/part2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/become_member_part1_gap"
+        android:paddingLeft="@dimen/baseLayoutLeftPadding"
+        android:paddingRight="@dimen/baseLayoutRightPadding"
+        app:layout_constraintDimensionRatio="@string/become_member_part2"
+        app:layout_constraintEnd_toStartOf="@+id/guideline2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/part1">
+
+        <com.ns.view.CustomTextView
+            android:id="@+id/signUpFor30Days_Txt"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:background="@color/colorPrimary"
+            android:gravity="center"
+            android:textColor="#ffffff"
+            android:textSize="14sp"
+            android:text="Sign Up for 30 days Free" />
+
+    </FrameLayout>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="1" />
+
+    <!--======== Above is Part 2=================================-->
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/part3"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/become_member_part2_gap"
+        android:background="@color/colorPrimaryDark"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/part2">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingTop="@dimen/become_member_part2_gap"
+            android:paddingBottom="@dimen/become_member_part2_gap"
+            >
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <com.ns.view.CustomTextView
+                    android:id="@+id/subscribeNowForExclusive_Txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:text="Subscribe now for exclusive feature "
+                    android:textColor="@color/textColor"
+                    android:textSize="20sp" />
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <com.ns.view.CustomTextView
+                    android:id="@+id/exploreSubscriptionPlans_Txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:gravity="center_horizontal"
+                    android:text="Explore our Subscription Plans "
+                    android:textColor="@color/textColor"
+                    android:textSize="14sp"
+
+                    />
+            </FrameLayout>
+
+            <com.ns.view.CustomTextView
+                android:id="@+id/signIn_Txt"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:letterSpacing="0.02"
+                android:text="Already have an account? Sign In"
+                android:textColor="@color/textColor"
+                android:textSize="15sp" />
+
+        </LinearLayout>
+
+
+    </android.support.v7.widget.CardView>
+
+
+</android.support.constraint.ConstraintLayout>

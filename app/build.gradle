@@ -7,6 +7,8 @@ android {
         targetSdkVersion "$TARGET_SDK".toInteger()
         applicationId "com.ns.thpremium"
         versionCode 1
+        vectorDrawables.useSupportLibrary = true
+
     }
     buildTypes {
         release {

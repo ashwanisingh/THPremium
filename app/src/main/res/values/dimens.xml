@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="baseLayoutLeftPadding">11dp</dimen>
+    <dimen name="baseLayoutRightPadding">11dp</dimen>
+    <dimen name="baseLayoutTopPadding">26dp</dimen>
+
+    <dimen name="backBtnMarginTop">20dp</dimen>
+    <dimen name="backBtnWidthHeight">33dp</dimen>
+
+    <dimen name="become_member_part1_gap">14dp</dimen>
+    <dimen name="become_member_part2_gap">18dp</dimen>
+
+    <string name="become_member_part1">h,15:14</string>
+    <string name="become_member_part2">h,30:4</string>
+
+
+
+</resources>
