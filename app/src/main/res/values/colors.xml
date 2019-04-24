@@ -3,8 +3,12 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+
     <color name="defaultWindowColor">#f8f8f8</color>
-    <color name="textColor">#191919</color>
+
+    <color name="boldBlackColor">#191919</color>
+    <color name="yellowColor_1">#ac8a40</color>
+    <color name="greyColor_1">#cbcbcb</color>
 
 
 </resources>

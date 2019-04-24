@@ -1,7 +1,7 @@
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -15,6 +15,30 @@
         <item name="android:background">@null</item>
         <item name="android:src">@drawable/ic_back_copy_42</item>
         <item name="srcCompat">@drawable/ic_back_copy_42</item>
+    </style>
+
+    <style name="introTextStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">@dimen/introIconWidthHeight</item>
+        <item name="android:background">@null</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/boldBlackColor</item>
+        <item name="font_path">@string/FONT_FIRA_SANS_BOLD</item>
+        <item name="android:layout_marginLeft">16dp</item>
+        <item name="android:layout_marginTop">26dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:alpha">0.8</item>
+    </style>
+
+    <style name="introIconStyle">
+        <item name="android:layout_width">@dimen/introIconWidthHeight</item>
+        <item name="android:layout_height">@dimen/introIconWidthHeight</item>
+        <item name="android:background">@null</item>
+        <item name="android:src">@drawable/ic_back_copy_42</item>
+        <item name="srcCompat">@drawable/ic_back_copy_42</item>
+        <item name="android:layout_marginTop">29dp</item>
+        <item name="android:scaleType">centerInside</item>
+
     </style>
 
 </resources>

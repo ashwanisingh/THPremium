@@ -1,3 +1,9 @@
 <resources>
     <string name="test">THPremium</string>
+
+    <string name="FONT_FIRA_SANS_BOLD">fonts/FiraSans-Bold.ttf</string>
+    <string name="FONT_FIRA_SANS_REGULAR">fonts/FiraSans-Regular.ttf</string>
+    <string name="FONT_TUNDRA_OFFC">fonts/TundraOffc.ttf</string>
+    <string name="FONT_TUNDRA_OFFC_BOLD">fonts/TundraScOffc-Bold.ttf</string>
+
 </resources>

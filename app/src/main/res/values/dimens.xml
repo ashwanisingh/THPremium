@@ -7,6 +7,8 @@
     <dimen name="backBtnMarginTop">20dp</dimen>
     <dimen name="backBtnWidthHeight">33dp</dimen>
 
+    <dimen name="introIconWidthHeight">21.5dp</dimen>
+
     <dimen name="become_member_part1_gap">14dp</dimen>
     <dimen name="become_member_part2_gap">18dp</dimen>
 

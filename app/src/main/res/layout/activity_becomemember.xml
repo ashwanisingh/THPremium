@@ -21,7 +21,6 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="@dimen/backBtnMarginTop"
-        android:background="@color/colorAccent"
         android:paddingLeft="@dimen/baseLayoutLeftPadding"
         android:paddingRight="@dimen/baseLayoutRightPadding"
         app:layout_constraintDimensionRatio="@string/become_member_part1"
@@ -56,7 +55,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:background="@color/colorPrimary"
+            android:background="@drawable/yellow_backgraoud"
             android:gravity="center"
             android:textColor="#ffffff"
             android:textSize="14sp"
@@ -106,25 +105,28 @@
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
                     android:text="Subscribe now for exclusive feature "
-                    android:textColor="@color/textColor"
+                    android:textColor="@color/boldBlackColor"
                     android:textSize="20sp" />
 
             </FrameLayout>
 
             <FrameLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:paddingLeft="@dimen/baseLayoutLeftPadding"
+                android:paddingRight="@dimen/baseLayoutRightPadding">
 
                 <com.ns.view.CustomTextView
                     android:id="@+id/exploreSubscriptionPlans_Txt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="30dp"
-                    android:gravity="center_horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:gravity="center"
                     android:text="Explore our Subscription Plans "
-                    android:textColor="@color/textColor"
+                    android:textColor="@android:color/white"
                     android:textSize="14sp"
-
+                    android:background="@drawable/blue_backgraoud"
+                    android:layout_gravity="center_horizontal"
                     />
             </FrameLayout>
 
@@ -134,7 +136,7 @@
                 android:layout_height="30dp"
                 android:letterSpacing="0.02"
                 android:text="Already have an account? Sign In"
-                android:textColor="@color/textColor"
+                android:textColor="@color/boldBlackColor"
                 android:textSize="15sp" />
 
         </LinearLayout>
