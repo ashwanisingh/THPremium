@@ -6,4 +6,6 @@
     <string name="FONT_TUNDRA_OFFC">fonts/TundraOffc.ttf</string>
     <string name="FONT_TUNDRA_OFFC_BOLD">fonts/TundraScOffc-Bold.ttf</string>
 
+    <string name="Rs">\u20B9</string>
+
 </resources>
