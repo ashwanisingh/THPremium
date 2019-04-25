@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    style="@style/parentLayoutStyle">
+
+    <com.ns.view.CustomTextView
+        android:id="@+id/pleaseUseOnly_Txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:textColor="@color/boldBlackColor"
+        android:lineSpacingExtra="5sp"
+        android:alpha="0.6"
+        android:gravity="center"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:maxEms="10"
+        android:text="Please use only Email ID, if you are registering as an NRI"
+        />
+
+    <EditText
+        android:id="@+id/emailOrMobile_Et"
+        style="@style/editTextStyle"
+        android:layout_marginTop="24dp"
+        app:layout_constraintTop_toBottomOf="@+id/pleaseUseOnly_Txt"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:imeOptions="actionDone"
+        android:hint="Mobile Number/Email Address"
+        />
+
+    <com.ns.view.CustomTextView
+        android:id="@+id/signUp_Txt"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintTop_toBottomOf="@+id/emailOrMobile_Et"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="Sign Up"
+        android:gravity="center"
+        android:textColor="@android:color/white"
+        app:font_path="@string/FONT_FIRA_SANS_BOLD"
+        android:textSize="14sp"
+        android:background="@drawable/blue_backgraoud"/>
+
+
+    <com.ns.view.CustomTextView
+        android:id="@+id/orSignup_Txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        app:layout_constraintTop_toBottomOf="@+id/signUp_Txt"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="14sp"
+        android:textColor="#191919"
+        android:letterSpacing="0.02"
+        android:text="or signup using social media"
+        android:alpha="0.5"
+        />
+
+
+
+
+
+<!--============================================-->
+
+    <!--========= Below is for Social Buttons ===================-->
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/view1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="60dp"
+        app:layout_constraintVertical_chainStyle="spread"
+        app:layout_constraintBottom_toTopOf="@+id/faq_Txt"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent">
+
+        <ImageButton
+            android:id="@+id/facebookBtn"
+            style="@style/crossBtnStyle"
+            app:layout_constraintRight_toLeftOf="@+id/tweeterBtn"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+        <ImageButton
+            android:id="@+id/tweeterBtn"
+            style="@style/crossBtnStyle"
+            app:layout_constraintRight_toLeftOf="@+id/googleBtn"
+            app:layout_constraintVertical_chainStyle="spread_inside"
+            app:layout_constraintLeft_toRightOf="@+id/facebookBtn"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+        <ImageButton
+            android:id="@+id/googleBtn"
+            style="@style/crossBtnStyle"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintVertical_chainStyle="spread_inside"
+            app:layout_constraintLeft_toRightOf="@+id/tweeterBtn"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+    </android.support.constraint.ConstraintLayout>
+    <!--========= Above is for Social Buttons ===================-->
+
+    <com.ns.view.CustomTextView
+        android:id="@+id/faq_Txt"
+        android:layout_width="50dp"
+        android:layout_height="30dp"
+        android:gravity="center"
+        android:text="FAQ"
+        android:background="@null"
+        app:layout_constraintBottom_toTopOf="@+id/tc_Txt"
+        android:layout_marginBottom="40dp"
+        app:layout_constraintVertical_chainStyle="packed"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:font_path="@string/FONT_FIRA_SANS_BOLD"
+        android:textColor="@color/blueColor_1"/>
+
+    <com.ns.view.CustomTextView
+        android:id="@+id/tc_Txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:lineSpacingExtra="8sp"
+        android:text="By signing up, you agree to our Terms and Conditions"
+        android:maxEms="9"
+        android:gravity="center"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_chainStyle="packed"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:font_path="@string/FONT_FIRA_SANS_REGULAR"
+        android:textColor="@color/boldBlackColor"
+        android:layout_marginBottom="30dp"
+        />
+
+
+</android.support.constraint.ConstraintLayout>

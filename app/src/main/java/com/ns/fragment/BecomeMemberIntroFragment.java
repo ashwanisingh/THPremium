@@ -9,7 +9,6 @@ import android.view.View;
 
 import com.ns.adapter.BecomeMemberPagerAdapter;
 import com.ns.thpremium.R;
-import com.ns.view.CustomTextView;
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator;
 
 public class BecomeMemberIntroFragment extends BaseFragmentTHP {

@@ -9,12 +9,37 @@
         <item name="android:windowBackground">@color/defaultWindowColor</item>
     </style>
 
+    <style name="parentLayoutStyle">
+        <item name="android:paddingLeft">@dimen/baseLayoutLeftPadding</item>
+        <item name="android:paddingTop">@dimen/baseLayoutTopPadding</item>
+        <item name="android:paddingRight">@dimen/baseLayoutRightPadding</item>
+    </style>
+
+    <style name="bottomLayoutStyle">
+        <item name="android:background">@drawable/shadow_4</item>
+        <item name="layout_constraintBottom_toBottomOf">parent</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+        <item name="layout_constraintRight_toRightOf">parent</item>
+        <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="layout_constraintLeft_toLeftOf">parent</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">0dp</item>
+    </style>
+
     <style name="backBtnStyle">
         <item name="android:layout_width">@dimen/backBtnWidthHeight</item>
         <item name="android:layout_height">@dimen/backBtnWidthHeight</item>
         <item name="android:background">@null</item>
         <item name="android:src">@drawable/ic_back_copy_42</item>
         <item name="srcCompat">@drawable/ic_back_copy_42</item>
+    </style>
+
+    <style name="crossBtnStyle">
+        <item name="android:layout_width">@dimen/backBtnWidthHeight</item>
+        <item name="android:layout_height">@dimen/backBtnWidthHeight</item>
+        <item name="android:background">@null</item>
+        <item name="android:src">@drawable/ic_close</item>
+        <item name="srcCompat">@drawable/ic_close</item>
     </style>
 
     <style name="introTextStyle">
@@ -38,7 +63,20 @@
         <item name="srcCompat">@drawable/ic_back_copy_42</item>
         <item name="android:layout_marginTop">29dp</item>
         <item name="android:scaleType">centerInside</item>
+    </style>
 
+    <style name="tab_text" parent="@android:style/TextAppearance.Widget.TabWidget">
+        <item name="android:fontFamily">@string/FONT_TUNDRA_OFFC_BOLD</item>
+        <item name="android:textSize">20dp</item>
+    </style>
+
+    <style name="editTextStyle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">@dimen/signInAndUp_editText_height</item>
+        <item name="android:background">@drawable/et_background</item>
+        <item name="android:alpha">0.6</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:textColor">@color/boldBlackColor</item>
     </style>
 
 </resources>

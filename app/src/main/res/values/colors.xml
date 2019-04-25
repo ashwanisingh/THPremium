@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorPrimary">#051E38</color>
+    <color name="colorPrimaryDark">#FF051E38</color>
     <color name="colorAccent">#D81B60</color>
 
     <color name="defaultWindowColor">#f8f8f8</color>
@@ -9,6 +9,8 @@
     <color name="boldBlackColor">#191919</color>
     <color name="yellowColor_1">#ac8a40</color>
     <color name="greyColor_1">#cbcbcb</color>
+
+    <color name="blueColor_1">#1b528e</color>
 
 
 </resources>

@@ -5,7 +5,10 @@
     <dimen name="baseLayoutTopPadding">26dp</dimen>
 
     <dimen name="backBtnMarginTop">20dp</dimen>
-    <dimen name="backBtnWidthHeight">33dp</dimen>
+    <dimen name="backBtnWidthHeight">40dp</dimen>
+
+    <dimen name="signInAndUp_CardViewMarginTop">64dp</dimen>
+    <dimen name="signInAndUp_editText_height">45dp</dimen>
 
     <dimen name="introIconWidthHeight">21.5dp</dimen>
 

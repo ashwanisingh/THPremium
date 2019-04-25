@@ -6,8 +6,10 @@ import android.support.v4.app.FragmentTransaction;
 
 import com.ns.fragment.BecomeMemberIntroFragment;
 import com.ns.thpremium.R;
+import com.ns.utils.IntentUtil;
+import com.ns.utils.ResUtil;
+import com.ns.utils.TextSpanCallback;
 import com.ns.view.CustomTextView;
-import com.ns.view.FontCache;
 
 public class BecomeMemberActivity extends BaseAcitivityTHP {
 
@@ -42,6 +44,30 @@ public class BecomeMemberActivity extends BaseAcitivityTHP {
         subscribeNowForExclusive_Txt.applyCustomFont(this, getResources().getString(R.string.FONT_TUNDRA_OFFC_BOLD));
         exploreSubscriptionPlans_Txt.applyCustomFont(this, getResources().getString(R.string.FONT_FIRA_SANS_BOLD));
         signIn_Txt.applyCustomFont(this, getResources().getString(R.string.FONT_FIRA_SANS_REGULAR));
+
+
+        // Sign Up Click Listener
+        signUpFor30Days_Txt.setOnClickListener(v->{
+            IntentUtil.openSignInOrUpActivity(BecomeMemberActivity.this, "signUp");
+        });
+
+        // Explore Our Subscription Click Listener
+        exploreSubscriptionPlans_Txt.setOnClickListener(v->{
+
+        });
+
+        // Sign In Click Listener
+        ResUtil.doClickSpanForString(this, "Already have an account? ", "Sign In",
+                signIn_Txt, R.color.blueColor_1, new TextSpanCallback() {
+                    @Override
+                    public void onTextSpanClick() {
+                        IntentUtil.openSignInOrUpActivity(BecomeMemberActivity.this, "signIn");
+                    }
+                });
+
+
+
+
 
     }
 
