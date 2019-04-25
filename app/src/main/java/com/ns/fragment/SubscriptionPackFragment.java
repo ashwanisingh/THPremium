@@ -16,6 +16,8 @@ public class SubscriptionPackFragment extends BaseFragmentTHP {
 
     private SubscriptionPackAdapter mAdapter;
 
+    private String mFrom;
+
     public static SubscriptionPackFragment getInstance(String from) {
         Bundle bundle = new Bundle();
         SubscriptionPackFragment fragment = new SubscriptionPackFragment();
@@ -26,6 +28,15 @@ public class SubscriptionPackFragment extends BaseFragmentTHP {
     @Override
     public int getLayoutRes() {
         return R.layout.fragment_subscription_pack;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        if(getArguments() != null) {
+            mFrom = getArguments().getString("from");
+        }
     }
 
     @Override

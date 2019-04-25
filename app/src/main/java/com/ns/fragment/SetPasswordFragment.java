@@ -15,7 +15,7 @@ import com.ns.utils.FragmentUtil;
 
 public class SetPasswordFragment extends BaseFragmentTHP {
 
-    String mFrom;
+    private String mFrom;
 
     public static SetPasswordFragment getInstance(String from) {
         SetPasswordFragment fragment = new SetPasswordFragment();

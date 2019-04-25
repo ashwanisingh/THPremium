@@ -24,7 +24,7 @@ public class SignInAndUpActivity extends BaseAcitivityTHP {
         mFrom = getIntent().getExtras().getString("from");
 
         SignInAndUpFragment fragment = SignInAndUpFragment.getInstance(mFrom);
-        FragmentUtil.pushFragAnim(this, R.id.parentLayout, fragment, FragmentUtil.FRAGMENT_NO_ANIMATION, true);
+        FragmentUtil.pushFragmentAnim(this, R.id.parentLayout, fragment, FragmentUtil.FRAGMENT_NO_ANIMATION, true);
 
     }
 }

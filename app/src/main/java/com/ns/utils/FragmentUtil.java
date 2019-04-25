@@ -10,6 +10,11 @@ public class FragmentUtil {
     public static final int FRAGMENT_NO_ANIMATION = -1;
     public static final int FRAGMENT_ANIMATION = FragmentTransaction.TRANSIT_FRAGMENT_OPEN;
 
+    public static void pushFragmentFromFragment( Fragment fragmentParent, int resId, Fragment fragment) {
+        FragmentTransaction trasaction = fragmentParent.getChildFragmentManager().beginTransaction();
+        trasaction.replace(resId, fragment, fragmentParent.getClass().getCanonicalName());
+        trasaction.commit();
+    }
 
     public static void pushFragment( AppCompatActivity activity, int resId, Fragment fragment) {
         FragmentTransaction trasaction = activity.getSupportFragmentManager().beginTransaction();
@@ -18,10 +23,12 @@ public class FragmentUtil {
         trasaction.commit();
     }
 
-    public static void pushFragAnim(AppCompatActivity activity, int resId, Fragment fragment, final int animationSet, final boolean isRoot) {
+    public static void pushFragmentAnim(AppCompatActivity activity, int resId, Fragment fragment,
+                                        final int animationSet, final boolean isRoot) {
         FragmentTransaction trasaction = activity.getSupportFragmentManager().beginTransaction();
-        if (animationSet != FRAGMENT_NO_ANIMATION)
+        if (animationSet != FRAGMENT_NO_ANIMATION) {
             trasaction.setTransition(animationSet);
+        }
 
         if (isRoot) {
             clearAllBackStack(activity);

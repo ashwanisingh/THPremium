@@ -57,14 +57,14 @@ public class SignUpFragment extends BaseFragmentTHP {
                     @Override
                     public void onTextSpanClick() {
                         TCFragment fragment = TCFragment.getInstance(THPConstants.TnC_URL);
-                        FragmentUtil.pushFragAnim((AppCompatActivity)getActivity(), R.id.parentLayout,
+                        FragmentUtil.pushFragmentAnim((AppCompatActivity)getActivity(), R.id.parentLayout,
                                 fragment, FragmentUtil.FRAGMENT_ANIMATION, false);
                     }
                 });
 
         signUp_Txt.setOnClickListener(v->{
             OTPVerificationFragment fragment = OTPVerificationFragment.getInstance("");
-            FragmentUtil.pushFragAnim((AppCompatActivity)getActivity(), R.id.parentLayout, fragment,
+            FragmentUtil.pushFragmentAnim((AppCompatActivity)getActivity(), R.id.parentLayout, fragment,
                     FragmentUtil.FRAGMENT_ANIMATION, false);
         });
 

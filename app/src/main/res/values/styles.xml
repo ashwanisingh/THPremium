@@ -9,7 +9,7 @@
         <item name="android:windowBackground">@color/defaultWindowColor</item>
     </style>
 
-    <style name="parentLayoutStyle">
+    <style name="parentLayoutPaddingStyle">
         <item name="android:paddingLeft">@dimen/baseLayoutLeftPadding</item>
         <item name="android:paddingTop">@dimen/baseLayoutTopPadding</item>
         <item name="android:paddingRight">@dimen/baseLayoutRightPadding</item>

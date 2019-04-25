@@ -9,15 +9,34 @@ import android.view.View;
 
 import com.ns.adapter.BecomeMemberPagerAdapter;
 import com.ns.thpremium.R;
+import com.ns.utils.THPConstants;
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator;
 
 public class BecomeMemberIntroFragment extends BaseFragmentTHP {
 
+    public static BecomeMemberIntroFragment getInstance(String from) {
+        BecomeMemberIntroFragment fragment = new BecomeMemberIntroFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("from", from);
+        fragment.setArguments(bundle);
+        return fragment;
+    }
+
     private ViewPager mViewPager;
+    private String mFrom;
 
     @Override
     public int getLayoutRes() {
         return R.layout.fragment_become_member_intro;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        if(getArguments() != null) {
+            mFrom = getArguments().getString("from");
+        }
     }
 
 
@@ -25,11 +44,15 @@ public class BecomeMemberIntroFragment extends BaseFragmentTHP {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mViewPager = view.findViewById(R.id.becomeMember_ViewPager);
-
-        mViewPager.setAdapter(new BecomeMemberPagerAdapter(getActivity()));
-
         DotsIndicator tabLayout = view.findViewById(R.id.dots_indicator);
-        tabLayout.setViewPager(mViewPager);
+
+        mViewPager.setAdapter(new BecomeMemberPagerAdapter(getActivity(), mFrom));
+
+        if(mFrom != null && mFrom.equalsIgnoreCase(THPConstants.FROM_BecomeMemberActivity)) {
+            tabLayout.setViewPager(mViewPager);
+        } else {
+            tabLayout.setVisibility(View.GONE);
+        }
 
     }
 }

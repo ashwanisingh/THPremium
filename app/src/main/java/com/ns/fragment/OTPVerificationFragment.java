@@ -69,7 +69,7 @@ public class OTPVerificationFragment extends BaseFragmentTHP {
         // Verify button click listener
         view.findViewById(R.id.verify_Txt).setOnClickListener(v->{
             SetPasswordFragment fragment = SetPasswordFragment.getInstance("");
-            FragmentUtil.pushFragAnim((AppCompatActivity) getActivity(),
+            FragmentUtil.pushFragmentAnim((AppCompatActivity) getActivity(),
                     R.id.parentLayout, fragment,
                     FragmentUtil.FRAGMENT_NO_ANIMATION, false);
         });

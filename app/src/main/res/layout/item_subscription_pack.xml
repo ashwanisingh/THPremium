@@ -4,7 +4,7 @@
     android:layout_height="@dimen/subscription_pack_height_1"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/shadow_subscription_pack"
-    android:layout_marginLeft="20dp"
+    android:layout_marginLeft="@dimen/subscription_pack_item_gap"
     android:padding="@dimen/subscription_pack_item_border_padding">
     <android.support.constraint.ConstraintLayout
         android:id="@+id/itemContentMainLayout"
@@ -89,7 +89,7 @@
 
 
         <com.ns.view.CustomTextView
-            android:id="@+id/subscribe_Txt"
+            android:id="@+id/subscribeBtn_Txt"
             android:layout_width="0dp"
             android:layout_height="33dp"
             android:textSize="12sp"

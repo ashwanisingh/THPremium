@@ -8,6 +8,7 @@ import com.ns.fragment.BecomeMemberIntroFragment;
 import com.ns.thpremium.R;
 import com.ns.utils.IntentUtil;
 import com.ns.utils.ResUtil;
+import com.ns.utils.THPConstants;
 import com.ns.utils.TextSpanCallback;
 import com.ns.view.CustomTextView;
 
@@ -28,7 +29,7 @@ public class BecomeMemberActivity extends BaseAcitivityTHP {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        BecomeMemberIntroFragment fragment = new BecomeMemberIntroFragment();
+        BecomeMemberIntroFragment fragment = BecomeMemberIntroFragment.getInstance(THPConstants.FROM_BecomeMemberActivity);
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.part1, fragment);
@@ -48,12 +49,12 @@ public class BecomeMemberActivity extends BaseAcitivityTHP {
 
         // Sign Up Click Listener
         signUpFor30Days_Txt.setOnClickListener(v->{
-            IntentUtil.openSubscriptionActivity(BecomeMemberActivity.this, "freeTrial");
+            IntentUtil.openSignInOrUpActivity(BecomeMemberActivity.this, "signUp");
         });
 
         // Explore Our Subscription Click Listener
         exploreSubscriptionPlans_Txt.setOnClickListener(v->{
-
+            IntentUtil.openSubscriptionActivity(BecomeMemberActivity.this, "freeTrial");
         });
 
         // Sign In Click Listener

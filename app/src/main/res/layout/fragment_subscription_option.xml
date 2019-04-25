@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <LinearLayout
+        android:id="@+id/otpLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="@string/subscription_layout_ratio"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:background="@drawable/shadow_4"
+        android:orientation="vertical"
+        >
+
+        <com.ns.view.CustomTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:alpha="0.8"
+            android:textColor="@color/boldBlackColor"
+            android:text="Choose Plan"
+            app:font_path="@string/FONT_FIRA_SANS_BOLD"
+            android:paddingStart="@dimen/choose_plan_left_padding"
+            android:paddingLeft="@dimen/choose_plan_left_padding"
+            android:paddingTop="@dimen/choose_plan_top_padding"
+            />
+
+        <FrameLayout
+            android:id="@+id/subscriptionPlansLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:layout_height="@dimen/subscription_pack_height_1"/>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:fillViewport="true">
+        <FrameLayout
+            android:id="@+id/benefitsLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingStart="@dimen/choose_plan_left_padding"
+            android:paddingLeft="@dimen/choose_plan_left_padding"
+            android:layout_marginTop="@dimen/choose_plan_top_padding"
+            />
+        </ScrollView>
+
+
+    </LinearLayout>
+
+
+
+</android.support.constraint.ConstraintLayout>

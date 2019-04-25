@@ -62,7 +62,7 @@ public class SignInFragment extends BaseFragmentTHP {
                     @Override
                     public void onTextSpanClick() {
                         TCFragment fragment = TCFragment.getInstance(THPConstants.TnC_URL);
-                        FragmentUtil.pushFragAnim((AppCompatActivity)getActivity(), R.id.parentLayout,
+                        FragmentUtil.pushFragmentAnim((AppCompatActivity)getActivity(), R.id.parentLayout,
                                 fragment, FragmentUtil.FRAGMENT_ANIMATION, false);
                     }
                 });
@@ -89,7 +89,7 @@ public class SignInFragment extends BaseFragmentTHP {
         // Forgot Password button click listener
         view.findViewById(R.id.forgotPassword_Txt).setOnClickListener(v->{
             ForgotPasswordFragment fragment = ForgotPasswordFragment.getInstance("");
-            FragmentUtil.pushFragAnim((AppCompatActivity)getActivity(), R.id.parentLayout,
+            FragmentUtil.pushFragmentAnim((AppCompatActivity)getActivity(), R.id.parentLayout,
                     fragment, FragmentUtil.FRAGMENT_ANIMATION, false);
         });
     }
