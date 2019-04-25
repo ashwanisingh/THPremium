@@ -11,6 +11,8 @@
     <color name="greyColor_1">#cbcbcb</color>
 
     <color name="blueColor_1">#1b528e</color>
+    <color name="pinFocusColor">#1b528e</color>
+    <color name="pinDefaultColor">#eeeeee</color>
 
 
 </resources>

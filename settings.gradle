@@ -1,1 +1,1 @@
-include ':app', ':netoperation'
+include ':app', ':netoperation', ':pinentryedittext'

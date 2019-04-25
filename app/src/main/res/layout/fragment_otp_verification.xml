@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    style="@style/parentLayoutStyle"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <FrameLayout
+        android:id="@+id/otpLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="@string/bottom_popup_layout_ratio"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        >
+    <LinearLayout
+        android:background="@drawable/shadow_4"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/baseLayoutLeftPadding"
+        android:paddingRight="@dimen/baseLayoutRightPadding"
+        android:paddingTop="@dimen/baseLayoutTopPadding"
+        android:layout_marginTop="15dp"
+        android:gravity="center_horizontal"
+        >
+
+        <com.ns.view.CustomTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/baseLayoutTopPadding"
+            android:textSize="20sp"
+            android:textColor="@color/boldBlackColor"
+            android:letterSpacing="0.03"
+            android:text="OTP Verification"
+            app:font_path="@string/FONT_TUNDRA_OFFC_BOLD"
+            />
+
+        <com.ns.view.CustomTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textSize="14sp"
+            android:gravity="center_horizontal"
+            android:alpha="0.6"
+            android:textColor="@color/boldBlackColor"
+            android:letterSpacing="0.03"
+            android:text="Enter OTP sent to your mobile number"
+            app:font_path="@string/FONT_FIRA_SANS_REGULAR"
+            />
+
+        <com.alimuzaffar.lib.pin.PinEntryEditText
+            android:id="@+id/pinEntry_ET"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="28dp"
+            android:background="@null"
+            android:cursorVisible="false"
+            android:digits="1234567890"
+            android:inputType="number"
+            android:maxLength="4"
+            android:textIsSelectable="false"
+            android:textSize="24dp"
+            app:pinAnimationType="fromBottom"
+            app:pinBackgroundDrawable="@drawable/bg_pin"
+            app:pinBackgroundIsSquare="false"
+            app:pinCharacterSpacing="20dp"
+            app:pinTextBottomPadding="15dp"
+            tools:ignore="SpUsage" />
+
+        <com.ns.view.CustomTextView
+            android:id="@+id/verify_Txt"
+            android:text="Verify"
+            style="@style/btnTextStyle"
+            android:layout_marginLeft="40dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginRight="40dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginTop="20dp"
+             />
+
+        <com.ns.view.CustomTextView
+            android:id="@+id/resend_Txt"
+            android:text="Resend OTP"
+            style="@style/btnTextStyle"
+            android:layout_marginLeft="77dp"
+            android:layout_marginStart="77dp"
+            android:layout_marginRight="77dp"
+            android:layout_marginEnd="77dp"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/grey_background"
+            android:textColor="@color/blueColor_1"
+            app:font_path="@string/FONT_FIRA_SANS_REGULAR"
+            />
+
+
+    </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/backBtn"
+            style="@style/backBtnPopupStyle"
+            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
+            />
+    </FrameLayout>
+
+
+
+</android.support.constraint.ConstraintLayout>

@@ -1,11 +1,14 @@
 package com.ns.adapter;
 
 import android.content.Context;
+import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -13,9 +16,8 @@ import android.widget.TextView;
 import com.ns.fragment.SignInFragment;
 import com.ns.fragment.SignUpFragment;
 import com.ns.thpremium.R;
-import com.ns.utils.ResUtil;
 
-public class SignInAndUpPagerAdapter extends FragmentPagerAdapter {
+public class SignInAndUpPagerAdapter extends FragmentStatePagerAdapter {
 
     public SignInAndUpPagerAdapter(FragmentManager fm) {
         super(fm);
@@ -45,6 +47,16 @@ public class SignInAndUpPagerAdapter extends FragmentPagerAdapter {
         else {
             return "Sign In";
         }
+    }
+
+    @Override
+    public Parcelable saveState() {
+        Bundle bundle = (Bundle) super.saveState();
+        if (bundle != null) {
+            bundle.putParcelableArray("states", null);
+            return bundle;
+        }
+        return super.saveState();
     }
 
     public View getTabView(int position, Context context, boolean isSelected) {

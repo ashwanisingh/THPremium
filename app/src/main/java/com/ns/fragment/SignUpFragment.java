@@ -3,14 +3,15 @@ package com.ns.fragment;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
-import com.ns.activity.BecomeMemberActivity;
 import com.ns.thpremium.R;
-import com.ns.utils.IntentUtil;
+import com.ns.utils.FragmentUtil;
 import com.ns.utils.ResUtil;
+import com.ns.utils.THPConstants;
 import com.ns.utils.TextSpanCallback;
 import com.ns.view.CustomTextView;
 
@@ -50,13 +51,22 @@ public class SignUpFragment extends BaseFragmentTHP {
         facebookBtn = view.findViewById(R.id.facebookBtn);
 
         // Terms and Conditions Click Listener
-        ResUtil.doClickSpanForString(getActivity(), "By signing up, you agree to our  ", "Terms and Conditions",
+        ResUtil.doClickSpanForString(getActivity(), "By signing up, you agree to our  ",
+                "Terms and Conditions",
                 tc_Txt, R.color.blueColor_1, new TextSpanCallback() {
                     @Override
                     public void onTextSpanClick() {
-
+                        TCFragment fragment = TCFragment.getInstance(THPConstants.TnC_URL);
+                        FragmentUtil.pushFragAnim((AppCompatActivity)getActivity(), R.id.parentLayout,
+                                fragment, FragmentUtil.FRAGMENT_ANIMATION, false);
                     }
                 });
+
+        signUp_Txt.setOnClickListener(v->{
+            OTPVerificationFragment fragment = OTPVerificationFragment.getInstance("");
+            FragmentUtil.pushFragAnim((AppCompatActivity)getActivity(), R.id.parentLayout, fragment,
+                    FragmentUtil.FRAGMENT_ANIMATION, false);
+        });
 
 
     }

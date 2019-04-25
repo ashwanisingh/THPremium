@@ -1,44 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/parentLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    style="@style/parentLayoutStyle">
+    >
 
-    <ImageButton
-        android:id="@+id/backBtn"
-        style="@style/crossBtnStyle"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
-
-    <LinearLayout
-        style="@style/bottomLayoutStyle"
-        android:layout_marginTop="@dimen/signInAndUp_CardViewMarginTop"
-        app:layout_constraintTop_toBottomOf="@+id/backBtn"
-        android:orientation="vertical"
-        android:paddingLeft="@dimen/baseLayoutLeftPadding"
-        android:paddingRight="@dimen/baseLayoutRightPadding"
-        android:paddingTop="@dimen/baseLayoutTopPadding"
-        >
-
-        <android.support.design.widget.TabLayout
-            android:id="@+id/tabLayout"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            app:tabIndicatorHeight="3dp"
-            app:tabMode="fixed"
-            app:tabIndicatorColor="@color/blueColor_1"/>
-
-
-        <android.support.v4.view.ViewPager
-            android:id="@+id/signInUpViewPager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="5dp"/>
-
-    </LinearLayout>
-
-
-
-</android.support.constraint.ConstraintLayout>
+</FrameLayout>
