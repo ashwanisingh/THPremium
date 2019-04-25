@@ -48,7 +48,7 @@ public class BecomeMemberActivity extends BaseAcitivityTHP {
 
         // Sign Up Click Listener
         signUpFor30Days_Txt.setOnClickListener(v->{
-            IntentUtil.openSignInOrUpActivity(BecomeMemberActivity.this, "signUp");
+            IntentUtil.openSubscriptionActivity(BecomeMemberActivity.this, "freeTrial");
         });
 
         // Explore Our Subscription Click Listener

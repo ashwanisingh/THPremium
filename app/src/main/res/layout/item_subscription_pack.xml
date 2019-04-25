@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/subscription_pack_width"
+    android:layout_height="@dimen/subscription_pack_height_1"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/shadow_subscription_pack"
+    android:layout_marginLeft="20dp"
+    android:padding="@dimen/subscription_pack_item_border_padding">
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/itemContentMainLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/item_red_backgraoud"
+        android:paddingLeft="31dp"
+        android:paddingTop="16dp"
+        android:paddingBottom="11dp"
+        >
+
+        <com.ns.view.CustomTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textColor="#ffffff"
+            android:text="Starter Pack"
+            app:font_path="@string/FONT_TUNDRA_OFFC_BOLD"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            />
+
+
+
+    </android.support.constraint.ConstraintLayout>
+
+
+</FrameLayout>

@@ -20,6 +20,11 @@
     <string name="become_member_part1">h,15:14</string>
     <string name="become_member_part2">h,30:4</string>
 
+    <dimen name="subscription_pack_width">199dp</dimen>
+    <dimen name="subscription_pack_height_1">231dp</dimen>
+    <dimen name="subscription_pack_height_2">273dp</dimen>
+    <dimen name="subscription_pack_item_gap">23dp</dimen>
+    <dimen name="subscription_pack_item_border_padding">3.4dp</dimen>
 
 
 </resources>
