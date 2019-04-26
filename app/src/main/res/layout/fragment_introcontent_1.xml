@@ -4,7 +4,6 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-
     <com.ns.view.CustomTextView
         android:id="@+id/becomeMember_Txt"
         android:layout_width="wrap_content"

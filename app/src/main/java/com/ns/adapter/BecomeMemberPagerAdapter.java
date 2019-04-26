@@ -26,7 +26,7 @@ public class BecomeMemberPagerAdapter extends PagerAdapter {
 
     @Override
     public int getCount() {
-        if(mFrom != null && mFrom.equalsIgnoreCase(THPConstants.FROM_SubscriptionOptionFragment)) {
+        if(mFrom != null && mFrom.equalsIgnoreCase(THPConstants.FROM_SubscriptionStep_1_Fragment)) {
             return 1;
         }
         return 2;
@@ -46,7 +46,7 @@ public class BecomeMemberPagerAdapter extends PagerAdapter {
         final View layout = inflater.inflate(contentLayoutResId, container, false);
         container.addView(layout, 0);
 
-        if(mFrom != null && position == 0 && mFrom.equalsIgnoreCase(THPConstants.FROM_SubscriptionOptionFragment)) {
+        if(mFrom != null && position == 0 && mFrom.equalsIgnoreCase(THPConstants.FROM_SubscriptionStep_1_Fragment)) {
             TextView becomeMember_Txt = layout.findViewById(R.id.becomeMember_Txt);
             TextView benefitsIncludes_Txt = layout.findViewById(R.id.benefitsIncludes_Txt);
             becomeMember_Txt.setText("Subscription Benefits");

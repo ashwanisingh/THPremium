@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/dimBackground"
+    android:id="@+id/bottomChoosePlanLayout"
+    >
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="@string/subscription_layout_step_3_ratio"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:background="@drawable/shadow_white_nobottom_r12_s6_wh200"
+        android:orientation="vertical"
+        >
+
+        <com.ns.view.CustomTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:alpha="0.8"
+            android:textColor="@color/boldBlackColor"
+            android:text="Choose Plan"
+            app:font_path="@string/FONT_FIRA_SANS_BOLD"
+            android:paddingLeft="@dimen/choose_plan_top_padding"
+            android:paddingTop="@dimen/choose_plan_top_padding"
+            />
+
+        <com.ns.view.CustomTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:alpha="0.6"
+            android:textColor="@color/boldBlackColor"
+            android:text="Subscribe to get these features free for"
+            app:font_path="@string/FONT_FIRA_SANS_REGULAR"
+            android:paddingLeft="@dimen/choose_plan_top_padding"
+            android:paddingTop="5dp"
+            android:layout_marginBottom="@dimen/baseLayoutTopPadding"
+            />
+
+        <FrameLayout
+            android:id="@+id/subscriptionPlansLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:layout_height="@dimen/subscription_pack_height_1"/>
+
+
+    </LinearLayout>
+
+
+
+</android.support.constraint.ConstraintLayout>

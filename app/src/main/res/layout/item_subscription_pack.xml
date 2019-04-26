@@ -3,7 +3,7 @@
     android:layout_width="@dimen/subscription_pack_width"
     android:layout_height="@dimen/subscription_pack_height_1"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/shadow_subscription_pack"
+    android:background="@drawable/shadow_for_plan_subscription_pack"
     android:layout_marginLeft="@dimen/subscription_pack_item_gap"
     android:padding="@dimen/subscription_pack_item_border_padding">
     <android.support.constraint.ConstraintLayout

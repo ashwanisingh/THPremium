@@ -14,5 +14,7 @@
     <color name="pinFocusColor">#1b528e</color>
     <color name="pinDefaultColor">#eeeeee</color>
 
+    <color name="dimBackground">#80000000</color>
+
 
 </resources>

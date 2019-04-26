@@ -2,7 +2,7 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#4D000000"
+    android:background="@color/dimBackground"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <FrameLayout
@@ -17,7 +17,7 @@
         app:layout_constraintDimensionRatio="@string/tc_layout_ratio"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:background="@drawable/shadow_4"
+        android:background="@drawable/shadow_r12_s6_wh200"
         >
         <WebView
             android:id="@+id/tc_webView"

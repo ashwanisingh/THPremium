@@ -20,6 +20,7 @@ public class SubscriptionPackFragment extends BaseFragmentTHP {
 
     public static SubscriptionPackFragment getInstance(String from) {
         Bundle bundle = new Bundle();
+        bundle.putString("from", from);
         SubscriptionPackFragment fragment = new SubscriptionPackFragment();
         fragment.setArguments(bundle);
         return fragment;
@@ -47,7 +48,7 @@ public class SubscriptionPackFragment extends BaseFragmentTHP {
         LinearLayoutManager llm = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         mRecyclerView.setLayoutManager(llm);
 
-        mAdapter = new SubscriptionPackAdapter();
+        mAdapter = new SubscriptionPackAdapter(mFrom);
         mRecyclerView.setAdapter(mAdapter);
 
 

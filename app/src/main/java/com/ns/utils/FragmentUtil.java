@@ -41,6 +41,24 @@ public class FragmentUtil {
         trasaction.commit();
     }
 
+    public static void addFragmentAnim(AppCompatActivity activity, int resId, Fragment fragment,
+                                        final int animationSet, final boolean isRoot) {
+        FragmentTransaction trasaction = activity.getSupportFragmentManager().beginTransaction();
+        if (animationSet != FRAGMENT_NO_ANIMATION) {
+            trasaction.setTransition(animationSet);
+        }
+
+        if (isRoot) {
+            clearAllBackStack(activity);
+            trasaction.add(resId, fragment, activity.getSupportFragmentManager().getBackStackEntryCount() + "");
+        } else {
+            trasaction.add(resId, fragment, activity.getSupportFragmentManager().getBackStackEntryCount() + "");
+            trasaction.addToBackStack(null);
+        }
+
+        trasaction.commit();
+    }
+
     public static  void clearAllBackStack(AppCompatActivity activity) {
         activity.getSupportFragmentManager().popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
     }
