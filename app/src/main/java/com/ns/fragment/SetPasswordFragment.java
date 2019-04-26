@@ -69,7 +69,7 @@ public class SetPasswordFragment extends BaseFragmentTHP {
         passwordVisible_Btn.setOnClickListener(v-> {
             if(mIsPasswdVisible) {
                 password_Et.setTransformationMethod(new PasswordTransformationMethod());
-                passwordVisible_Btn.setImageResource(R.drawable.ic_close);
+                passwordVisible_Btn.setImageResource(R.drawable.ic_show_password);
                 mIsPasswdVisible = false;
             } else {
                 password_Et.setTransformationMethod(null);

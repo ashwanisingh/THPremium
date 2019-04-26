@@ -77,6 +77,8 @@
         <ImageButton
             android:id="@+id/facebookBtn"
             style="@style/crossBtnStyle"
+            android:src="@drawable/ic_facebook"
+            app:srcCompat="@drawable/ic_facebook"
             app:layout_constraintRight_toLeftOf="@+id/tweeterBtn"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -85,6 +87,8 @@
         <ImageButton
             android:id="@+id/tweeterBtn"
             style="@style/crossBtnStyle"
+            android:src="@drawable/ic_twitter"
+            app:srcCompat="@drawable/ic_twitter"
             app:layout_constraintRight_toLeftOf="@+id/googleBtn"
             app:layout_constraintVertical_chainStyle="spread_inside"
             app:layout_constraintLeft_toRightOf="@+id/facebookBtn"
@@ -94,6 +98,8 @@
         <ImageButton
             android:id="@+id/googleBtn"
             style="@style/crossBtnStyle"
+            android:src="@drawable/ic_google"
+            app:srcCompat="@drawable/ic_google"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintVertical_chainStyle="spread_inside"
             app:layout_constraintLeft_toRightOf="@+id/tweeterBtn"

@@ -40,6 +40,8 @@
     <ImageView
         android:id="@+id/img1"
         style="@style/introIconStyle"
+        android:src="@drawable/bi_1"
+        app:srcCompat="@drawable/bi_1"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/benefitsIncludes_Txt"
         />
@@ -56,6 +58,8 @@
     <ImageView
         android:id="@+id/img2"
         style="@style/introIconStyle"
+        android:src="@drawable/bi_2"
+        app:srcCompat="@drawable/bi_2"
         app:layout_constraintTop_toBottomOf="@+id/txt1"
         app:layout_constraintLeft_toLeftOf="parent"
         />
@@ -71,6 +75,8 @@
     <ImageView
         android:id="@+id/img3"
         style="@style/introIconStyle"
+        android:src="@drawable/bi_3"
+        app:srcCompat="@drawable/bi_3"
         app:layout_constraintTop_toBottomOf="@+id/txt2"
         app:layout_constraintLeft_toLeftOf="parent"
         />
@@ -86,6 +92,8 @@
     <ImageView
         android:id="@+id/img4"
         style="@style/introIconStyle"
+        android:src="@drawable/bi_4"
+        app:srcCompat="@drawable/bi_4"
         app:layout_constraintTop_toBottomOf="@+id/txt3"
         app:layout_constraintLeft_toLeftOf="parent"
         />
@@ -101,6 +109,8 @@
     <ImageView
         android:id="@+id/img5"
         style="@style/introIconStyle"
+        android:src="@drawable/bi_5"
+        app:srcCompat="@drawable/bi_5"
         app:layout_constraintTop_toBottomOf="@+id/txt4"
         app:layout_constraintLeft_toLeftOf="parent"
         />

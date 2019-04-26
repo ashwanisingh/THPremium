@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:textSize="22sp"
             android:textColor="#191919"
-            android:src="@mipmap/ic_launcher"
+            android:src="@drawable/ic_touch_screen_2"
             android:layout_gravity="center"
 
             />
