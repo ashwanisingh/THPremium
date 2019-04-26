@@ -33,7 +33,7 @@
     <dimen name="subscription_pack_item_rupee_gap">13dp</dimen>
 
     <dimen name="choose_plan_left_padding">19dp</dimen>
-    <dimen name="choose_plan_top_padding">20dp</dimen>
+    <dimen name="choose_plan_top_padding">24dp</dimen>
 
 
 </resources>

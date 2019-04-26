@@ -13,45 +13,38 @@
         />
 
     <com.ns.view.CustomTextView
+        android:id="@+id/thsTitle_Txt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/backBtn"
-        android:padding="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
         android:text="The Hindu Subscription"
         android:textColor="@color/boldBlackColor"
         android:textSize="27dp"
         app:font_path="@string/FONT_TUNDRA_OFFC_BOLD" />
 
-    <LinearLayout
-        android:id="@+id/part1Layout"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@drawable/shadow_r12_s6_wh200"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintDimensionRatio="@string/subscription_layout_step_2_ratio"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent">
 
-    </LinearLayout>
-
+    <!--Start Part 1 Layout-->
     <android.support.constraint.ConstraintLayout
+        android:id="@+id/part2Layout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/subscription_layout_step_2_gap"
         android:layout_marginLeft="@dimen/subscription_layout_step_2_gap"
         android:layout_marginEnd="@dimen/subscription_layout_step_2_gap"
         android:layout_marginRight="@dimen/subscription_layout_step_2_gap"
-        android:layout_marginBottom="20dp"
         android:background="@drawable/item_blue_backgraoud"
         android:paddingStart="20dp"
         android:paddingLeft="20dp"
         android:paddingEnd="20dp"
         android:paddingRight="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/part1Layout"
+        android:layout_marginTop="25dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent">
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/thsTitle_Txt">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -101,5 +94,110 @@
 
 
     </android.support.constraint.ConstraintLayout>
+    <!--End Part 1 Layout-->
+
+    <!--Start Part 2 Layout-->
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/part1Layout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/shadow_r12_s6_wh200"
+        android:orientation="vertical"
+        app:layout_constraintDimensionRatio="@string/subscription_layout_step_2_ratio"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/part2Layout"
+        android:padding="@dimen/choose_plan_top_padding"
+        android:layout_marginTop="30dp"
+        >
+
+
+        <com.ns.view.CustomTextView
+            android:id="@+id/choosePlan_Txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:alpha="0.8"
+            android:textColor="@color/boldBlackColor"
+            android:text="Choose Plan"
+            app:font_path="@string/FONT_FIRA_SANS_BOLD"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+        <com.ns.view.CustomTextView
+            android:id="@+id/subscribeInfo_Txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:alpha="0.6"
+            android:textColor="@color/boldBlackColor"
+            android:text="Subscribe to get these features free for"
+            app:font_path="@string/FONT_FIRA_SANS_REGULAR"
+            android:paddingTop="5dp"
+            android:layout_marginBottom="@dimen/baseLayoutTopPadding"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/choosePlan_Txt"
+            />
+
+        <EditText
+            android:id="@+id/name_Et"
+            style="@style/editTextStyle"
+            android:layout_marginTop="24dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:imeOptions="actionDone"
+            android:hint="Name"
+            android:inputType="textEmailSubject"
+            app:layout_constraintTop_toBottomOf="@+id/subscribeInfo_Txt"
+            />
+
+        <EditText
+            android:id="@+id/moNumber_Et"
+            style="@style/editTextStyle"
+            android:layout_marginTop="12dp"
+            app:layout_constraintTop_toBottomOf="@+id/name_Et"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:imeOptions="actionDone"
+            android:hint="Mobile Number"
+            android:maxLength="10"
+            android:inputType="number"
+            />
+
+        <com.ns.view.CustomTextView
+            android:id="@+id/proceed_Txt"
+            android:layout_marginTop="24dp"
+            app:layout_constraintTop_toBottomOf="@+id/moNumber_Et"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="Proceed"
+            style="@style/btnTextStyle"
+            />
+
+        <com.ns.view.CustomTextView
+            android:id="@+id/tc_Txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:lineSpacingExtra="8sp"
+            android:text="By signing in, you agree to our Terms and Conditions"
+            android:maxEms="9"
+            android:gravity="center"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:font_path="@string/FONT_FIRA_SANS_REGULAR"
+            android:textColor="@color/boldBlackColor"
+            android:layout_marginBottom="30dp"
+            />
+
+    </android.support.constraint.ConstraintLayout>
+
+    <!--End Part 2 Layout-->
+
+
 
 </android.support.constraint.ConstraintLayout>

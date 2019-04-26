@@ -1,26 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/parentLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    >
 
-    <!--<ImageButton
-        android:id="@+id/backBtn"
-        style="@style/backBtnStyle" />
-
-    <com.ns.view.CustomTextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="20dp"
-        android:text="The Hindu Subscription"
-        android:textColor="@color/boldBlackColor"
-        android:textSize="27dp"
-        app:font_path="@string/FONT_TUNDRA_OFFC_BOLD" />-->
-
-    <FrameLayout
-        android:id="@+id/parentLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
-</LinearLayout>
+</FrameLayout>
