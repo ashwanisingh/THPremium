@@ -15,6 +15,9 @@
     <color name="pinDefaultColor">#eeeeee</color>
 
     <color name="dimBackground">#80000000</color>
+    <color name="listing_dividerColor">#979797</color>
+    <color name="authorNameColor">#4f4f4f</color>
+    <color name="timeColor">#818181</color>
 
 
 </resources>

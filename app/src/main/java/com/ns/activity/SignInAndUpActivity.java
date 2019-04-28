@@ -3,7 +3,7 @@ package com.ns.activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
-import com.ns.fragment.SignInAndUpFragment;
+import com.ns.userfragment.SignInAndUpFragment;
 import com.ns.thpremium.R;
 import com.ns.utils.FragmentUtil;
 

@@ -36,4 +36,12 @@
     <dimen name="choose_plan_top_padding">24dp</dimen>
 
 
+    <dimen name="apptab_listing_top_padding">22dp</dimen>
+    <dimen name="apptab_listing_left_padding">17dp</dimen>
+    <dimen name="apptab_listing_right_padding">22dp</dimen>
+    <dimen name="listing_divider_height">1dp</dimen>
+    <string name="apptab_dashboard_image_ratio">h,16:9</string>
+
+
+
 </resources>

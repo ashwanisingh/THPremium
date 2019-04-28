@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingTop="25dp"
+    android:paddingBottom="20dp">
+
+    <android.support.constraint.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.ns.view.CustomTextView
+            android:id="@+id/sectionName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="International"
+            android:textColor="@color/blueColor_1"
+            android:textSize="12sp"
+            app:font_path="@string/FONT_FIRA_SANS_REGULAR"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.ns.view.CustomTextView
+            android:id="@+id/title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Neomi Rao to replace Kavanaugh on DC Circuit: Trump"
+            android:textColor="@color/boldBlackColor"
+            android:textSize="16sp"
+            app:font_path="@string/FONT_FIRA_SANS_BOLD"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/image"
+            app:layout_constraintTop_toBottomOf="@+id/sectionName" />
+
+
+        <com.joooonho.SelectableRoundedImageView
+            android:id="@+id/image"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/bookmark_Img"
+            app:sriv_left_bottom_corner_radius="16dp"
+            app:sriv_left_top_corner_radius="16dp"
+            app:sriv_right_bottom_corner_radius="16dp"
+            app:sriv_right_top_corner_radius="16dp"
+            android:layout_marginBottom="10dp"/>
+
+
+        <com.ns.view.CustomTextView
+            android:id="@+id/authorName_Txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rajesh Sundaram"
+            android:textColor="@color/authorNameColor"
+            android:textSize="12sp"
+            app:font_path="@string/FONT_FIRA_SANS_REGULAR"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/time_Txt"
+            android:layout_marginBottom="10dp"
+            />
+
+        <com.ns.view.CustomTextView
+            android:id="@+id/time_Txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rajesh Sundaram"
+            android:textColor="@color/timeColor"
+            android:textSize="12sp"
+            app:font_path="@string/FONT_FIRA_SANS_REGULAR"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <ImageView
+            android:id="@+id/toggleBtn_Img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:src="@drawable/ic_google"
+            />
+
+        <ImageView
+            android:id="@+id/bookmark_Img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintRight_toLeftOf="@+id/toggleBtn_Img"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp"
+            android:src="@drawable/ic_google"
+            />
+
+        <ImageView
+            android:id="@+id/favorite_Img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintRight_toLeftOf="@+id/bookmark_Img"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp"
+            android:src="@drawable/ic_google"
+            />
+
+    </android.support.constraint.ConstraintLayout>
+
+    <!--Bottom Divider-->
+    <include
+        layout="@layout/listing_divider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/listing_divider_height" />
+</LinearLayout>

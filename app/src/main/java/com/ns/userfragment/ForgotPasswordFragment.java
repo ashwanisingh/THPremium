@@ -1,13 +1,11 @@
-package com.ns.fragment;
+package com.ns.userfragment;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageButton;
 
 import com.ns.thpremium.R;
 import com.ns.utils.FragmentUtil;

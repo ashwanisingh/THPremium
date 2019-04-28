@@ -1,4 +1,4 @@
-package com.ns.fragment;
+package com.ns.userfragment;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;

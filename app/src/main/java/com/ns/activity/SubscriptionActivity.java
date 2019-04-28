@@ -3,7 +3,7 @@ package com.ns.activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
-import com.ns.fragment.SubscriptionStep_1_Fragment;
+import com.ns.userfragment.SubscriptionStep_1_Fragment;
 import com.ns.thpremium.R;
 import com.ns.utils.FragmentUtil;
 

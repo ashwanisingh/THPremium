@@ -1,4 +1,4 @@
-package com.ns.fragment;
+package com.ns.userfragment;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
