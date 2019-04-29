@@ -20,7 +20,7 @@ import com.ns.view.RecyclerViewPullToRefresh;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BriefcaseFragment extends BaseFragmentTHP {
+public class BriefcaseFragment extends BaseFragmentTHP implements RecyclerViewPullToRefresh.TryAgainBtnClickListener {
 
     private RecyclerViewPullToRefresh recyclerView;
     private AppTabContentAdapter adapter;
@@ -70,6 +70,8 @@ public class BriefcaseFragment extends BaseFragmentTHP {
 
         recyclerView.setDataAdapter(adapter);
 
+        recyclerView.setTryAgainBtnClickListener(this);
+
 
         // Edition Btn Click Listener
         editionBtn_Txt.setOnClickListener(v->{
@@ -100,6 +102,11 @@ public class BriefcaseFragment extends BaseFragmentTHP {
 
             });
         });
+
+    }
+
+    @Override
+    public void tryAgainBtnClick() {
 
     }
 }

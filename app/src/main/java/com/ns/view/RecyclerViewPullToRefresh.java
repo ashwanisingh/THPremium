@@ -11,6 +11,7 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
 import com.ns.adapter.AppTabContentAdapter;
@@ -23,6 +24,8 @@ public class RecyclerViewPullToRefresh extends FrameLayout  {
     private RecyclerView mRecyclerView;
     private CustomTextView mTryAgainBtn;
     private ProgressBar mProgressBar;
+
+    private LinearLayout networkIndicationLayout;
 
     private boolean isLoading;
     private boolean isLastPage;
@@ -55,6 +58,7 @@ public class RecyclerViewPullToRefresh extends FrameLayout  {
         mRecyclerView = findViewById(R.id.recyclerViewPull);
         mTryAgainBtn = findViewById(R.id.tryAgainButton);
         mProgressBar = findViewById(R.id.progressBar);
+        networkIndicationLayout = findViewById(R.id.networkIndicationLayout);
 
         enablePullToRefresh(true);
 
@@ -149,6 +153,14 @@ public class RecyclerViewPullToRefresh extends FrameLayout  {
 
     public void setLastPage(boolean lastPage) {
         isLastPage = lastPage;
+    }
+
+    public void showNetworkFailMessage() {
+        networkIndicationLayout.setVisibility(VISIBLE);
+    }
+
+    public void hideNetworkFailMessage() {
+        networkIndicationLayout.setVisibility(GONE);
     }
 
 

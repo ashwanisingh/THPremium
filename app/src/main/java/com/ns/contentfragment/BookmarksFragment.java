@@ -1,12 +1,15 @@
 package com.ns.contentfragment;
 
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 
+import com.github.pwittchen.reactivenetwork.library.rx2.ReactiveNetwork;
 import com.ns.activity.BaseRecyclerViewAdapter;
 import com.ns.adapter.AppTabContentAdapter;
 import com.ns.model.AppTabContentModel;
@@ -17,7 +20,10 @@ import com.ns.view.RecyclerViewPullToRefresh;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BookmarksFragment extends BaseFragmentTHP {
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+
+public class BookmarksFragment extends BaseFragmentTHP implements RecyclerViewPullToRefresh.TryAgainBtnClickListener {
 
     private RecyclerViewPullToRefresh recyclerView;
     private AppTabContentAdapter adapter;
@@ -57,6 +63,41 @@ public class BookmarksFragment extends BaseFragmentTHP {
         adapter = new AppTabContentAdapter(models);
 
         recyclerView.setDataAdapter(adapter);
+
+        recyclerView.setTryAgainBtnClickListener(this);
+
+
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+
+        if(isVisibleToUser && getView() != null) {
+            netCheck();
+        }
+    }
+
+    private void netCheck() {
+
+        ReactiveNetwork
+                .observeNetworkConnectivity(getActivity())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(connectivity -> {
+                    if(connectivity.state() == NetworkInfo.State.CONNECTED) {
+
+                    }
+                    else {
+
+                    }
+
+                    Log.i("", "");
+                });
+    }
+
+    @Override
+    public void tryAgainBtnClick() {
 
     }
 }

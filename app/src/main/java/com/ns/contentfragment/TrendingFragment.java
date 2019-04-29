@@ -17,7 +17,7 @@ import com.ns.view.RecyclerViewPullToRefresh;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TrendingFragment extends BaseFragmentTHP {
+public class TrendingFragment extends BaseFragmentTHP implements RecyclerViewPullToRefresh.TryAgainBtnClickListener {
 
     private RecyclerViewPullToRefresh recyclerView;
     private AppTabContentAdapter adapter;
@@ -58,6 +58,13 @@ public class TrendingFragment extends BaseFragmentTHP {
         adapter = new AppTabContentAdapter(models);
 
         recyclerView.setDataAdapter(adapter);
+
+        recyclerView.setTryAgainBtnClickListener(this);
+
+    }
+
+    @Override
+    public void tryAgainBtnClick() {
 
     }
 }

@@ -1,1 +1,1 @@
-include ':app', ':netoperation', ':pinentryedittext', ':calendar'
+include ':app', ':netoperation', ':pinentryedittext', ':calendar', ':reactivenetwork'

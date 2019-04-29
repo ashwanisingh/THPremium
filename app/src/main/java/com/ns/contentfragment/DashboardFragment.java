@@ -18,7 +18,7 @@ import com.ns.view.RecyclerViewPullToRefresh;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DashboardFragment extends BaseFragmentTHP {
+public class DashboardFragment extends BaseFragmentTHP implements RecyclerViewPullToRefresh.TryAgainBtnClickListener {
 
     private CustomTextView recentStoriesCount_Txt;
     private CustomTextView userName_Txt;
@@ -66,6 +66,13 @@ public class DashboardFragment extends BaseFragmentTHP {
         adapter = new AppTabContentAdapter(models);
 
         recyclerView.setDataAdapter(adapter);
+
+        recyclerView.setTryAgainBtnClickListener(this);
+
+    }
+
+    @Override
+    public void tryAgainBtnClick() {
 
     }
 }

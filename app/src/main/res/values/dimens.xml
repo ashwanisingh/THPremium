@@ -45,6 +45,8 @@
     <dimen name="listing_divider_height">1dp</dimen>
     <string name="apptab_dashboard_image_ratio">h,16:9</string>
 
+    <dimen name="snackbar_bottom_margin">56dp</dimen>
+
 
 
 </resources>

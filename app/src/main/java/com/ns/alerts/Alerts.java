@@ -3,12 +3,17 @@ package com.ns.alerts;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.ns.thpremium.R;
 
 
 public class Alerts {
@@ -123,6 +128,41 @@ public class Alerts {
             }
         });
         alertDialog.show();
+    }
+
+
+    public static void noInternetSnackbar(View view) {
+        Snackbar snackbar = Snackbar
+                .make(view, "No internet connection!", Snackbar.LENGTH_LONG)
+                .setAction("RETRY", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                    }
+                });
+
+
+        int sideMargin = 10;
+        int marginBottom = view.getContext().getResources().getDimensionPixelSize(R.dimen.snackbar_bottom_margin);
+
+        final View snackBarView = snackbar.getView();
+
+        final FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) snackBarView.getLayoutParams();
+
+        params.setMargins(params.leftMargin + sideMargin,
+                params.topMargin,
+                params.rightMargin + sideMargin,
+                params.bottomMargin + marginBottom);
+
+        snackBarView.setLayoutParams(params);
+
+// Changing message text color
+        snackbar.setActionTextColor(Color.RED);
+
+// Changing action button text color
+        View sbView = snackbar.getView();
+        TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+        textView.setTextColor(Color.YELLOW);
+        snackbar.show();
     }
 
 

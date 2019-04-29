@@ -74,6 +74,10 @@ dependencies {
     implementation deps.otpEntryEditText
 
     implementation deps.calendar
+
+    implementation deps.reactivenetwork
+
+    implementation deps.rxAndroid2
 }
 
 
