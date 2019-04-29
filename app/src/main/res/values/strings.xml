@@ -7,5 +7,6 @@
     <string name="FONT_TUNDRA_OFFC_BOLD">fonts/TundraScOffc-Bold.ttf</string>
 
     <string name="Rs">\u20B9</string>
+    <string name="try_again"><![CDATA[<string name=\"try_again\">We could not load the data.\\n Tap to retry</string>]]></string>
 
 </resources>

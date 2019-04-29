@@ -10,7 +10,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintDimensionRatio="@string/edition_popup_layout_ratio"
+        app:layout_constraintDimensionRatio="@string/more_popup_layout_ratio"
         android:background="@drawable/shadow_white_nobottom_r12_s6_wh200"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -24,13 +24,13 @@
         >
 
         <com.ns.view.CustomTextView
-            android:id="@+id/allEditions_Txt"
+            android:id="@+id/suggested_Txt"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:textSize="16sp"
             android:textColor="@color/optionTxtColor"
             android:gravity="center"
-            android:text="All Editions"
+            android:text="Suggested"
             android:layout_marginTop="20dp"
             app:font_path="@string/FONT_FIRA_SANS_REGULAR"
             />
@@ -45,13 +45,13 @@
             />
 
         <com.ns.view.CustomTextView
-            android:id="@+id/morningEditions_Txt"
+            android:id="@+id/personalise_Txt"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:textSize="16sp"
             android:textColor="@color/optionTxtColor"
             android:gravity="center"
-            android:text="Morning Editions"
+            android:text="Personalise"
             app:font_path="@string/FONT_FIRA_SANS_REGULAR"
             />
 
@@ -66,38 +66,15 @@
 
 
         <com.ns.view.CustomTextView
-            android:id="@+id/noonEditions_Txt"
+            android:id="@+id/cancel_Txt"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:textSize="16sp"
             android:textColor="@color/optionTxtColor"
             android:gravity="center"
-            android:text="Noon Editions"
+            android:text="Cancel"
             app:font_path="@string/FONT_FIRA_SANS_REGULAR"
             />
-
-        <include
-            layout="@layout/listing_divider"
-            android:id="@+id/horizontalDivider"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/listing_divider_height"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
-            />
-
-
-        <com.ns.view.CustomTextView
-            android:id="@+id/eveningEditions_Txt"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginBottom="20dp"
-            android:textSize="16sp"
-            android:gravity="center"
-            android:textColor="@color/optionTxtColor"
-            android:text="Evening Editions"
-            app:font_path="@string/FONT_FIRA_SANS_REGULAR"
-            />
-
 
 
 

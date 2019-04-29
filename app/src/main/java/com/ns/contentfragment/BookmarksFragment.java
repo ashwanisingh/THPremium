@@ -12,13 +12,14 @@ import com.ns.adapter.AppTabContentAdapter;
 import com.ns.model.AppTabContentModel;
 import com.ns.thpremium.R;
 import com.ns.userfragment.BaseFragmentTHP;
+import com.ns.view.RecyclerViewPullToRefresh;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class BookmarksFragment extends BaseFragmentTHP {
 
-    private RecyclerView recyclerView;
+    private RecyclerViewPullToRefresh recyclerView;
     private AppTabContentAdapter adapter;
 
     public static BookmarksFragment getInstance() {
@@ -55,10 +56,7 @@ public class BookmarksFragment extends BaseFragmentTHP {
 
         adapter = new AppTabContentAdapter(models);
 
-        LinearLayoutManager llm = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
-        recyclerView.setLayoutManager(llm);
-
-        recyclerView.setAdapter(adapter);
+        recyclerView.setDataAdapter(adapter);
 
     }
 }

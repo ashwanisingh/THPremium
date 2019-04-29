@@ -15,13 +15,14 @@ import com.ns.thpremium.R;
 import com.ns.userfragment.BaseFragmentTHP;
 import com.ns.utils.FragmentUtil;
 import com.ns.view.CustomTextView;
+import com.ns.view.RecyclerViewPullToRefresh;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class BriefcaseFragment extends BaseFragmentTHP {
 
-    private RecyclerView recyclerView;
+    private RecyclerViewPullToRefresh recyclerView;
     private AppTabContentAdapter adapter;
     private CustomTextView yourEditionFor_Txt;
     private CustomTextView dateBtn_Txt;
@@ -67,10 +68,7 @@ public class BriefcaseFragment extends BaseFragmentTHP {
 
         adapter = new AppTabContentAdapter(models);
 
-        LinearLayoutManager llm = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
-        recyclerView.setLayoutManager(llm);
-
-        recyclerView.setAdapter(adapter);
+        recyclerView.setDataAdapter(adapter);
 
 
         // Edition Btn Click Listener

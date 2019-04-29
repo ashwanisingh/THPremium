@@ -13,6 +13,7 @@ import com.ns.model.AppTabContentModel;
 import com.ns.thpremium.R;
 import com.ns.userfragment.BaseFragmentTHP;
 import com.ns.view.CustomTextView;
+import com.ns.view.RecyclerViewPullToRefresh;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +23,7 @@ public class DashboardFragment extends BaseFragmentTHP {
     private CustomTextView recentStoriesCount_Txt;
     private CustomTextView userName_Txt;
     private CustomTextView recentBtn_Txt;
-    private RecyclerView recyclerView;
+    private RecyclerViewPullToRefresh recyclerView;
     private AppTabContentAdapter adapter;
 
 
@@ -64,10 +65,7 @@ public class DashboardFragment extends BaseFragmentTHP {
 
         adapter = new AppTabContentAdapter(models);
 
-        LinearLayoutManager llm = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
-        recyclerView.setLayoutManager(llm);
-
-        recyclerView.setAdapter(adapter);
+        recyclerView.setDataAdapter(adapter);
 
     }
 }

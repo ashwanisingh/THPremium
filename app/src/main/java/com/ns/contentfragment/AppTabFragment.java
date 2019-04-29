@@ -82,7 +82,21 @@ public class AppTabFragment extends BaseFragmentTHP {
 
         // More tab Click Listener
         view.findViewById(R.id.appTabsMore_Img).setOnClickListener(v->{
+            MoreOptionFragment fragment = MoreOptionFragment.getInstance();
 
+            FragmentUtil.addFragmentAnim((AppCompatActivity) getActivity(),
+                    R.id.parentLayout, fragment, FragmentUtil.FRAGMENT_NO_ANIMATION, false);
+
+            fragment.setOnMoreOptionClickListener(value -> {
+                // Clearing Calendar Fragment
+                if(value.equalsIgnoreCase("cancel")) {
+                    FragmentUtil.clearSingleBackStack((AppCompatActivity) getActivity());
+                    return;
+                }
+
+                FragmentUtil.clearSingleBackStack((AppCompatActivity) getActivity());
+
+            });
         });
 
     }
