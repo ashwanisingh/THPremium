@@ -50,14 +50,16 @@ public class AppTabPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        return 5;
+        return 4;
     }
 
     private String [] tabNames = {"Dashboard", "Briefcase", "Trending", "Bookmarks", "More"};
-    private int [] tabUnSelectedIcons = {R.drawable.bi_1, R.drawable.bi_2, R.drawable.bi_3,
-            R.drawable.bi_3, R.drawable.bi_4, R.drawable.bi_5};
-    private int [] tabSelectedIcons = {R.drawable.ic_google, R.drawable.ic_google, R.drawable.ic_google,
-            R.drawable.ic_google, R.drawable.ic_google, R.drawable.ic_google};
+    private int [] tabUnSelectedIcons = {R.drawable.tab_dashboard_unselected,
+            R.drawable.tab_briefcase_unselected, R.drawable.tab_trending_unselected,
+            R.drawable.tab_bookmarks_unselected, R.drawable.tab_more_grey};
+    private int [] tabSelectedIcons = {R.drawable.tab_dashboard_selected,
+            R.drawable.tab_briefcase_selected, R.drawable.tab_trending_selected,
+            R.drawable.tab_bookmarks_selected, R.drawable.tab_more_grey};
 
     @Nullable
     @Override

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.widget.LinearLayout;
 
 import com.ns.adapter.AppTabPagerAdapter;
 import com.ns.thpremium.R;
@@ -12,7 +13,9 @@ public class AppTabActivity extends BaseAcitivityTHP {
 
     private TabLayout mTabLayout;
     private ViewPager viewPager;
+    private LinearLayout appTabsMore_Img;
     private AppTabPagerAdapter pagerAdapter;
+
 
     @Override
     public int layoutRes() {
@@ -25,6 +28,7 @@ public class AppTabActivity extends BaseAcitivityTHP {
 
         mTabLayout = findViewById(R.id.appTabsTabLayout);
         viewPager = findViewById(R.id.appTabsViewPager);
+        appTabsMore_Img = findViewById(R.id.appTabsMore_Img);
 
         pagerAdapter = new AppTabPagerAdapter(getSupportFragmentManager());
 
@@ -47,8 +51,8 @@ public class AppTabActivity extends BaseAcitivityTHP {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 int pos = tab.getPosition();
-                pagerAdapter.SetOnSelectView(AppTabActivity.this, mTabLayout, pos);
-                viewPager.setCurrentItem(pos);
+                    pagerAdapter.SetOnSelectView(AppTabActivity.this, mTabLayout, pos);
+                    viewPager.setCurrentItem(pos);
             }
 
             @Override
