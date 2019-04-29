@@ -40,10 +40,11 @@
     <com.ns.view.CustomTextView
         android:id="@+id/recentBtn_Txt"
         android:layout_width="wrap_content"
-        android:layout_height="28dp"
+        android:layout_height="wrap_content"
         android:gravity="center"
         android:textSize="14sp"
         android:textColor="@color/boldBlackColor"
+        android:background="@drawable/grey_btn_background"
         android:alpha="0.6"
         android:lineSpacingExtra="12sp"
         android:text="Recent"

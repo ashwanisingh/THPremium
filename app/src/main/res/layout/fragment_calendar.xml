@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/dimBackground"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="@string/more_popup_layout_ratio"
+        android:background="@drawable/shadow_white_nobottom_r12_s6_wh200"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:paddingLeft="@dimen/apptab_listing_left_padding"
+        android:paddingStart="@dimen/apptab_listing_left_padding"
+        android:paddingEnd="@dimen/apptab_listing_right_padding"
+        android:paddingRight="@dimen/apptab_listing_right_padding"
+        android:paddingTop="@dimen/apptab_listing_top_padding"
+        >
+
+        <com.stacktips.view.CustomCalendarView
+            android:id="@+id/calendarView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:calendarBackgroundColor="@color/calendarBackgroundColor"
+            app:calendarTitleTextColor="@color/calendarTitleTextColor"
+            app:currentDayOfMonthColor="@color/currentDayOfMonthColor"
+            app:dayOfMonthTextColor="@color/dayOfMonthTextColor"
+            app:dayOfWeekTextColor="@color/dayOfWeekTextColor"
+            app:disabledDayBackgroundColor="@color/disabledDayBackgroundColor"
+            app:disabledDayTextColor="@color/disabledDayTextColor"
+            app:selectedDayBackgroundColor="@color/selectedDayBackgroundColor"
+            app:titleLayoutBackgroundColor="@color/titleLayoutBackgroundColor"
+            app:weekLayoutBackgroundColor="@color/weekLayoutBackgroundColor"/>
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

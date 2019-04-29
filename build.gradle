@@ -40,7 +40,11 @@ ext.deps = [
         // For Backend
         backend  : project(':netoperation'),
 
+        // For OTP Input
         otpEntryEditText : project(':pinentryedittext'),
+
+        // For Calendar View
+        calendar  : project(':calendar'),
 
         // Glide For Image Caching
         glide :"com.github.bumptech.glide:glide:4.8.0",

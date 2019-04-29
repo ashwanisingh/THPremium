@@ -18,6 +18,19 @@
     <color name="listing_dividerColor">#979797</color>
     <color name="authorNameColor">#4f4f4f</color>
     <color name="timeColor">#818181</color>
+    <color name="optionTxtColor">#191919</color>
+
+
+    <color name="calendarBackgroundColor">#00000000</color>
+    <color name="calendarTitleTextColor">#191919</color>
+    <color name="currentDayOfMonthColor">#1394D1</color>
+    <color name="dayOfMonthTextColor">#142E0B</color>
+    <color name="dayOfWeekTextColor">#191919</color>
+    <color name="disabledDayBackgroundColor">#979797</color>
+    <color name="disabledDayTextColor">#4f4f4f</color>
+    <color name="selectedDayBackgroundColor">#ac8a40</color>
+    <color name="titleLayoutBackgroundColor">#00000000</color>
+    <color name="weekLayoutBackgroundColor">#00000000</color>
 
 
 </resources>

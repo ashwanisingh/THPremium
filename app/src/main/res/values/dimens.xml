@@ -21,6 +21,8 @@
     <string name="subscription_layout_step_2_ratio">h,10.5:14</string>
     <string name="subscription_layout_step_3_ratio">h,15:14</string>
     <string name="bottom_popup_layout_ratio">h,12:14</string>
+    <string name="more_popup_layout_ratio">h,10.9:9</string>
+    <string name="calendar_popup_layout_ratio">h,9:9</string>
     <string name="tc_layout_ratio">h,10:14</string>
     <string name="become_member_part1">h,15:14</string>
     <string name="become_member_part2">h,30:4</string>

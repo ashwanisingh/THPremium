@@ -16,7 +16,7 @@ import android.widget.TextView;
 import com.ns.contentfragment.BookmarksFragment;
 import com.ns.contentfragment.BriefcaseFragment;
 import com.ns.contentfragment.DashboardFragment;
-import com.ns.contentfragment.EmptyFragment;
+import com.ns.contentfragment.EditionOptionFragment;
 import com.ns.contentfragment.TrendingFragment;
 import com.ns.thpremium.R;
 
@@ -41,10 +41,10 @@ public class AppTabPagerAdapter extends FragmentStatePagerAdapter {
             return BookmarksFragment.getInstance();
         }
         else if(i==4) {
-            return EmptyFragment.getInstance();
+            return EditionOptionFragment.getInstance();
         }
         else {
-            return EmptyFragment.getInstance();
+            return EditionOptionFragment.getInstance();
         }
     }
 

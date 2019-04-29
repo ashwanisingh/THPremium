@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/moreTabLayout"
+    android:background="@color/dimBackground"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:id="@+id/otpLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="@string/more_popup_layout_ratio"
+        android:background="@drawable/shadow_white_nobottom_r12_s6_wh200"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:paddingLeft="@dimen/apptab_listing_left_padding"
+        android:paddingStart="@dimen/apptab_listing_left_padding"
+        android:paddingEnd="@dimen/apptab_listing_right_padding"
+        android:paddingRight="@dimen/apptab_listing_right_padding"
+        android:paddingTop="@dimen/apptab_listing_top_padding"
+        >
+
+        <com.ns.view.CustomTextView
+            android:id="@+id/allEditions_Txt"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:textSize="16sp"
+            android:textColor="@color/optionTxtColor"
+            android:gravity="center"
+            android:text="All Editions"
+            android:layout_marginTop="20dp"
+            app:font_path="@string/FONT_FIRA_SANS_REGULAR"
+            />
+
+        <include
+            layout="@layout/listing_divider"
+            android:id="@+id/horizontalDivider"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/listing_divider_height"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            />
+
+        <com.ns.view.CustomTextView
+            android:id="@+id/morningEditions_Txt"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:textSize="16sp"
+            android:textColor="@color/optionTxtColor"
+            android:gravity="center"
+            android:text="Morning Editions"
+            app:font_path="@string/FONT_FIRA_SANS_REGULAR"
+            />
+
+        <include
+            layout="@layout/listing_divider"
+            android:id="@+id/horizontalDivider"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/listing_divider_height"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            />
+
+
+        <com.ns.view.CustomTextView
+            android:id="@+id/noonEditions_Txt"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:textSize="16sp"
+            android:textColor="@color/optionTxtColor"
+            android:gravity="center"
+            android:text="Noon Editions"
+            app:font_path="@string/FONT_FIRA_SANS_REGULAR"
+            />
+
+        <include
+            layout="@layout/listing_divider"
+            android:id="@+id/horizontalDivider"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/listing_divider_height"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            />
+
+
+        <com.ns.view.CustomTextView
+            android:id="@+id/eveningEditions_Txt"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginBottom="20dp"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:textColor="@color/optionTxtColor"
+            android:text="Evening Editions"
+            app:font_path="@string/FONT_FIRA_SANS_REGULAR"
+            />
+
+
+
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>
