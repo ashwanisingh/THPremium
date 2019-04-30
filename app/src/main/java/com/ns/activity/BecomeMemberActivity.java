@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
 
-import com.ns.userfragment.BecomeMemberIntroFragment;
+import com.ns.loginfragment.BecomeMemberIntroFragment;
 import com.ns.thpremium.R;
 import com.ns.utils.IntentUtil;
 import com.ns.utils.ResUtil;

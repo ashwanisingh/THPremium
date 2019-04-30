@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageButton
+        android:id="@+id/backBtn"
+        style="@style/backBtnStyle"
+        android:layout_marginLeft="@dimen/baseLayoutLeftPadding"
+        android:layout_marginStart="@dimen/baseLayoutLeftPadding"
+        android:layout_marginTop="@dimen/baseLayoutTopPadding"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!--Start Part 1 Layout-->
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/part1Layout"
+        style="@style/parentLayoutPaddingStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/userprofile_gap_for_1"
+        android:layout_marginLeft="@dimen/userprofile_gap_for_1"
+        android:layout_marginEnd="@dimen/userprofile_gap_for_1"
+        android:layout_marginRight="@dimen/userprofile_gap_for_1"
+        android:layout_marginBottom="49dp"
+        android:paddingStart="20dp"
+        android:paddingLeft="20dp"
+        android:paddingEnd="20dp"
+        android:paddingRight="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/part2Layout"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.ns.view.CustomTextView
+                android:id="@+id/userName_Txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxEms="11"
+                android:text="Account Info"
+                android:textColor="@color/boldBlackColor"
+                android:textSize="18sp"
+                app:font_path="@string/FONT_FIRA_SANS_BOLD" />
+
+            <com.ns.view.CustomTextView
+                android:id="@+id/mobileNumber_Txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:alpha="0.6"
+                android:text="Edit your account details"
+                android:textColor="@color/boldBlackColor"
+                android:textSize="14sp"
+                app:font_path="@string/FONT_FIRA_SANS_REGULAR" />
+        </LinearLayout>
+
+
+
+    </android.support.constraint.ConstraintLayout>
+    <!--End Part 1 Layout-->
+
+    <!--Start Part 2 Layout-->
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/part2Layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/userprofile_gap_for_2"
+        android:layout_marginLeft="@dimen/userprofile_gap_for_2"
+        android:layout_marginEnd="@dimen/userprofile_gap_for_2"
+        android:layout_marginRight="@dimen/userprofile_gap_for_2"
+        android:layout_marginBottom="49dp"
+        android:paddingStart="10dp"
+        android:paddingLeft="10dp"
+        android:paddingEnd="20dp"
+        android:paddingRight="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/part3Layout"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/mobileNumberLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:hint="Registered Mobile Number"
+            app:hintTextAppearance="@style/HintLabel"
+            android:theme="@style/TextLabel">
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/mobileNumberET"
+                style="@style/signup"
+                android:inputType="number"
+                android:drawableRight="@drawable/ic_edit"
+                android:maxLength="10"
+                android:maxLines="1"
+                app:hintTextAppearance="@style/HintLabel"
+                />
+        </android.support.design.widget.TextInputLayout>
+
+
+    </android.support.constraint.ConstraintLayout>
+    <!--End Part 2 Layout-->
+
+    <!--Start Part 3 Layout-->
+    <LinearLayout
+        android:id="@+id/part3Layout"
+        android:layout_marginLeft="@dimen/baseLayoutLeftPadding"
+        android:layout_marginStart="@dimen/baseLayoutLeftPadding"
+        android:layout_marginRight="@dimen/baseLayoutLeftPadding"
+        android:layout_marginEnd="@dimen/baseLayoutLeftPadding"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/shadow_r10_s4_wh50"
+        android:padding="@dimen/choose_plan_top_padding"
+        android:scrollbars="none"
+        app:layout_constraintBottom_toTopOf="@+id/part4Layout"
+        app:layout_constraintDimensionRatio="@string/account_info_1_ratio"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
+
+
+        <com.ns.view.CustomTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxEms="11"
+            android:text="Additional UID"
+            android:textColor="@color/boldBlackColor"
+            android:textSize="18sp"
+            app:font_path="@string/FONT_FIRA_SANS_BOLD" />
+
+        <include layout="@layout/listing_divider"
+            android:layout_width="match_parent"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:layout_height="@dimen/listing_divider_height"/>
+
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/emailLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/TextLabel"
+            android:hint="Email"
+            app:hintTextAppearance="@style/HintLabel"
+            >
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/emailET"
+                style="@style/signup"
+                android:maxLines="1"
+                android:inputType="textPersonName"
+                />
+        </android.support.design.widget.TextInputLayout>
+
+
+        <com.ns.view.CustomTextView
+            android:id="@+id/verifyViaOTPBtn_Txt"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:layout_marginTop="20dp"
+            android:text="Verify via OTP"
+            android:textColor="@color/blueColor_1"
+            android:background="@drawable/blue_outline_backgraoud"
+            android:textSize="18sp"
+            app:font_path="@string/FONT_FIRA_SANS_BOLD" />
+
+
+        <com.ns.view.CustomTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:layout_marginTop="20dp"
+            android:alpha="0.6"
+            android:text="By providing additional UID, you will be able to login with same ID and will get extra days of free trial"
+            android:textColor="@color/boldBlackColor"
+            android:textSize="18sp"
+            app:font_path="@string/FONT_FIRA_SANS_REGULAR" />
+
+
+    </LinearLayout>
+    <!--End Part 3 Layout-->
+
+    <!--Start Part 4 Layout-->
+    <FrameLayout
+        android:id="@+id/part4Layout"
+        android:layout_width="0dp"
+        android:layout_height="65dp"
+        android:background="@drawable/shadow_r10_s4_wh200x50_lrb"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/choose_plan_top_padding"
+        android:paddingStart="@dimen/choose_plan_top_padding"
+        android:paddingRight="@dimen/choose_plan_top_padding"
+        android:paddingEnd="@dimen/choose_plan_top_padding"
+        android:scrollbars="none"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
+
+        <com.ns.view.CustomTextView
+            android:id="@+id/updateBtn_Txt"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="Update"
+            android:textColor="@color/white"
+            android:background="@drawable/blue_backgraoud"
+            android:textSize="18sp"
+            app:font_path="@string/FONT_TUNDRA_OFFC_BOLD" />
+
+
+    </FrameLayout>
+    <!--End Part 4 Layout-->
+
+
+</android.support.constraint.ConstraintLayout>

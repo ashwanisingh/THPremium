@@ -6,7 +6,7 @@ import android.support.annotation.Nullable;
 import android.view.View;
 
 import com.ns.thpremium.R;
-import com.ns.userfragment.BaseFragmentTHP;
+import com.ns.loginfragment.BaseFragmentTHP;
 
 public class EditionOptionFragment extends BaseFragmentTHP {
 

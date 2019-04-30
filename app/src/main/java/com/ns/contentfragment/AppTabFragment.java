@@ -11,7 +11,7 @@ import android.widget.LinearLayout;
 
 import com.ns.adapter.AppTabPagerAdapter;
 import com.ns.thpremium.R;
-import com.ns.userfragment.BaseFragmentTHP;
+import com.ns.loginfragment.BaseFragmentTHP;
 import com.ns.utils.FragmentUtil;
 
 public class AppTabFragment extends BaseFragmentTHP {

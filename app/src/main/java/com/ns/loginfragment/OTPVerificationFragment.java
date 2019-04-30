@@ -1,4 +1,4 @@
-package com.ns.userfragment;
+package com.ns.loginfragment;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,12 +11,14 @@ import android.widget.Toast;
 import com.alimuzaffar.lib.pin.PinEntryEditText;
 import com.ns.thpremium.R;
 import com.ns.utils.FragmentUtil;
+import com.ns.utils.THPConstants;
 
 public class OTPVerificationFragment extends BaseFragmentTHP {
 
-    public static OTPVerificationFragment getInstance(String val) {
+    public static OTPVerificationFragment getInstance(String from) {
         OTPVerificationFragment fragment = new OTPVerificationFragment();
         Bundle bundle = new Bundle();
+        bundle.putString("from", from);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -24,10 +26,16 @@ public class OTPVerificationFragment extends BaseFragmentTHP {
     private PinEntryEditText pinEntry;
     private TextView resend_Txt;
 
+    private String mFrom;
+
 
     @Override
     public int getLayoutRes() {
-        return R.layout.fragment_otp_verification;
+        if(mFrom != null && mFrom.equalsIgnoreCase(THPConstants.FROM_AccountInfoFragment)) {
+            return R.layout.fragment_otp_verification_userprofile;
+        } else {
+            return R.layout.fragment_otp_verification;
+        }
     }
 
     @Override
@@ -35,7 +43,7 @@ public class OTPVerificationFragment extends BaseFragmentTHP {
         super.onCreate(savedInstanceState);
 
         if(getArguments() != null) {
-
+            mFrom = getArguments().getString("from");
         }
     }
 
@@ -45,6 +53,10 @@ public class OTPVerificationFragment extends BaseFragmentTHP {
 
         pinEntry = view.findViewById(R.id.pinEntry_ET);
         resend_Txt = view.findViewById(R.id.resend_Txt);
+
+        view.findViewById(R.id.otpParentLayout).setOnTouchListener((v, e)->{
+            return true;
+        });
 
         pinEntry.setOnPinEnteredListener(pinEntryValue->{
             if (pinEntryValue.toString().equals("1234")) {

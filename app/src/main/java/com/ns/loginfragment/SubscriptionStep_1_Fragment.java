@@ -1,21 +1,20 @@
-package com.ns.userfragment;
+package com.ns.loginfragment;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.view.MotionEvent;
 import android.view.View;
 
 import com.ns.thpremium.R;
 import com.ns.utils.FragmentUtil;
 import com.ns.utils.THPConstants;
 
-public class SubscriptionStep_3_Fragment extends BaseFragmentTHP {
+public class SubscriptionStep_1_Fragment extends BaseFragmentTHP {
 
     private String mFrom;
 
-    public static SubscriptionStep_3_Fragment getInstance(String from) {
-        SubscriptionStep_3_Fragment fragment = new SubscriptionStep_3_Fragment();
+    public static SubscriptionStep_1_Fragment getInstance(String from) {
+        SubscriptionStep_1_Fragment fragment = new SubscriptionStep_1_Fragment();
         Bundle bundle = new Bundle();
         bundle.putString("from", from);
         fragment.setArguments(bundle);
@@ -24,7 +23,7 @@ public class SubscriptionStep_3_Fragment extends BaseFragmentTHP {
 
     @Override
     public int getLayoutRes() {
-        return R.layout.fragment_subscription_step_3;
+        return R.layout.fragment_subscription_step_1;
     }
 
     @Override
@@ -44,12 +43,12 @@ public class SubscriptionStep_3_Fragment extends BaseFragmentTHP {
         SubscriptionPackFragment fragment = SubscriptionPackFragment.getInstance(THPConstants.FROM_SubscriptionStep_1_Fragment);
         FragmentUtil.pushFragmentFromFragment(this, R.id.subscriptionPlansLayout, fragment);
 
-        view.findViewById(R.id.bottomChoosePlanLayout).setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                return true;
-            }
-        });
+        BecomeMemberIntroFragment benefitsFragment = BecomeMemberIntroFragment.getInstance(THPConstants.FROM_SubscriptionStep_1_Fragment);
+        FragmentUtil.pushFragmentFromFragment(this, R.id.benefitsLayout, benefitsFragment);
 
+        // Back button click listener
+        view.findViewById(R.id.backBtn).setOnClickListener(v->{
+            getActivity().finish();
+        });
     }
 }

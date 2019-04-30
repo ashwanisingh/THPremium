@@ -1,6 +1,8 @@
 package com.ns.utils;
 
 import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
@@ -200,6 +202,42 @@ public class ResUtil {
             ds.setColor(ResUtil.getColor(context.getResources(), colorResId));
             ds.setUnderlineText(false); // set to true to show underline
         }
+    }
+
+    /**
+     * Get App version name
+     */
+    public static String getVersionName(Context context) {
+        String versionName = null;
+        PackageManager pm = context.getPackageManager();
+        PackageInfo info = null;
+        try {
+            info = pm.getPackageInfo(context.getApplicationContext().getPackageName(), 0);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        if (info != null) {
+            versionName = info.versionName;
+        }
+        return versionName;
+    }
+
+    /**
+     * Gets App version code
+     */
+    public static int getVersionCode(Context context) {
+        int versionCode = 0;
+        PackageManager pm = context.getPackageManager();
+        PackageInfo info = null;
+        try {
+            info = pm.getPackageInfo(context.getApplicationContext().getPackageName(), 0);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        if (info != null) {
+            versionCode = info.versionCode;
+        }
+        return versionCode;
     }
 
 }

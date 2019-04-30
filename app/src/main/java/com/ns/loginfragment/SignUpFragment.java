@@ -1,4 +1,4 @@
-package com.ns.userfragment;
+package com.ns.loginfragment;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -63,7 +63,7 @@ public class SignUpFragment extends BaseFragmentTHP {
                 });
 
         signUp_Txt.setOnClickListener(v->{
-            OTPVerificationFragment fragment = OTPVerificationFragment.getInstance("");
+            OTPVerificationFragment fragment = OTPVerificationFragment.getInstance(THPConstants.FROM_SignUpFragment);
             FragmentUtil.pushFragmentAnim((AppCompatActivity)getActivity(), R.id.parentLayout, fragment,
                     FragmentUtil.FRAGMENT_ANIMATION, false);
         });

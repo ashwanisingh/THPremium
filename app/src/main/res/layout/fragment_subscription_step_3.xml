@@ -15,7 +15,7 @@
         app:layout_constraintDimensionRatio="@string/subscription_layout_step_3_ratio"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:background="@drawable/shadow_white_nobottom_r12_s6_wh200"
+        android:background="@drawable/shadow_white_r12_s6_wh200_ltr"
         android:orientation="vertical"
         >
 

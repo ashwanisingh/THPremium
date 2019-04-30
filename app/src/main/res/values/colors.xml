@@ -7,6 +7,7 @@
     <color name="defaultWindowColor">#f8f8f8</color>
 
     <color name="boldBlackColor">#191919</color>
+    <color name="boldBlackColor_50alp">#80191919</color>
     <color name="yellowColor_1">#ac8a40</color>
     <color name="greyColor_1">#cbcbcb</color>
 
@@ -31,6 +32,10 @@
     <color name="selectedDayBackgroundColor">#ac8a40</color>
     <color name="titleLayoutBackgroundColor">#00000000</color>
     <color name="weekLayoutBackgroundColor">#00000000</color>
+
+    <color name="greyish_brown">#444444</color>
+    <color name="pinkish_grey">#c0c0c0</color>
+    <color name="search_institute_recycler_top">#efefef</color>
 
 
 </resources>

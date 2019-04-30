@@ -17,7 +17,7 @@
             </intent-filter>
         </activity>-->
 
-        <activity android:name="com.ns.activity.AppTabActivity">
+        <activity android:name="com.ns.activity.UserProfileActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

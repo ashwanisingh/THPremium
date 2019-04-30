@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.ns.activity.BaseRecyclerViewAdapter;
-import com.ns.userfragment.SubscriptionStep_2_Fragment;
+import com.ns.loginfragment.SubscriptionStep_2_Fragment;
 import com.ns.thpremium.R;
 import com.ns.utils.FragmentUtil;
 

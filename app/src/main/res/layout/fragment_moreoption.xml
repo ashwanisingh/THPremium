@@ -11,7 +11,7 @@
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="@string/more_popup_layout_ratio"
-        android:background="@drawable/shadow_white_nobottom_r12_s6_wh200"
+        android:background="@drawable/shadow_white_r12_s6_wh200_ltr"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:orientation="vertical"

@@ -12,8 +12,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
-import com.ns.userfragment.SignInFragment;
-import com.ns.userfragment.SignUpFragment;
+import com.ns.loginfragment.SignInFragment;
+import com.ns.loginfragment.SignUpFragment;
 import com.ns.thpremium.R;
 
 public class SignInAndUpPagerAdapter extends FragmentStatePagerAdapter {
