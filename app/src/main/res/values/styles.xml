@@ -115,10 +115,11 @@
         <item name="android:textColorHint">@color/boldBlackColor_50alp</item>
         <item name="colorControlNormal">@color/listing_dividerColor</item>
         <item name="colorControlActivated">@color/boldBlackColor_50alp</item>
+        <item name="font_path">@string/FONT_FIRA_SANS_REGULAR</item>
     </style>
 
-    <style name="signup">
-        <item name="android:layout_height">63.2dp</item>
+    <style name="accountInfoET_Style">
+        <item name="android:layout_height">@dimen/account_info_et_height</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:textSize">16sp</item>
         <item name="font_path">@string/FONT_FIRA_SANS_REGULAR</item>
@@ -129,6 +130,19 @@
         <item name="android:textCursorDrawable">@null</item>
     </style>
 
+    <style name="personalInfoET_Style">
+        <item name="android:layout_height">@dimen/personal_info_et_height</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:textSize">16sp</item>
+        <item name="font_path">@string/FONT_FIRA_SANS_REGULAR</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">@color/boldBlackColor</item>
+        <item name="android:alpha">0.9</item>
+        <item name="android:lineSpacingExtra">0.8sp</item>
+        <item name="android:textCursorDrawable">@null</item>
+        <item name="android:paddingBottom">@dimen/personal_info_et_paddingBottom</item>
+    </style>
+
     <style name="ErrorText" parent="TextAppearance.AppCompat">
         <item name="android:textColor">@android:color/holo_red_dark</item>
         <item name="android:textSize">16sp</item>
@@ -136,6 +150,7 @@
 
     <style name="HintLabel" parent="TextAppearance.Design.Hint">
         <item name="android:textSize">16sp</item>
+        <item name="font_path">@string/FONT_FIRA_SANS_BOLD</item>
     </style>
 
 

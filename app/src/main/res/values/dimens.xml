@@ -44,7 +44,14 @@
     <string name="userprofile_1_ratio">h,11:14</string>
 
     <string name="account_info_1_ratio">h,4.5:4</string>
+    <dimen name="account_info_et_height">63.5dp</dimen>
+    <dimen name="account_info_update_btn_parent_height">65dp</dimen>
 
+    <string name="personal_info_1_ratio">h,6.8:4</string>
+    <dimen name="personal_info_et_height">44dp</dimen>
+    <dimen name="personal_info_et_gap">5dp</dimen>
+    <dimen name="personal_info_et_paddingBottom">5dp</dimen>
+    <dimen name="personal_info_update_btn_parent_height">60dp</dimen>
 
 
     <dimen name="choose_plan_left_padding">19dp</dimen>
@@ -59,6 +66,7 @@
 
     <dimen name="snackbar_bottom_margin">56dp</dimen>
 
-
+    <dimen name="country_GenderWidth">175dp</dimen>
+    <dimen name="country_GenderHeight">170dp</dimen>
 
 </resources>

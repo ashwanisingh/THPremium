@@ -12,9 +12,11 @@ import com.ns.model.AppTabContentModel;
 import com.ns.thpremium.R;
 import com.ns.loginfragment.BaseFragmentTHP;
 import com.ns.utils.FragmentUtil;
+import com.ns.utils.THPConstants;
 import com.ns.view.CustomTextView;
 import com.ns.view.RecyclerViewPullToRefresh;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -92,8 +94,9 @@ public class BriefcaseFragment extends BaseFragmentTHP implements RecyclerViewPu
             FragmentUtil.addFragmentAnim((AppCompatActivity) getActivity(),
                     R.id.parentLayout, fragment, FragmentUtil.FRAGMENT_NO_ANIMATION, false);
 
-            fragment.setOnCalendarDateClickListener(value -> {
-                editionBtn_Txt.setText(value);
+            fragment.setOnCalendarDateClickListener(date -> {
+                SimpleDateFormat df = new SimpleDateFormat(THPConstants.date_dd_MM_yyyy);
+                editionBtn_Txt.setText(df.format(date));
 
                 // Clearing Calendar Fragment
                 FragmentUtil.clearSingleBackStack((AppCompatActivity) getActivity());

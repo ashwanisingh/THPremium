@@ -9,4 +9,6 @@ public class THPConstants {
     public static final String FROM_AccountInfoFragment = "AccountInfoFragment";
     public static final String FROM_SignUpFragment = "SignUpFragment";
 
+    public static final String date_dd_MM_yyyy = "dd-MM-yyyy";
+
 }

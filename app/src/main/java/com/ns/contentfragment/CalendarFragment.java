@@ -55,15 +55,20 @@ public class CalendarFragment extends BaseFragmentTHP {
         calendarView.setCalendarListener(new CalendarListener() {
             @Override
             public void onDateSelected(Date date) {
-                SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
-                Toast.makeText(getActivity(), df.format(date), Toast.LENGTH_SHORT).show();
+                if(mOnCalendarDateClickListener != null) {
+                    mOnCalendarDateClickListener.OnEditionOptionClickListener(date);
+                }
             }
 
             @Override
             public void onMonthChanged(Date date) {
-                SimpleDateFormat df = new SimpleDateFormat("MMM-yyyy");
-                Toast.makeText(getActivity(), df.format(date), Toast.LENGTH_SHORT).show();
+//                SimpleDateFormat df = new SimpleDateFormat("MMM-yyyy");
+//                Toast.makeText(getActivity(), df.format(date), Toast.LENGTH_SHORT).show();
             }
+        });
+
+        view.findViewById(R.id.calendarParentLayout).setOnTouchListener((v, e)->{
+            return true;
         });
 
     }
@@ -76,6 +81,6 @@ public class CalendarFragment extends BaseFragmentTHP {
 
 
     public interface OnCalendarDateClickListener {
-        void OnEditionOptionClickListener(String value);
+        void OnEditionOptionClickListener(Date date);
     }
 }

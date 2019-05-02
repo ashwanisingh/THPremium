@@ -14,7 +14,6 @@ import android.view.WindowManager;
 import com.ns.alerts.Alerts;
 import com.ns.loginfragment.BaseFragmentTHP;
 import com.ns.loginfragment.OTPVerificationFragment;
-import com.ns.loginfragment.SubscriptionStep_3_Fragment;
 import com.ns.thpremium.R;
 import com.ns.utils.FragmentUtil;
 import com.ns.utils.THPConstants;
