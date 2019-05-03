@@ -7,23 +7,37 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.ns.loginfragment.BaseFragmentTHP;
+import com.ns.loginfragment.SubscriptionStep_3_Fragment;
 import com.ns.thpremium.R;
 import com.ns.utils.FragmentUtil;
 
-public class MyAddressFragment extends BaseFragmentTHP {
+public class AddAddressFragment extends BaseFragmentTHP {
 
-    @Override
-    public int getLayoutRes() {
-        return R.layout.fragment_my_address;
-    }
+    private String mFrom = "";
 
-    public static MyAddressFragment getInstance(String from) {
-        MyAddressFragment fragment = new MyAddressFragment();
+    public static AddAddressFragment getInstance(String from) {
+        AddAddressFragment fragment = new AddAddressFragment();
         Bundle bundle = new Bundle();
         bundle.putString("from", from);
         fragment.setArguments(bundle);
         return fragment;
     }
+
+    @Override
+    public int getLayoutRes() {
+        return R.layout.fragment_add_address;
+    }
+
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        if(getArguments() != null) {
+            mFrom = getArguments().getString("from");
+        }
+    }
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -33,12 +47,6 @@ public class MyAddressFragment extends BaseFragmentTHP {
         // Back button click listener
         view.findViewById(R.id.backBtn).setOnClickListener(v->{
             FragmentUtil.clearSingleBackStack((AppCompatActivity)getActivity());
-        });
-
-        view.findViewById(R.id.addNewAddress_Txt).setOnClickListener(v->{
-            AddAddressFragment fragment = AddAddressFragment.getInstance("");
-            FragmentUtil.pushFragmentAnim((AppCompatActivity)getActivity(), R.id.parentLayout, fragment,
-                    FragmentUtil.FRAGMENT_NO_ANIMATION, false);
         });
 
 

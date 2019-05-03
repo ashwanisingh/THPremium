@@ -31,7 +31,9 @@
     <string name="edition_popup_layout_ratio">h,10.9:9</string>
     <string name="more_popup_layout_ratio">h,14:9</string>
 
-    <string name="calendar_popup_layout_ratio">h,9:9</string>
+    <string name="calendar_popup_layout_ratio">h,10.9:9</string>
+    <string name="dropdown_popup_layout_ratio">h,15:9</string>
+    <string name="dropdown_country_popup_layout_ratio">h,9:9</string>
 
     <string name="tc_layout_ratio">h,10:14</string>
 
@@ -66,7 +68,8 @@
 
     <dimen name="snackbar_bottom_margin">56dp</dimen>
 
-    <dimen name="country_GenderWidth">175dp</dimen>
-    <dimen name="country_GenderHeight">170dp</dimen>
+    <dimen name="add_address_et_height">49dp</dimen>
+    <dimen name="add_address_info_et_gap">15dp</dimen>
+
 
 </resources>

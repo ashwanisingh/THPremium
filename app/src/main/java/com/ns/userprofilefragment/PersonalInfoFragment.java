@@ -12,6 +12,7 @@ import android.view.View;
 import com.ns.alerts.Alerts;
 import com.ns.contentfragment.CalendarFragment;
 import com.ns.loginfragment.BaseFragmentTHP;
+import com.ns.loginfragment.OTPVerificationFragment;
 import com.ns.thpremium.R;
 import com.ns.utils.CommonUtil;
 import com.ns.utils.FragmentUtil;
@@ -88,6 +89,18 @@ public class PersonalInfoFragment extends BaseFragmentTHP {
         stateET.setFocusable(false);
         stateET.setClickable(true);
 
+        // Back button click listener
+        view.findViewById(R.id.backBtn).setOnClickListener(v->{
+            FragmentUtil.clearSingleBackStack((AppCompatActivity)getActivity());
+        });
+
+        // Verify OTP button click listener
+        view.findViewById(R.id.verifyViaOTPBtn_Txt).setOnClickListener(v->{
+            OTPVerificationFragment fragment = OTPVerificationFragment.getInstance(THPConstants.FROM_PersonalInfoFragment);
+            FragmentUtil.addFragmentAnim((AppCompatActivity)getActivity(), R.id.parentLayout, fragment,
+                    FragmentUtil.FRAGMENT_ANIMATION, false);
+        });
+
         dobLayoutET.setOnClickListener(v->{
             CalendarFragment fragment = CalendarFragment.getInstance();
 
@@ -105,91 +118,44 @@ public class PersonalInfoFragment extends BaseFragmentTHP {
 
         });
 
-        setupOfGenderPopUp();
-        setupOfCountryPopUp();
-
-
-
-
-
-    }
-
-    private void setupOfGenderPopUp() {
-
-        final int genderWidth = getResources().getDimensionPixelSize(R.dimen.country_GenderWidth);
-        final int genderHeight = getResources().getDimensionPixelSize(R.dimen.country_GenderHeight);
 
         genderLayoutET.setOnClickListener(v->{
-
-            int[] locationOnWindow = new int[2];
-
-            genderLayout.getLocationInWindow(locationOnWindow);
-
-            int XPadding = locationOnWindow[0];
-            int YPadding = locationOnWindow[1];
-            int deviceHeight = CommonUtil.getDeviceHeight(getActivity());
-            int deviceWidth = CommonUtil.getDeviceWidth(getActivity());
-            int layoutHeight = genderLayout.getHeight();
-            int layoutWidth = genderLayout.getWidth();
-
-            int finalBottomPadding = deviceHeight-(YPadding+layoutHeight)-layoutHeight*2;
-            int finalXPadding = -((deviceWidth-layoutWidth)/2-XPadding);
-
-            List<String> strList = new ArrayList<>();
-            strList.add("Male");
-            strList.add("Female");
-            strList.add("Tran");
-
-            final StandardPopupWindow window = new StandardPopupWindow(getActivity(), strList, genderWidth, genderHeight);
-            window.show(genderLayout, Gravity.BOTTOM, finalXPadding, finalBottomPadding);
-
-            window.setOnStandardPopupItemSelect(gender->{
+            DropDownFragment fragment  = DropDownFragment.getInstance("gender");
+            FragmentUtil.addFragmentAnim((AppCompatActivity)getActivity(), R.id.parentLayout, fragment,
+                    FragmentUtil.FRAGMENT_ANIMATION, false);
+            fragment.setOnDropdownitemSelection((from, gender)->{
                 genderLayoutET.setText(gender);
-                window.dismiss();
+                FragmentUtil.clearSingleBackStack((AppCompatActivity)getActivity());
             });
-
         });
-    }
-
-
-    private void setupOfCountryPopUp() {
-        final int genderWidth = getResources().getDimensionPixelSize(R.dimen.country_GenderWidth);
-        final int genderHeight = getResources().getDimensionPixelSize(R.dimen.country_GenderHeight);
 
         countryET.setOnClickListener(v->{
-
-            int[] locationOnWindow = new int[2];
-
-            countryLayout.getLocationInWindow(locationOnWindow);
-
-            int XPadding = locationOnWindow[0];
-            int YPadding = locationOnWindow[1];
-            int deviceHeight = CommonUtil.getDeviceHeight(getActivity());
-            int deviceWidth = CommonUtil.getDeviceWidth(getActivity());
-            int layoutHeight = countryLayout.getHeight();
-            int layoutWidth = countryLayout.getWidth();
-
-            int finalBottomPadding = deviceHeight-(YPadding+layoutHeight)-layoutHeight*2;
-            int finalXPadding = (deviceWidth-XPadding)/2;
-
-            List<String> strList = new ArrayList<>();
-            strList.add("INDIA");
-            strList.add("AUSTRALIA");
-            strList.add("NEWZELAND");
-            strList.add("SWITZERLAND");
-
-            final StandardPopupWindow window = new StandardPopupWindow(getActivity(), strList, genderWidth, genderHeight);
-
-            window.show(countryLayout, Gravity.BOTTOM, finalXPadding, finalBottomPadding);
-
-
-            window.setOnStandardPopupItemSelect(country->{
+            DropDownFragment fragment  = DropDownFragment.getInstance("country");
+            FragmentUtil.addFragmentAnim((AppCompatActivity)getActivity(), R.id.parentLayout, fragment,
+                    FragmentUtil.FRAGMENT_ANIMATION, false);
+            fragment.setOnDropdownitemSelection((from, country)->{
                 countryET.setText(country);
-                window.dismiss();
+                FragmentUtil.clearSingleBackStack((AppCompatActivity)getActivity());
             });
 
         });
+
+        stateET.setOnClickListener(v->{
+            DropDownFragment fragment  = DropDownFragment.getInstance("state");
+            FragmentUtil.addFragmentAnim((AppCompatActivity)getActivity(), R.id.parentLayout, fragment,
+                    FragmentUtil.FRAGMENT_ANIMATION, false);
+            fragment.setOnDropdownitemSelection((from, state)->{
+                stateET.setText(state);
+                FragmentUtil.clearSingleBackStack((AppCompatActivity)getActivity());
+            });
+
+        });
+
+
+
+
     }
+
 
 
 }

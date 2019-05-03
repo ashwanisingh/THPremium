@@ -31,7 +31,8 @@ public class OTPVerificationFragment extends BaseFragmentTHP {
 
     @Override
     public int getLayoutRes() {
-        if(mFrom != null && mFrom.equalsIgnoreCase(THPConstants.FROM_AccountInfoFragment)) {
+        if(mFrom != null && (mFrom.equalsIgnoreCase(THPConstants.FROM_AccountInfoFragment)
+        || mFrom.equalsIgnoreCase(THPConstants.FROM_PersonalInfoFragment))) {
             return R.layout.fragment_otp_verification_userprofile;
         } else {
             return R.layout.fragment_otp_verification;

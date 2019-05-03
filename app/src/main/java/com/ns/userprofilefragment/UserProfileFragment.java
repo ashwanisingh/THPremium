@@ -59,6 +59,12 @@ public class UserProfileFragment extends BaseFragmentTHP {
         planValidity_Txt = view.findViewById(R.id.planValidity_Txt);
         versionName_Txt = view.findViewById(R.id.versionName_Txt);
 
+
+        // Back button click listener
+        view.findViewById(R.id.backBtn).setOnClickListener(v->{
+            getActivity().finish();
+        });
+
         // Change Button click listener
         view.findViewById(R.id.viewAllBtn_Txt).setOnClickListener(v->{
             SubscriptionStep_3_Fragment fragment = SubscriptionStep_3_Fragment.getInstance("");
@@ -66,11 +72,6 @@ public class UserProfileFragment extends BaseFragmentTHP {
                     FragmentUtil.FRAGMENT_ANIMATION, false);
         });
 
-
-        // Back button click listener
-        view.findViewById(R.id.backBtn).setOnClickListener(v->{
-            getActivity().finish();
-        });
 
         // User Next Btn button click listener
         view.findViewById(R.id.userNextBtn_Img).setOnClickListener(v->{

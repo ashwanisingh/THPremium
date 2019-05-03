@@ -209,7 +209,7 @@
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:maxEms="11"
-            android:text="Additional UID"
+            android:text="Use my current location"
             android:textColor="@color/boldBlackColor"
             android:textSize="16sp"
             app:font_path="@string/FONT_FIRA_SANS_REGULAR"

@@ -59,7 +59,7 @@ public class AccountInfoFragment extends BaseFragmentTHP {
         });
 
 
-        // Back button click listener
+        // Verify OTP button click listener
         view.findViewById(R.id.verifyViaOTPBtn_Txt).setOnClickListener(v->{
             OTPVerificationFragment fragment = OTPVerificationFragment.getInstance(THPConstants.FROM_AccountInfoFragment);
             FragmentUtil.addFragmentAnim((AppCompatActivity)getActivity(), R.id.parentLayout, fragment,
