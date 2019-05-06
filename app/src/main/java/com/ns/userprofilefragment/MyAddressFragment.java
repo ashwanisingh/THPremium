@@ -12,6 +12,8 @@ import com.ns.utils.FragmentUtil;
 
 public class MyAddressFragment extends BaseFragmentTHP {
 
+    private String mFrom;
+
     @Override
     public int getLayoutRes() {
         return R.layout.fragment_my_address;
@@ -23,6 +25,15 @@ public class MyAddressFragment extends BaseFragmentTHP {
         bundle.putString("from", from);
         fragment.setArguments(bundle);
         return fragment;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        if(getArguments() != null) {
+            mFrom = getArguments().getString("from");
+        }
     }
 
     @Override

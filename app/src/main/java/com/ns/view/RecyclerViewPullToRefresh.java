@@ -14,6 +14,7 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
+import com.ns.activity.BaseRecyclerViewAdapter;
 import com.ns.adapter.AppTabContentAdapter;
 import com.ns.thpremium.R;
 
@@ -133,7 +134,7 @@ public class RecyclerViewPullToRefresh extends FrameLayout  {
     }
 
 
-    public void setDataAdapter(AppTabContentAdapter adapter) {
+    public void setDataAdapter(BaseRecyclerViewAdapter adapter) {
             if(mRecyclerView != null && adapter != null) {
                 mRecyclerView.setAdapter(adapter);
         }

@@ -16,7 +16,7 @@
     </style>
 
     <style name="bottomLayoutStyle">
-        <item name="android:background">@drawable/shadow_r12_s6_wh200</item>
+        <item name="android:background">@drawable/shadow_r12_s6_wh200_ltr</item>
         <item name="layout_constraintBottom_toBottomOf">parent</item>
         <item name="layout_constraintEnd_toEndOf">parent</item>
         <item name="layout_constraintRight_toRightOf">parent</item>
