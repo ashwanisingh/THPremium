@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.ns.loginfragment.BaseFragmentTHP;
-import com.ns.loginfragment.SubscriptionStep_3_Fragment;
 import com.ns.thpremium.R;
 import com.ns.utils.FragmentUtil;
 
