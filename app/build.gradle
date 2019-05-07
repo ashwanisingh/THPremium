@@ -63,6 +63,11 @@ dependencies {
     implementation deps.glide
     annotationProcessor deps.glide_annotationProcessor
 
+    // Google Location
+    implementation deps.googleLocation
+
+
+
     // Multidex
     implementation 'com.android.support:multidex:1.0.3'
 

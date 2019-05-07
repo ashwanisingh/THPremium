@@ -48,13 +48,20 @@
     <string name="account_info_1_ratio">h,4.5:4</string>
     <dimen name="account_info_et_height">63.5dp</dimen>
     <dimen name="account_info_update_btn_parent_height">65dp</dimen>
+    <dimen name="account_info_title_gap">49dp</dimen>
 
     <string name="personal_info_1_ratio">h,6.8:4</string>
     <dimen name="personal_info_et_height">44dp</dimen>
     <dimen name="personal_info_et_gap">5dp</dimen>
     <dimen name="personal_info_et_paddingBottom">5dp</dimen>
     <dimen name="personal_info_update_btn_parent_height">60dp</dimen>
+    <dimen name="personal_info_gap_for_partLayout">10dp</dimen>
+    <dimen name="personal_info_gap_for_part2Layout">2dp</dimen>
+    <dimen name="personal_info_gap_for_verifyotp">20dp</dimen>
 
+    <dimen name="personal_info_textSize_18sp">18sp</dimen>
+    <dimen name="personal_info_textSize_16sp">16sp</dimen>
+    <dimen name="personal_info_textSize_14sp">14sp</dimen>
 
     <dimen name="choose_plan_left_padding">19dp</dimen>
     <dimen name="choose_plan_top_padding">24dp</dimen>
@@ -70,6 +77,9 @@
 
     <dimen name="add_address_et_height">49dp</dimen>
     <dimen name="add_address_info_et_gap">15dp</dimen>
+
+    <dimen name="profile_icon_width_height">32dp</dimen>
+
 
 
 </resources>

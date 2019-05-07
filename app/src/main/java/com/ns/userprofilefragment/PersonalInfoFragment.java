@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 
@@ -16,6 +17,7 @@ import com.ns.loginfragment.OTPVerificationFragment;
 import com.ns.thpremium.R;
 import com.ns.utils.CommonUtil;
 import com.ns.utils.FragmentUtil;
+import com.ns.utils.ResUtil;
 import com.ns.utils.THPConstants;
 import com.ns.view.StandardPopupWindow;
 
@@ -148,6 +150,15 @@ public class PersonalInfoFragment extends BaseFragmentTHP {
                 stateET.setText(state);
                 FragmentUtil.clearSingleBackStack((AppCompatActivity)getActivity());
             });
+
+        });
+
+        view.findViewById(R.id.currentLocationBtn_Txt).setOnClickListener(v->{
+            if (!ResUtil.isGooglePlayServicesAvailable(getActivity())) {
+                Alerts.showToast(getActivity(), "Re-Install Google Play Services App");
+                return;
+            }
+
 
         });
 

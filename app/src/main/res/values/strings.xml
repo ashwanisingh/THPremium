@@ -10,4 +10,5 @@
     <string name="try_again">We could not load the data.\\n Tap to retry</string>
     <string name="hint_registered_mobile_number"><font size="30">My hint string</font></string>
 
+    <string name="type_device">Default Device</string>
 </resources>

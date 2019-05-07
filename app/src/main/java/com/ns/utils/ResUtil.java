@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.TextPaint;
@@ -17,7 +18,10 @@ import android.text.style.StyleSpan;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
 import com.ns.alerts.Alerts;
 
 
@@ -238,6 +242,22 @@ public class ResUtil {
             versionCode = info.versionCode;
         }
         return versionCode;
+    }
+
+    public static boolean isGooglePlayServicesAvailable(Context context) {
+         int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
+        GoogleApiAvailability googleApiAvailability = GoogleApiAvailability.getInstance();
+        if (ConnectionResult.SUCCESS == googleApiAvailability.isGooglePlayServicesAvailable(context)) {
+            return true;
+        } else {
+            try {
+                googleApiAvailability.getErrorDialog((AppCompatActivity) context, 0, PLAY_SERVICES_RESOLUTION_REQUEST).show();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                Toast.makeText(context, "Google Play Services Not Available.", Toast.LENGTH_SHORT).show();
+            }
+            return false;
+        }
     }
 
 }

@@ -107,7 +107,7 @@
         <item name="android:textColor">@android:color/white</item>
         <item name="android:gravity">center</item>
         <item name="font_path">@string/FONT_FIRA_SANS_BOLD</item>
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">@dimen/personal_info_textSize_14sp</item>
     </style>
 
     <style name="TextLabel" parent="TextAppearance.AppCompat">
@@ -121,7 +121,7 @@
     <style name="accountInfoET_Style">
         <item name="android:layout_height">@dimen/account_info_et_height</item>
         <item name="android:layout_width">match_parent</item>
-        <item name="android:textSize">16sp</item>
+        <item name="android:textSize">@dimen/personal_info_textSize_16sp</item>
         <item name="font_path">@string/FONT_FIRA_SANS_REGULAR</item>
         <item name="android:textStyle">normal</item>
         <item name="android:textColor">@color/boldBlackColor_50alp</item>
@@ -133,7 +133,7 @@
     <style name="personalInfoET_Style">
         <item name="android:layout_height">@dimen/personal_info_et_height</item>
         <item name="android:layout_width">match_parent</item>
-        <item name="android:textSize">16sp</item>
+        <item name="android:textSize">@dimen/personal_info_textSize_16sp</item>
         <item name="font_path">@string/FONT_FIRA_SANS_REGULAR</item>
         <item name="android:textStyle">normal</item>
         <item name="android:textColor">@color/boldBlackColor</item>
@@ -146,7 +146,7 @@
     <style name="addAddressET_Style">
         <item name="android:layout_height">@dimen/add_address_et_height</item>
         <item name="android:layout_width">match_parent</item>
-        <item name="android:textSize">16sp</item>
+        <item name="android:textSize">@dimen/personal_info_textSize_16sp</item>
         <item name="font_path">@string/FONT_FIRA_SANS_REGULAR</item>
         <item name="android:textStyle">normal</item>
         <item name="android:textColor">@color/boldBlackColor</item>
@@ -158,11 +158,11 @@
 
     <style name="ErrorText" parent="TextAppearance.AppCompat">
         <item name="android:textColor">@android:color/holo_red_dark</item>
-        <item name="android:textSize">16sp</item>
+        <item name="android:textSize">@dimen/personal_info_textSize_16sp</item>
     </style>
 
     <style name="HintLabel" parent="TextAppearance.Design.Hint">
-        <item name="android:textSize">16sp</item>
+        <item name="android:textSize">@dimen/personal_info_textSize_16sp</item>
         <item name="font_path">@string/FONT_FIRA_SANS_BOLD</item>
     </style>
 

@@ -74,7 +74,7 @@ public class UserProfileFragment extends BaseFragmentTHP {
 
 
         // User Next Btn button click listener
-        view.findViewById(R.id.userNextBtn_Img).setOnClickListener(v->{
+        view.findViewById(R.id.part1Layout).setOnClickListener(v->{
             AccountInfoFragment fragment = AccountInfoFragment.getInstance("");
             FragmentUtil.pushFragmentAnim((AppCompatActivity) getActivity(), R.id.parentLayout,
                     fragment, FragmentUtil.FRAGMENT_NO_ANIMATION, false);

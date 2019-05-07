@@ -37,6 +37,8 @@ ext.deps = [
         constraintLayout     : 'com.android.support.constraint:constraint-layout:1.0.2',
         support_dynamic_animation:  "com.android.support:support-dynamic-animation:$SUPPORT_VC",
 
+        googleLocation:  "com.google.android.gms:play-services-location:16.0.0",
+
         // For Backend
         backend  : project(':netoperation'),
 

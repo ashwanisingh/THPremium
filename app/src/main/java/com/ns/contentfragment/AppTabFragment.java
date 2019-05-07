@@ -13,6 +13,7 @@ import com.ns.adapter.AppTabPagerAdapter;
 import com.ns.thpremium.R;
 import com.ns.loginfragment.BaseFragmentTHP;
 import com.ns.utils.FragmentUtil;
+import com.ns.utils.IntentUtil;
 
 public class AppTabFragment extends BaseFragmentTHP {
 
@@ -98,6 +99,22 @@ public class AppTabFragment extends BaseFragmentTHP {
 
             });
         });
+
+
+        // Back Button Click Listener
+        view.findViewById(R.id.backBtn).setOnClickListener(v->
+            getActivity().finish()
+        );
+
+        // Premium Logo Button Click Listener
+        view.findViewById(R.id.premiumLogoBtn).setOnClickListener(v->
+            IntentUtil.openMemberActivity(getActivity(), "")
+        );
+
+        // Profile Icon Button Click Listener
+        view.findViewById(R.id.profileBtn).setOnClickListener(v->
+            IntentUtil.openUserProfileActivity(getActivity(), "")
+        );
 
     }
 }

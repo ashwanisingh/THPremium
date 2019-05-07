@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -24,6 +23,7 @@
         android:layout_marginLeft="@dimen/userprofile_gap_for_1"
         android:layout_marginEnd="@dimen/userprofile_gap_for_1"
         android:layout_marginRight="@dimen/userprofile_gap_for_1"
+        android:layout_marginBottom="@dimen/personal_info_gap_for_partLayout"
         android:paddingStart="15dp"
         android:paddingLeft="15dp"
         android:paddingEnd="20dp"
@@ -35,8 +35,6 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -49,7 +47,7 @@
                 android:maxEms="11"
                 android:text="Personal Info"
                 android:textColor="@color/boldBlackColor"
-                android:textSize="18sp"
+                android:textSize="@dimen/personal_info_textSize_18sp"
                 app:font_path="@string/FONT_FIRA_SANS_BOLD" />
 
             <com.ns.view.CustomTextView
@@ -77,7 +75,7 @@
         android:layout_marginLeft="@dimen/userprofile_gap_for_2"
         android:layout_marginEnd="@dimen/userprofile_gap_for_2"
         android:layout_marginRight="@dimen/userprofile_gap_for_2"
-        android:layout_marginBottom="9dp"
+        android:layout_marginBottom="@dimen/personal_info_gap_for_part2Layout"
         android:paddingStart="10dp"
         android:paddingLeft="10dp"
         android:paddingEnd="20dp"
@@ -101,6 +99,7 @@
                 style="@style/personalInfoET_Style"
                 android:inputType="textPersonName"
                 android:maxLines="1"
+                android:text="Ashwani"
                 app:hintTextAppearance="@style/HintLabel"
                 />
         </android.support.design.widget.TextInputLayout>
@@ -202,16 +201,17 @@
 
 
         <com.ns.view.CustomTextView
+            android:id="@+id/currentLocationBtn_Txt"
             app:layout_constraintLeft_toLeftOf="parent"
             android:layout_marginTop="@dimen/personal_info_et_gap"
             app:layout_constraintTop_toBottomOf="@+id/stateLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:maxEms="11"
+            android:maxEms="14"
             android:text="Use my current location"
             android:textColor="@color/boldBlackColor"
-            android:textSize="16sp"
+            android:textSize="@dimen/personal_info_textSize_16sp"
             app:font_path="@string/FONT_FIRA_SANS_REGULAR"
             android:drawableLeft="@drawable/ic_location"/>
 
@@ -244,7 +244,7 @@
             android:maxEms="11"
             android:text="Additional UID"
             android:textColor="@color/boldBlackColor"
-            android:textSize="18sp"
+            android:textSize="@dimen/personal_info_textSize_18sp"
             app:font_path="@string/FONT_FIRA_SANS_BOLD" />
 
         <include layout="@layout/listing_divider"
@@ -276,11 +276,11 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:gravity="center"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="@dimen/personal_info_gap_for_verifyotp"
             android:text="Verify via OTP"
             android:textColor="@color/blueColor_1"
             android:background="@drawable/blue_outline_backgraoud"
-            android:textSize="18sp"
+            android:textSize="@dimen/personal_info_textSize_18sp"
             app:font_path="@string/FONT_FIRA_SANS_BOLD" />
 
     </LinearLayout>
@@ -338,7 +338,7 @@
             android:text="Update Profile"
             android:textColor="@color/white"
             android:background="@drawable/blue_backgraoud"
-            android:textSize="18sp"
+            android:textSize="@dimen/personal_info_textSize_18sp"
             app:font_path="@string/FONT_TUNDRA_OFFC_BOLD" />
 
 

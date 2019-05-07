@@ -24,7 +24,7 @@
         android:layout_marginLeft="@dimen/userprofile_gap_for_1"
         android:layout_marginEnd="@dimen/userprofile_gap_for_1"
         android:layout_marginRight="@dimen/userprofile_gap_for_1"
-        android:layout_marginBottom="49dp"
+        android:layout_marginBottom="@dimen/account_info_title_gap"
         android:paddingStart="20dp"
         android:paddingLeft="20dp"
         android:paddingEnd="20dp"

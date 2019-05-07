@@ -45,7 +45,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:maxEms="11"
-                android:text="Udhay Kumar"
+                android:text="@string/type_device"
                 android:textColor="@color/blueColor_1"
                 android:textSize="18sp"
                 app:font_path="@string/FONT_FIRA_SANS_BOLD" />
@@ -63,7 +63,6 @@
 
 
         <ImageView
-            android:id="@+id/userNextBtn_Img"
             style="@style/nextBtnStyle"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
