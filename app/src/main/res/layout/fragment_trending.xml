@@ -7,7 +7,7 @@
     android:paddingStart="@dimen/apptab_listing_left_padding"
     android:paddingEnd="@dimen/apptab_listing_right_padding"
     android:paddingRight="@dimen/apptab_listing_right_padding"
-    android:paddingTop="@dimen/apptab_listing_top_padding">
+    >
 
     <com.ns.view.RecyclerViewPullToRefresh
         android:id="@+id/recyclerView"

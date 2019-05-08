@@ -9,10 +9,12 @@ import android.view.View;
 import com.ns.loginfragment.BaseFragmentTHP;
 import com.ns.thpremium.R;
 import com.ns.utils.FragmentUtil;
+import com.ns.view.RecyclerViewPullToRefresh;
 
 public class MyAddressFragment extends BaseFragmentTHP {
 
     private String mFrom;
+    private RecyclerViewPullToRefresh recyclerViewPullToRefresh;
 
     @Override
     public int getLayoutRes() {
@@ -39,6 +41,8 @@ public class MyAddressFragment extends BaseFragmentTHP {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        recyclerViewPullToRefresh = view.findViewById(R.id.recyclerViewPullToRefresh);
 
 
         // Back button click listener

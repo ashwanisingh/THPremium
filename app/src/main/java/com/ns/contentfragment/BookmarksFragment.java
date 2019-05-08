@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
 
 import com.github.pwittchen.reactivenetwork.library.rx2.ReactiveNetwork;
 import com.ns.activity.BaseRecyclerViewAdapter;
@@ -24,6 +25,7 @@ import io.reactivex.schedulers.Schedulers;
 public class BookmarksFragment extends BaseFragmentTHP implements RecyclerViewPullToRefresh.TryAgainBtnClickListener {
 
     private RecyclerViewPullToRefresh recyclerView;
+    private LinearLayout emptyLayout;
     private AppTabContentAdapter adapter;
 
     public static BookmarksFragment getInstance() {
@@ -43,6 +45,7 @@ public class BookmarksFragment extends BaseFragmentTHP implements RecyclerViewPu
         super.onViewCreated(view, savedInstanceState);
 
         recyclerView = view.findViewById(R.id.recyclerView);
+        emptyLayout = view.findViewById(R.id.emptyLayout);
 
         List<AppTabContentModel> models = new ArrayList<>();
 
@@ -63,6 +66,7 @@ public class BookmarksFragment extends BaseFragmentTHP implements RecyclerViewPu
         recyclerView.setDataAdapter(adapter);
 
         recyclerView.setTryAgainBtnClickListener(this);
+
 
 
     }
@@ -97,5 +101,15 @@ public class BookmarksFragment extends BaseFragmentTHP implements RecyclerViewPu
     @Override
     public void tryAgainBtnClick() {
 
+    }
+
+    private void showEmptyLayout() {
+        if(adapter.getItemCount() == 0) {
+            emptyLayout.setVisibility(View.VISIBLE);
+            recyclerView.setVisibility(View.GONE);
+        } else {
+            emptyLayout.setVisibility(View.VISIBLE);
+            recyclerView.setVisibility(View.GONE);
+        }
     }
 }

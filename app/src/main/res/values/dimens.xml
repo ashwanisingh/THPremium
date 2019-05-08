@@ -78,7 +78,7 @@
     <dimen name="add_address_et_height">49dp</dimen>
     <dimen name="add_address_info_et_gap">15dp</dimen>
 
-    <dimen name="profile_icon_width_height">32dp</dimen>
+    <dimen name="profile_icon_width_height">40dp</dimen>
 
 
 

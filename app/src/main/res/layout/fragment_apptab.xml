@@ -102,6 +102,12 @@
             app:font_path="@string/FONT_FIRA_SANS_REGULAR"
             />
 
+
+        <include android:layout_width="match_parent"
+            android:layout_height="@dimen/listing_divider_height"
+            layout="@layout/listing_divider"
+            android:layout_alignParentBottom="true"
+            />
     </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>

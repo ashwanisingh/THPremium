@@ -96,7 +96,7 @@ public class BriefcaseFragment extends BaseFragmentTHP implements RecyclerViewPu
 
             fragment.setOnCalendarDateClickListener(date -> {
                 SimpleDateFormat df = new SimpleDateFormat(THPConstants.date_dd_MM_yyyy);
-                editionBtn_Txt.setText(df.format(date));
+                dateBtn_Txt.setText(df.format(date));
 
                 // Clearing Calendar Fragment
                 FragmentUtil.clearSingleBackStack((AppCompatActivity) getActivity());

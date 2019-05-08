@@ -11,18 +11,86 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
+    <!--Start Part 1 Layout-->
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/part1Layout"
+        style="@style/parentLayoutPaddingStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/userprofile_gap_for_1"
+        android:layout_marginLeft="@dimen/userprofile_gap_for_1"
+        android:layout_marginEnd="@dimen/userprofile_gap_for_1"
+        android:layout_marginRight="@dimen/userprofile_gap_for_1"
+        android:paddingStart="15dp"
+        android:paddingLeft="15dp"
+        android:paddingEnd="20dp"
+        android:paddingRight="20dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/backBtn">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.ns.view.CustomTextView
+                android:id="@+id/userName_Txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxEms="11"
+                android:text="My Address"
+                android:textColor="@color/boldBlackColor"
+                android:textSize="20sp"
+                app:font_path="@string/FONT_FIRA_SANS_BOLD" />
+
+            <com.ns.view.CustomTextView
+                android:id="@+id/mobileNumber_Txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:alpha="0.6"
+                android:text="Click flow icon to edit/delete a saved address"
+                android:textColor="@color/boldBlackColor"
+                android:textSize="14sp"
+                app:font_path="@string/FONT_FIRA_SANS_REGULAR" />
+        </LinearLayout>
+
+
+    </android.support.constraint.ConstraintLayout>
+    <!--End Part 1 Layout-->
+
+    <com.ns.view.RecyclerViewPullToRefresh
+        android:id="@+id/recyclerViewPullToRefresh"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/part1Layout"
+
+        />
+
+    <com.ns.view.CustomTextView
         android:id="@+id/addNewAddress_Txt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/backBtn"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_weight="1"
+        app:font_path="@string/FONT_FIRA_SANS_BOLD"
         android:textSize="15sp"
         android:textColor="#1b528e"
         android:letterSpacing="0.04"
         android:text="Add New Address"
         android:drawableLeft="@drawable/ic_add"
         android:drawablePadding="10dp"
+        android:gravity="center_vertical"
         />
 
 </android.support.constraint.ConstraintLayout>
