@@ -9,9 +9,11 @@ import android.util.Log;
 import android.widget.LinearLayout;
 
 import com.github.pwittchen.reactivenetwork.library.rx2.ReactiveNetwork;
+import com.netoperation.retrofit.ServiceFactory;
 import com.ns.adapter.AppTabPagerAdapter;
 import com.ns.alerts.Alerts;
 import com.ns.contentfragment.AppTabFragment;
+import com.ns.thpremium.BuildConfig;
 import com.ns.thpremium.R;
 import com.ns.utils.FragmentUtil;
 
@@ -29,6 +31,8 @@ public class AppTabActivity extends BaseAcitivityTHP {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        ServiceFactory.BASE_URL = BuildConfig.BASE_URL;
 
         AppTabFragment fragment = AppTabFragment.getInstance("");
 

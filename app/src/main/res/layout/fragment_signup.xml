@@ -30,6 +30,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:imeOptions="actionDone"
         android:hint="Mobile Number/Email Address"
+        android:maxLines="1"
+        android:singleLine="true"
         />
 
     <com.ns.view.CustomTextView

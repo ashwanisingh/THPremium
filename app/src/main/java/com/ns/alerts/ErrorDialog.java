@@ -5,9 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 
-/**
- * Created by ashwani on 03/06/16.
- */
+
 public class ErrorDialog extends DialogFragment {
 
     public ErrorDialog() {
@@ -33,6 +31,8 @@ public class ErrorDialog extends DialogFragment {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
         alertDialogBuilder.setTitle(title);
         alertDialogBuilder.setMessage(message);
-        return alertDialogBuilder.create();
+
+        Dialog dialog = alertDialogBuilder.create();
+        return dialog;
     }
 }

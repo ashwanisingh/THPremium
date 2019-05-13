@@ -16,11 +16,10 @@ public class ServiceFactory {
 
     private static ServiceAPIs sServiceAPIs;
 
-    private static String sBaseUrl;
+    public static String BASE_URL = "";
 
-    public static ServiceAPIs getServiceAPIs(String baseUrl) {
+    public static ServiceAPIs getServiceAPIs() {
         if(sServiceAPIs == null) {
-            sBaseUrl = baseUrl;
             sServiceAPIs = createServiceAPIs();
         }
         return sServiceAPIs;
@@ -51,7 +50,7 @@ public class ServiceFactory {
      */
     private static Retrofit createRetrofit() {
         return new Retrofit.Builder()
-                .baseUrl(sBaseUrl)
+                .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create()) // <- add this
                 .client(createOkHttpClient())

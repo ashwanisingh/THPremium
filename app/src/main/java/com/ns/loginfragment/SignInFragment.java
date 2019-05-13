@@ -9,11 +9,17 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
+import com.netoperation.net.ApiManager;
+import com.netoperation.net.RequestCallback;
+import com.ns.alerts.Alerts;
+import com.ns.thpremium.BuildConfig;
 import com.ns.thpremium.R;
+import com.ns.utils.CommonUtil;
 import com.ns.utils.FragmentUtil;
 import com.ns.utils.ResUtil;
 import com.ns.utils.THPConstants;
 import com.ns.utils.TextSpanCallback;
+import com.ns.utils.ValidationUtil;
 import com.ns.view.CustomTextView;
 
 public class SignInFragment extends BaseFragmentTHP {
@@ -34,6 +40,9 @@ public class SignInFragment extends BaseFragmentTHP {
     private ImageButton googleBtn;
     private ImageButton tweeterBtn;
     private ImageButton facebookBtn;
+
+    private boolean isUserEnteredEmail;
+    private boolean isUserEnteredMobile;
 
 
     @Override
@@ -82,6 +91,69 @@ public class SignInFragment extends BaseFragmentTHP {
 
         // Sign In button click listener
         view.findViewById(R.id.signIn_Txt).setOnClickListener(v->{
+
+            String emailOrMobile = emailOrMobile_Et.getText().toString();
+            String mobile = "";
+            String email = "";
+            String passwd = password_Et.getText().toString();
+
+            if(ValidationUtil.isValidMobile(emailOrMobile)) {
+                isUserEnteredMobile = true;
+                isUserEnteredEmail = false;
+                mobile = emailOrMobile;
+            }
+
+            if(ValidationUtil.isValidEmail(emailOrMobile)) {
+                isUserEnteredEmail = true;
+                isUserEnteredMobile = false;
+                email = emailOrMobile;
+            }
+
+            if(!isUserEnteredMobile && !isUserEnteredEmail) {
+                Alerts.showAlertDialogNoBtnWithCancelable(getActivity(), "", "\nPlease enter valid Email or Mobile \n");
+                return;
+            }
+
+            if(ValidationUtil.isEmpty(passwd)) {
+                Alerts.showAlertDialogNoBtnWithCancelable(getActivity(), "", "\nPlease enter password \n");
+                return;
+            }
+
+            // Hide SoftKeyboard
+            CommonUtil.hideKeyboard(getView());
+
+            String deviceId = ResUtil.getDeviceId(getActivity());
+
+            ApiManager.userLogin(new RequestCallback<Boolean>() {
+                @Override
+                public void onNext(Boolean aBoolean) {
+                    if(getActivity() == null && getView() == null) {
+                        return;
+                    }
+
+                    if(!aBoolean) {
+                        if(isUserEnteredMobile) {
+                            Alerts.showAlertDialogOKBtn(getActivity(), "Sorry!", "User Mobile number not found.");
+                        }
+                        else {
+                            Alerts.showAlertDialogOKBtn(getActivity(), "Sorry!", "User email not found.");
+                        }
+                    }
+                }
+
+                @Override
+                public void onError(Throwable t, String str) {
+                    if(getActivity() != null && getView() != null) {
+                        Alerts.showErrorDailog(getChildFragmentManager(), null, t.getLocalizedMessage());
+                    }
+                }
+
+                @Override
+                public void onComplete(String str) {
+
+                }
+            }, email, mobile, BuildConfig.SITEID, passwd, deviceId, BuildConfig.ORIGIN_URL);
+
 
         });
 

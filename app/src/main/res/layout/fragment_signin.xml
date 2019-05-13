@@ -12,8 +12,10 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:imeOptions="actionDone"
+        android:imeOptions="actionNext"
         android:hint="Mobile Number/Email Address"
+        android:maxLines="1"
+        android:singleLine="true"
         />
 
     <EditText
@@ -26,6 +28,8 @@
         android:imeOptions="actionDone"
         android:hint="Password"
         android:inputType="textPassword"
+        android:maxLines="1"
+        android:singleLine="true"
         />
 
     <ImageButton

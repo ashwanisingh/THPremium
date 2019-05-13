@@ -101,7 +101,7 @@ public class Alerts {
         alert.show();
     }
 
-    public static void showAlertDialogNoBtnWithCancel(final Context context, String title, String message) {
+    public static void showAlertDialogNoBtnWithCancelable(final Context context, String title, String message) {
         final AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setMessage(message)
                 .setCancelable(true)
@@ -113,8 +113,16 @@ public class Alerts {
 
 
     public static void showErrorDailog(FragmentManager fm, String title, String message) {
+        if(message != null) {
+            if(message.contains("Unable to resolve host")) {
+                message = "Please check your internet connectivity.";
+                title = "Connection Error!";
+            }
+        }
+
         ErrorDialog calendarViewDialogFragment = ErrorDialog.newInstance(title, message);
         calendarViewDialogFragment.show(fm, "errorDialog");
+
     }
 
     public static void showAlertDialogOKBtn(final Context context, String title, String msg) {
@@ -131,10 +139,11 @@ public class Alerts {
     }
 
 
+
     public static void noInternetSnackbar(View view) {
         Snackbar snackbar = Snackbar
                 .make(view, "No internet connection!", Snackbar.LENGTH_LONG)
-                .setAction("RETRY", new View.OnClickListener() {
+                .setAction("Ok", new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                     }
@@ -161,7 +170,7 @@ public class Alerts {
 // Changing action button text color
         View sbView = snackbar.getView();
         TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
-        textView.setTextColor(Color.YELLOW);
+        textView.setTextColor(Color.BLUE);
         snackbar.show();
     }
 
