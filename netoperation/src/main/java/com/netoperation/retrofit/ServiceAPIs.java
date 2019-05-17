@@ -3,10 +3,12 @@ package com.netoperation.retrofit;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.netoperation.model.RecomendationData;
 
 import io.reactivex.Observable;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 /**
  * Created by ashwanisingh on 04/23/19.
@@ -56,5 +58,10 @@ public interface ServiceAPIs {
 
     @POST("/taiauth/userPreference/HINDU")
     Observable<JsonElement> setUserPreference(@Body JsonObject setUserPreferenceBody);
+
+
+    @POST("/mydashboard/userreco/hindu")
+    Observable<RecomendationData> getRecommendation(@Query("userid") String userid, @Query("recotype") String recotype,
+                                                    @Query("size") String size, @Query("siteid") String siteid );
 
 }

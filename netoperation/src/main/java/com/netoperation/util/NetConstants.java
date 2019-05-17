@@ -11,4 +11,12 @@ public class NetConstants {
     /** When user wants to suspend or delete account */
     public static final String EVENT_CHANGE_ACCOUNT_STATUS = "changeAccountStatus";
 
+
+    public static final String RECO_ALL = "all";
+    public static final String RECO_suggested = "suggested";
+    public static final String RECO_personalised = "personalised";
+    public static final String RECO_trending = "trending";
+    public static final String RECO_bookmarks = "bookmarks";
+    public static final String RECO_briefcase = "briefcase";
+
 }

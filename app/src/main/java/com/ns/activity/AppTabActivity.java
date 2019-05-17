@@ -38,26 +38,9 @@ public class AppTabActivity extends BaseAcitivityTHP {
 
         FragmentUtil.pushFragmentAnim(this, R.id.parentLayout, fragment, FragmentUtil.FRAGMENT_NO_ANIMATION, true);
 
-        netCheck();
     }
 
 
-    private void netCheck() {
 
-        ReactiveNetwork
-                .observeNetworkConnectivity(this)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(connectivity -> {
-                    if(connectivity.state() == NetworkInfo.State.CONNECTED) {
-
-                    }
-                    else {
-                        Alerts.noInternetSnackbar(findViewById(R.id.parentLayout));
-                    }
-
-                    Log.i("", "");
-                });
-    }
 
 }

@@ -96,7 +96,7 @@
                     android:layout_height="30dp"
                     android:text="Subscribe now for exclusive feature "
                     android:textColor="@color/boldBlackColor"
-                    android:textSize="20sp" />
+                    android:textSize="@dimen/textSize_20sp" />
 
             </FrameLayout>
 

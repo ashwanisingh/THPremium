@@ -8,6 +8,7 @@ android {
         applicationId "com.ns.thpremium"
         versionCode 1
         vectorDrawables.useSupportLibrary = true
+        multiDexEnabled true
 
     }
     buildTypes {

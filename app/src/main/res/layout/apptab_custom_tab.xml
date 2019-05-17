@@ -15,12 +15,14 @@
 
     <com.ns.view.CustomTextView
         android:id="@+id/tab_Txt"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:textSize="10sp"
+        android:textSize="@dimen/textSize_10sp"
         android:gravity="center"
         android:text="More"
         android:textColor="@color/greyColor_1"
+        android:singleLine="true"
+        android:maxLines="1"
         app:font_path="@string/FONT_TUNDRA_OFFC_BOLD">
 
     </com.ns.view.CustomTextView>

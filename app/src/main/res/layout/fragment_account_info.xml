@@ -186,7 +186,7 @@
             android:alpha="0.6"
             android:text="By providing additional UID, you will be able to login with same ID and will get extra days of free trial"
             android:textColor="@color/boldBlackColor"
-            android:textSize="18sp"
+            android:textSize="@dimen/personal_info_textSize_18sp"
             app:font_path="@string/FONT_FIRA_SANS_REGULAR" />
 
 

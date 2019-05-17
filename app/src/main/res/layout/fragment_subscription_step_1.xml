@@ -22,7 +22,7 @@
         android:padding="20dp"
         android:text="The Hindu Subscription"
         android:textColor="@color/boldBlackColor"
-        android:textSize="27dp"
+        android:textSize="@dimen/textSize_27sp"
         app:font_path="@string/FONT_TUNDRA_OFFC_BOLD" />
 
     <LinearLayout
