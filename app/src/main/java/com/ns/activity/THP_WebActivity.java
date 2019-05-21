@@ -9,6 +9,7 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.ns.thpremium.R;
 import com.ns.view.AutoResizeWebview;
@@ -22,8 +23,10 @@ public class THP_WebActivity extends BaseAcitivityTHP {
 
     private AutoResizeWebview mWebView;
     private ProgressBar mProgressBar;
+    private TextView mTitleView;
 
     private String mUrl;
+    private String mFrom;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -31,19 +34,31 @@ public class THP_WebActivity extends BaseAcitivityTHP {
 
         mWebView = findViewById(R.id.webview);
         mProgressBar = findViewById(R.id.progressBar);
+        mTitleView = findViewById(R.id.titleText);
 
         if(getIntent().getExtras() != null) {
             mUrl = getIntent().getStringExtra("url");
+            mFrom = getIntent().getStringExtra("from");
         }
 
-        if(mUrl != null) {
+        if(mUrl == null) {
             return;
         }
 
+        if(mFrom.equalsIgnoreCase(getString(R.string.comments))) {
+            mTitleView.setText(mFrom);
+        }
 
+        // Back Button Click Listener
+        findViewById(R.id.backBtn).setOnClickListener(v->
+                finish()
+        );
 
 
         mWebView.getSettings().setJavaScriptEnabled(true);
+        mWebView.loadUrl(mUrl);
+
+
         mWebView.setWebViewClient(new WebViewClient() {
 
             @Override

@@ -58,7 +58,7 @@ public class WebViewLinkClick {
                 String domain = uri.getHost();
                 String path = uri.getPath();
 
-                int aid = CommonUtil.getArticleIdFromArticleUrl(url);
+                String aid = ""+CommonUtil.getArticleIdFromArticleUrl(url);
 
                 if (domain.equalsIgnoreCase("vuukle.com")) {
                     String[] uris = url.split("&uri=");
@@ -67,12 +67,7 @@ public class WebViewLinkClick {
                     }
                 }
 
-                Log.i("AID", "" + articleAid);
-
-//                IntentUtils.openArticle(context, "" + aid, url);
-                openActivity(context, "" + aid, url);
-
-//                IntentUtils.openDetailActivity(context, "" + aid, url);
+                openActivity(context,  aid, url);
 
                 return true;
             }

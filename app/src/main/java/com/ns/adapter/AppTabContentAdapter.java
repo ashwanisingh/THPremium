@@ -125,8 +125,8 @@ public class AppTabContentAdapter extends BaseRecyclerViewAdapter {
             isExistInBookmark(holder.bookmark_Img.getContext(), bean.getArticleId(), holder.bookmark_Img);
 
             holder.bookmark_Img.setOnClickListener(v->
-//                bookmarkClick(i, holder.bookmark_Img.getContext(), bean);
-                updateBookmarkFavLike(position, bean, "bookmark")
+                bookmarkClick(position, holder.bookmark_Img.getContext(), bean)
+//                updateBookmarkFavLike(position, bean, "bookmark")
             );
 
             holder.like_Img.setOnClickListener(v->
@@ -163,14 +163,14 @@ public class AppTabContentAdapter extends BaseRecyclerViewAdapter {
             holder.mTitleTV.setText(bean.getArticletitle());
             holder.timeTxt.setText(AppDateUtil.getDetailScreenPublishDate(AppDateUtil.changeStringToMillisGMT(bean.getPubDateTime()), Locale.ENGLISH));
 
-            if(bean.getThumbnailUrl() == null || TextUtils.isEmpty(ContentUtil.getThumbUrl(bean.getThumbnailUrl()))) {
+            if(bean.getThumbnailUrl() == null || TextUtils.isEmpty(ContentUtil.getBannerUrl(bean.getIMAGES()))) {
                 holder.imageView.setVisibility(View.GONE);
                 holder.captionText.setVisibility(View.GONE);
                 holder.shadowOverlay.setVisibility(View.GONE);
             }
             else {
                 holder.imageView.setVisibility(View.VISIBLE);
-                GlideUtil.loadImage(holder.itemView.getContext(), holder.imageView, ContentUtil.getThumbUrl(bean.getThumbnailUrl()));
+                GlideUtil.loadImage(holder.itemView.getContext(), holder.imageView, ContentUtil.getBannerUrl(bean.getIMAGES()));
 
                 String caption = null;
                 if(bean.getIMAGES() != null && bean.getIMAGES().size() > 0) {
@@ -187,6 +187,11 @@ public class AppTabContentAdapter extends BaseRecyclerViewAdapter {
                 }
 
             }
+
+            holder.imageView.setOnClickListener(v->{
+//                IntentUtils.openVerticleGalleryActivity(holder.itemView.getContext(), articleBean.getIMAGES(), articleBean.getTITLE());
+                IntentUtil.openHorizontalGalleryActivity(holder.itemView.getContext(), null, bean.getIMAGES(), 0);
+            });
 
         }
         else if(viewHolder instanceof DetailDescriptionWebViewHolder) {
@@ -313,6 +318,14 @@ public class AppTabContentAdapter extends BaseRecyclerViewAdapter {
 
             }
         }, NetConstants.USER_ID, BuildConfig.SITEID, bean.getArticleId(), bookmark, favourite);
+    }
+
+    public int getDescriptionItemPosition() {
+        return mDescriptionItemPosition;
+    }
+
+    public int getLastDescriptionTextSize() {
+        return mLastDescriptionTextSize;
     }
 
 }

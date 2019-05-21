@@ -277,6 +277,7 @@ public class ApiManager {
                             if (model.getData().size() > 0) {
                                 recoBean.setDescription(model.getData().get(0).getDe());
                                 recoBean.setLeadText(model.getData().get(0).getAl());
+                                recoBean.setIMAGES(model.getData().get(0).getMe());
                                 thp.dashboardDao().updateRecobean(aid, recoBean);
                             }
                             return recoBean;

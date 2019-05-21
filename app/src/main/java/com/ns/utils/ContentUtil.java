@@ -1,5 +1,8 @@
 package com.ns.utils;
 
+import com.netoperation.model.MeBean;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class ContentUtil {
@@ -25,6 +28,13 @@ public class ContentUtil {
     public static String getThumbUrl(List<String> urls) {
         if(urls != null && urls.size()>0) {
             return urls.get(0);
+        }
+        return "http://";
+    }
+
+    public static String getBannerUrl(ArrayList<MeBean> urls) {
+        if(urls != null && urls.size()>0) {
+            return urls.get(0).getIm_v2();
         }
         return "http://";
     }

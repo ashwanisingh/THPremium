@@ -1,12 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.customeview.views.layout.CustomLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
-    <include layout="@layout/listing_divider"
-        android:id="@+id/toolbarDivider"
-        />
+    <RelativeLayout
+        android:id="@+id/parentTopLayout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_height"
+        android:orientation="horizontal"
+
+        >
+
+        <ImageView
+            style="@style/backBtnStyle"
+            android:id="@+id/backBtn"
+            android:src="@drawable/ic_back_copy_2"
+            android:layout_centerVertical="true"/>
+
+        <com.ns.view.CustomTextView
+            android:id="@+id/titleText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_toRightOf="@+id/backBtn"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+            android:layout_marginEnd="20dp"
+            android:gravity="center"
+            android:textSize="@dimen/personal_info_textSize_16sp"
+            android:textColor="@color/boldBlackColor"
+            app:font_path="@string/FONT_FIRA_SANS_BOLD"
+            />
+
+
+        <include android:layout_width="match_parent"
+            android:layout_height="@dimen/listing_divider_height"
+            layout="@layout/listing_divider"
+            android:layout_alignParentBottom="true"
+            />
+    </RelativeLayout>
+
+
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -27,4 +63,4 @@
             android:layout_gravity="center" />
     </FrameLayout>
 
-</com.customeview.views.layout.CustomLinearLayout>
+</LinearLayout>

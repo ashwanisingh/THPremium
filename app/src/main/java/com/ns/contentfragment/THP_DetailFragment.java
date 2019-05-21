@@ -3,13 +3,16 @@ package com.ns.contentfragment;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 
+import com.google.android.gms.common.api.Api;
 import com.netoperation.model.RecoBean;
 import com.netoperation.net.ApiManager;
+import com.netoperation.util.UserPref;
 import com.ns.activity.BaseRecyclerViewAdapter;
 import com.ns.activity.THP_DetailActivity;
 import com.ns.adapter.AppTabContentAdapter;
@@ -19,6 +22,11 @@ import com.ns.loginfragment.BaseFragmentTHP;
 import com.ns.model.AppTabContentModel;
 import com.ns.model.ToolbarCallModel;
 import com.ns.thpremium.R;
+import com.ns.tts.TTSCallbacks;
+import com.ns.tts.TTSManager;
+import com.ns.utils.CommonUtil;
+import com.ns.utils.IntentUtil;
+import com.ns.utils.THPConstants;
 import com.ns.view.RecyclerViewPullToRefresh;
 
 import java.util.ArrayList;
@@ -114,6 +122,9 @@ public class THP_DetailFragment extends BaseFragmentTHP implements RecyclerViewP
         if(mActivity != null && mIsVisible) {
             // Set Toolbar Item Click Listener
             mActivity.setOnFragmentTools(this);
+
+            // Checking Visible Article is bookmarked or not.
+            isExistInBookmark(mArticleId);
         }
 
 
@@ -186,37 +197,117 @@ public class THP_DetailFragment extends BaseFragmentTHP implements RecyclerViewP
 
     @Override
     public void onShareClickListener(ToolbarCallModel toolbarCallModel) {
-
+        CommonUtil.shareArticle(getActivity(), mRecoBean);
     }
 
     @Override
     public void onCreateBookmarkClickListener(ToolbarCallModel toolbarCallModel) {
-
+        ApiManager.createBookmark(getActivity(), mRecoBean)
+                .subscribe(value->
+                        mActivity.getToolbar().setIsBookmarked((Boolean)value)
+                );
     }
 
     @Override
     public void onRemoveBookmarkClickListener(ToolbarCallModel toolbarCallModel) {
-
+        ApiManager.createUnBookmark(getActivity(), mArticleId)
+                .subscribe(value->
+                        mActivity.getToolbar().setIsBookmarked((Boolean)value)
+                );
     }
 
     @Override
     public void onFontSizeClickListener(ToolbarCallModel toolbarCallModel) {
+        final int currentSize = UserPref.getInstance(getActivity()).getDescriptionSize();
+        switch (currentSize) {
+            case THPConstants.DESCRIPTION_SMALL:
+                UserPref.getInstance(getActivity()).setDescriptionSize(THPConstants.DESCRIPTION_NORMAL);
+                break;
 
+            case THPConstants.DESCRIPTION_NORMAL:
+                UserPref.getInstance(getActivity()).setDescriptionSize(THPConstants.DESCRIPTION_LARGE);
+                break;
+
+            case THPConstants.DESCRIPTION_LARGE:
+                UserPref.getInstance(getActivity()).setDescriptionSize(THPConstants.DESCRIPTION_LARGEST);
+                break;
+
+            case THPConstants.DESCRIPTION_LARGEST:
+                UserPref.getInstance(getActivity()).setDescriptionSize(THPConstants.DESCRIPTION_SMALL);
+                break;
+        }
+
+        updateDescriptionTextSize();
     }
 
     @Override
     public void onCommentClickListener(ToolbarCallModel toolbarCallModel) {
-
+        IntentUtil.openCommentActivity(getActivity(), mRecoBean);
     }
 
     @Override
     public void onTTSPlayClickListener(ToolbarCallModel toolbarCallModel) {
+        TTSManager ttsManager2 = TTSManager.getInstance();
+        if(ttsManager2.isTTSInitialized()) {
+            ttsManager2.speakSpeech(mRecoBean);
+            return;
+        }
+        ttsManager2.init(getActivity(),  new TTSCallbacks() {
+            @Override
+            public boolean onTTSInitialized() {
+                TTSManager.getInstance().speakSpeech(mRecoBean);
+                return false;
+            }
 
+            @Override
+            public boolean isPlaying() {
+                return false;
+            }
+
+            @Override
+            public void onTTSError(int errorCode) {
+                switch (errorCode) {
+                    case TextToSpeech.LANG_MISSING_DATA:
+                        Alerts.showToast(getActivity(), R.string.language_not_available);
+                        break;
+                    case TextToSpeech.LANG_NOT_SUPPORTED:
+                        Alerts.showToast(getActivity(), R.string.language_not_available);
+                        break;
+                    case 1000:
+                    case 1001:
+                        Alerts.showToast(getActivity(), R.string.language_missing_data);
+                        IntentUtil.installVoiceData(getActivity());
+                        break;
+
+                }
+                mActivity.getToolbar().showTTSPlayView(UserPref.getInstance(getActivity()).isLanguageSupportTTS());
+            }
+
+            @Override
+            public void onTTSPlayStarted(int loopCount) {
+                if(loopCount == 0) {
+                    mActivity.getToolbar().showTTSPauseView(UserPref.getInstance(getActivity()).isLanguageSupportTTS());
+                }
+            }
+        });
     }
 
     @Override
     public void onTTSStopClickListener(ToolbarCallModel toolbarCallModel) {
+        TTSManager.getInstance().stopTTS();
+        mActivity.getToolbar().showTTSPlayView(UserPref.getInstance(getActivity()).isLanguageSupportTTS());
+    }
 
+    /**
+     * Updates Description WebView Text Size
+     */
+    private void updateDescriptionTextSize() {
+        if(mRecyclerAdapter != null) {
+            int descriptionSize = UserPref.getInstance(getActivity()).getDescriptionSize();
+            if(mRecyclerAdapter.getLastDescriptionTextSize() != descriptionSize) {
+                mRecyclerAdapter.notifyItemChanged(mRecyclerAdapter.getDescriptionItemPosition());
+            }
+        }
     }
 
 

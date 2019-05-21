@@ -24,6 +24,9 @@ public class MeBean implements Parcelable {
     private String bigImgUrl;
 
     public String getListingImgUrl() {
+        if(listingImgUrl == null) {
+            return im_v2;
+        }
         return listingImgUrl;
     }
 
@@ -32,6 +35,9 @@ public class MeBean implements Parcelable {
     }
 
     public String getBigImgUrl() {
+        if(bigImgUrl == null) {
+            return im_v2;
+        }
         return bigImgUrl;
     }
 

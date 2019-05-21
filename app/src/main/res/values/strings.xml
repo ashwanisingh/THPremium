@@ -20,5 +20,10 @@
     <string name="article_not_loaded">Clicked link\'s article is not loaded.\nPlease check your internet connectivity.</string>
     <string name="please_wait">Please wait...</string>
 
+    <string name="comments">COMMENTS</string>
+
+    <string name="language_not_available">Language is not available.</string>
+    <string name="language_missing_data">Language is not downloaded. Please download from Google TTS voice data.</string>
+
 
 </resources>

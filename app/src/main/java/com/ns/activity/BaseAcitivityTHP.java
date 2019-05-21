@@ -9,6 +9,7 @@ import com.ns.callbacks.FragmentTools;
 import com.ns.callbacks.ToolbarClickListener;
 import com.ns.model.ToolbarCallModel;
 import com.ns.thpremium.R;
+import com.ns.tts.TTSManager;
 import com.ns.utils.CommonUtil;
 import com.ns.view.CustomToolbar;
 
@@ -44,7 +45,17 @@ public abstract class BaseAcitivityTHP extends AppCompatActivity implements Tool
         }
     }
 
+    @Override
+    protected void onStop() {
+        TTSManager.getInstance().stopTTS();
+        super.onStop();
+    }
 
+    @Override
+    protected void onDestroy() {
+        TTSManager.getInstance().release();
+        super.onDestroy();
+    }
 
 
     public void setOnFragmentTools(FragmentTools fragmentTools) {

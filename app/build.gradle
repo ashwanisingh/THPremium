@@ -37,6 +37,7 @@ android {
             buildConfigField "String", "ORIGIN_URL", "\"thehindu.com\""
             buildConfigField "String", "BASE_URL", "\"http://tai.thehindu.co.in\""
             buildConfigField "String", "LOCALE", "\"en\""
+            buildConfigField "String", "VUUKLE_API_KEY", "\"432081eb-6e8e-4abc-a88f-ca5357aa7244\""
             versionName "staging_1.0"
 
         }
@@ -48,6 +49,7 @@ android {
             buildConfigField "String", "ORIGIN_URL", "\"thehindu.com\""
             buildConfigField "String", "BASE_URL", "\"http://tai.thehindu.com\""
             buildConfigField "String", "LOCALE", "\"en\""
+            buildConfigField "String", "VUUKLE_API_KEY", "\"432081eb-6e8e-4abc-a88f-ca5357aa7244\""
             versionName "1.0"
         }
 
@@ -77,6 +79,9 @@ dependencies {
 
     // Dot Indicator
     implementation 'com.tbuonomo.andrui:viewpagerdotsindicator:3.0.3'
+
+    //Image Zooming
+    implementation project(':photoview')
 
     implementation deps.otpEntryEditText
 
