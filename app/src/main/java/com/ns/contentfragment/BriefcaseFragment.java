@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import com.netoperation.util.NetConstants;
 import com.ns.activity.BaseRecyclerViewAdapter;
 import com.ns.adapter.AppTabContentAdapter;
 import com.ns.model.AppTabContentModel;
@@ -66,7 +67,7 @@ public class BriefcaseFragment extends BaseFragmentTHP implements RecyclerViewPu
         models.add(model3);
         models.add(model4);
 
-        adapter = new AppTabContentAdapter(models);
+        adapter = new AppTabContentAdapter(models, NetConstants.RECO_briefcase);
 
         recyclerView.setDataAdapter(adapter);
 

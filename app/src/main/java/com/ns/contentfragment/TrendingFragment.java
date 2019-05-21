@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
 
+import com.netoperation.util.NetConstants;
 import com.ns.activity.BaseRecyclerViewAdapter;
 import com.ns.adapter.AppTabContentAdapter;
 import com.ns.model.AppTabContentModel;
@@ -53,7 +54,7 @@ public class TrendingFragment extends BaseFragmentTHP implements RecyclerViewPul
         models.add(model3);
         models.add(model4);
 
-        adapter = new AppTabContentAdapter(models);
+        adapter = new AppTabContentAdapter(models, NetConstants.RECO_trending);
 
         recyclerView.setDataAdapter(adapter);
 

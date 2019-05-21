@@ -22,4 +22,6 @@ public class AppTabContentModel {
     public void setBean(RecoBean bean) {
         this.bean = bean;
     }
+
+
 }

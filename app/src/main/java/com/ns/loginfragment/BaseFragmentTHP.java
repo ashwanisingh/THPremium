@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.github.pwittchen.reactivenetwork.library.rx2.ReactiveNetwork;
+import com.ns.activity.BaseAcitivityTHP;
 import com.ns.alerts.Alerts;
 import com.ns.thpremium.R;
 
@@ -24,6 +25,8 @@ public abstract class BaseFragmentTHP extends Fragment {
 
     protected boolean mIsOnline;
     protected boolean mIsVisible;
+
+    protected BaseAcitivityTHP mActivity;
 
     protected final CompositeDisposable mDisposable = new CompositeDisposable();
 

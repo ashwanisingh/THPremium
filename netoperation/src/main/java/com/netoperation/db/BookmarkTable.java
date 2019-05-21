@@ -22,15 +22,6 @@ public class BookmarkTable {
         this.bean = bean;
     }
 
-//    public int getId() {
-//        return id;
-//    }
-//
-//    public void setId(int id) {
-//        this.id = id;
-//    }
-
-
     public String getAid() {
         return aid;
     }

@@ -1,6 +1,7 @@
 package com.ns.alerts;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
@@ -172,6 +173,17 @@ public class Alerts {
         TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
         textView.setTextColor(Color.BLUE);
         snackbar.show();
+    }
+
+    public static ProgressDialog showProgressDialog(Context context) {
+        ProgressDialog progress = new ProgressDialog(context);
+        progress.setMessage(context.getResources().getString(R.string.please_wait));
+        progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progress.setIndeterminate(true);
+        progress.setCancelable(false);
+        progress.setCanceledOnTouchOutside(false);
+        progress.show();
+        return progress;
     }
 
 

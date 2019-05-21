@@ -11,6 +11,8 @@ public class NetConstants {
     /** When user wants to suspend or delete account */
     public static final String EVENT_CHANGE_ACCOUNT_STATUS = "changeAccountStatus";
 
+    public static final String SEARCH_BY_ARTICLE_ID_URL = "http://hinduappserver1.ninestars.in/hindu/service/api_v3/mobiles/search.php?guid=";
+
 
     public static final String RECO_ALL = "all";
     public static final String RECO_suggested = "suggested";
@@ -18,5 +20,15 @@ public class NetConstants {
     public static final String RECO_trending = "trending";
     public static final String RECO_bookmarks = "bookmarks";
     public static final String RECO_briefcase = "briefcase";
+    public static final String RECO_TEMP_NOT_EXIST = "TEMP_NOT_EXIST";
+
+    public static final int BOOKMARK_YES = 1;
+    public static final int BOOKMARK_NO = 0;
+
+    public static final int LIKE_YES = 1;
+    public static final int LIKE_NEUTRAL = 0;
+    public static final int LIKE_NO = -1;
+
+    public static final String USER_ID = "81";
 
 }

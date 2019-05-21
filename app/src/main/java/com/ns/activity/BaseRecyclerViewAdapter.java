@@ -1,6 +1,13 @@
 package com.ns.activity;
 
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
+import android.view.View;
+import android.widget.ImageView;
+
+import com.netoperation.model.RecoBean;
+import com.ns.thpremium.R;
+import com.ns.utils.THPConstants;
 
 public abstract class BaseRecyclerViewAdapter extends RecyclerView.Adapter {
 
@@ -11,4 +18,46 @@ public abstract class BaseRecyclerViewAdapter extends RecyclerView.Adapter {
     public static final int VT_BOOKMARK = 5;
     public static final int VT_ADD_NEW_ADDRESS = 6;
     public static final int VT_LOADMORE = 7;
+
+    public static final int VT_DETAIL_DESCRIPTION_WEBVIEW = 8;
+    public static final int VT_DETAIL_IMAGE_BANNER= 9;
+    public static final int VT_DETAIL_VIDEO_PLAYER= 10;
+    public static final int VT_DETAIL_AUDIO_PLAYER= 11;
+
+
+    /**
+     * Shows Article Type Image
+     * @param articleType
+     * @param articleTypeimageView
+     */
+    protected void articleTypeImage(String articleType, RecoBean articleBean, ImageView articleTypeimageView) {
+        if(articleType != null) {
+            if(articleType.equalsIgnoreCase(THPConstants.ARTICLE_TYPE_ARTICLE)) {
+                articleTypeimageView.setVisibility(View.GONE);
+            }
+            else if(articleType.equalsIgnoreCase(THPConstants.ARTICLE_TYPE_AUDIO)) {
+                articleTypeimageView.setVisibility(View.VISIBLE);
+                articleTypeimageView.setImageResource(R.drawable.podcasts);
+            }
+            else if(articleType.equalsIgnoreCase(THPConstants.ARTICLE_TYPE_PHOTO)) {
+                articleTypeimageView.setVisibility(View.VISIBLE);
+                articleTypeimageView.setImageResource(R.drawable.photos);
+            }
+            else if(articleType.equalsIgnoreCase(THPConstants.ARTICLE_TYPE_VIDEO)) {
+                articleTypeimageView.setVisibility(View.VISIBLE);
+                if(articleBean.getVIDEO_URL() != null && !TextUtils.isEmpty(articleBean.getVIDEO_URL())) {
+                    articleTypeimageView.setImageResource(R.drawable.video);
+                }
+                else {
+                    articleTypeimageView.setImageResource(R.drawable.yt_play_big);
+                }
+            }
+            else {
+                articleTypeimageView.setVisibility(View.GONE);
+            }
+        }
+        else {
+            articleTypeimageView.setVisibility(View.GONE);
+        }
+    }
 }

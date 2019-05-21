@@ -28,7 +28,6 @@ import java.util.concurrent.TimeoutException;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
 public class DashboardFragment extends BaseFragmentTHP implements RecyclerViewPullToRefresh.TryAgainBtnClickListener {
@@ -62,7 +61,7 @@ public class DashboardFragment extends BaseFragmentTHP implements RecyclerViewPu
         recentBtn_Txt = view.findViewById(R.id.recentBtn_Txt);
         mPullToRefreshLayout = view.findViewById(R.id.recyclerView);
 
-        mRecyclerAdapter = new AppTabContentAdapter(new ArrayList<>());
+        mRecyclerAdapter = new AppTabContentAdapter(new ArrayList<>(), NetConstants.RECO_ALL);
 
         mPullToRefreshLayout.setDataAdapter(mRecyclerAdapter);
 
@@ -119,7 +118,7 @@ public class DashboardFragment extends BaseFragmentTHP implements RecyclerViewPu
         Observable<List<RecoBean>> observable = null;
 
         if (isOnline) {
-            observable = ApiManager.getRecommendation(getActivity(), userId,
+            observable = ApiManager.getRecommendationFromServer(getActivity(), userId,
                     NetConstants.RECO_ALL, ""+mSize, BuildConfig.SITEID);
         } else {
             observable = ApiManager.getRecommendationFromDB(getActivity(), NetConstants.RECO_ALL);

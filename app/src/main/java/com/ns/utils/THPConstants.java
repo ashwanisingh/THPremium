@@ -12,4 +12,17 @@ public class THPConstants {
 
     public static final String date_dd_MM_yyyy = "dd-MM-yyyy";
 
+    public static final int DESCRIPTION_SMALL = 1;
+    public static final int DESCRIPTION_NORMAL = 2;
+    public static final int DESCRIPTION_LARGE = 3;
+    public static final int DESCRIPTION_LARGEST = 4;
+
+    public static final int THEME_WHITE = 1;
+    public static final int THEME_GREY = 2;
+
+    public static final String ARTICLE_TYPE_ARTICLE = "article";
+    public static final String ARTICLE_TYPE_PHOTO = "photo";
+    public static final String ARTICLE_TYPE_AUDIO = "audio";
+    public static final String ARTICLE_TYPE_VIDEO = "video";
+
 }

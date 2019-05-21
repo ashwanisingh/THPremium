@@ -18,6 +18,7 @@
     <string name="try_again">We could not load the data.\n Tap to retry</string>
 
     <string name="article_not_loaded">Clicked link\'s article is not loaded.\nPlease check your internet connectivity.</string>
+    <string name="please_wait">Please wait...</string>
 
 
 </resources>

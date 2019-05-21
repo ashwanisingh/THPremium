@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/back"
+        android:layout_width="@dimen/toolbar_ic_width"
+        android:layout_height="@dimen/toolbar_ic_height"
+        android:layout_centerVertical="true"
+        android:scaleType="center"
+        android:src="@drawable/ic_back_copy_2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/shareIC"
+        android:layout_width="@dimen/toolbar_ic_width"
+        android:layout_height="@dimen/toolbar_ic_height"
+        android:layout_marginEnd="@dimen/toolbar_ic_gap"
+        android:layout_marginRight="@dimen/toolbar_ic_gap"
+        android:scaleType="center"
+        android:src="@drawable/share"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <FrameLayout
+        android:id="@+id/bookmarkParent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="15dp"
+        android:layout_marginRight="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintRight_toLeftOf="@+id/shareIC"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/bookmarkedIC"
+            android:layout_width="@dimen/toolbar_ic_width"
+            android:layout_height="@dimen/toolbar_ic_height"
+            android:scaleType="center"
+            android:src="@drawable/ic_bookmark_selected"
+            android:visibility="invisible"
+            android:layout_gravity="center"/>
+
+        <ImageView
+            android:id="@+id/bookmarkIC"
+            android:layout_width="@dimen/toolbar_ic_width"
+            android:layout_height="@dimen/toolbar_ic_height"
+            android:scaleType="center"
+            android:src="@drawable/ic_bookmark_unselected"
+            android:layout_gravity="center"/>
+
+    </FrameLayout>
+
+    <ImageView
+        android:id="@+id/fontSizeIC"
+        android:layout_width="@dimen/toolbar_ic_width"
+        android:layout_height="@dimen/toolbar_ic_height"
+        android:layout_marginEnd="@dimen/toolbar_ic_gap"
+        android:layout_marginRight="@dimen/toolbar_ic_gap"
+        android:scaleType="center"
+        android:src="@drawable/font_size"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintRight_toLeftOf="@+id/bookmarkParent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/commentIC"
+        android:layout_width="@dimen/toolbar_ic_width"
+        android:layout_height="@dimen/toolbar_ic_height"
+        android:layout_marginEnd="@dimen/toolbar_ic_gap"
+        android:layout_marginRight="@dimen/toolbar_ic_gap"
+        android:scaleType="center"
+        android:src="@drawable/comment"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintRight_toLeftOf="@+id/fontSizeIC"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <ImageView
+        android:id="@+id/ttsPauseIC"
+        android:layout_width="@dimen/toolbar_ic_width"
+        android:layout_height="@dimen/toolbar_ic_height"
+        android:layout_marginEnd="@dimen/toolbar_ic_gap"
+        android:layout_marginRight="@dimen/toolbar_ic_gap"
+        android:scaleType="center"
+        android:src="@drawable/tts_pause"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintRight_toLeftOf="@+id/commentIC"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/ttsPlayIC"
+        android:layout_width="@dimen/toolbar_ic_width"
+        android:layout_height="@dimen/toolbar_ic_height"
+        android:layout_marginEnd="@dimen/toolbar_ic_gap"
+        android:layout_marginRight="@dimen/toolbar_ic_gap"
+        android:scaleType="center"
+        android:src="@drawable/tts_play"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintRight_toLeftOf="@+id/commentIC"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ProgressBar
+        android:id="@+id/ttsProgress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@android:style/Widget.ProgressBar.Small"
+        android:layout_marginEnd="30dp"
+        android:layout_marginRight="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintRight_toLeftOf="@+id/commentIC"
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="gone"/>
+
+
+</android.support.constraint.ConstraintLayout>

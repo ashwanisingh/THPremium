@@ -61,7 +61,7 @@ public class BookmarksFragment extends BaseFragmentTHP implements RecyclerViewPu
         models.add(model3);
         models.add(model4);
 
-        adapter = new AppTabContentAdapter(models);
+        adapter = new AppTabContentAdapter(models, "BookmarksFragment");
 
         recyclerView.setDataAdapter(adapter);
 

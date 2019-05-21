@@ -41,6 +41,8 @@
         <activity android:name="com.ns.activity.SubscriptionActivity" />
         <activity android:name="com.ns.activity.UserProfileActivity" />
         <activity android:name="com.ns.activity.BecomeMemberActivity" />
+        <activity android:name="com.ns.activity.THP_DetailActivity" />
+        <activity android:name="com.ns.activity.THP_WebActivity" />
     </application>
 
 </manifest>

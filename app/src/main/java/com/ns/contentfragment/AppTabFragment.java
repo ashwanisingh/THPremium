@@ -7,6 +7,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.animation.LinearInterpolator;
 import android.widget.LinearLayout;
 
 import com.ns.adapter.AppTabPagerAdapter;
@@ -14,6 +15,9 @@ import com.ns.thpremium.R;
 import com.ns.loginfragment.BaseFragmentTHP;
 import com.ns.utils.FragmentUtil;
 import com.ns.utils.IntentUtil;
+import com.ns.view.ViewPagerScroller;
+
+import java.lang.reflect.Field;
 
 public class AppTabFragment extends BaseFragmentTHP {
 
@@ -47,6 +51,10 @@ public class AppTabFragment extends BaseFragmentTHP {
         pagerAdapter = new AppTabPagerAdapter(getChildFragmentManager());
 
         viewPager.setAdapter(pagerAdapter);
+        viewPager.setOffscreenPageLimit(3);
+
+        // This is smooth scroll of ViewPager
+        smoothPagerScroll();
 
         mTabLayout.setupWithViewPager(viewPager, true);
 
@@ -116,5 +124,19 @@ public class AppTabFragment extends BaseFragmentTHP {
             IntentUtil.openUserProfileActivity(getActivity(), "")
         );
 
+    }
+
+    /**
+     * This is ViewPager Page Scroll Animation
+     */
+    private void smoothPagerScroll() {
+        try {
+            Field mScroller = ViewPager.class.getDeclaredField("mScroller");
+            mScroller.setAccessible(true);
+            mScroller.set(viewPager, new ViewPagerScroller(getActivity(),
+                    new LinearInterpolator(), 250));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

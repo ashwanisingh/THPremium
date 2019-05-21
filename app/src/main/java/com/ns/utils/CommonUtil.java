@@ -2,21 +2,29 @@ package com.ns.utils;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Point;
 import android.os.Build;
+import android.os.Environment;
 import android.text.Html;
 import android.text.Spanned;
 import android.view.Display;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
+import com.netoperation.model.RecoBean;
+
+import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.net.URLDecoder;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by ashwanisingh on 03/03/18.
@@ -73,6 +81,84 @@ public class CommonUtil {
         } else {
             return Html.fromHtml(text); // or for older api
         }
+    }
+
+    public static int getArticleIdFromArticleUrl(String url) {
+        Pattern p = Pattern.compile("article(\\d+)");
+        Matcher m = p.matcher(url);
+        int mArticleId = 0;
+        if (m.find()) {
+            try {
+                mArticleId = Integer.parseInt(m.group(1));
+            } catch (Exception e) {
+                return 0;
+            }
+        }
+
+        return mArticleId;
+    }
+
+    public static List<String> getFolderImageList(){
+        List<String> mList = new ArrayList<>();
+        File sdCardRoot = new File(Environment.getExternalStorageDirectory().getPath() , "NewsDXImgFolder");
+        for (File f : sdCardRoot.listFiles()) {
+            String name =null;
+            if (f.isFile()) {
+                name = f.getName();
+            }
+            mList.add(name);
+        }
+        return mList;
+    }
+
+
+    public static void shareArticle(Context mContext, RecoBean bean) {
+        String mShareTitle = bean.getArticletitle();
+        String mShareUrl = bean.getArticleUrl();
+        String sectionName = bean.getArticleSection();
+
+
+        if (mShareTitle == null) {
+            mShareTitle ="Download TheHindu official app.";
+        }
+        if (mShareUrl == null) {
+            mShareUrl ="https://play.google.com/store/apps/details?id=com.mobstac.thehindu";
+        }
+        if (sectionName == null) {
+            sectionName ="";
+        }
+
+        // This is from Share Intent
+        Intent intent = getSharingIntent(mShareTitle, mShareUrl);
+        mContext.startActivity(intent);
+
+
+    }
+
+
+    public static Intent getSharingIntent(String mShareTitle,String mShareUrl) {
+
+        if (mShareTitle == null) {
+            mShareTitle = "";
+        }
+        if (mShareUrl == null) {
+            mShareUrl = "";
+        }
+        Intent sharingIntent = new Intent(
+                android.content.Intent.ACTION_SEND);
+        sharingIntent.setType("text/plain");
+        if (mShareUrl != null && !mShareUrl.contains("thehindu.com")) {
+            mShareUrl = "http://thehindu.com" + mShareUrl;
+        }
+        String shareBody = mShareTitle
+                + ": " + mShareUrl;
+        sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT,
+                mShareTitle);
+        sharingIntent
+                .putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+        sharingIntent.putExtra(android.content.Intent.EXTRA_TITLE,
+                mShareTitle);
+        return Intent.createChooser(sharingIntent, "Share Via");
     }
 
 

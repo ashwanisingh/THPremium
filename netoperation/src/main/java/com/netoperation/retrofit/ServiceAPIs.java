@@ -4,11 +4,17 @@ package com.netoperation.retrofit;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.netoperation.model.RecomendationData;
+import com.netoperation.model.SearchedArticleModel;
+import com.netoperation.model.UserChoice;
+
+import java.util.List;
 
 import io.reactivex.Observable;
 import retrofit2.http.Body;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
+import retrofit2.http.Url;
 
 /**
  * Created by ashwanisingh on 04/23/19.
@@ -60,8 +66,17 @@ public interface ServiceAPIs {
     Observable<JsonElement> setUserPreference(@Body JsonObject setUserPreferenceBody);
 
 
-    @POST("/mydashboard/userreco/hindu")
+    @GET("/mydashboard/userreco/hindu")
     Observable<RecomendationData> getRecommendation(@Query("userid") String userid, @Query("recotype") String recotype,
                                                     @Query("size") String size, @Query("siteid") String siteid );
+
+    @POST("/mydashboard/userchoice/HINDU")
+    Observable<JsonElement> createBookmarkFavLike(@Body JsonObject bookmarkFavLikeBody);
+
+    @GET("/mydashboard/userchoicelist/HINDU")
+    Observable<List<UserChoice>> getBookmarkFavLike(@Query("userid") String userid, @Query("siteid") String siteid );
+
+    @GET("")
+    Observable<SearchedArticleModel> searchArticleByIDFromServer(@Url String url);
 
 }

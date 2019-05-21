@@ -26,6 +26,6 @@ public class ContentUtil {
         if(urls != null && urls.size()>0) {
             return urls.get(0);
         }
-        return "";
+        return "http://";
     }
 }

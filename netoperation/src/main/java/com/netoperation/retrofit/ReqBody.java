@@ -157,6 +157,18 @@ public class ReqBody {
         return object;
     }
 
+    public static JsonObject createBookmarkFavLike(@NonNull String userId, @NonNull String siteId,
+                                                   @NonNull String contentId, @NonNull int isBookmark,
+                                                   @NonNull int isFavourite) {
+        JsonObject object = new JsonObject();
+        object.addProperty("userId", userId);
+        object.addProperty("siteId", siteId);
+        object.addProperty("contentId", contentId);
+        object.addProperty("isBookmark", isBookmark);
+        object.addProperty("isFavourite", isFavourite);
+
+        return object;
+    }
 
 
 
