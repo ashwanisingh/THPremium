@@ -121,12 +121,14 @@ public class AppTabContentAdapter extends BaseRecyclerViewAdapter {
             holder.authorName_Txt.setText(ContentUtil.getAuthor(bean.getAuthor()));
             holder.title.setText(bean.getArticletitle());
             holder.sectionName.setText(bean.getArticleSection());
+            String timeDiff = AppDateUtil.getDurationFormattedDate(AppDateUtil.changeStringToMillisGMT(bean.getPubDateTime()), Locale.ENGLISH);
+            holder.time_Txt.setText(timeDiff);
 
             isExistInBookmark(holder.bookmark_Img.getContext(), bean.getArticleId(), holder.bookmark_Img);
 
             holder.bookmark_Img.setOnClickListener(v->
-                bookmarkClick(position, holder.bookmark_Img.getContext(), bean)
-//                updateBookmarkFavLike(position, bean, "bookmark")
+//                bookmarkClick(position, holder.bookmark_Img.getContext(), bean)
+                updateBookmarkFavLike(position, bean, "bookmark")
             );
 
             holder.like_Img.setOnClickListener(v->
@@ -154,6 +156,39 @@ public class AppTabContentAdapter extends BaseRecyclerViewAdapter {
         else if(viewHolder instanceof BookmarkViewHolder) {
             BookmarkViewHolder holder = (BookmarkViewHolder) viewHolder;
             holder.trendingIcon_Img.setVisibility(View.VISIBLE);
+
+
+            holder.trendingIcon_Img.setVisibility(View.GONE);
+
+            GlideUtil.loadImage(holder.image.getContext(), holder.image, ContentUtil.getThumbUrl(bean.getThumbnailUrl()));
+            holder.authorName_Txt.setText(ContentUtil.getAuthor(bean.getAuthor()));
+            holder.title.setText(bean.getArticletitle());
+            holder.sectionName.setText(bean.getArticleSection());
+            String timeDiff = AppDateUtil.getDurationFormattedDate(AppDateUtil.changeStringToMillisGMT(bean.getPubDateTime()), Locale.ENGLISH);
+            holder.time_Txt.setText(timeDiff);
+
+            isExistInBookmark(holder.bookmark_Img.getContext(), bean.getArticleId(), holder.bookmark_Img);
+
+            holder.bookmark_Img.setOnClickListener(v->
+//                bookmarkClick(position, holder.bookmark_Img.getContext(), bean)
+                            updateBookmarkFavLike(position, bean, "bookmark")
+            );
+
+            holder.like_Img.setOnClickListener(v->
+                    updateBookmarkFavLike(position, bean, "favourite")
+            );
+
+            holder.toggleBtn_Img.setOnClickListener(v->
+                    updateBookmarkFavLike(position, bean, "dislike")
+            );
+
+            holder.itemView.setOnClickListener(v->
+                    IntentUtil.openDetailActivity(holder.itemView.getContext(), mFrom,
+                            bean.getArticleUrl(), position, bean.getArticleId())
+            );
+
+
+
         }
         else if (viewHolder instanceof DetailBannerViewHolder) {
             DetailBannerViewHolder holder = (DetailBannerViewHolder) viewHolder;

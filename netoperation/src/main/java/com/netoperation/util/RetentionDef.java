@@ -9,6 +9,7 @@ import static com.netoperation.util.NetConstants.EVENT_FORGOT_PASSWORD;
 import static com.netoperation.util.NetConstants.EVENT_SIGNUP;
 import static com.netoperation.util.NetConstants.RECO_ALL;
 import static com.netoperation.util.NetConstants.RECO_bookmarks;
+import static com.netoperation.util.NetConstants.RECO_briefcase;
 import static com.netoperation.util.NetConstants.RECO_personalised;
 import static com.netoperation.util.NetConstants.RECO_suggested;
 import static com.netoperation.util.NetConstants.RECO_trending;
@@ -21,6 +22,6 @@ public interface RetentionDef {
     @interface userVerificationMode {}
 
     @Retention(SOURCE)
-    @StringDef({RECO_ALL, RECO_bookmarks, RECO_personalised, RECO_suggested, RECO_trending})
+    @StringDef({RECO_ALL, RECO_bookmarks, RECO_personalised, RECO_suggested, RECO_trending, RECO_briefcase})
     @interface Recomendation {}
 }

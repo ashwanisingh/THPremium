@@ -69,7 +69,9 @@ public class DashboardFragment extends BaseFragmentTHP implements RecyclerViewPu
 
         mPullToRefreshLayout.showProgressBar();
 
-        loadData();
+        if(mIsVisible) {
+            loadData();
+        }
 
         // Pull To Refresh Listener
         registerPullToRefresh();
@@ -113,12 +115,10 @@ public class DashboardFragment extends BaseFragmentTHP implements RecyclerViewPu
 
     private void loadData(boolean isOnline) {
 
-        String userId = "10";
-
         Observable<List<RecoBean>> observable = null;
 
         if (isOnline) {
-            observable = ApiManager.getRecommendationFromServer(getActivity(), userId,
+            observable = ApiManager.getRecommendationFromServer(getActivity(), NetConstants.USER_ID,
                     NetConstants.RECO_ALL, ""+mSize, BuildConfig.SITEID);
         } else {
             observable = ApiManager.getRecommendationFromDB(getActivity(), NetConstants.RECO_ALL);

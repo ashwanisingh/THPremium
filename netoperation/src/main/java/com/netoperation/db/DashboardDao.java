@@ -23,6 +23,9 @@ public interface DashboardDao {
     @Query("DELETE FROM DashboardTable")
     void deleteAll();
 
+    @Query("DELETE FROM DashboardTable WHERE recoFrom = :recoFrom")
+    void deleteAll(String recoFrom);
+
     @Query("UPDATE DashboardTable SET bean = :bean WHERE aid = :aid")
     int updateRecobean(String aid, RecoBean bean);
 

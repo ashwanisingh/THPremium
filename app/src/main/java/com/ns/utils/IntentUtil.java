@@ -111,9 +111,6 @@ public class IntentUtil {
     }
 
     public static void openHorizontalGalleryActivity(Context context, ArrayList<ImageGallaryUrl> imageGallaryUrls, ArrayList<MeBean> meBeanList, int position) {
-
-        Log.i("","");
-
         if (meBeanList != null && meBeanList.size() > 0) {
             imageGallaryUrls = new ArrayList<>();
             for (MeBean imageBean : meBeanList) {

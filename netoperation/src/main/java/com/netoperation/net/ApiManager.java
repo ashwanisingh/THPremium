@@ -116,17 +116,12 @@ public class ApiManager {
                             }
                             THPDB thp = THPDB.getInstance(context);
                             if (beans != null && beans.size() > 0) {
-                                if (recotype.equals(NetConstants.RECO_ALL)) {
-                                    for (RecoBean bean : beans) {
-                                        DashboardTable dashboardTable = new DashboardTable(bean.getArticleId(), recotype, bean);
-                                        thp.dashboardDao().insertDashboard(dashboardTable);
-                                    }
-                                } else if (recotype.equals(NetConstants.RECO_trending)) {
-
-                                } else if (recotype.equals(NetConstants.RECO_briefcase)) {
-
-                                } else if (recotype.equals(NetConstants.RECO_TEMP_NOT_EXIST)) {
-
+                                if(!recotype.equalsIgnoreCase(NetConstants.RECO_TEMP_NOT_EXIST)) {
+                                    thp.dashboardDao().deleteAll(recotype);
+                                }
+                                for (RecoBean bean : beans) {
+                                    DashboardTable dashboardTable = new DashboardTable(bean.getArticleId(), recotype, bean);
+                                    thp.dashboardDao().insertDashboard(dashboardTable);
                                 }
                             }
                             return beans;

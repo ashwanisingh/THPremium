@@ -1,32 +1,41 @@
 package com.ns.contentfragment;
 
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 
-import com.github.pwittchen.reactivenetwork.library.rx2.ReactiveNetwork;
+import com.bumptech.glide.load.HttpException;
+import com.netoperation.model.RecoBean;
+import com.netoperation.net.ApiManager;
+import com.netoperation.util.NetConstants;
 import com.ns.activity.BaseRecyclerViewAdapter;
 import com.ns.adapter.AppTabContentAdapter;
+import com.ns.alerts.Alerts;
 import com.ns.model.AppTabContentModel;
+import com.ns.thpremium.BuildConfig;
 import com.ns.thpremium.R;
 import com.ns.loginfragment.BaseFragmentTHP;
 import com.ns.view.RecyclerViewPullToRefresh;
 
+import java.net.ConnectException;
+import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
+import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 public class BookmarksFragment extends BaseFragmentTHP implements RecyclerViewPullToRefresh.TryAgainBtnClickListener {
 
-    private RecyclerViewPullToRefresh recyclerView;
+    private RecyclerViewPullToRefresh mPullToRefreshLayout;
     private LinearLayout emptyLayout;
-    private AppTabContentAdapter adapter;
+    private AppTabContentAdapter mRecyclerAdapter;
+    private int mSize = 10;
 
     public static BookmarksFragment getInstance() {
         BookmarksFragment fragment = new BookmarksFragment();
@@ -44,29 +53,19 @@ public class BookmarksFragment extends BaseFragmentTHP implements RecyclerViewPu
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        recyclerView = view.findViewById(R.id.recyclerView);
+        mPullToRefreshLayout = view.findViewById(R.id.recyclerView);
         emptyLayout = view.findViewById(R.id.emptyLayout);
 
-        List<AppTabContentModel> models = new ArrayList<>();
+        mRecyclerAdapter = new AppTabContentAdapter(new ArrayList<>(), NetConstants.RECO_bookmarks);
 
-        AppTabContentModel model0 = new AppTabContentModel(BaseRecyclerViewAdapter.VT_BOOKMARK);
-        AppTabContentModel model1 = new AppTabContentModel(BaseRecyclerViewAdapter.VT_BOOKMARK);
-        AppTabContentModel model2 = new AppTabContentModel(BaseRecyclerViewAdapter.VT_BOOKMARK);
-        AppTabContentModel model3 = new AppTabContentModel(BaseRecyclerViewAdapter.VT_BOOKMARK);
-        AppTabContentModel model4 = new AppTabContentModel(BaseRecyclerViewAdapter.VT_BOOKMARK);
+        mPullToRefreshLayout.setDataAdapter(mRecyclerAdapter);
 
-        models.add(model0);
-        models.add(model1);
-        models.add(model2);
-        models.add(model3);
-        models.add(model4);
+        mPullToRefreshLayout.setTryAgainBtnClickListener(this);
 
-        adapter = new AppTabContentAdapter(models, "BookmarksFragment");
+        mPullToRefreshLayout.showProgressBar();
 
-        recyclerView.setDataAdapter(adapter);
-
-        recyclerView.setTryAgainBtnClickListener(this);
-
+        // Pull To Refresh Listener
+        registerPullToRefresh();
 
 
     }
@@ -74,42 +73,102 @@ public class BookmarksFragment extends BaseFragmentTHP implements RecyclerViewPu
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-
-        if(isVisibleToUser && getView() != null) {
-            netCheck();
+        if(mIsVisible && mRecyclerAdapter!= null && mRecyclerAdapter.getItemCount() == 0) {
+            loadData();
         }
     }
 
-    private void netCheck() {
+    /**
+     * Adding Pull To Refresh Listener
+     */
+    private void registerPullToRefresh() {
+        mPullToRefreshLayout.getSwipeRefreshLayout().setOnRefreshListener(()->{
+            if(!mIsOnline) {
+                Alerts.showSnackbar(getActivity(), getResources().getString(R.string.please_check_ur_connectivity));
+                mPullToRefreshLayout.setRefreshing(false);
+                return;
+            }
+            mPullToRefreshLayout.setRefreshing(true);
 
-        ReactiveNetwork
-                .observeNetworkConnectivity(getActivity())
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(connectivity -> {
-                    if(connectivity.state() == NetworkInfo.State.CONNECTED) {
-
-                    }
-                    else {
-
-                    }
-
-                    Log.i("", "");
-                });
+            loadData();
+        });
     }
+
 
     @Override
     public void tryAgainBtnClick() {
-
+        mPullToRefreshLayout.showProgressBar();
+        loadData();
     }
 
+    private void loadData() {
+        Observable.just("tryAgain")
+                .delay(1000, TimeUnit.MILLISECONDS)
+                .subscribeOn(Schedulers.newThread())
+                .map(val->{
+                    loadData(mIsOnline);
+                    return "";
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe();
+    }
+
+    private void loadData(boolean isOnline) {
+
+
+        Observable<List<RecoBean>> observable = null;
+
+        if (isOnline) {
+            observable = ApiManager.getRecommendationFromServer(getActivity(), NetConstants.USER_ID,
+                    NetConstants.RECO_bookmarks, ""+mSize, BuildConfig.SITEID);
+        } else {
+            observable = ApiManager.getRecommendationFromDB(getActivity(), NetConstants.RECO_bookmarks);
+        }
+
+        mDisposable.add(
+                observable
+                        .map(value->{
+                            List<AppTabContentModel> content = new ArrayList<>();
+                            for(RecoBean bean : value) {
+                                AppTabContentModel model = new AppTabContentModel(BaseRecyclerViewAdapter.VT_BOOKMARK);
+                                model.setBean(bean);
+                                content.add(model);
+                            }
+                            return content;
+                        })
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(value -> {
+                            mRecyclerAdapter.addData(value);
+                        }, throwable -> {
+                            if (throwable instanceof HttpException || throwable instanceof ConnectException
+                                    || throwable instanceof SocketTimeoutException || throwable instanceof TimeoutException
+                                    || throwable instanceof NullPointerException) {
+                                loadData(false);
+                            }
+
+                            mPullToRefreshLayout.hideProgressBar();
+                            mPullToRefreshLayout.setRefreshing(false);
+
+                        }, () -> {
+
+                            mPullToRefreshLayout.hideProgressBar();
+                            mPullToRefreshLayout.setRefreshing(false);
+
+                            // Showing Empty Msg.
+                            if (mRecyclerAdapter != null && mRecyclerAdapter.getItemCount() == 0) {
+                                mPullToRefreshLayout.showTryAgainBtn("Please Try Again.");
+                            }
+
+                        }));
+
+    }
     private void showEmptyLayout() {
-        if(adapter.getItemCount() == 0) {
+        if(mRecyclerAdapter.getItemCount() == 0) {
             emptyLayout.setVisibility(View.VISIBLE);
-            recyclerView.setVisibility(View.GONE);
+            mPullToRefreshLayout.setVisibility(View.GONE);
         } else {
             emptyLayout.setVisibility(View.VISIBLE);
-            recyclerView.setVisibility(View.GONE);
+            mPullToRefreshLayout.setVisibility(View.GONE);
         }
     }
 }

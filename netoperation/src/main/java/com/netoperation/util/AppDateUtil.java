@@ -99,7 +99,9 @@ public class AppDateUtil {
     }
 
     public static long changeStringToMillisGMT(String dateInString) {
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        // May 23, 2019 8:44:42 PM
+        SimpleDateFormat formatter = new SimpleDateFormat("MMM dd, yyyy HH:mm:ss a");
+//        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         try {
 //            formatter.setTimeZone(TimeZone.getTimeZone("GMT"));
             Date date = formatter.parse(dateInString);
