@@ -160,9 +160,9 @@ public class ApiManager {
                 .map(articleId -> {
                     List<BookmarkTable> bookmarkTable = THPDB.getInstance(context).bookmarkTableDao().getBookmarkArticles(articleId);
                     if (bookmarkTable != null && bookmarkTable.size() > 0) {
-                        return bookmarkTable != null && bookmarkTable.get(0).getAid().equals(articleId);
+                        return bookmarkTable.get(0).getBean();
                     }
-                    return false;
+                    return new RecoBean();
                 })
                 .observeOn(AndroidSchedulers.mainThread());
 
@@ -185,14 +185,40 @@ public class ApiManager {
                         bean.setPubDateTime(articleBean.getPubDateTime());
                         bean.setRecotype(articleBean.getRecotype());
                         bean.setRank(articleBean.getRank());
+                        bean.setBookmark(articleBean.getBookmark());
+                        bean.setLike(articleBean.getLike());
 
                         BookmarkTable bookmarkTable = new BookmarkTable(articleBean.getArticleId(), bean);
                         THPDB.getInstance(context).bookmarkTableDao().insertBookmark(bookmarkTable);
                         return true;
                     }
                 })
-                .observeOn(AndroidSchedulers.mainThread())
-                ;
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public static Observable<RecoBean> updateBookmark(Context context, String aid, int like) {
+        Observable<String> observable = Observable.just(aid);
+        return observable.subscribeOn(Schedulers.newThread())
+                .map(new Function<String, RecoBean>() {
+                    @Override
+                    public RecoBean apply(String model) {
+
+                        THPDB thp = THPDB.getInstance(context);
+
+                        BookmarkTable bookmarkTable = thp.bookmarkTableDao().getBookmarkArticle(model);
+
+                        if (bookmarkTable != null) {
+                            RecoBean recoBean = bookmarkTable.getBean();
+                            recoBean.setLike(like);
+                            thp.bookmarkTableDao().updateBookmark(aid, recoBean);
+                            return recoBean;
+                        }
+
+                        Log.i("", "");
+                        return null;
+                    }
+                })
+                .observeOn(AndroidSchedulers.mainThread());
     }
 
     public static Observable createUnBookmark(Context context, final String aid) {
@@ -205,7 +231,7 @@ public class ApiManager {
     }
 
 
-    public static Observable<Boolean> createBookmarkFavLike(RequestCallback requestCallback, @NonNull String userId, @NonNull String siteId,
+    public static Observable<Boolean> createBookmarkFavLike(@NonNull String userId, @NonNull String siteId,
                                                             @NonNull String contentId, @NonNull int bookmarkVal,
                                                             @NonNull int favoriteVal) {
         Observable<JsonElement> observable = ServiceFactory.getServiceAPIs().createBookmarkFavLike(ReqBody.createBookmarkFavLike(userId, siteId, contentId, bookmarkVal, favoriteVal));
@@ -222,6 +248,21 @@ public class ApiManager {
                     }
                     return false;
                 });
+    }
+
+    public static Observable isExistFavNdLike(Context context, final String aid) {
+        return Observable.just(aid)
+                .subscribeOn(Schedulers.io())
+                .map(articleId -> {
+                    THPDB thp = THPDB.getInstance(context);
+                    DashboardTable dashboardTable = thp.dashboardDao().getSingleDashboardBean(aid);
+                    if (dashboardTable != null) {
+                            return dashboardTable.getBean().getLike();
+                    }
+                    return 0;
+                })
+                .observeOn(AndroidSchedulers.mainThread());
+
     }
 
 
@@ -252,8 +293,7 @@ public class ApiManager {
                         return isContain;
                     }
                 })
-                .observeOn(AndroidSchedulers.mainThread())
-                ;
+                .observeOn(AndroidSchedulers.mainThread());
     }
 
     public static final Observable<RecoBean> articleDetailFromServer(Context context, String aid) {
@@ -305,6 +345,32 @@ public class ApiManager {
                     }
                 });
 
+    }
+
+
+    public static Observable<RecoBean> updateLike(Context context, String aid, int like) {
+        Observable<String> observable = Observable.just(aid);
+        return observable.subscribeOn(Schedulers.newThread())
+                .map(new Function<String, RecoBean>() {
+                    @Override
+                    public RecoBean apply(String model) {
+
+                        THPDB thp = THPDB.getInstance(context);
+
+                        DashboardTable dashboardTable = thp.dashboardDao().getSingleDashboardBean(aid);
+
+                        if (dashboardTable != null) {
+                            RecoBean recoBean = dashboardTable.getBean();
+                            recoBean.setLike(like);
+                            thp.dashboardDao().updateRecobean(aid, recoBean);
+                            return recoBean;
+                        }
+
+                        Log.i("", "");
+                        return null;
+                    }
+                })
+                .observeOn(AndroidSchedulers.mainThread());
     }
 
 

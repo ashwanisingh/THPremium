@@ -78,6 +78,15 @@ public class DashboardFragment extends BaseFragmentTHP implements RecyclerViewPu
 
     }
 
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+
+        if(mIsVisible && getView() != null && mRecyclerAdapter != null) {
+            mRecyclerAdapter.notifyDataSetChanged();
+        }
+    }
+
     /**
      * Adding Pull To Refresh Listener
      */

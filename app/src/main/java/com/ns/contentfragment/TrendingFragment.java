@@ -77,6 +77,9 @@ public class TrendingFragment extends BaseFragmentTHP implements RecyclerViewPul
         if(mIsVisible && mRecyclerAdapter!= null && mRecyclerAdapter.getItemCount() == 0) {
             loadData();
         }
+        else if(mIsVisible && getView() != null && mRecyclerAdapter != null) {
+            mRecyclerAdapter.notifyDataSetChanged();
+        }
     }
 
     /**
@@ -121,7 +124,7 @@ public class TrendingFragment extends BaseFragmentTHP implements RecyclerViewPul
 
         if (isOnline) {
             observable = ApiManager.getRecommendationFromServer(getActivity(), NetConstants.USER_ID,
-                    NetConstants.RECO_bookmarks, ""+mSize, BuildConfig.SITEID);
+                    NetConstants.RECO_trending, ""+mSize, BuildConfig.SITEID);
         } else {
             observable = ApiManager.getRecommendationFromDB(getActivity(), NetConstants.RECO_trending);
         }

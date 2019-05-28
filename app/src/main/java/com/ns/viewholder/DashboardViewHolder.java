@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 
 import com.joooonho.SelectableRoundedImageView;
 import com.ns.thpremium.R;
@@ -23,6 +24,10 @@ public class DashboardViewHolder extends RecyclerView.ViewHolder {
     public SelectableRoundedImageView image;
     public View horizontalDivider;
 
+    public ProgressBar toggleBtnProgressBar;
+    public ProgressBar bookmarkProgressBar;
+    public ProgressBar likeProgressBar;
+
     public DashboardViewHolder(@NonNull View itemView) {
         super(itemView);
 
@@ -36,6 +41,10 @@ public class DashboardViewHolder extends RecyclerView.ViewHolder {
         trendingIcon_Img = itemView.findViewById(R.id.trendingIcon_Img);
         image = itemView.findViewById(R.id.image);
         horizontalDivider = itemView.findViewById(R.id.horizontalDivider);
+
+        toggleBtnProgressBar = itemView.findViewById(R.id.toggleBtnProgressBar);
+        bookmarkProgressBar = itemView.findViewById(R.id.bookmarkProgressBar);
+        likeProgressBar = itemView.findViewById(R.id.likeProgressBar);
 
     }
 }

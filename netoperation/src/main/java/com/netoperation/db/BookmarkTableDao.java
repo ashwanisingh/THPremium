@@ -4,6 +4,8 @@ import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 
+import com.netoperation.model.RecoBean;
+
 import java.util.List;
 
 import io.reactivex.Flowable;
@@ -21,13 +23,16 @@ public interface BookmarkTableDao {
     List<BookmarkTable> getAllBookmark();
 
     @Query("SELECT * FROM BookmarkTable WHERE aid = :aid")
-    Flowable<BookmarkTable> getBookmarkArticle(String aid);
+    BookmarkTable getBookmarkArticle(String aid);
 
     @Query("SELECT * FROM BookmarkTable WHERE aid = :aid")
     List<BookmarkTable> getBookmarkArticles(String aid);
 
     @Query("DELETE FROM BookmarkTable WHERE aid = :aid")
     int deleteBookmarkArticle(String aid);
+
+    @Query("UPDATE DashboardTable SET bean = :bean WHERE aid = :aid")
+    int updateBookmark(String aid, RecoBean bean);
 
     @Query("DELETE FROM BookmarkTable")
     void deleteAll();

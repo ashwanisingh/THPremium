@@ -95,6 +95,20 @@
             android:src="@drawable/ic_switch_on_copy"
             />
 
+        <ProgressBar
+            android:id="@+id/toggleBtnProgressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginRight="5dp"
+            style="@android:style/Widget.Holo.ProgressBar.Small"
+            android:visibility="gone"
+            />
+
+
         <ImageView
             android:id="@+id/bookmark_Img"
             android:layout_width="wrap_content"
@@ -106,6 +120,19 @@
             android:src="@drawable/ic_bookmark_unselected"
             />
 
+        <ProgressBar
+            android:id="@+id/bookmarkProgressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintRight_toLeftOf="@+id/toggleBtn_Img"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginRight="30dp"
+            style="@android:style/Widget.Holo.ProgressBar.Small"
+            android:visibility="gone"
+            />
+
         <ImageView
             android:id="@+id/like_Img"
             android:layout_width="wrap_content"
@@ -115,6 +142,19 @@
             android:layout_marginEnd="20dp"
             android:layout_marginRight="20dp"
             android:src="@drawable/ic_like_unselected"
+            />
+
+        <ProgressBar
+            android:id="@+id/likeProgressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintRight_toLeftOf="@+id/bookmark_Img"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginRight="30dp"
+            style="@android:style/Widget.Holo.ProgressBar.Small"
+            android:visibility="gone"
             />
 
     </android.support.constraint.ConstraintLayout>

@@ -80,6 +80,38 @@ public class BriefcaseFragment extends BaseFragmentTHP implements RecyclerViewPu
         // Pull To Refresh Listener
         registerPullToRefresh();
 
+        // Edition Btn Click Listener
+        editionBtn_Txt.setOnClickListener(v->{
+            EditionOptionFragment fragment = EditionOptionFragment.getInstance();
+            FragmentUtil.addFragmentAnim((AppCompatActivity) getActivity(),
+                    R.id.parentLayout, fragment, FragmentUtil.FRAGMENT_NO_ANIMATION, false);
+
+            fragment.setOnEditionOptionClickListener(value -> {
+                editionBtn_Txt.setText(value);
+
+                // Clearing Edition option Fragment
+                FragmentUtil.clearSingleBackStack((AppCompatActivity) getActivity());
+
+            });
+        });
+
+        // Date Btn Click Listener
+        dateBtn_Txt.setOnClickListener(v->{
+            CalendarFragment fragment = CalendarFragment.getInstance();
+
+            FragmentUtil.addFragmentAnim((AppCompatActivity) getActivity(),
+                    R.id.parentLayout, fragment, FragmentUtil.FRAGMENT_NO_ANIMATION, false);
+
+            fragment.setOnCalendarDateClickListener(date -> {
+                SimpleDateFormat df = new SimpleDateFormat(THPConstants.date_dd_MM_yyyy);
+                dateBtn_Txt.setText(df.format(date));
+
+                // Clearing Calendar Fragment
+                FragmentUtil.clearSingleBackStack((AppCompatActivity) getActivity());
+
+            });
+        });
+
 
     }
 
