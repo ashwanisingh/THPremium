@@ -11,6 +11,7 @@ import android.widget.ImageButton;
 import com.netoperation.net.ApiManager;
 import com.netoperation.net.RequestCallback;
 import com.ns.alerts.Alerts;
+import com.ns.sharedpreference.THPPreferences;
 import com.ns.thpremium.BuildConfig;
 import com.ns.thpremium.R;
 import com.ns.utils.CommonUtil;
@@ -40,6 +41,8 @@ public class SignUpFragment extends BaseFragmentTHP {
 
     private boolean isUserEnteredEmail;
     private boolean isUserEnteredMobile;
+
+    private THPPreferences preferences;
 
     @Override
     public int getLayoutRes() {
@@ -72,13 +75,10 @@ public class SignUpFragment extends BaseFragmentTHP {
                 });
 
         signUp_Txt.setOnClickListener(v->{
-//            OTPVerificationFragment fragment = OTPVerificationFragment.getInstance(THPConstants.FROM_SignUpFragment);
-//            FragmentUtil.pushFragmentAnim((AppCompatActivity)getActivity(), R.id.parentLayout, fragment,
-//                    FragmentUtil.FRAGMENT_ANIMATION, false);
+            OTPVerificationFragment fragment = OTPVerificationFragment.getInstance(THPConstants.FROM_SignUpFragment);
+            FragmentUtil.pushFragmentAnim((AppCompatActivity)getActivity(), R.id.parentLayout, fragment,
+                    FragmentUtil.FRAGMENT_ANIMATION, false);
 
-//            if(1==1) {
-//                return;
-//            }
 
             String emailOrMobile = emailOrMobile_Et.getText().toString();
             String mobile = "";
@@ -120,7 +120,13 @@ public class SignUpFragment extends BaseFragmentTHP {
                         }
                     }
                     else {
-                        // TODO, process for user sign - up
+
+                        // Todo, 
+
+
+                        preferences=THPPreferences.getInstance(getActivity());
+                        String shEmailOrMobile=emailOrMobile_Et.getText().toString().trim();
+                        preferences.saveSignUpDetails(shEmailOrMobile);
                     }
 
                 }
@@ -144,7 +150,6 @@ public class SignUpFragment extends BaseFragmentTHP {
 
 
     }
-
 
 
 }

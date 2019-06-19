@@ -35,6 +35,8 @@
     <ImageButton
         android:id="@+id/passwordVisible_Btn"
         style="@style/backBtnStyle"
+        android:src="@drawable/ic_hide_password"
+        app:srcCompat="@drawable/ic_hide_password"
         android:layout_marginTop="15dp"
         app:layout_constraintTop_toBottomOf="@+id/emailOrMobile_Et"
         app:layout_constraintEnd_toEndOf="parent"

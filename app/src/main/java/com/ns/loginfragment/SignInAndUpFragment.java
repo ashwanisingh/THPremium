@@ -59,7 +59,7 @@ public class SignInAndUpFragment extends BaseFragmentTHP {
         mTabLayout = view.findViewById(R.id.tabLayout);
 
         if(pagerAdapter == null) {
-            pagerAdapter = new SignInAndUpPagerAdapter(getActivity().getSupportFragmentManager());
+            pagerAdapter = new SignInAndUpPagerAdapter(getChildFragmentManager());
         }
         mSignInUpViewPager.setAdapter(pagerAdapter);
 

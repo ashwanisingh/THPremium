@@ -80,11 +80,11 @@ public class SignInFragment extends BaseFragmentTHP {
         passwordVisible_Btn.setOnClickListener(v-> {
             if(mIsPasswdVisible) {
                 password_Et.setTransformationMethod(new PasswordTransformationMethod());
-                passwordVisible_Btn.setImageResource(R.drawable.ic_back_copy_42);
+                passwordVisible_Btn.setImageResource(R.drawable.ic_show_password);
                 mIsPasswdVisible = false;
             } else {
                 password_Et.setTransformationMethod(null);
-                passwordVisible_Btn.setImageResource(R.drawable.ic_show_password);
+                passwordVisible_Btn.setImageResource(R.drawable.ic_hide_password);
                 mIsPasswdVisible = true;
             }
         });
@@ -138,6 +138,8 @@ public class SignInFragment extends BaseFragmentTHP {
                         else {
                             Alerts.showAlertDialogOKBtn(getActivity(), "Sorry!", "User email not found.");
                         }
+                    } else {
+                        // TODO, process for user sign - In
                     }
                 }
 
