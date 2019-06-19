@@ -40,8 +40,8 @@ public class RecoBean implements Parcelable {
     private String articletype;
     private List<String> thumbnailUrl;
     private List<String> author;
-    private int like;
-    private int bookmark;
+    private int isFavourite;
+    private int isBookmark;
 
 
 
@@ -103,20 +103,20 @@ public class RecoBean implements Parcelable {
         this.leadText = leadText;
     }
 
-    public int getLike() {
-        return like;
+    public int getIsFavourite() {
+        return isFavourite;
     }
 
-    public void setLike(int like) {
-        this.like = like;
+    public void setIsFavourite(int isFavourite) {
+        this.isFavourite = isFavourite;
     }
 
-    public int getBookmark() {
-        return bookmark;
+    public int getIsBookmark() {
+        return isBookmark;
     }
 
-    public void setBookmark(int bookmark) {
-        this.bookmark = bookmark;
+    public void setIsBookmark(int isBookmark) {
+        this.isBookmark = isBookmark;
     }
 
     public String getArticleId() {
@@ -365,8 +365,8 @@ public class RecoBean implements Parcelable {
         dest.writeString(this.articletype);
         dest.writeStringList(this.thumbnailUrl);
         dest.writeStringList(this.author);
-        dest.writeInt(this.like);
-        dest.writeInt(this.bookmark);
+        dest.writeInt(this.isFavourite);
+        dest.writeInt(this.isBookmark);
         dest.writeString(this.sectionName);
         dest.writeString(this.publishedDate);
         dest.writeString(this.originalDate);
@@ -400,8 +400,8 @@ public class RecoBean implements Parcelable {
         this.articletype = in.readString();
         this.thumbnailUrl = in.createStringArrayList();
         this.author = in.createStringArrayList();
-        this.like = in.readInt();
-        this.bookmark = in.readInt();
+        this.isFavourite = in.readInt();
+        this.isBookmark = in.readInt();
         this.sectionName = in.readString();
         this.publishedDate = in.readString();
         this.originalDate = in.readString();

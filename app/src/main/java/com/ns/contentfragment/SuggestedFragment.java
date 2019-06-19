@@ -35,7 +35,7 @@ public class SuggestedFragment extends BaseFragmentTHP implements RecyclerViewPu
     private RecyclerViewPullToRefresh mPullToRefreshLayout;
     private LinearLayout emptyLayout;
     private AppTabContentAdapter mRecyclerAdapter;
-    private int mSize = 10;
+
 
     public static SuggestedFragment getInstance() {
         SuggestedFragment fragment = new SuggestedFragment();
@@ -124,7 +124,7 @@ public class SuggestedFragment extends BaseFragmentTHP implements RecyclerViewPu
 
         if (isOnline) {
             observable = ApiManager.getRecommendationFromServer(getActivity(), NetConstants.USER_ID,
-                    NetConstants.RECO_trending, ""+mSize, BuildConfig.SITEID);
+                    NetConstants.RECO_suggested, ""+mSize, BuildConfig.SITEID);
         } else {
             observable = ApiManager.getRecommendationFromDB(getActivity(), NetConstants.RECO_trending);
         }

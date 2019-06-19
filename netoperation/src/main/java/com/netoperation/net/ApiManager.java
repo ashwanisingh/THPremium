@@ -108,7 +108,7 @@ public class ApiManager {
     public static Observable<List<RecoBean>> getRecommendationFromServer(final Context context,
                                                                          String userid, final @RetentionDef.Recomendation String recotype,
                                                                          String size, String siteid) {
-        Observable<RecomendationData> observable = ServiceFactory.getServiceAPIs().getRecommendation(userid, recotype, size, siteid);
+        Observable<RecomendationData> observable = ServiceFactory.getServiceAPIs().getRecommendation(userid, recotype, size, siteid, "app");
         return observable.subscribeOn(Schedulers.newThread())
                 .timeout(10000, TimeUnit.MILLISECONDS)
                 .map(value -> {
@@ -187,8 +187,8 @@ public class ApiManager {
                         bean.setPubDateTime(articleBean.getPubDateTime());
                         bean.setRecotype(articleBean.getRecotype());
                         bean.setRank(articleBean.getRank());
-                        bean.setBookmark(articleBean.getBookmark());
-                        bean.setLike(articleBean.getLike());
+                        bean.setIsBookmark(articleBean.getIsBookmark());
+                        bean.setIsFavourite(articleBean.getIsFavourite());
 
                         BookmarkTable bookmarkTable = new BookmarkTable(articleBean.getArticleId(), bean);
                         THPDB.getInstance(context).bookmarkTableDao().insertBookmark(bookmarkTable);
@@ -211,7 +211,7 @@ public class ApiManager {
 
                         if (bookmarkTable != null) {
                             RecoBean recoBean = bookmarkTable.getBean();
-                            recoBean.setLike(like);
+                            recoBean.setIsFavourite(like);
                             thp.bookmarkTableDao().updateBookmark(aid, recoBean);
                             return recoBean;
                         }
@@ -259,7 +259,7 @@ public class ApiManager {
                     THPDB thp = THPDB.getInstance(context);
                     DashboardTable dashboardTable = thp.dashboardDao().getSingleDashboardBean(aid);
                     if (dashboardTable != null) {
-                            return dashboardTable.getBean().getLike();
+                            return dashboardTable.getBean().getIsFavourite();
                     }
                     return 0;
                 })
@@ -363,7 +363,7 @@ public class ApiManager {
 
                         if (dashboardTable != null) {
                             RecoBean recoBean = dashboardTable.getBean();
-                            recoBean.setLike(like);
+                            recoBean.setIsFavourite(like);
                             thp.dashboardDao().updateRecobean(aid, recoBean);
                             return recoBean;
                         }

@@ -7,6 +7,7 @@ import android.view.View;
 
 import com.ns.thpremium.R;
 import com.ns.loginfragment.BaseFragmentTHP;
+import com.ns.utils.IntentUtil;
 
 public class MoreOptionFragment extends BaseFragmentTHP {
 
@@ -27,43 +28,20 @@ public class MoreOptionFragment extends BaseFragmentTHP {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
-        // To block the touch or click
-        view.findViewById(R.id.moreTabLayout).setOnTouchListener((v,event)->{
-            return true;
-        });
-
         view.findViewById(R.id.suggested_Txt).setOnClickListener(v->{
-            if(mMoreTabOptionClickListener != null) {
-                mMoreTabOptionClickListener.OnEditionOptionClickListener("suggested");
-            }
+
         });
 
 
         view.findViewById(R.id.personalise_Txt).setOnClickListener(v->{
-            if(mMoreTabOptionClickListener != null) {
-                mMoreTabOptionClickListener.OnEditionOptionClickListener("personalise");
-            }
+            IntentUtil.openPersonaliseActivity(getActivity(), "MoreOptions");
         });
 
 
-        view.findViewById(R.id.cancel_Txt).setOnClickListener(v->{
-            if(mMoreTabOptionClickListener != null) {
-                mMoreTabOptionClickListener.OnEditionOptionClickListener("cancel");
-            }
-        });
+
 
 
     }
 
-    private MoreTabOptionClickListener mMoreTabOptionClickListener;
 
-    public void setOnMoreOptionClickListener(MoreTabOptionClickListener moreTabOptionClickListener) {
-        mMoreTabOptionClickListener = moreTabOptionClickListener;
-    }
-
-
-    public interface MoreTabOptionClickListener {
-        void OnEditionOptionClickListener(String value);
-    }
 }

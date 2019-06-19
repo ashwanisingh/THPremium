@@ -69,7 +69,7 @@ public interface ServiceAPIs {
 
     @GET("/mydashboard/userreco/hindu")
     Observable<RecomendationData> getRecommendation(@Query("userid") String userid, @Query("recotype") String recotype,
-                                                    @Query("size") String size, @Query("siteid") String siteid );
+                                                    @Query("size") String size, @Query("siteid") String siteid, @Query("requestSource") String requestSource );
 
     @POST("/mydashboard/userchoice/HINDU")
     Observable<JsonElement> createBookmarkFavLike(@Body JsonObject bookmarkFavLikeBody);

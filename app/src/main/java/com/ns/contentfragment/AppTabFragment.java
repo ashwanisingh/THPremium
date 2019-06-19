@@ -31,7 +31,6 @@ public class AppTabFragment extends BaseFragmentTHP {
 
     private TabLayout mTabLayout;
     private ViewPager viewPager;
-    private LinearLayout appTabsMore_Img;
     private AppTabPagerAdapter pagerAdapter;
 
     @Override
@@ -90,7 +89,7 @@ public class AppTabFragment extends BaseFragmentTHP {
         });
 
         // More tab Click Listener
-        view.findViewById(R.id.appTabsMore_Img).setOnClickListener(v->{
+        /*view.findViewById(R.id.appTabsMore_Img).setOnClickListener(v->{
             MoreOptionFragment fragment = MoreOptionFragment.getInstance();
 
             FragmentUtil.addFragmentAnim((AppCompatActivity) getActivity(),
@@ -106,7 +105,7 @@ public class AppTabFragment extends BaseFragmentTHP {
                 FragmentUtil.clearSingleBackStack((AppCompatActivity) getActivity());
 
             });
-        });
+        });*/
 
 
         // Back Button Click Listener

@@ -37,8 +37,6 @@ public class DashboardFragment extends BaseFragmentTHP implements RecyclerViewPu
     private CustomTextView recentBtn_Txt;
     private RecyclerViewPullToRefresh mPullToRefreshLayout;
     private AppTabContentAdapter mRecyclerAdapter;
-    private int mSize = 10;
-
 
     public static DashboardFragment getInstance() {
         DashboardFragment fragment = new DashboardFragment();
@@ -131,7 +129,7 @@ public class DashboardFragment extends BaseFragmentTHP implements RecyclerViewPu
 
         if (isOnline) {
             observable = ApiManager.getRecommendationFromServer(getActivity(), NetConstants.USER_ID,
-                    NetConstants.RECO_ALL, ""+mSize, BuildConfig.SITEID);
+                    NetConstants.RECO_personalised, ""+mSize, BuildConfig.SITEID);
         } else {
             observable = ApiManager.getRecommendationFromDB(getActivity(), NetConstants.RECO_ALL);
         }

@@ -33,6 +33,7 @@
         <activity android:name="com.ns.activity.THP_WebActivity" />
         <activity android:name="com.ns.activity.ImageGallaryVerticleActivity" />
         <activity android:name="com.ns.activity.ImageGallaryActivity" />
+        <activity android:name="com.ns.activity.THPPersonaliseActivity" />
     </application>
 
 </manifest>

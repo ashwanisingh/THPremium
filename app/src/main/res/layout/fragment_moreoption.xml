@@ -3,15 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/moreTabLayout"
-    android:background="@color/dimBackground"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintDimensionRatio="@string/more_popup_layout_ratio"
-        android:background="@drawable/shadow_white_r12_s6_wh200_ltr"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:orientation="vertical"
@@ -26,13 +23,16 @@
         <com.ns.view.CustomTextView
             android:id="@+id/suggested_Txt"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:textSize="16sp"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
             android:textColor="@color/optionTxtColor"
-            android:gravity="center"
-            android:text="Suggested"
+            android:gravity="left|center_vertical"
+            android:text="Bookmarks"
             android:layout_marginTop="20dp"
             app:font_path="@string/FONT_FIRA_SANS_REGULAR"
+            android:drawableLeft="@drawable/tab_bookmarks_unselected"
+            android:drawableRight="@drawable/ic_next_arrow"
+            android:drawablePadding="10dp"
             />
 
         <include
@@ -47,12 +47,15 @@
         <com.ns.view.CustomTextView
             android:id="@+id/personalise_Txt"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:textSize="16sp"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
             android:textColor="@color/optionTxtColor"
-            android:gravity="center"
+            android:gravity="left|center_vertical"
             android:text="Personalise"
             app:font_path="@string/FONT_FIRA_SANS_REGULAR"
+            android:drawableLeft="@drawable/tab_dashboard_unselected"
+            android:drawableRight="@drawable/ic_next_arrow"
+            android:drawablePadding="10dp"
             />
 
         <include
@@ -63,20 +66,6 @@
             android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"
             />
-
-
-        <com.ns.view.CustomTextView
-            android:id="@+id/cancel_Txt"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:textSize="16sp"
-            android:textColor="@color/optionTxtColor"
-            android:gravity="center"
-            android:text="Cancel"
-            app:font_path="@string/FONT_FIRA_SANS_REGULAR"
-            />
-
-
 
     </LinearLayout>
 
