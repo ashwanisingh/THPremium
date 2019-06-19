@@ -11,7 +11,6 @@ import com.netoperation.db.BreifingTable;
 import com.netoperation.db.DashboardTable;
 import com.netoperation.db.THPDB;
 import com.netoperation.model.BreifingModel;
-import com.netoperation.model.BreifingModelTest;
 import com.netoperation.model.MorningBean;
 import com.netoperation.model.RecoBean;
 import com.netoperation.model.RecomendationData;
@@ -535,23 +534,6 @@ public class ApiManager {
     }
 
 
-    public static void getBreifingFromServerTest(final Context context, String breifingUrl) {
-        Observable<BreifingModelTest> observable = ServiceFactory.getServiceAPIs().getBriefingTest(breifingUrl);
-        observable.subscribeOn(Schedulers.newThread())
-                .timeout(10000, TimeUnit.MILLISECONDS)
-                .map(value -> {
-                            List<RecoBean> allBriefing = new ArrayList<>();
-
-                            return allBriefing;
-                        }
-                )
-        .subscribe(value->{
-            Log.i("", "");
-        }, throwable -> {
-            Log.i("", "");
-        });
-
-    }
 
 
 }
