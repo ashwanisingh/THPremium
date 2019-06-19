@@ -22,6 +22,11 @@ public class NetConstants {
     public static final String RECO_briefcase = "briefcase";
     public static final String RECO_TEMP_NOT_EXIST = "TEMP_NOT_EXIST";
 
+    public static final String BREIFING_ALL = "ALL";
+    public static final String BREIFING_EVENING = "EVENIING";
+    public static final String BREIFING_MORNING = "MORNING";
+    public static final String BREIFING_NOON = "NOON";
+
     public static final int BOOKMARK_YES = 1;
     public static final int BOOKMARK_NO = 0;
 

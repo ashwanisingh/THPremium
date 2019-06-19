@@ -17,6 +17,7 @@ import com.ns.contentfragment.BookmarksFragment;
 import com.ns.contentfragment.BriefcaseFragment;
 import com.ns.contentfragment.DashboardFragment;
 import com.ns.contentfragment.EditionOptionFragment;
+import com.ns.contentfragment.SuggestedFragment;
 import com.ns.contentfragment.TrendingFragment;
 import com.ns.thpremium.R;
 
@@ -29,16 +30,16 @@ public class AppTabPagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int i) {
         if(i==0) {
-            return DashboardFragment.getInstance();
-        }
-        else if(i==1) {
             return BriefcaseFragment.getInstance();
         }
+        else if(i==1) {
+            return DashboardFragment.getInstance();
+        }
         else if(i==2) {
-            return TrendingFragment.getInstance();
+            return SuggestedFragment.getInstance();
         }
         else if(i==3) {
-            return BookmarksFragment.getInstance();
+            return TrendingFragment.getInstance();
         }
         else if(i==4) {
             return EditionOptionFragment.getInstance();
@@ -53,13 +54,19 @@ public class AppTabPagerAdapter extends FragmentStatePagerAdapter {
         return 4;
     }
 
-    private String [] tabNames = {"Dashboard", "Briefcase", "Trending", "Bookmarks", "More"};
-    private int [] tabUnSelectedIcons = {R.drawable.tab_dashboard_unselected,
-            R.drawable.tab_briefcase_unselected, R.drawable.tab_trending_unselected,
-            R.drawable.tab_bookmarks_unselected, R.drawable.tab_more_grey};
-    private int [] tabSelectedIcons = {R.drawable.tab_dashboard_selected,
-            R.drawable.tab_briefcase_selected, R.drawable.tab_trending_selected,
-            R.drawable.tab_bookmarks_selected, R.drawable.tab_more_grey};
+    private String [] tabNames = {"Briefing", "My Stories", "Suggested", "Trending", "More"};
+    private int [] tabUnSelectedIcons = {
+            R.drawable.tab_briefcase_unselected,
+            R.drawable.tab_dashboard_unselected,
+            R.drawable.tab_suggested_unselected,
+            R.drawable.tab_trending_unselected,
+            R.drawable.tab_more_grey};
+    private int [] tabSelectedIcons = {
+            R.drawable.tab_briefcase_selected,
+            R.drawable.tab_dashboard_selected,
+            R.drawable.tab_suggested_selected,
+            R.drawable.tab_trending_selected,
+            R.drawable.tab_more_grey};
 
     @Nullable
     @Override

@@ -40,11 +40,11 @@ public class BriefcaseFragment extends BaseFragmentTHP implements RecyclerViewPu
     private RecyclerViewPullToRefresh mPullToRefreshLayout;
     private LinearLayout emptyLayout;
     private AppTabContentAdapter mRecyclerAdapter;
-    private int mSize = 10;
     private CustomTextView yourEditionFor_Txt;
     private CustomTextView dateBtn_Txt;
     private CustomTextView userName_Txt;
     private CustomTextView editionBtn_Txt;
+    private String mBreifingType = NetConstants.BREIFING_ALL;
 
     public static BriefcaseFragment getInstance() {
         BriefcaseFragment fragment = new BriefcaseFragment();
@@ -92,6 +92,18 @@ public class BriefcaseFragment extends BaseFragmentTHP implements RecyclerViewPu
                 // Clearing Edition option Fragment
                 FragmentUtil.clearSingleBackStack((AppCompatActivity) getActivity());
 
+                if(value.equalsIgnoreCase("All Editions")) {
+                    mBreifingType = NetConstants.BREIFING_ALL;
+                } else if(value.equalsIgnoreCase("Morning Editions")) {
+                    mBreifingType = NetConstants.BREIFING_MORNING;
+                } else if(value.equalsIgnoreCase("Noon Editions")) {
+                    mBreifingType = NetConstants.BREIFING_NOON;
+                } else if(value.equalsIgnoreCase("Evening Editions")) {
+                    mBreifingType = NetConstants.BREIFING_EVENING;
+                }
+
+                loadData(false);
+
             });
         });
 
@@ -112,15 +124,18 @@ public class BriefcaseFragment extends BaseFragmentTHP implements RecyclerViewPu
             });
         });
 
+        if(mIsVisible) {
+            loadData();
+//            ApiManager.getBreifingFromServerTest(getActivity(), BuildConfig.BREIGINE_URL);
+        }
+
 
     }
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if(mIsVisible && mRecyclerAdapter!= null && mRecyclerAdapter.getItemCount() == 0) {
-            loadData();
-        }
+
     }
 
     /**
@@ -158,18 +173,14 @@ public class BriefcaseFragment extends BaseFragmentTHP implements RecyclerViewPu
                 .subscribe();
     }
 
-    private void loadData(boolean isOnline) {
 
-
+    private void loadData(boolean isOnline ) {
         Observable<List<RecoBean>> observable = null;
-
         if (isOnline) {
-            observable = ApiManager.getRecommendationFromServer(getActivity(), NetConstants.USER_ID,
-                    NetConstants.RECO_bookmarks, ""+mSize, BuildConfig.SITEID);
+            observable = ApiManager.getBreifingFromServer(getActivity(), BuildConfig.BREIGINE_URL);
         } else {
-            observable = ApiManager.getRecommendationFromDB(getActivity(), NetConstants.RECO_briefcase);
+            observable = ApiManager.getBreifingFromDB(getActivity(), mBreifingType);
         }
-
         mDisposable.add(
                 observable
                         .map(value->{
@@ -183,7 +194,7 @@ public class BriefcaseFragment extends BaseFragmentTHP implements RecyclerViewPu
                         })
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(value -> {
-                            mRecyclerAdapter.addData(value);
+                            mRecyclerAdapter.setData(value);
                         }, throwable -> {
                             if (throwable instanceof HttpException || throwable instanceof ConnectException
                                     || throwable instanceof SocketTimeoutException || throwable instanceof TimeoutException

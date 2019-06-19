@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.widget.LinearLayout;
 
 import com.bumptech.glide.load.HttpException;
 import com.netoperation.model.RecoBean;
@@ -12,11 +13,10 @@ import com.netoperation.util.NetConstants;
 import com.ns.activity.BaseRecyclerViewAdapter;
 import com.ns.adapter.AppTabContentAdapter;
 import com.ns.alerts.Alerts;
+import com.ns.loginfragment.BaseFragmentTHP;
 import com.ns.model.AppTabContentModel;
 import com.ns.thpremium.BuildConfig;
 import com.ns.thpremium.R;
-import com.ns.loginfragment.BaseFragmentTHP;
-import com.ns.view.CustomTextView;
 import com.ns.view.RecyclerViewPullToRefresh;
 
 import java.net.ConnectException;
@@ -30,18 +30,15 @@ import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-public class DashboardFragment extends BaseFragmentTHP implements RecyclerViewPullToRefresh.TryAgainBtnClickListener {
+public class SuggestedFragment extends BaseFragmentTHP implements RecyclerViewPullToRefresh.TryAgainBtnClickListener {
 
-    private CustomTextView recentStoriesCount_Txt;
-    private CustomTextView userName_Txt;
-    private CustomTextView recentBtn_Txt;
     private RecyclerViewPullToRefresh mPullToRefreshLayout;
+    private LinearLayout emptyLayout;
     private AppTabContentAdapter mRecyclerAdapter;
     private int mSize = 10;
 
-
-    public static DashboardFragment getInstance() {
-        DashboardFragment fragment = new DashboardFragment();
+    public static SuggestedFragment getInstance() {
+        SuggestedFragment fragment = new SuggestedFragment();
         Bundle bundle = new Bundle();
         fragment.setArguments(bundle);
         return fragment;
@@ -49,19 +46,18 @@ public class DashboardFragment extends BaseFragmentTHP implements RecyclerViewPu
 
     @Override
     public int getLayoutRes() {
-        return R.layout.fragment_dashboard;
+        return R.layout.fragment_trending;
     }
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        userName_Txt = view.findViewById(R.id.userName_Txt);
-        recentStoriesCount_Txt = view.findViewById(R.id.recentStoriesCount_Txt);
-        recentBtn_Txt = view.findViewById(R.id.recentBtn_Txt);
         mPullToRefreshLayout = view.findViewById(R.id.recyclerView);
+        emptyLayout = view.findViewById(R.id.emptyLayout);
 
-        mRecyclerAdapter = new AppTabContentAdapter(new ArrayList<>(), NetConstants.RECO_ALL);
+        mRecyclerAdapter = new AppTabContentAdapter(new ArrayList<>(), NetConstants.RECO_trending);
 
         mPullToRefreshLayout.setDataAdapter(mRecyclerAdapter);
 
@@ -69,23 +65,19 @@ public class DashboardFragment extends BaseFragmentTHP implements RecyclerViewPu
 
         mPullToRefreshLayout.showProgressBar();
 
-        if(mIsVisible) {
-            loadData();
-        }
-
         // Pull To Refresh Listener
         registerPullToRefresh();
+
 
     }
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-
-        if(mIsVisible && (mRecyclerAdapter == null || mRecyclerAdapter.getItemCount() == 0)) {
+        if(mIsVisible && mRecyclerAdapter!= null && mRecyclerAdapter.getItemCount() == 0) {
             loadData();
         }
-        else if (mIsVisible && getView() != null && mRecyclerAdapter != null) {
+        else if(mIsVisible && getView() != null && mRecyclerAdapter != null) {
             mRecyclerAdapter.notifyDataSetChanged();
         }
     }
@@ -127,13 +119,14 @@ public class DashboardFragment extends BaseFragmentTHP implements RecyclerViewPu
 
     private void loadData(boolean isOnline) {
 
+
         Observable<List<RecoBean>> observable = null;
 
         if (isOnline) {
             observable = ApiManager.getRecommendationFromServer(getActivity(), NetConstants.USER_ID,
-                    NetConstants.RECO_ALL, ""+mSize, BuildConfig.SITEID);
+                    NetConstants.RECO_trending, ""+mSize, BuildConfig.SITEID);
         } else {
-            observable = ApiManager.getRecommendationFromDB(getActivity(), NetConstants.RECO_ALL);
+            observable = ApiManager.getRecommendationFromDB(getActivity(), NetConstants.RECO_trending);
         }
 
         mDisposable.add(
@@ -141,7 +134,7 @@ public class DashboardFragment extends BaseFragmentTHP implements RecyclerViewPu
                         .map(value->{
                             List<AppTabContentModel> content = new ArrayList<>();
                             for(RecoBean bean : value) {
-                                AppTabContentModel model = new AppTabContentModel(BaseRecyclerViewAdapter.VT_DASHBOARD);
+                                AppTabContentModel model = new AppTabContentModel(BaseRecyclerViewAdapter.VT_TRENDING);
                                 model.setBean(bean);
                                 content.add(model);
                             }
@@ -152,7 +145,8 @@ public class DashboardFragment extends BaseFragmentTHP implements RecyclerViewPu
                             mRecyclerAdapter.addData(value);
                         }, throwable -> {
                             if (throwable instanceof HttpException || throwable instanceof ConnectException
-                                    || throwable instanceof SocketTimeoutException || throwable instanceof TimeoutException) {
+                                    || throwable instanceof SocketTimeoutException || throwable instanceof TimeoutException
+                                    || throwable instanceof NullPointerException) {
                                 loadData(false);
                             }
 
@@ -172,6 +166,13 @@ public class DashboardFragment extends BaseFragmentTHP implements RecyclerViewPu
                         }));
 
     }
-
-
+    private void showEmptyLayout() {
+        if(mRecyclerAdapter.getItemCount() == 0) {
+            emptyLayout.setVisibility(View.VISIBLE);
+            mPullToRefreshLayout.setVisibility(View.GONE);
+        } else {
+            emptyLayout.setVisibility(View.VISIBLE);
+            mPullToRefreshLayout.setVisibility(View.GONE);
+        }
+    }
 }

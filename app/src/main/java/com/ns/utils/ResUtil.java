@@ -23,7 +23,6 @@ import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
-import com.ns.alerts.Alerts;
 
 
 public class ResUtil {

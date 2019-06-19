@@ -51,6 +51,7 @@ public class SubscriptionPackFragment extends BaseFragmentTHP {
         mAdapter = new SubscriptionPackAdapter(mFrom);
         mRecyclerView.setAdapter(mAdapter);
 
-
     }
+
+
 }

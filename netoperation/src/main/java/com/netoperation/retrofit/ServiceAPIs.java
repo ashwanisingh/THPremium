@@ -3,6 +3,8 @@ package com.netoperation.retrofit;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.netoperation.model.BreifingModel;
+import com.netoperation.model.BreifingModelTest;
 import com.netoperation.model.RecomendationData;
 import com.netoperation.model.SearchedArticleModel;
 import com.netoperation.model.UserChoice;
@@ -78,5 +80,12 @@ public interface ServiceAPIs {
 
     @GET("")
     Observable<SearchedArticleModel> searchArticleByIDFromServer(@Url String url);
+
+
+    @GET("")
+    Observable<BreifingModel> getBriefing(@Url String url);
+
+    @GET("")
+    Observable<BreifingModelTest> getBriefingTest(@Url String url);
 
 }

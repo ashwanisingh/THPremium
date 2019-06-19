@@ -16,7 +16,7 @@
     <dimen name="become_member_part2_gap">18dp</dimen>
 
     <dimen name="subscription_layout_step_2_gap">6.5dp</dimen>
-    <string name="subscription_layout_step_1_ratio">h,8.3:14</string>
+    <string name="subscription_layout_step_1_ratio">h,8.8:14</string>
     <string name="subscription_layout_step_2_ratio">h,10.5:14</string>
     <string name="subscription_layout_step_3_ratio">h,15:14</string>
     <dimen name="subscription_pack_width">199dp</dimen>

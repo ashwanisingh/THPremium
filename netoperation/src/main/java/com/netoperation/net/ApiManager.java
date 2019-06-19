@@ -7,8 +7,12 @@ import android.util.Log;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.netoperation.db.BookmarkTable;
+import com.netoperation.db.BreifingTable;
 import com.netoperation.db.DashboardTable;
 import com.netoperation.db.THPDB;
+import com.netoperation.model.BreifingModel;
+import com.netoperation.model.BreifingModelTest;
+import com.netoperation.model.MorningBean;
 import com.netoperation.model.RecoBean;
 import com.netoperation.model.RecomendationData;
 import com.netoperation.model.SearchedArticleModel;
@@ -23,7 +27,6 @@ import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
@@ -365,12 +368,189 @@ public class ApiManager {
                             thp.dashboardDao().updateRecobean(aid, recoBean);
                             return recoBean;
                         }
-
                         Log.i("", "");
                         return null;
                     }
                 })
                 .observeOn(AndroidSchedulers.mainThread());
+    }
+
+
+    public static Observable<List<RecoBean>> getBreifingFromServer(final Context context, String breifingUrl) {
+        Observable<BreifingModel> observable = ServiceFactory.getServiceAPIs().getBriefing(breifingUrl);
+        return observable.subscribeOn(Schedulers.newThread())
+                .timeout(10000, TimeUnit.MILLISECONDS)
+                .map(value -> {
+
+
+                    List<MorningBean> morningBeans = value.getMorning();
+                    List<MorningBean> noonBeans = value.getNoon();
+                    List<MorningBean> eveningBeans = value.getEvening();
+
+                    List<RecoBean> allBriefing = new ArrayList<>();
+                    List<RecoBean> morningBriefing = new ArrayList<>();
+                    List<RecoBean> noonBriefing = new ArrayList<>();
+                    List<RecoBean> eveningBriefing = new ArrayList<>();
+
+                    for(MorningBean bean : morningBeans) {
+                        RecoBean reco = new RecoBean();
+                        reco.setArticleId(bean.getArticleId());
+                        reco.setArticleSection(bean.getSectionName());
+                        reco.setPubDate(bean.getOriginalDate());
+                        reco.setPubDateTime(bean.getPublishedDate());
+                        reco.setLocation(bean.getLocation());
+                        reco.setTitle(bean.getTitle());
+                        reco.setArticletitle(bean.getTitle());
+                        reco.setArticleLink(bean.getArticleLink());
+                        reco.setGmt(bean.getGmt());
+                        reco.setYoutubeVideoId(bean.getYoutubeVideoId());
+                        reco.setDescription(bean.getDescription());
+                        reco.setShortDescription(bean.getShortDescription());
+                        reco.setVideoId(bean.getVideoId());
+                        reco.setArticleType(bean.getArticleType());
+
+                        String thumbUrl = bean.getThumbnailUrl();
+                        ArrayList<String> tu = new ArrayList<>();
+                        tu.add(thumbUrl);
+                        reco.setThumbnailUrl(tu);
+
+                        reco.setTimeToRead(bean.getTimeToRead());
+                        reco.setAuthor(bean.getAuthor());
+                        reco.setMedia(bean.getMedia());
+
+                        reco.setLeadText(bean.getLeadText());
+
+                        morningBriefing.add(reco);
+                    }
+
+                    for(MorningBean bean : noonBeans) {
+                        RecoBean reco = new RecoBean();
+                        reco.setArticleId(bean.getArticleId());
+                        reco.setArticleSection(bean.getSectionName());
+                        reco.setPubDate(bean.getOriginalDate());
+                        reco.setPubDateTime(bean.getPublishedDate());
+                        reco.setLocation(bean.getLocation());
+                        reco.setTitle(bean.getTitle());
+                        reco.setArticletitle(bean.getTitle());
+                        reco.setArticleLink(bean.getArticleLink());
+                        reco.setGmt(bean.getGmt());
+                        reco.setYoutubeVideoId(bean.getYoutubeVideoId());
+                        reco.setDescription(bean.getDescription());
+                        reco.setShortDescription(bean.getShortDescription());
+                        reco.setVideoId(bean.getVideoId());
+                        reco.setArticleType(bean.getArticleType());
+
+                        String thumbUrl = bean.getThumbnailUrl();
+                        ArrayList<String> tu = new ArrayList<>();
+                        tu.add(thumbUrl);
+                        reco.setThumbnailUrl(tu);
+
+                        reco.setTimeToRead(bean.getTimeToRead());
+                        reco.setAuthor(bean.getAuthor());
+                        reco.setMedia(bean.getMedia());
+
+                        reco.setLeadText(bean.getLeadText());
+
+                        noonBriefing.add(reco);
+                    }
+
+                    for(MorningBean bean : eveningBeans) {
+                        RecoBean reco = new RecoBean();
+                        reco.setArticleId(bean.getArticleId());
+                        reco.setArticleSection(bean.getSectionName());
+                        reco.setPubDate(bean.getOriginalDate());
+                        reco.setPubDateTime(bean.getPublishedDate());
+                        reco.setLocation(bean.getLocation());
+                        reco.setTitle(bean.getTitle());
+                        reco.setArticletitle(bean.getTitle());
+                        reco.setArticleLink(bean.getArticleLink());
+                        reco.setGmt(bean.getGmt());
+                        reco.setYoutubeVideoId(bean.getYoutubeVideoId());
+                        reco.setDescription(bean.getDescription());
+                        reco.setShortDescription(bean.getShortDescription());
+                        reco.setVideoId(bean.getVideoId());
+                        reco.setArticleType(bean.getArticleType());
+
+                        String thumbUrl = bean.getThumbnailUrl();
+                        ArrayList<String> tu = new ArrayList<>();
+                        tu.add(thumbUrl);
+                        reco.setThumbnailUrl(tu);
+
+                        reco.setTimeToRead(bean.getTimeToRead());
+                        reco.setAuthor(bean.getAuthor());
+                        reco.setMedia(bean.getMedia());
+
+                        reco.setLeadText(bean.getLeadText());
+
+                        eveningBriefing.add(reco);
+                    }
+
+                    allBriefing.addAll(morningBriefing);
+                    allBriefing.addAll(noonBriefing);
+                    allBriefing.addAll(eveningBriefing);
+                    if (context == null) {
+                        return allBriefing;
+                    }
+                    THPDB thp = THPDB.getInstance(context);
+                    thp.breifingDao().deleteAll();
+
+                    BreifingTable breifingTable = new BreifingTable();
+                    breifingTable.setEvening(eveningBriefing);
+                    breifingTable.setNoon(noonBriefing);
+                    breifingTable.setMorning(morningBriefing);
+                    thp.breifingDao().insertBreifing(breifingTable);
+                    return allBriefing;
+                        }
+                );
+
+    }
+
+    public static Observable<List<RecoBean>> getBreifingFromDB(final Context context, final String breifingType) {
+        return Observable.just("BreifingItem")
+        .subscribeOn(Schedulers.newThread())
+                .timeout(10000, TimeUnit.MILLISECONDS)
+                .map(value -> {
+                            List<RecoBean> briefingItems = new ArrayList<>();
+
+                            THPDB thp = THPDB.getInstance(context);
+
+                            BreifingTable breifingTable = thp.breifingDao().getBreifingTable();
+
+                            if(breifingType.equals(NetConstants.BREIFING_ALL)) {
+                                briefingItems.addAll(breifingTable.getMorning());
+                                briefingItems.addAll(breifingTable.getNoon());
+                                briefingItems.addAll(breifingTable.getEvening());
+                            } else if(breifingType.equals(NetConstants.BREIFING_MORNING)) {
+                                briefingItems.addAll(breifingTable.getMorning());
+                            } else if(breifingType.equals(NetConstants.BREIFING_NOON)) {
+                                briefingItems.addAll(breifingTable.getNoon());
+                            } else if(breifingType.equals(NetConstants.BREIFING_EVENING)) {
+                                briefingItems.addAll(breifingTable.getEvening());
+                            }
+
+                            return briefingItems;
+                        }
+                );
+
+    }
+
+
+    public static void getBreifingFromServerTest(final Context context, String breifingUrl) {
+        Observable<BreifingModelTest> observable = ServiceFactory.getServiceAPIs().getBriefingTest(breifingUrl);
+        observable.subscribeOn(Schedulers.newThread())
+                .timeout(10000, TimeUnit.MILLISECONDS)
+                .map(value -> {
+                            List<RecoBean> allBriefing = new ArrayList<>();
+
+                            return allBriefing;
+                        }
+                )
+        .subscribe(value->{
+            Log.i("", "");
+        }, throwable -> {
+            Log.i("", "");
+        });
+
     }
 
 

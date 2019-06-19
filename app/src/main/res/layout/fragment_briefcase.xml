@@ -55,6 +55,7 @@
         app:layout_constraintTop_toBottomOf="@+id/yourEditionFor_Txt"
         app:font_path="@string/FONT_FIRA_SANS_REGULAR"
         android:maxLines="1"
+        android:visibility="gone"
         />
 
     <com.ns.view.CustomTextView

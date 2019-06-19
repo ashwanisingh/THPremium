@@ -21,6 +21,7 @@ import com.ns.alerts.Alerts;
 import com.ns.model.AppTabContentModel;
 import com.ns.thpremium.BuildConfig;
 import com.ns.thpremium.R;
+import com.ns.utils.CommonUtil;
 import com.ns.utils.ContentUtil;
 import com.ns.utils.GlideUtil;
 import com.ns.utils.IntentUtil;
@@ -113,8 +114,7 @@ public class AppTabContentAdapter extends BaseRecyclerViewAdapter {
             ui_Dash_Tren_Book_Populate(viewHolder, bean, position);
         }
         else if(viewHolder instanceof BriefcaseViewHolder) {
-            BriefcaseViewHolder holder = (BriefcaseViewHolder) viewHolder;
-
+            ui_Briefing_Populate(viewHolder, bean, position);
         }
         else if (viewHolder instanceof DetailBannerViewHolder) {
             ui_detail_banner(viewHolder, bean);
@@ -154,6 +154,23 @@ public class AppTabContentAdapter extends BaseRecyclerViewAdapter {
         holder.toggleBtn_Img.setOnClickListener(v->
                 updateBookmarkFavLike(holder.toggleBtnProgressBar, holder.toggleBtn_Img, holder.toggleBtn_Img.getContext(), position, bean, "dislike")
         );
+
+        holder.itemView.setOnClickListener(v->
+                IntentUtil.openDetailActivity(holder.itemView.getContext(), mFrom,
+                        bean.getArticleUrl(), position, bean.getArticleId())
+        );
+    }
+
+    private void ui_Briefing_Populate(RecyclerView.ViewHolder viewHolder, RecoBean bean, int position) {
+        BriefcaseViewHolder holder = (BriefcaseViewHolder) viewHolder;
+
+        GlideUtil.loadImage(holder.image.getContext(), holder.image, ContentUtil.getThumbUrl(bean.getThumbnailUrl()));
+        holder.authorName_Txt.setText(ContentUtil.getAuthor(bean.getAuthor()));
+        holder.title.setText(bean.getArticletitle());
+        holder.sectionName.setText(bean.getArticleSection());
+        String timeDiff = AppDateUtil.getDurationFormattedDate(AppDateUtil.changeStringToMillisGMT(bean.getPubDateTime()), Locale.ENGLISH);
+        holder.time_Txt.setText(timeDiff);
+        holder.description_Txt.setText(CommonUtil.htmlText(bean.getDescription()));
 
         holder.itemView.setOnClickListener(v->
                 IntentUtil.openDetailActivity(holder.itemView.getContext(), mFrom,
@@ -242,6 +259,10 @@ public class AppTabContentAdapter extends BaseRecyclerViewAdapter {
             mContent.get(position).setBean(recoBean);
         }
         notifyDataSetChanged();
+    }
+
+    public void clearData() {
+        mContent.clear();
     }
 
 

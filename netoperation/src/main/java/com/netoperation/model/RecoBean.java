@@ -22,13 +22,14 @@ public class RecoBean implements Parcelable {
      */
 
     private String description;
+    private String articleId;
     private String leadText;
+
     private String commentCount;
     private String AUDIO_URL;
     private String VIDEO_URL;
     private ArrayList<MeBean> IMAGES;
 
-    private String articleId;
     private String articletitle;
     private String articleSection;
     private String articleUrl;
@@ -41,6 +42,26 @@ public class RecoBean implements Parcelable {
     private List<String> author;
     private int like;
     private int bookmark;
+
+
+
+
+    private String sectionName;
+    private String publishedDate;
+    private String originalDate;
+    private String location;
+    private String title;
+    private String articleLink;
+    private String gmt;
+    private String youtubeVideoId;
+    private String shortDescription;
+    private String videoId;
+    private String articleType;
+    private String timeToRead;
+    private List<BriefingMediaBean> media;
+
+
+
 
     public ArrayList<MeBean> getIMAGES() {
         return IMAGES;
@@ -195,69 +216,112 @@ public class RecoBean implements Parcelable {
     }
 
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.description);
-        dest.writeString(this.leadText);
-        dest.writeString(this.commentCount);
-        dest.writeString(this.AUDIO_URL);
-        dest.writeString(this.VIDEO_URL);
-        dest.writeString(this.articleId);
-        dest.writeString(this.articletitle);
-        dest.writeString(this.articleSection);
-        dest.writeString(this.articleUrl);
-        dest.writeString(this.pubDate);
-        dest.writeString(this.pubDateTime);
-        dest.writeInt(this.rank);
-        dest.writeString(this.recotype);
-        dest.writeString(this.articletype);
-        dest.writeStringList(this.thumbnailUrl);
-        dest.writeStringList(this.author);
-        dest.writeInt(this.like);
-        dest.writeInt(this.bookmark);
-    }
-
     public RecoBean() {
     }
 
-    protected RecoBean(Parcel in) {
-        this.description = in.readString();
-        this.leadText = in.readString();
-        this.commentCount = in.readString();
-        this.AUDIO_URL = in.readString();
-        this.VIDEO_URL = in.readString();
-        this.articleId = in.readString();
-        this.articletitle = in.readString();
-        this.articleSection = in.readString();
-        this.articleUrl = in.readString();
-        this.pubDate = in.readString();
-        this.pubDateTime = in.readString();
-        this.rank = in.readInt();
-        this.recotype = in.readString();
-        this.articletype = in.readString();
-        this.thumbnailUrl = in.createStringArrayList();
-        this.author = in.createStringArrayList();
-        this.like = in.readInt();
-        this.bookmark = in.readInt();
+    public String getSectionName() {
+        return sectionName;
     }
 
-    public static final Parcelable.Creator<RecoBean> CREATOR = new Parcelable.Creator<RecoBean>() {
-        @Override
-        public RecoBean createFromParcel(Parcel source) {
-            return new RecoBean(source);
-        }
+    public void setSectionName(String sectionName) {
+        this.sectionName = sectionName;
+    }
 
-        @Override
-        public RecoBean[] newArray(int size) {
-            return new RecoBean[size];
-        }
-    };
+    public String getPublishedDate() {
+        return publishedDate;
+    }
 
+    public void setPublishedDate(String publishedDate) {
+        this.publishedDate = publishedDate;
+    }
+
+    public String getOriginalDate() {
+        return originalDate;
+    }
+
+    public void setOriginalDate(String originalDate) {
+        this.originalDate = originalDate;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getArticleLink() {
+        return articleLink;
+    }
+
+    public void setArticleLink(String articleLink) {
+        this.articleLink = articleLink;
+    }
+
+    public String getGmt() {
+        return gmt;
+    }
+
+    public void setGmt(String gmt) {
+        this.gmt = gmt;
+    }
+
+    public String getYoutubeVideoId() {
+        return youtubeVideoId;
+    }
+
+    public void setYoutubeVideoId(String youtubeVideoId) {
+        this.youtubeVideoId = youtubeVideoId;
+    }
+
+    public String getShortDescription() {
+        return shortDescription;
+    }
+
+    public void setShortDescription(String shortDescription) {
+        this.shortDescription = shortDescription;
+    }
+
+    public String getVideoId() {
+        return videoId;
+    }
+
+    public void setVideoId(String videoId) {
+        this.videoId = videoId;
+    }
+
+    public String getArticleType() {
+        return articleType;
+    }
+
+    public void setArticleType(String articleType) {
+        this.articleType = articleType;
+    }
+
+    public String getTimeToRead() {
+        return timeToRead;
+    }
+
+    public void setTimeToRead(String timeToRead) {
+        this.timeToRead = timeToRead;
+    }
+
+    public List<BriefingMediaBean> getMedia() {
+        return media;
+    }
+
+    public void setMedia(List<BriefingMediaBean> media) {
+        this.media = media;
+    }
 
     @Override
     public boolean equals(Object obj) {
@@ -276,4 +340,93 @@ public class RecoBean implements Parcelable {
         super.hashCode();
         return getArticleId().hashCode();
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.description);
+        dest.writeString(this.articleId);
+        dest.writeString(this.leadText);
+        dest.writeString(this.commentCount);
+        dest.writeString(this.AUDIO_URL);
+        dest.writeString(this.VIDEO_URL);
+        dest.writeTypedList(this.IMAGES);
+        dest.writeString(this.articletitle);
+        dest.writeString(this.articleSection);
+        dest.writeString(this.articleUrl);
+        dest.writeString(this.pubDate);
+        dest.writeString(this.pubDateTime);
+        dest.writeInt(this.rank);
+        dest.writeString(this.recotype);
+        dest.writeString(this.articletype);
+        dest.writeStringList(this.thumbnailUrl);
+        dest.writeStringList(this.author);
+        dest.writeInt(this.like);
+        dest.writeInt(this.bookmark);
+        dest.writeString(this.sectionName);
+        dest.writeString(this.publishedDate);
+        dest.writeString(this.originalDate);
+        dest.writeString(this.location);
+        dest.writeString(this.title);
+        dest.writeString(this.articleLink);
+        dest.writeString(this.gmt);
+        dest.writeString(this.youtubeVideoId);
+        dest.writeString(this.shortDescription);
+        dest.writeString(this.videoId);
+        dest.writeString(this.articleType);
+        dest.writeString(this.timeToRead);
+        dest.writeList(this.media);
+    }
+
+    protected RecoBean(Parcel in) {
+        this.description = in.readString();
+        this.articleId = in.readString();
+        this.leadText = in.readString();
+        this.commentCount = in.readString();
+        this.AUDIO_URL = in.readString();
+        this.VIDEO_URL = in.readString();
+        this.IMAGES = in.createTypedArrayList(MeBean.CREATOR);
+        this.articletitle = in.readString();
+        this.articleSection = in.readString();
+        this.articleUrl = in.readString();
+        this.pubDate = in.readString();
+        this.pubDateTime = in.readString();
+        this.rank = in.readInt();
+        this.recotype = in.readString();
+        this.articletype = in.readString();
+        this.thumbnailUrl = in.createStringArrayList();
+        this.author = in.createStringArrayList();
+        this.like = in.readInt();
+        this.bookmark = in.readInt();
+        this.sectionName = in.readString();
+        this.publishedDate = in.readString();
+        this.originalDate = in.readString();
+        this.location = in.readString();
+        this.title = in.readString();
+        this.articleLink = in.readString();
+        this.gmt = in.readString();
+        this.youtubeVideoId = in.readString();
+        this.shortDescription = in.readString();
+        this.videoId = in.readString();
+        this.articleType = in.readString();
+        this.timeToRead = in.readString();
+        this.media = new ArrayList<BriefingMediaBean>();
+        in.readList(this.media, BriefingMediaBean.class.getClassLoader());
+    }
+
+    public static final Creator<RecoBean> CREATOR = new Creator<RecoBean>() {
+        @Override
+        public RecoBean createFromParcel(Parcel source) {
+            return new RecoBean(source);
+        }
+
+        @Override
+        public RecoBean[] newArray(int size) {
+            return new RecoBean[size];
+        }
+    };
 }

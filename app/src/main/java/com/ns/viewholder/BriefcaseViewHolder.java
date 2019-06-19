@@ -16,6 +16,7 @@ public class BriefcaseViewHolder extends RecyclerView.ViewHolder {
     public CustomTextView title;
     public CustomTextView authorName_Txt;
     public CustomTextView description_Txt;
+    public CustomTextView time_Txt;
     public SelectableRoundedImageView image;
     public View horizontalDivider;
 
@@ -26,6 +27,7 @@ public class BriefcaseViewHolder extends RecyclerView.ViewHolder {
         title = itemView.findViewById(R.id.title);
         authorName_Txt = itemView.findViewById(R.id.authorName_Txt);
         description_Txt = itemView.findViewById(R.id.description_Txt);
+        time_Txt = itemView.findViewById(R.id.time_Txt);
         image = itemView.findViewById(R.id.image);
         horizontalDivider = itemView.findViewById(R.id.horizontalDivider);
 
