@@ -29,13 +29,6 @@
             app:tabMode="fixed"
             android:layout_weight="1"
             />
-
-        <include
-            layout="@layout/apptab_custom_tab"
-            android:id="@+id/appTabsMore_Img"
-            android:layout_width="55dp"
-            android:layout_height="match_parent" />
-
     </LinearLayout>
 
     <android.support.v4.view.ViewPager

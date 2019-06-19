@@ -277,7 +277,7 @@ public class AppTabContentAdapter extends BaseRecyclerViewAdapter {
                 .subscribe(bean-> {
                     RecoBean bean1 = (RecoBean) bean;
                     if(recoBean != null) {
-                        recoBean.setBookmark(bean1.getBookmark());
+                        recoBean.setIsBookmark(bean1.getIsBookmark());
                     }
                     imageView1.setVisibility(View.VISIBLE);
                     imageView1.setEnabled(true);
@@ -313,7 +313,7 @@ public class AppTabContentAdapter extends BaseRecyclerViewAdapter {
                 .subscribe(likeVal-> {
                     int like = (int)likeVal;
                     if(recoBean != null) {
-                        recoBean.setLike(like);
+                        recoBean.setIsFavourite(like);
                     }
                     like_Img.setVisibility(View.VISIBLE);
                     toggleBtn_Img.setVisibility(View.VISIBLE);
@@ -342,10 +342,10 @@ public class AppTabContentAdapter extends BaseRecyclerViewAdapter {
         bar.setVisibility(View.VISIBLE);
         imageView.setVisibility(View.INVISIBLE);
         imageView.setEnabled(false);
-        int bookmark = bean.getBookmark();
-        int favourite = bean.getLike();
+        int bookmark = bean.getIsBookmark();
+        int favourite = bean.getIsFavourite();
         if(from.equals("bookmark")) {
-            if(bean.getBookmark() == NetConstants.BOOKMARK_YES) {
+            if(bean.getIsBookmark() == NetConstants.BOOKMARK_YES) {
                 bookmark = NetConstants.BOOKMARK_NO;
             }
             else {
@@ -353,10 +353,10 @@ public class AppTabContentAdapter extends BaseRecyclerViewAdapter {
             }
         }
         else if(from.equals("favourite")) {
-            if(bean.getLike() == NetConstants.LIKE_NEUTRAL) {
+            if(bean.getIsFavourite() == NetConstants.LIKE_NEUTRAL) {
                 favourite = NetConstants.LIKE_YES;
             }
-            else if(bean.getLike() == NetConstants.LIKE_NO) {
+            else if(bean.getIsFavourite() == NetConstants.LIKE_NO) {
                 favourite = NetConstants.LIKE_YES;
             }
             else {
@@ -374,8 +374,8 @@ public class AppTabContentAdapter extends BaseRecyclerViewAdapter {
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(val-> {
                     if (val) {
-                        bean.setLike(fav);
-                        bean.setBookmark(book);
+                        bean.setIsFavourite(fav);
+                        bean.setIsBookmark(book);
                         if(from.equals("bookmark")) {
                             if(book == NetConstants.BOOKMARK_YES) {
                                 ApiManager.createBookmark(context, bean).subscribe(boole -> {

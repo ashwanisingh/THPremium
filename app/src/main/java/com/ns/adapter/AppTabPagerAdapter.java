@@ -17,6 +17,7 @@ import com.ns.contentfragment.BookmarksFragment;
 import com.ns.contentfragment.BriefcaseFragment;
 import com.ns.contentfragment.DashboardFragment;
 import com.ns.contentfragment.EditionOptionFragment;
+import com.ns.contentfragment.MoreOptionFragment;
 import com.ns.contentfragment.SuggestedFragment;
 import com.ns.contentfragment.TrendingFragment;
 import com.ns.thpremium.R;
@@ -42,16 +43,16 @@ public class AppTabPagerAdapter extends FragmentStatePagerAdapter {
             return TrendingFragment.getInstance();
         }
         else if(i==4) {
-            return EditionOptionFragment.getInstance();
+            return MoreOptionFragment.getInstance();
         }
         else {
-            return EditionOptionFragment.getInstance();
+            return MoreOptionFragment.getInstance();
         }
     }
 
     @Override
     public int getCount() {
-        return 4;
+        return 5;
     }
 
     private String [] tabNames = {"Briefing", "My Stories", "Suggested", "Trending", "More"};
@@ -66,7 +67,7 @@ public class AppTabPagerAdapter extends FragmentStatePagerAdapter {
             R.drawable.tab_dashboard_selected,
             R.drawable.tab_suggested_selected,
             R.drawable.tab_trending_selected,
-            R.drawable.tab_more_grey};
+            R.drawable.tab_more_blue};
 
     @Nullable
     @Override
