@@ -36,4 +36,6 @@ public class NetConstants {
 
     public static final String USER_ID = "489";
 
+    public static final String ITEM_SIZE = "10";
+
 }

@@ -12,6 +12,7 @@ import com.netoperation.db.DashboardTable;
 import com.netoperation.db.THPDB;
 import com.netoperation.model.BreifingModel;
 import com.netoperation.model.MorningBean;
+import com.netoperation.model.PrefListModel;
 import com.netoperation.model.RecoBean;
 import com.netoperation.model.RecomendationData;
 import com.netoperation.model.SearchedArticleModel;
@@ -19,6 +20,8 @@ import com.netoperation.retrofit.ReqBody;
 import com.netoperation.retrofit.ServiceFactory;
 import com.netoperation.util.NetConstants;
 import com.netoperation.util.RetentionDef;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +31,7 @@ import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
+import retrofit2.http.Query;
 
 public class ApiManager {
 
@@ -66,8 +70,79 @@ public class ApiManager {
                         callback.onComplete(NetConstants.EVENT_SIGNUP);
                     }
                 });
-
     }
+
+    public static void validateOTP(RequestCallback<Boolean> callback, String otp, String emailOrContact) {
+
+        Observable<JsonElement> observable = ServiceFactory.getServiceAPIs().validateOtp(ReqBody.validateOtp(otp, emailOrContact));
+        observable.subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .map(value -> {
+                            if (((JsonObject) value).has("status")) {
+                                String status = ((JsonObject) value).get("status").getAsString();
+                                if (status.equalsIgnoreCase("success")) {
+                                    return true;
+                                }
+                                return false;
+                            }
+                            return false;
+                        }
+                )
+                .subscribe(value -> {
+                    if (callback != null) {
+                        callback.onNext(value);
+                    }
+
+                }, throwable -> {
+                    if (callback != null) {
+                        callback.onError(throwable, NetConstants.EVENT_SIGNUP);
+                    }
+                }, () -> {
+                    if (callback != null) {
+                        callback.onComplete(NetConstants.EVENT_SIGNUP);
+                    }
+                });
+    }
+
+    public static void userSignUp(RequestCallback<Boolean> callback, String otp, String countryCode, String password, String emailId, String contact, String deviceId, String siteId, String originUrl) {
+
+        Observable<JsonElement> observable = ServiceFactory.getServiceAPIs().signup(ReqBody.signUp(otp, countryCode, password, emailId, contact, deviceId, siteId, originUrl));
+        observable.subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .map(value -> {
+                            if (((JsonObject) value).has("status")) {
+                                String status = ((JsonObject) value).get("status").getAsString();
+                                String userInfo = ((JsonObject) value).get("userInfo").getAsString();
+
+                                JSONObject obj = new JSONObject(userInfo);
+
+                                Log.i("", "");
+
+                                if (status.equalsIgnoreCase("success")) {
+                                    return true;
+                                }
+                                return false;
+                            }
+                            return false;
+                        }
+                )
+                .subscribe(value -> {
+                    if (callback != null) {
+                        callback.onNext(value);
+                    }
+
+                }, throwable -> {
+                    if (callback != null) {
+                        callback.onError(throwable, NetConstants.EVENT_SIGNUP);
+                    }
+                }, () -> {
+                    if (callback != null) {
+                        callback.onComplete(NetConstants.EVENT_SIGNUP);
+                    }
+                });
+    }
+
+
 
     public static void userLogin(RequestCallback<Boolean> callback, String email, String contact,
                                  String siteId, String password, String deviceId, String originUrl) {
@@ -375,6 +450,12 @@ public class ApiManager {
     }
 
 
+    /**
+     * Gets Breifing Data from server
+     * @param context
+     * @param breifingUrl
+     * @return
+     */
     public static Observable<List<RecoBean>> getBreifingFromServer(final Context context, String breifingUrl) {
         Observable<BreifingModel> observable = ServiceFactory.getServiceAPIs().getBriefing(breifingUrl);
         return observable.subscribeOn(Schedulers.newThread())
@@ -504,6 +585,12 @@ public class ApiManager {
 
     }
 
+    /**
+     * Gets Breifing Data from local database
+     * @param context
+     * @param breifingType
+     * @return
+     */
     public static Observable<List<RecoBean>> getBreifingFromDB(final Context context, final String breifingType) {
         return Observable.just("BreifingItem")
         .subscribeOn(Schedulers.newThread())
@@ -534,6 +621,16 @@ public class ApiManager {
     }
 
 
+    public static Observable<PrefListModel> getPrefList(String userid, String siteid,
+                                                          String size, String recotype) {
+        Observable<PrefListModel> observable = ServiceFactory.getServiceAPIs().getPrefList(userid, siteid, size, recotype);
+        return observable.subscribeOn(Schedulers.newThread())
+                .timeout(10000, TimeUnit.MILLISECONDS)
+                .map(value ->
+                        value
+                );
+
+    }
 
 
 }

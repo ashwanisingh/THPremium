@@ -20,6 +20,7 @@ import com.ns.utils.ResUtil;
 import com.ns.utils.THPConstants;
 import com.ns.utils.TextSpanCallback;
 import com.ns.utils.ValidationUtil;
+import com.ns.view.CustomProgressBar;
 import com.ns.view.CustomTextView;
 
 public class SignUpFragment extends BaseFragmentTHP {
@@ -30,6 +31,7 @@ public class SignUpFragment extends BaseFragmentTHP {
     }
 
     private EditText emailOrMobile_Et;
+    private CustomProgressBar progressBar;
 
     private CustomTextView tc_Txt;
     private CustomTextView faq_Txt;
@@ -41,8 +43,6 @@ public class SignUpFragment extends BaseFragmentTHP {
 
     private boolean isUserEnteredEmail;
     private boolean isUserEnteredMobile;
-
-    private THPPreferences preferences;
 
     @Override
     public int getLayoutRes() {
@@ -57,6 +57,7 @@ public class SignUpFragment extends BaseFragmentTHP {
         tc_Txt = view.findViewById(R.id.tc_Txt);
         faq_Txt = view.findViewById(R.id.faq_Txt);
         signUp_Txt = view.findViewById(R.id.signUp_Txt);
+        progressBar = view.findViewById(R.id.progressBar);
 
         googleBtn = view.findViewById(R.id.googleBtn);
         tweeterBtn = view.findViewById(R.id.tweeterBtn);
@@ -75,31 +76,37 @@ public class SignUpFragment extends BaseFragmentTHP {
                 });
 
         signUp_Txt.setOnClickListener(v->{
-            OTPVerificationFragment fragment = OTPVerificationFragment.getInstance(THPConstants.FROM_SignUpFragment);
-            FragmentUtil.pushFragmentAnim((AppCompatActivity)getActivity(), R.id.parentLayout, fragment,
-                    FragmentUtil.FRAGMENT_ANIMATION, false);
-
 
             String emailOrMobile = emailOrMobile_Et.getText().toString();
-            String mobile = "";
-            String email = "";
+            String mobileStr = "";
+            String emailStr = "";
+
+            isUserEnteredMobile = false;
+            isUserEnteredEmail = false;
 
             if(ValidationUtil.isValidMobile(emailOrMobile)) {
                 isUserEnteredMobile = true;
                 isUserEnteredEmail = false;
-                mobile = emailOrMobile;
+                mobileStr = emailOrMobile;
             }
 
             if(ValidationUtil.isValidEmail(emailOrMobile)) {
                 isUserEnteredEmail = true;
                 isUserEnteredMobile = false;
-                email = emailOrMobile;
+                emailStr = emailOrMobile;
             }
 
             if(!isUserEnteredMobile && !isUserEnteredEmail) {
                 Alerts.showAlertDialogNoBtnWithCancelable(getActivity(), "", "\nPlease enter valid Email or Mobile \n");
                 return;
             }
+
+            signUp_Txt.setEnabled(false);
+
+            progressBar.setVisibility(View.VISIBLE);
+
+            String mobile = mobileStr;
+            String email = emailStr;
 
             // Hide SoftKeyboard
             CommonUtil.hideKeyboard(getView());
@@ -120,13 +127,12 @@ public class SignUpFragment extends BaseFragmentTHP {
                         }
                     }
                     else {
+                         // Opening OTP Verification Screen
+                        OTPVerificationFragment fragment = OTPVerificationFragment.getInstance(THPConstants.FROM_SignUpFragment,
+                                isUserEnteredEmail, email, mobile);
+                        FragmentUtil.pushFragmentAnim((AppCompatActivity)getActivity(), R.id.parentLayout, fragment,
+                                FragmentUtil.FRAGMENT_ANIMATION, false);
 
-                        // Todo, 
-
-
-                        preferences=THPPreferences.getInstance(getActivity());
-                        String shEmailOrMobile=emailOrMobile_Et.getText().toString().trim();
-                        preferences.saveSignUpDetails(shEmailOrMobile);
                     }
 
                 }
@@ -134,15 +140,18 @@ public class SignUpFragment extends BaseFragmentTHP {
                 @Override
                 public void onError(Throwable t, String str) {
                     if(getActivity() != null && getView() != null) {
+                        progressBar.setVisibility(View.GONE);
+                        signUp_Txt.setEnabled(true);
                         Alerts.showErrorDailog(getChildFragmentManager(), null, t.getLocalizedMessage());
                     }
                 }
 
                 @Override
                 public void onComplete(String str) {
-
+                    progressBar.setVisibility(View.GONE);
+                    signUp_Txt.setEnabled(true);
                 }
-            }, email, mobile, BuildConfig.SITEID);
+            }, emailStr, mobileStr, BuildConfig.SITEID);
 
 
 

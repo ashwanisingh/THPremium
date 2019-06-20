@@ -83,6 +83,14 @@
             android:layout_marginTop="20dp"
              />
 
+        <com.ns.view.CustomProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            style="@android:style/Widget.Holo.ProgressBar.Small"
+            android:visibility="invisible"/>
+
         <com.ns.view.CustomTextView
             android:id="@+id/resend_Txt"
             android:text="Resend OTP"
@@ -91,7 +99,7 @@
             android:layout_marginStart="77dp"
             android:layout_marginRight="77dp"
             android:layout_marginEnd="77dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="20dp"
             android:background="@drawable/grey_background"
             android:textColor="@color/blueColor_1"
             app:font_path="@string/FONT_FIRA_SANS_REGULAR"
