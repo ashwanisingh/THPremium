@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginTop="@dimen/personalise_author_margin_top"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.joooonho.SelectableRoundedImageView
+        android:id="@+id/image_author"
+        android:layout_width="@dimen/personalise_author_width_height"
+        android:layout_height="@dimen/personalise_author_width_height"
+        app:sriv_left_bottom_corner_radius="6dp"
+        app:sriv_left_top_corner_radius="6dp"
+        app:sriv_right_bottom_corner_radius="6dp"
+        app:sriv_right_top_corner_radius="6dp"
+        android:scaleType="fitXY"
+        app:sriv_border_width="2dp"
+        app:sriv_border_color="@color/greyColor_1"
+        />
+
+    <TextView
+        android:id="@+id/tv_author_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@+id/image_author"
+        android:layout_centerInParent="true"
+        android:text="Doglas Grey" />
+
+    <ImageView
+        android:id="@+id/imageview_click"
+        android:layout_width="@dimen/personalise_author_width_height"
+        android:layout_height="@dimen/personalise_author_width_height"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="5dp"
+        android:background="@drawable/ic_plus" />
+
+
+</RelativeLayout>

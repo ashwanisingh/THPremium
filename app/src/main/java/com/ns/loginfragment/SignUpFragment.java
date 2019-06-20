@@ -121,7 +121,7 @@ public class SignUpFragment extends BaseFragmentTHP {
                     }
                     else {
 
-                        // Todo, 
+                        // Todo,
 
 
                         preferences=THPPreferences.getInstance(getActivity());

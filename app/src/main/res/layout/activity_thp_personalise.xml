@@ -1,6 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-</android.support.constraint.ConstraintLayout>
+    <ImageButton
+        android:id="@+id/backBtn"
+        style="@style/backBtnStyle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+       <com.ns.view.CustomTextView
+        android:layout_alignParentRight="true"
+        android:id="@+id/tv_savepref"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="10sp"
+        android:textColor="@color/blueColor_1"
+        android:padding="10dp"
+        android:text="Save Preference"
+        android:layout_gravity="right"
+        />
+
+    <android.support.v4.view.ViewPager
+        android:layout_marginTop="@dimen/personalise_margin_top"
+        android:id="@+id/personalise_viewPager"
+        android:layout_below="@+id/tv_savepref"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</RelativeLayout>
