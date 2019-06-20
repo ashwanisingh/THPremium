@@ -11,9 +11,9 @@ import com.netoperation.db.BreifingTable;
 import com.netoperation.db.DashboardTable;
 import com.netoperation.db.THPDB;
 import com.netoperation.db.UserProfileTable;
-import com.netoperation.model.PersonaliseModel;
 import com.netoperation.model.BreifingModel;
 import com.netoperation.model.MorningBean;
+import com.netoperation.model.PersonaliseModel;
 import com.netoperation.model.PrefListModel;
 import com.netoperation.model.RecoBean;
 import com.netoperation.model.RecomendationData;
@@ -33,6 +33,7 @@ import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
+import retrofit2.http.Query;
 
 public class ApiManager {
 
@@ -105,42 +106,97 @@ public class ApiManager {
                 });
     }
 
-    public static void userSignUp(RequestCallback<Boolean> callback, String otp, String countryCode, String password, String emailId, String contact, String deviceId, String siteId, String originUrl) {
-
-        Observable<JsonElement> observable = ServiceFactory.getServiceAPIs().signup(ReqBody.signUp(otp, countryCode, password, emailId, contact, deviceId, siteId, originUrl));
-        observable.subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
+    public static Observable<Boolean> userSignUp(Context context, String otp, String countryCode, String password, String email, String contact, String deviceId, String siteId, String originUrl) {
+        return ServiceFactory.getServiceAPIs().signup(ReqBody.signUp(otp, countryCode, password, email, contact, deviceId, siteId, originUrl))
+                .subscribeOn(Schedulers.newThread())
                 .map(value -> {
                             if (((JsonObject) value).has("status")) {
                                 String status = ((JsonObject) value).get("status").getAsString();
-                                String userInfo = ((JsonObject) value).get("userInfo").getAsString();
-
-                                JSONObject obj = new JSONObject(userInfo);
-
-                                Log.i("", "");
-
                                 if (status.equalsIgnoreCase("success")) {
+                                    String userInfo = ((JsonObject) value).get("userInfo").getAsString();
+
+                                    JSONObject obj = new JSONObject(userInfo);
+
+                                    String emailId = ((JsonObject) value).get("emailId").getAsString();
+                                    String contact_ = ((JsonObject) value).get("contact").getAsString();
+                                    String redirectUrl = ((JsonObject) value).get("redirectUrl").getAsString();
+                                    String userId = ((JsonObject) value).get("userId").getAsString();
+                                    String reason = ((JsonObject) value).get("reason").getAsString();
+
+                                    String authors_preference = obj.getString("authors_preference");
+                                    String cities_preference = obj.getString("cities_preference");
+                                    String topics_preference = obj.getString("topics_preference");
+
+                                    String address_state = obj.getString("address_state");
+                                    String address_pincode = obj.getString("address_pincode");
+                                    String address_house_no = obj.getString("address_house_no");
+                                    String address_city = obj.getString("address_city");
+                                    String address_street = obj.getString("address_street");
+                                    String address_fulllname = obj.getString("address_fulllname");
+                                    String address_landmark = obj.getString("address_landmark");
+                                    String address_default_option = obj.getString("address_default_option");
+                                    String address_location = obj.getString("address_location");
+
+                                    String Profile_Country = obj.getString("Profile_Country");
+                                    String Profile_State = obj.getString("Profile_State");
+
+                                    String FullName = obj.getString("FullName");
+                                    String Gender = obj.getString("Gender");
+                                    String DOB = obj.getString("DOB");
+
+                                    String isNew = ((JsonObject) value).get("isNew").getAsString();
+                                    String fid = ((JsonObject) value).get("fid").getAsString();
+                                    String tid = ((JsonObject) value).get("tid").getAsString();
+                                    String gid = ((JsonObject) value).get("gid").getAsString();
+
+
+                                    THPDB thpdb = THPDB.getInstance(context);
+                                    // Deleting Previous Profile DB
+                                    thpdb.userProfileDao().deleteAll();
+
+                                    UserProfileTable userProfileTable = new UserProfileTable();
+
+                                    userProfileTable.setEmailId(emailId);
+                                    userProfileTable.setContact(contact_);
+                                    userProfileTable.setRedirectUrl(redirectUrl);
+                                    userProfileTable.setUserId(userId);
+                                    userProfileTable.setReason(reason);
+
+                                    userProfileTable.setAuthors_preference(authors_preference);
+                                    userProfileTable.setCities_preference(cities_preference);
+                                    userProfileTable.setTopics_preference(topics_preference);
+
+                                    userProfileTable.setAddress_state(address_state);
+                                    userProfileTable.setAddress_pincode(address_pincode);
+                                    userProfileTable.setAddress_house_no(address_house_no);
+                                    userProfileTable.setAddress_city(address_city);
+                                    userProfileTable.setAddress_street(address_street);
+                                    userProfileTable.setAddress_fulllname(address_fulllname);
+                                    userProfileTable.setAddress_landmark(address_landmark);
+                                    userProfileTable.setAddress_default_option(address_default_option);
+                                    userProfileTable.setAddress_location(address_location);
+
+                                    userProfileTable.setProfile_Country(Profile_Country);
+                                    userProfileTable.setProfile_State(Profile_State);
+
+                                    userProfileTable.setFullName(FullName);
+                                    userProfileTable.setGender(Gender);
+                                    userProfileTable.setDOB(DOB);
+
+                                    userProfileTable.setIsNew(isNew);
+                                    userProfileTable.setFid(fid);
+                                    userProfileTable.setTid(tid);
+                                    userProfileTable.setGid(gid);
+
+                                    thpdb.userProfileDao().insertUserProfile(userProfileTable);
+
                                     return true;
                                 }
                                 return false;
                             }
                             return false;
                         }
-                )
-                .subscribe(value -> {
-                    if (callback != null) {
-                        callback.onNext(value);
-                    }
-
-                }, throwable -> {
-                    if (callback != null) {
-                        callback.onError(throwable, NetConstants.EVENT_SIGNUP);
-                    }
-                }, () -> {
-                    if (callback != null) {
-                        callback.onComplete(NetConstants.EVENT_SIGNUP);
-                    }
-                });
+                );
     }
 
 
@@ -335,7 +391,7 @@ public class ApiManager {
                     THPDB thp = THPDB.getInstance(context);
                     DashboardTable dashboardTable = thp.dashboardDao().getSingleDashboardBean(aid);
                     if (dashboardTable != null) {
-                            return dashboardTable.getBean().getIsFavourite();
+                        return dashboardTable.getBean().getIsFavourite();
                     }
                     return 0;
                 })
@@ -464,123 +520,123 @@ public class ApiManager {
                 .map(value -> {
 
 
-                    List<MorningBean> morningBeans = value.getMorning();
-                    List<MorningBean> noonBeans = value.getNoon();
-                    List<MorningBean> eveningBeans = value.getEvening();
+                            List<MorningBean> morningBeans = value.getMorning();
+                            List<MorningBean> noonBeans = value.getNoon();
+                            List<MorningBean> eveningBeans = value.getEvening();
 
-                    List<RecoBean> allBriefing = new ArrayList<>();
-                    List<RecoBean> morningBriefing = new ArrayList<>();
-                    List<RecoBean> noonBriefing = new ArrayList<>();
-                    List<RecoBean> eveningBriefing = new ArrayList<>();
+                            List<RecoBean> allBriefing = new ArrayList<>();
+                            List<RecoBean> morningBriefing = new ArrayList<>();
+                            List<RecoBean> noonBriefing = new ArrayList<>();
+                            List<RecoBean> eveningBriefing = new ArrayList<>();
 
-                    for(MorningBean bean : morningBeans) {
-                        RecoBean reco = new RecoBean();
-                        reco.setArticleId(bean.getArticleId());
-                        reco.setArticleSection(bean.getSectionName());
-                        reco.setPubDate(bean.getOriginalDate());
-                        reco.setPubDateTime(bean.getPublishedDate());
-                        reco.setLocation(bean.getLocation());
-                        reco.setTitle(bean.getTitle());
-                        reco.setArticletitle(bean.getTitle());
-                        reco.setArticleLink(bean.getArticleLink());
-                        reco.setGmt(bean.getGmt());
-                        reco.setYoutubeVideoId(bean.getYoutubeVideoId());
-                        reco.setDescription(bean.getDescription());
-                        reco.setShortDescription(bean.getShortDescription());
-                        reco.setVideoId(bean.getVideoId());
-                        reco.setArticleType(bean.getArticleType());
+                            for(MorningBean bean : morningBeans) {
+                                RecoBean reco = new RecoBean();
+                                reco.setArticleId(bean.getArticleId());
+                                reco.setArticleSection(bean.getSectionName());
+                                reco.setPubDate(bean.getOriginalDate());
+                                reco.setPubDateTime(bean.getPublishedDate());
+                                reco.setLocation(bean.getLocation());
+                                reco.setTitle(bean.getTitle());
+                                reco.setArticletitle(bean.getTitle());
+                                reco.setArticleLink(bean.getArticleLink());
+                                reco.setGmt(bean.getGmt());
+                                reco.setYoutubeVideoId(bean.getYoutubeVideoId());
+                                reco.setDescription(bean.getDescription());
+                                reco.setShortDescription(bean.getShortDescription());
+                                reco.setVideoId(bean.getVideoId());
+                                reco.setArticleType(bean.getArticleType());
 
-                        String thumbUrl = bean.getThumbnailUrl();
-                        ArrayList<String> tu = new ArrayList<>();
-                        tu.add(thumbUrl);
-                        reco.setThumbnailUrl(tu);
+                                String thumbUrl = bean.getThumbnailUrl();
+                                ArrayList<String> tu = new ArrayList<>();
+                                tu.add(thumbUrl);
+                                reco.setThumbnailUrl(tu);
 
-                        reco.setTimeToRead(bean.getTimeToRead());
-                        reco.setAuthor(bean.getAuthor());
-                        reco.setMedia(bean.getMedia());
+                                reco.setTimeToRead(bean.getTimeToRead());
+                                reco.setAuthor(bean.getAuthor());
+                                reco.setMedia(bean.getMedia());
 
-                        reco.setLeadText(bean.getLeadText());
+                                reco.setLeadText(bean.getLeadText());
 
-                        morningBriefing.add(reco);
-                    }
+                                morningBriefing.add(reco);
+                            }
 
-                    for(MorningBean bean : noonBeans) {
-                        RecoBean reco = new RecoBean();
-                        reco.setArticleId(bean.getArticleId());
-                        reco.setArticleSection(bean.getSectionName());
-                        reco.setPubDate(bean.getOriginalDate());
-                        reco.setPubDateTime(bean.getPublishedDate());
-                        reco.setLocation(bean.getLocation());
-                        reco.setTitle(bean.getTitle());
-                        reco.setArticletitle(bean.getTitle());
-                        reco.setArticleLink(bean.getArticleLink());
-                        reco.setGmt(bean.getGmt());
-                        reco.setYoutubeVideoId(bean.getYoutubeVideoId());
-                        reco.setDescription(bean.getDescription());
-                        reco.setShortDescription(bean.getShortDescription());
-                        reco.setVideoId(bean.getVideoId());
-                        reco.setArticleType(bean.getArticleType());
+                            for(MorningBean bean : noonBeans) {
+                                RecoBean reco = new RecoBean();
+                                reco.setArticleId(bean.getArticleId());
+                                reco.setArticleSection(bean.getSectionName());
+                                reco.setPubDate(bean.getOriginalDate());
+                                reco.setPubDateTime(bean.getPublishedDate());
+                                reco.setLocation(bean.getLocation());
+                                reco.setTitle(bean.getTitle());
+                                reco.setArticletitle(bean.getTitle());
+                                reco.setArticleLink(bean.getArticleLink());
+                                reco.setGmt(bean.getGmt());
+                                reco.setYoutubeVideoId(bean.getYoutubeVideoId());
+                                reco.setDescription(bean.getDescription());
+                                reco.setShortDescription(bean.getShortDescription());
+                                reco.setVideoId(bean.getVideoId());
+                                reco.setArticleType(bean.getArticleType());
 
-                        String thumbUrl = bean.getThumbnailUrl();
-                        ArrayList<String> tu = new ArrayList<>();
-                        tu.add(thumbUrl);
-                        reco.setThumbnailUrl(tu);
+                                String thumbUrl = bean.getThumbnailUrl();
+                                ArrayList<String> tu = new ArrayList<>();
+                                tu.add(thumbUrl);
+                                reco.setThumbnailUrl(tu);
 
-                        reco.setTimeToRead(bean.getTimeToRead());
-                        reco.setAuthor(bean.getAuthor());
-                        reco.setMedia(bean.getMedia());
+                                reco.setTimeToRead(bean.getTimeToRead());
+                                reco.setAuthor(bean.getAuthor());
+                                reco.setMedia(bean.getMedia());
 
-                        reco.setLeadText(bean.getLeadText());
+                                reco.setLeadText(bean.getLeadText());
 
-                        noonBriefing.add(reco);
-                    }
+                                noonBriefing.add(reco);
+                            }
 
-                    for(MorningBean bean : eveningBeans) {
-                        RecoBean reco = new RecoBean();
-                        reco.setArticleId(bean.getArticleId());
-                        reco.setArticleSection(bean.getSectionName());
-                        reco.setPubDate(bean.getOriginalDate());
-                        reco.setPubDateTime(bean.getPublishedDate());
-                        reco.setLocation(bean.getLocation());
-                        reco.setTitle(bean.getTitle());
-                        reco.setArticletitle(bean.getTitle());
-                        reco.setArticleLink(bean.getArticleLink());
-                        reco.setGmt(bean.getGmt());
-                        reco.setYoutubeVideoId(bean.getYoutubeVideoId());
-                        reco.setDescription(bean.getDescription());
-                        reco.setShortDescription(bean.getShortDescription());
-                        reco.setVideoId(bean.getVideoId());
-                        reco.setArticleType(bean.getArticleType());
+                            for(MorningBean bean : eveningBeans) {
+                                RecoBean reco = new RecoBean();
+                                reco.setArticleId(bean.getArticleId());
+                                reco.setArticleSection(bean.getSectionName());
+                                reco.setPubDate(bean.getOriginalDate());
+                                reco.setPubDateTime(bean.getPublishedDate());
+                                reco.setLocation(bean.getLocation());
+                                reco.setTitle(bean.getTitle());
+                                reco.setArticletitle(bean.getTitle());
+                                reco.setArticleLink(bean.getArticleLink());
+                                reco.setGmt(bean.getGmt());
+                                reco.setYoutubeVideoId(bean.getYoutubeVideoId());
+                                reco.setDescription(bean.getDescription());
+                                reco.setShortDescription(bean.getShortDescription());
+                                reco.setVideoId(bean.getVideoId());
+                                reco.setArticleType(bean.getArticleType());
 
-                        String thumbUrl = bean.getThumbnailUrl();
-                        ArrayList<String> tu = new ArrayList<>();
-                        tu.add(thumbUrl);
-                        reco.setThumbnailUrl(tu);
+                                String thumbUrl = bean.getThumbnailUrl();
+                                ArrayList<String> tu = new ArrayList<>();
+                                tu.add(thumbUrl);
+                                reco.setThumbnailUrl(tu);
 
-                        reco.setTimeToRead(bean.getTimeToRead());
-                        reco.setAuthor(bean.getAuthor());
-                        reco.setMedia(bean.getMedia());
+                                reco.setTimeToRead(bean.getTimeToRead());
+                                reco.setAuthor(bean.getAuthor());
+                                reco.setMedia(bean.getMedia());
 
-                        reco.setLeadText(bean.getLeadText());
+                                reco.setLeadText(bean.getLeadText());
 
-                        eveningBriefing.add(reco);
-                    }
+                                eveningBriefing.add(reco);
+                            }
 
-                    allBriefing.addAll(morningBriefing);
-                    allBriefing.addAll(noonBriefing);
-                    allBriefing.addAll(eveningBriefing);
-                    if (context == null) {
-                        return allBriefing;
-                    }
-                    THPDB thp = THPDB.getInstance(context);
-                    thp.breifingDao().deleteAll();
+                            allBriefing.addAll(morningBriefing);
+                            allBriefing.addAll(noonBriefing);
+                            allBriefing.addAll(eveningBriefing);
+                            if (context == null) {
+                                return allBriefing;
+                            }
+                            THPDB thp = THPDB.getInstance(context);
+                            thp.breifingDao().deleteAll();
 
-                    BreifingTable breifingTable = new BreifingTable();
-                    breifingTable.setEvening(eveningBriefing);
-                    breifingTable.setNoon(noonBriefing);
-                    breifingTable.setMorning(morningBriefing);
-                    thp.breifingDao().insertBreifing(breifingTable);
-                    return allBriefing;
+                            BreifingTable breifingTable = new BreifingTable();
+                            breifingTable.setEvening(eveningBriefing);
+                            breifingTable.setNoon(noonBriefing);
+                            breifingTable.setMorning(morningBriefing);
+                            thp.breifingDao().insertBreifing(breifingTable);
+                            return allBriefing;
                         }
                 );
 
@@ -594,7 +650,7 @@ public class ApiManager {
      */
     public static Observable<List<RecoBean>> getBreifingFromDB(final Context context, final String breifingType) {
         return Observable.just("BreifingItem")
-        .subscribeOn(Schedulers.newThread())
+                .subscribeOn(Schedulers.newThread())
                 .timeout(10000, TimeUnit.MILLISECONDS)
                 .map(value -> {
                             List<RecoBean> briefingItems = new ArrayList<>();
@@ -620,7 +676,6 @@ public class ApiManager {
                 );
 
     }
-
 
 
     public static Observable<PrefListModel> getPrefList(String userid, String siteid, String size, String recotype) {
