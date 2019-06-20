@@ -10,10 +10,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.ns.contentfragment.BriefcaseFragment;
 import com.ns.loginfragment.BaseFragmentTHP;
 import com.ns.thpremium.R;
 
 public class TopicsFragment extends BaseFragmentTHP {
+
+    public static TopicsFragment getInstance() {
+        TopicsFragment fragment = new TopicsFragment();
+        Bundle bundle = new Bundle();
+        fragment.setArguments(bundle);
+        return fragment;
+    }
 
     @Override
     public int getLayoutRes() {

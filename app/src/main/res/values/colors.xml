@@ -38,6 +38,7 @@
     <color name="greyish_brown">#444444</color>
     <color name="pinkish_grey">#c0c0c0</color>
     <color name="search_institute_recycler_top">#efefef</color>
+    <color name="author_name_text">#4e4e4e</color>
 
 
 </resources>

@@ -1,52 +1,37 @@
 package com.ns.adapter;
-
-import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v4.view.PagerAdapter;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageButton;
-import android.widget.TextView;
-
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import com.ns.personalisefragment.AuthorsFragment;
+import com.ns.personalisefragment.CitiesFragment;
+import com.ns.personalisefragment.TopicsFragment;
 import com.ns.thpremium.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class PersonaliseAdapter extends PagerAdapter {
+public class PersonaliseAdapter extends FragmentStatePagerAdapter {
 
-    private LayoutInflater inflater;
-    private Context context;
-    private List<String> items=new ArrayList<>();
-
-    public PersonaliseAdapter(Context context, List<String> items) {
-        this.context = context;
-        inflater = LayoutInflater.from(context);
-        this.items = items;
+    public PersonaliseAdapter(FragmentManager fm) {
+        super(fm);
     }
 
+
     @Override
-    public Object instantiateItem(ViewGroup container, int position) {
-        View itemView = inflater.inflate(R.layout.personalise_view_pager_row_items, container, false);
-        TextView tv_items = itemView.findViewById(R.id.tv_items);
-        tv_items.setText(items.get(position));
-        container.addView(itemView);
-        return itemView;
+    public Fragment getItem(int i) {
+        if(i==0) {
+            return TopicsFragment.getInstance();
+        }
+        else if(i==1) {
+            return CitiesFragment.getInstance();
+        }
+        else {
+            return AuthorsFragment.getInstance();
+        }
+
     }
 
     @Override
     public int getCount() {
-        return items.size();
-    }
-
-    @Override
-    public void destroyItem(ViewGroup container, int position, Object object) {
-        container.removeView((View) object);
-    }
-
-    @Override
-    public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
-        return view.equals(object);
+        return 3;
     }
 }

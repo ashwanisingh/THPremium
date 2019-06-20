@@ -10,6 +10,7 @@ import com.netoperation.db.BookmarkTable;
 import com.netoperation.db.BreifingTable;
 import com.netoperation.db.DashboardTable;
 import com.netoperation.db.THPDB;
+import com.netoperation.model.PersonaliseModel;
 import com.netoperation.model.BreifingModel;
 import com.netoperation.model.MorningBean;
 import com.netoperation.model.PrefListModel;
@@ -31,7 +32,6 @@ import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
-import retrofit2.http.Query;
 
 public class ApiManager {
 
@@ -621,14 +621,38 @@ public class ApiManager {
     }
 
 
-    public static Observable<PrefListModel> getPrefList(String userid, String siteid,
-                                                          String size, String recotype) {
+    public static Observable<PrefListModel> getPrefList(String userid, String siteid, String size, String recotype) {
         Observable<PrefListModel> observable = ServiceFactory.getServiceAPIs().getPrefList(userid, siteid, size, recotype);
         return observable.subscribeOn(Schedulers.newThread())
                 .timeout(10000, TimeUnit.MILLISECONDS)
-                .map(value ->
-                        value
-                );
+                .map(value -> {
+                         // For topics
+                        List<String> topics = value.getTopics();
+                        for(String stt : topics) {
+                            PersonaliseModel model=new PersonaliseModel();
+                            model.setName(stt);
+                            value.addTopicsModels(model);
+                        }
+
+                        // For cities
+                    List<String> cities = value.getCities();
+                    for(String stc : cities) {
+                        PersonaliseModel model=new PersonaliseModel();
+                        model.setName(stc);
+                        value.addCitiesModels(model);
+                    }
+
+                    // For authors
+                    List<String> authors = value.getAuthors();
+                    for(String sta : authors) {
+                        PersonaliseModel model=new PersonaliseModel();
+                        model.setName(sta);
+                        value.addAuthorsModels(model);
+                    }
+
+                    return value;
+
+                });
 
     }
 

@@ -10,6 +10,14 @@ import com.ns.thpremium.R;
 
 public class AuthorsFragment extends BaseFragmentTHP {
 
+    public static AuthorsFragment getInstance() {
+        AuthorsFragment fragment = new AuthorsFragment();
+        Bundle bundle = new Bundle();
+        fragment.setArguments(bundle);
+        return fragment;
+    }
+
+
     @Override
     public int getLayoutRes() {
         return R.layout.fragment_authors;

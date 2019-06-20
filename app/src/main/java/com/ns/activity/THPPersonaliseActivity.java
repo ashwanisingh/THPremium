@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 
+import com.netoperation.model.PersonaliseModel;
 import com.netoperation.net.ApiManager;
 import com.netoperation.util.NetConstants;
 import com.ns.adapter.PersonaliseAdapter;
@@ -41,9 +42,9 @@ public class THPPersonaliseActivity extends BaseAcitivityTHP {
         itemsList.add("Cities");
         itemsList.add("Authors");
 
-        mAdapter = new PersonaliseAdapter(THPPersonaliseActivity.this, itemsList);
-        viewPager.setAdapter(mAdapter);
-        viewPager.setCurrentItem(mAdapter.getCount()-1);
+//        mAdapter = new PersonaliseAdapter(THPPersonaliseActivity.this, itemsList);
+//        viewPager.setAdapter(mAdapter);
+//        viewPager.setCurrentItem(mAdapter.getCount()-1);
 
     }
 
@@ -52,7 +53,7 @@ public class THPPersonaliseActivity extends BaseAcitivityTHP {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         value -> {
-
+                         List<PersonaliseModel> topicsModels=value.getTopicsModels();
                         }, throwable -> {
 
                         }, () -> {
