@@ -10,6 +10,7 @@ import com.netoperation.db.BookmarkTable;
 import com.netoperation.db.BreifingTable;
 import com.netoperation.db.DashboardTable;
 import com.netoperation.db.THPDB;
+import com.netoperation.db.UserProfileTable;
 import com.netoperation.model.BreifingModel;
 import com.netoperation.model.MorningBean;
 import com.netoperation.model.PrefListModel;
@@ -104,42 +105,97 @@ public class ApiManager {
                 });
     }
 
-    public static void userSignUp(RequestCallback<Boolean> callback, String otp, String countryCode, String password, String emailId, String contact, String deviceId, String siteId, String originUrl) {
-
-        Observable<JsonElement> observable = ServiceFactory.getServiceAPIs().signup(ReqBody.signUp(otp, countryCode, password, emailId, contact, deviceId, siteId, originUrl));
-        observable.subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
+    public static Observable<Boolean> userSignUp(Context context, String otp, String countryCode, String password, String email, String contact, String deviceId, String siteId, String originUrl) {
+         return ServiceFactory.getServiceAPIs().signup(ReqBody.signUp(otp, countryCode, password, email, contact, deviceId, siteId, originUrl))
+        .subscribeOn(Schedulers.newThread())
                 .map(value -> {
                             if (((JsonObject) value).has("status")) {
                                 String status = ((JsonObject) value).get("status").getAsString();
-                                String userInfo = ((JsonObject) value).get("userInfo").getAsString();
-
-                                JSONObject obj = new JSONObject(userInfo);
-
-                                Log.i("", "");
-
                                 if (status.equalsIgnoreCase("success")) {
+                                    String userInfo = ((JsonObject) value).get("userInfo").getAsString();
+
+                                    JSONObject obj = new JSONObject(userInfo);
+
+                                    String emailId = ((JsonObject) value).get("emailId").getAsString();
+                                    String contact_ = ((JsonObject) value).get("contact").getAsString();
+                                    String redirectUrl = ((JsonObject) value).get("redirectUrl").getAsString();
+                                    String userId = ((JsonObject) value).get("userId").getAsString();
+                                    String reason = ((JsonObject) value).get("reason").getAsString();
+
+                                    String authors_preference = obj.getString("authors_preference");
+                                    String cities_preference = obj.getString("cities_preference");
+                                    String topics_preference = obj.getString("topics_preference");
+
+                                    String address_state = obj.getString("address_state");
+                                    String address_pincode = obj.getString("address_pincode");
+                                    String address_house_no = obj.getString("address_house_no");
+                                    String address_city = obj.getString("address_city");
+                                    String address_street = obj.getString("address_street");
+                                    String address_fulllname = obj.getString("address_fulllname");
+                                    String address_landmark = obj.getString("address_landmark");
+                                    String address_default_option = obj.getString("address_default_option");
+                                    String address_location = obj.getString("address_location");
+
+                                    String Profile_Country = obj.getString("Profile_Country");
+                                    String Profile_State = obj.getString("Profile_State");
+
+                                    String FullName = obj.getString("FullName");
+                                    String Gender = obj.getString("Gender");
+                                    String DOB = obj.getString("DOB");
+
+                                    String isNew = ((JsonObject) value).get("isNew").getAsString();
+                                    String fid = ((JsonObject) value).get("fid").getAsString();
+                                    String tid = ((JsonObject) value).get("tid").getAsString();
+                                    String gid = ((JsonObject) value).get("gid").getAsString();
+
+
+                                    THPDB thpdb = THPDB.getInstance(context);
+                                    // Deleting Previous Profile DB
+                                    thpdb.userProfileDao().deleteAll();
+
+                                    UserProfileTable userProfileTable = new UserProfileTable();
+
+                                    userProfileTable.setEmailId(emailId);
+                                    userProfileTable.setContact(contact_);
+                                    userProfileTable.setRedirectUrl(redirectUrl);
+                                    userProfileTable.setUserId(userId);
+                                    userProfileTable.setReason(reason);
+
+                                    userProfileTable.setAuthors_preference(authors_preference);
+                                    userProfileTable.setCities_preference(cities_preference);
+                                    userProfileTable.setTopics_preference(topics_preference);
+
+                                    userProfileTable.setAddress_state(address_state);
+                                    userProfileTable.setAddress_pincode(address_pincode);
+                                    userProfileTable.setAddress_house_no(address_house_no);
+                                    userProfileTable.setAddress_city(address_city);
+                                    userProfileTable.setAddress_street(address_street);
+                                    userProfileTable.setAddress_fulllname(address_fulllname);
+                                    userProfileTable.setAddress_landmark(address_landmark);
+                                    userProfileTable.setAddress_default_option(address_default_option);
+                                    userProfileTable.setAddress_location(address_location);
+
+                                    userProfileTable.setProfile_Country(Profile_Country);
+                                    userProfileTable.setProfile_State(Profile_State);
+
+                                    userProfileTable.setFullName(FullName);
+                                    userProfileTable.setGender(Gender);
+                                    userProfileTable.setDOB(DOB);
+
+                                    userProfileTable.setIsNew(isNew);
+                                    userProfileTable.setFid(fid);
+                                    userProfileTable.setTid(tid);
+                                    userProfileTable.setGid(gid);
+
+                                    thpdb.userProfileDao().insertUserProfile(userProfileTable);
+
                                     return true;
                                 }
                                 return false;
                             }
                             return false;
                         }
-                )
-                .subscribe(value -> {
-                    if (callback != null) {
-                        callback.onNext(value);
-                    }
-
-                }, throwable -> {
-                    if (callback != null) {
-                        callback.onError(throwable, NetConstants.EVENT_SIGNUP);
-                    }
-                }, () -> {
-                    if (callback != null) {
-                        callback.onComplete(NetConstants.EVENT_SIGNUP);
-                    }
-                });
+                );
     }
 
 
