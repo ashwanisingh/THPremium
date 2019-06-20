@@ -10,6 +10,7 @@ import com.netoperation.db.BookmarkTable;
 import com.netoperation.db.BreifingTable;
 import com.netoperation.db.DashboardTable;
 import com.netoperation.db.THPDB;
+import com.netoperation.db.UserProfileTable;
 import com.netoperation.model.PersonaliseModel;
 import com.netoperation.model.BreifingModel;
 import com.netoperation.model.MorningBean;
@@ -621,20 +622,21 @@ public class ApiManager {
     }
 
 
+
     public static Observable<PrefListModel> getPrefList(String userid, String siteid, String size, String recotype) {
         Observable<PrefListModel> observable = ServiceFactory.getServiceAPIs().getPrefList(userid, siteid, size, recotype);
         return observable.subscribeOn(Schedulers.newThread())
                 .timeout(10000, TimeUnit.MILLISECONDS)
                 .map(value -> {
-                         // For topics
-                        List<String> topics = value.getTopics();
-                        for(String stt : topics) {
-                            PersonaliseModel model=new PersonaliseModel();
-                            model.setName(stt);
-                            value.addTopicsModels(model);
-                        }
+                    // For topics
+                    List<String> topics = value.getTopics();
+                    for(String stt : topics) {
+                        PersonaliseModel model=new PersonaliseModel();
+                        model.setName(stt);
+                        value.addTopicsModels(model);
+                    }
 
-                        // For cities
+                    // For cities
                     List<String> cities = value.getCities();
                     for(String stc : cities) {
                         PersonaliseModel model=new PersonaliseModel();

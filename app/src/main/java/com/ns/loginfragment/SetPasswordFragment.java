@@ -21,6 +21,10 @@ import com.ns.utils.FragmentUtil;
 import com.ns.utils.ResUtil;
 import com.ns.view.CustomProgressBar;
 
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+
 public class SetPasswordFragment extends BaseFragmentTHP {
 
     private String mFrom;
@@ -137,42 +141,29 @@ public class SetPasswordFragment extends BaseFragmentTHP {
         submit_Txt.setEnabled(false);
         progressBar.setVisibility(View.VISIBLE);
 
-        ApiManager.userSignUp(new RequestCallback<Boolean>() {
-            @Override
-            public void onNext(Boolean bool) {
-                if(getActivity() == null && getView() == null) {
-                    return;
-                }
-                progressBar.setVisibility(View.INVISIBLE);
-
-                if(!bool) {
-                    if(isUserEnteredEmail) {
-                        Alerts.showAlertDialogOKBtn(getActivity(), "Sorry!", "Email already exist");
+        mDisposable.add(ApiManager.userSignUp(getActivity(), otp, "", password, email, contact, ResUtil.getDeviceId(getActivity()), BuildConfig.SITEID, BuildConfig.ORIGIN_URL)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(bool->{
+                    if(getActivity() == null && getView() == null) {
+                        return;
+                    }
+                    progressBar.setVisibility(View.INVISIBLE);
+                    if(!bool) {
+                        if(isUserEnteredEmail) {
+                            Alerts.showAlertDialogOKBtn(getActivity(), "Sorry!", "Email already exist");
+                        }
+                        else {
+                            Alerts.showAlertDialogOKBtn(getActivity(), "Sorry!", "Mobile already exist");
+                        }
                     }
                     else {
-                        Alerts.showAlertDialogOKBtn(getActivity(), "Sorry!", "Mobile already exist");
+                        // Open new Screen
+
                     }
-                }
-                else {
-                    // TODO, Open new Screen
-                }
+                }, throwable -> {
 
-            }
+                }));
 
-            @Override
-            public void onError(Throwable t, String str) {
-                if(getActivity() != null && getView() != null) {
-                    progressBar.setVisibility(View.INVISIBLE);
-                    submit_Txt.setEnabled(true);
-                    Toast.makeText(getActivity(), "FAIL", Toast.LENGTH_SHORT).show();
 
-                }
-            }
-
-            @Override
-            public void onComplete(String str) {
-                submit_Txt.setEnabled(true);
-            }
-        }, otp, "", password, email, contact, ResUtil.getDeviceId(getActivity()), BuildConfig.SITEID, BuildConfig.ORIGIN_URL);
     }
 }

@@ -19,19 +19,14 @@
         android:theme="@style/AppTheme">
 
         <activity android:name="com.ns.activity.AppTabActivity">
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
-
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
-        </activity>
-
-        <activity android:name="com.ns.activity.THPPersonaliseActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+
+        <activity android:name="com.ns.activity.THPPersonaliseActivity">
         </activity>
 
         <activity android:name="com.ns.activity.SignInAndUpActivity" />

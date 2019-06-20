@@ -8,7 +8,8 @@ import android.arch.persistence.room.TypeConverters;
 import android.arch.persistence.room.migration.Migration;
 import android.content.Context;
 
-@Database(entities = {DashboardTable.class, BookmarkTable.class, BreifingTable.class},
+@Database(entities = {DashboardTable.class, BookmarkTable.class,
+        BreifingTable.class, UserProfileTable.class},
         version = 2, exportSchema = false)
 @TypeConverters({Converters.class})
 public abstract class THPDB extends RoomDatabase {
@@ -18,6 +19,7 @@ public abstract class THPDB extends RoomDatabase {
     public abstract DashboardDao dashboardDao();
     public abstract BookmarkTableDao bookmarkTableDao();
     public abstract BreifingDao breifingDao();
+    public abstract UserProfileDao userProfileDao();
 
     public static THPDB getInstance(Context context) {
         if (INSTANCE == null) {
