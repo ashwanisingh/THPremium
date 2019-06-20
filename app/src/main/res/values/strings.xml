@@ -25,5 +25,8 @@
     <string name="language_not_available">Language is not available.</string>
     <string name="language_missing_data">Language is not downloaded. Please download from Google TTS voice data.</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 
 </resources>
