@@ -56,7 +56,7 @@
     <dimen name="personal_info_et_height">44dp</dimen>
     <dimen name="personal_info_et_gap">5dp</dimen>
     <dimen name="personal_info_et_paddingBottom">5dp</dimen>
-    <dimen name="personal_info_update_btn_parent_height">60dp</dimen>
+    <dimen name="personal_info_update_btn_parent_height">70dp</dimen>
     <dimen name="personal_info_gap_for_partLayout">10dp</dimen>
     <dimen name="personal_info_gap_for_part2Layout">2dp</dimen>
     <dimen name="personal_info_gap_for_verifyotp">20dp</dimen>

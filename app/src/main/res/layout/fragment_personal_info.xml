@@ -235,7 +235,8 @@
         app:layout_constraintBottom_toTopOf="@+id/info_Txt"
         app:layout_constraintDimensionRatio="@string/personal_info_1_ratio"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent">
+        app:layout_constraintRight_toRightOf="parent"
+        android:visibility="invisible">
 
 
         <com.ns.view.CustomTextView
@@ -332,7 +333,7 @@
         <com.ns.view.CustomTextView
             android:id="@+id/updateBtn_Txt"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="50dp"
             android:layout_gravity="center"
             android:gravity="center"
             android:text="Update Profile"
@@ -344,6 +345,17 @@
 
     </FrameLayout>
     <!--End Part 5 Layout-->
+
+    <com.ns.view.CustomProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:visibility="gone"
+        />
 
 
 </android.support.constraint.ConstraintLayout>

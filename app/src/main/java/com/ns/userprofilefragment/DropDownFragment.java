@@ -4,6 +4,8 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,8 +13,10 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.netoperation.model.KeyValueModel;
 import com.ns.loginfragment.BaseFragmentTHP;
 import com.ns.thpremium.R;
+import com.ns.utils.FragmentUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +28,8 @@ public class DropDownFragment extends BaseFragmentTHP {
     private final String gender = "gender";
     private final String country = "country";
     private final String state = "state";
+
+    private ArrayList<KeyValueModel> mList;
 
     @Override
     public int getLayoutRes() {
@@ -42,10 +48,11 @@ public class DropDownFragment extends BaseFragmentTHP {
     }
 
 
-    public static DropDownFragment getInstance(String from) {
+    public static DropDownFragment getInstance(String from, ArrayList<KeyValueModel> dataList) {
         DropDownFragment fragment = new DropDownFragment();
         Bundle bundle = new Bundle();
         bundle.putString("from", from);
+        bundle.putParcelableArrayList("data", dataList);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -56,6 +63,7 @@ public class DropDownFragment extends BaseFragmentTHP {
 
         if(getArguments() != null) {
             mFrom = getArguments().getString("from");
+            mList = getArguments().getParcelableArrayList("data");
         }
     }
 
@@ -66,31 +74,22 @@ public class DropDownFragment extends BaseFragmentTHP {
         ListView listView = view.findViewById(R.id.listView);
 
         view.findViewById(R.id.dropDownParentLayout).setOnTouchListener((v, e)->{
-            return true;
+            FragmentUtil.clearSingleBackStack((AppCompatActivity)getActivity());
+            return false;
         });
 
-
-        List<String> standardList = new ArrayList<>();
-
-        if(mFrom != null && mFrom.equalsIgnoreCase(gender)) {
-            standardList.add("Male");
-            standardList.add("Female");
-            standardList.add("Trans");
-        }
-
-
-        StandardAdapter adapter = new StandardAdapter(getActivity(), R.layout.item_standard_list_popup, standardList);
+        StandardAdapter adapter = new StandardAdapter(getActivity(), R.layout.item_standard_list_popup, mList);
         listView.setAdapter(adapter);
 
     }
 
 
-    private class StandardAdapter extends ArrayAdapter<String> {
+    private class StandardAdapter extends ArrayAdapter<KeyValueModel> {
 
-        private List<String> mStandardList;
+        private List<KeyValueModel> mStandardList;
         private LayoutInflater inflater=null;
 
-        public StandardAdapter(@NonNull Context context, int resource, List<String> standardList) {
+        public StandardAdapter(@NonNull Context context, int resource, List<KeyValueModel> standardList) {
             super(context, resource, standardList);
             mStandardList = standardList;
             inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -114,7 +113,12 @@ public class DropDownFragment extends BaseFragmentTHP {
 
             TextView title = vi.findViewById(R.id.option_Txt);
 
-            title.setText(getItem(position));
+            String name = getItem(position).getName();
+            if(name == null || TextUtils.isEmpty(name)) {
+                name = getItem(position).getState();
+            }
+
+            title.setText(name);
 
             title.setOnClickListener(v->{
                 if(mOnDropdownItemSelection != null) {
@@ -135,7 +139,7 @@ public class DropDownFragment extends BaseFragmentTHP {
     }
 
     public interface OnDropdownItemSelection {
-        void onDropdownItemSelection(String from, String value);
+        void onDropdownItemSelection(String from, KeyValueModel model);
     }
 
 

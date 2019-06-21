@@ -8,6 +8,7 @@ import android.util.Log;
 
 import com.netoperation.model.MeBean;
 import com.netoperation.model.RecoBean;
+import com.ns.activity.AppTabActivity;
 import com.ns.activity.BecomeMemberActivity;
 import com.ns.activity.ImageGallaryActivity;
 import com.ns.activity.ImageGallaryVerticleActivity;
@@ -25,6 +26,12 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 
 public class IntentUtil {
+
+    public static void openContentListingActivity(Context context, String from) {
+        Intent intent = new Intent(context, AppTabActivity.class);
+        intent.putExtra("from", from);
+        context.startActivity(intent);
+    }
 
     public static void openMemberActivity(Context context, String from) {
         Intent intent = new Intent(context, BecomeMemberActivity.class);

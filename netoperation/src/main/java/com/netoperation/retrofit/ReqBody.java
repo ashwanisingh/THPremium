@@ -170,6 +170,22 @@ public class ReqBody {
         return object;
     }
 
+    public static JsonObject updateProfile(String emailId, String contact, String siteId,
+                                           String userId, String FullName, String DOB,
+                                           String Gender, String Profile_Country, String Profile_State) {
+        JsonObject object = new JsonObject();
+        object.addProperty("emailId", emailId);
+        object.addProperty("contact", contact);
+        object.addProperty("siteId", siteId);
+        object.addProperty("userId", userId);
+        object.addProperty("FullName", FullName);
+        object.addProperty("DOB", DOB);
+        object.addProperty("Gender", Gender);
+        object.addProperty("Profile_Country", Profile_Country);
+        object.addProperty("Profile_State", Profile_State);
+        return object;
+    }
+
 
 
 

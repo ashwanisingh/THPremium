@@ -10,13 +10,16 @@ import com.netoperation.db.BookmarkTable;
 import com.netoperation.db.BreifingTable;
 import com.netoperation.db.DashboardTable;
 import com.netoperation.db.THPDB;
+import com.netoperation.db.UserProfileDao;
 import com.netoperation.db.UserProfileTable;
 import com.netoperation.model.BreifingModel;
+import com.netoperation.model.KeyValueModel;
 import com.netoperation.model.MorningBean;
 import com.netoperation.model.PrefListModel;
 import com.netoperation.model.RecoBean;
 import com.netoperation.model.RecomendationData;
 import com.netoperation.model.SearchedArticleModel;
+import com.netoperation.model.UserProfile;
 import com.netoperation.retrofit.ReqBody;
 import com.netoperation.retrofit.ServiceFactory;
 import com.netoperation.util.NetConstants;
@@ -153,39 +156,41 @@ public class ApiManager {
                                     // Deleting Previous Profile DB
                                     thpdb.userProfileDao().deleteAll();
 
-                                    UserProfileTable userProfileTable = new UserProfileTable();
+                                    UserProfile userProfile = new UserProfile();
 
-                                    userProfileTable.setEmailId(emailId);
-                                    userProfileTable.setContact(contact_);
-                                    userProfileTable.setRedirectUrl(redirectUrl);
-                                    userProfileTable.setUserId(userId);
-                                    userProfileTable.setReason(reason);
+                                    userProfile.setEmailId(emailId);
+                                    userProfile.setContact(contact_);
+                                    userProfile.setRedirectUrl(redirectUrl);
+                                    userProfile.setUserId(userId);
+                                    userProfile.setReason(reason);
 
-                                    userProfileTable.setAuthors_preference(authors_preference);
-                                    userProfileTable.setCities_preference(cities_preference);
-                                    userProfileTable.setTopics_preference(topics_preference);
+                                    userProfile.setAuthors_preference(authors_preference);
+                                    userProfile.setCities_preference(cities_preference);
+                                    userProfile.setTopics_preference(topics_preference);
 
-                                    userProfileTable.setAddress_state(address_state);
-                                    userProfileTable.setAddress_pincode(address_pincode);
-                                    userProfileTable.setAddress_house_no(address_house_no);
-                                    userProfileTable.setAddress_city(address_city);
-                                    userProfileTable.setAddress_street(address_street);
-                                    userProfileTable.setAddress_fulllname(address_fulllname);
-                                    userProfileTable.setAddress_landmark(address_landmark);
-                                    userProfileTable.setAddress_default_option(address_default_option);
-                                    userProfileTable.setAddress_location(address_location);
+                                    userProfile.setAddress_state(address_state);
+                                    userProfile.setAddress_pincode(address_pincode);
+                                    userProfile.setAddress_house_no(address_house_no);
+                                    userProfile.setAddress_city(address_city);
+                                    userProfile.setAddress_street(address_street);
+                                    userProfile.setAddress_fulllname(address_fulllname);
+                                    userProfile.setAddress_landmark(address_landmark);
+                                    userProfile.setAddress_default_option(address_default_option);
+                                    userProfile.setAddress_location(address_location);
 
-                                    userProfileTable.setProfile_Country(Profile_Country);
-                                    userProfileTable.setProfile_State(Profile_State);
+                                    userProfile.setProfile_Country(Profile_Country);
+                                    userProfile.setProfile_State(Profile_State);
 
-                                    userProfileTable.setFullName(FullName);
-                                    userProfileTable.setGender(Gender);
-                                    userProfileTable.setDOB(DOB);
+                                    userProfile.setFullName(FullName);
+                                    userProfile.setGender(Gender);
+                                    userProfile.setDOB(DOB);
 
-                                    userProfileTable.setIsNew(isNew);
-                                    userProfileTable.setFid(fid);
-                                    userProfileTable.setTid(tid);
-                                    userProfileTable.setGid(gid);
+                                    userProfile.setIsNew(isNew);
+                                    userProfile.setFid(fid);
+                                    userProfile.setTid(tid);
+                                    userProfile.setGid(gid);
+
+                                    UserProfileTable userProfileTable = new UserProfileTable(userId, userProfile);
 
                                     thpdb.userProfileDao().insertUserProfile(userProfileTable);
 
@@ -686,6 +691,62 @@ public class ApiManager {
                         value
                 );
 
+    }
+
+    public static Observable<UserProfile> getUserProfile(Context context) {
+        return Observable.just("userProfile")
+                .subscribeOn(Schedulers.newThread())
+                .map(value-> {
+                            UserProfileDao dao = THPDB.getInstance(context).userProfileDao();
+                            if (dao.getUserProfileTable() == null) {
+                                return new UserProfile();
+                            }
+                            return dao.getUserProfileTable().getUserProfile();
+                        }
+                );
+    }
+
+    public static Observable<ArrayList<KeyValueModel>> getCountry() {
+        return ServiceFactory.getServiceAPIs().getCountry("country")
+                .subscribeOn(Schedulers.newThread())
+                .map(countryModel->
+                        countryModel
+                );
+    }
+
+    public static Observable<ArrayList<KeyValueModel>> getState(String country) {
+        return ServiceFactory.getServiceAPIs().getState("state", country)
+                .subscribeOn(Schedulers.newThread())
+                .map(stateModel->
+                        stateModel
+                );
+    }
+
+    public static Observable<Boolean> updateProfile(Context context, UserProfile userProfile, String siteId,
+                                                        String FullName, String DOB,
+                                                        String Gender, String Profile_Country, String Profile_State) {
+        return ServiceFactory.getServiceAPIs().updateProfile(ReqBody.updateProfile(userProfile.getEmailId(), userProfile.getContact(),
+                siteId, userProfile.getUserId(), FullName, DOB, Gender, Profile_Country, Profile_State))
+                .subscribeOn(Schedulers.newThread())
+                .map(value-> {
+                    if (((JsonObject) value).has("status")) {
+                        String status = ((JsonObject) value).get("status").getAsString();
+                        if (status.equalsIgnoreCase("success")) {
+                            userProfile.setFullName(FullName);
+                            userProfile.setDOB(DOB);
+                            userProfile.setGender(Gender);
+                            userProfile.setProfile_Country(Profile_Country);
+                            userProfile.setProfile_State(Profile_State);
+                            THPDB thpdb = THPDB.getInstance(context);
+                            thpdb.userProfileDao().updateUserProfile(userProfile.getUserId(), userProfile);
+
+                            return true;
+                        }
+                        return false;
+                    }
+                    return false;
+                        }
+                );
     }
 
 
