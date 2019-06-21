@@ -10,9 +10,16 @@ import com.ns.thpremium.R;
 
 public class CitiesFragment extends BaseFragmentTHP {
 
+    public static CitiesFragment getInstance() {
+        CitiesFragment fragment = new CitiesFragment();
+        Bundle bundle = new Bundle();
+        fragment.setArguments(bundle);
+        return fragment;
+    }
+
     @Override
     public int getLayoutRes() {
-        return R.layout.fragment_cities;
+        return R.layout.fragment_topics;
     }
 
     @Override

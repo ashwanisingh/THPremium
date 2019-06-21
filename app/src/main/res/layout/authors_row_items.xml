@@ -25,6 +25,8 @@
         android:layout_marginLeft="5dp"
         android:layout_toRightOf="@+id/image_author"
         android:layout_centerInParent="true"
+        android:lineSpacingExtra="-2sp"
+        android:textColor="@color/author_name_text"
         android:text="Doglas Grey" />
 
     <ImageView
