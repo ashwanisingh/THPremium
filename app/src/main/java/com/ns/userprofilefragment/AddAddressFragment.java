@@ -143,6 +143,23 @@ public class AddAddressFragment extends BaseFragmentTHP {
                     }
 
                     mUserProfile = userProfile;
+                    flatNoET.setText(mUserProfile.getAddress_house_no());
+                    addressLine1ET.setText(mUserProfile.getAddress_street());
+                    pincodeET.setText(mUserProfile.getAddress_pincode());
+                    stateET.setText(mUserProfile.getAddress_state());
+                    cityET.setText(mUserProfile.getAddress_city());
+                    landmarkET.setText(mUserProfile.getAddress_landmark());
+                    mPrimaryAddress = mUserProfile.getAddress_default_option();
+
+                    if(mPrimaryAddress != null) {
+                        if(mPrimaryAddress.equalsIgnoreCase("Home")) {
+                            homeBtn_Txt.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_ok, 0, 0, 0);
+                        } else if(mPrimaryAddress.equalsIgnoreCase("Office")) {
+                            officeBtn_Txt.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_ok, 0, 0, 0);
+                        } else if(mPrimaryAddress.equalsIgnoreCase("Others")) {
+                            othersBtn_Txt.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_ok, 0, 0, 0);
+                        }
+                    }
 
                     return "";
                 })
@@ -174,7 +191,7 @@ public class AddAddressFragment extends BaseFragmentTHP {
         progressBar.setVisibility(View.VISIBLE);
         saveAddressBtn_Txt.setEnabled(false);
 
-        ApiManager.updateAddress(getActivity(), mUserProfile, BuildConfig.SITEID, flatNo, addressLine1,
+        mDisposable.add(ApiManager.updateAddress(getActivity(), mUserProfile, BuildConfig.SITEID, flatNo, addressLine1,
                 landmark, pincode, state, city, mPrimaryAddress, "")
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(bool->{
@@ -194,7 +211,7 @@ public class AddAddressFragment extends BaseFragmentTHP {
                 }, () ->{
                     progressBar.setVisibility(View.GONE);
                     saveAddressBtn_Txt.setEnabled(true);
-                });
+                }));
     }
 
 
