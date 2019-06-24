@@ -18,6 +18,7 @@ import com.ns.alerts.Alerts;
 import com.ns.thpremium.BuildConfig;
 import com.ns.thpremium.R;
 import com.ns.utils.FragmentUtil;
+import com.ns.utils.IntentUtil;
 import com.ns.utils.ResUtil;
 import com.ns.view.CustomProgressBar;
 
@@ -158,7 +159,7 @@ public class SetPasswordFragment extends BaseFragmentTHP {
                     }
                     else {
                         // Open new Screen
-
+                        IntentUtil.openContentListingActivity(getActivity(), "SignUp");
                     }
                 }, throwable -> {
 

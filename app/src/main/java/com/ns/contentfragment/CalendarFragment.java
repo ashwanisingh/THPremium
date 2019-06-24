@@ -71,7 +71,7 @@ public class CalendarFragment extends BaseFragmentTHP {
 
         view.findViewById(R.id.calendarParentLayout).setOnTouchListener((v, e)->{
             FragmentUtil.clearSingleBackStack((AppCompatActivity)getActivity());
-            return true;
+            return false;
         });
 
     }

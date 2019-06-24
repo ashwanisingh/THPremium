@@ -4,11 +4,13 @@ package com.netoperation.retrofit;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.netoperation.model.BreifingModel;
+import com.netoperation.model.KeyValueModel;
 import com.netoperation.model.PrefListModel;
 import com.netoperation.model.RecomendationData;
 import com.netoperation.model.SearchedArticleModel;
 import com.netoperation.model.UserChoice;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -88,6 +90,18 @@ public interface ServiceAPIs {
     @POST("/mydashboard/preflistreco/hindu")
     Observable<PrefListModel> getPrefList(@Query("userid") String userid, @Query("siteid") String siteid,
                                           @Query("size") String size, @Query("recotype") String recotype);
+
+    @GET("taiauth/list/HINDU")
+    Observable<ArrayList<KeyValueModel>> getCountry(@Query("type") String type);
+
+    @GET("taiauth/list/HINDU")
+    Observable<ArrayList<KeyValueModel>> getState(@Query("type") String type, @Query("country") String country);
+
+    @POST("taiauth/updateUserInfo/HINDU")
+    Observable<JsonElement> updateProfile(@Body JsonObject updateProfile);
+
+    @POST("taiauth/updateUserInfo/HINDU")
+    Observable<JsonElement> updateAddress(@Body JsonObject updateProfile);
 
 
 

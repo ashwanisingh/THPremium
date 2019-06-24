@@ -170,6 +170,42 @@ public class ReqBody {
         return object;
     }
 
+    public static JsonObject updateProfile(String emailId, String contact, String siteId,
+                                           String userId, String FullName, String DOB,
+                                           String Gender, String Profile_Country, String Profile_State) {
+        JsonObject object = new JsonObject();
+        object.addProperty("emailId", emailId);
+        object.addProperty("contact", contact);
+        object.addProperty("siteId", siteId);
+        object.addProperty("userId", userId);
+        object.addProperty("FullName", FullName);
+        object.addProperty("DOB", DOB);
+        object.addProperty("Gender", Gender);
+        object.addProperty("Profile_Country", Profile_Country);
+        object.addProperty("Profile_State", Profile_State);
+        return object;
+    }
+
+    public static JsonObject updateAddress(String emailId, String contact, String siteId, String userId,
+                                           String address_house_no, String address_street, String address_landmark,
+                                           String address_pincode, String address_state, String address_city,
+                                            String address_default_option, String address_fulllname) {
+        JsonObject object = new JsonObject();
+        object.addProperty("emailId", emailId);
+        object.addProperty("contact", contact);
+        object.addProperty("siteId", siteId);
+        object.addProperty("userId", userId);
+        object.addProperty("address_fulllname", address_fulllname);
+        object.addProperty("address_house_no", address_house_no);
+        object.addProperty("address_street", address_street);
+        object.addProperty("address_landmark", address_landmark);
+        object.addProperty("address_pincode", address_pincode);
+        object.addProperty("address_state", address_state);
+        object.addProperty("address_city", address_city);
+        object.addProperty("address_default_option", address_default_option);
+        return object;
+    }
+
 
 
 
