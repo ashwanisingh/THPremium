@@ -1,32 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
     <ImageButton
         android:id="@+id/backBtn"
+        android:layout_marginTop="26dp"
         style="@style/backBtnStyle"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         />
 
        <com.ns.view.CustomTextView
         android:id="@+id/tv_savepref"
+        android:layout_marginTop="33dp"
         android:layout_alignParentRight="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="10sp"
-        android:textColor="@color/blueColor_1"
-        android:padding="10dp"
+        android:textSize="15sp"
+        android:textColor="#1b528e"
+        android:layout_marginRight="16dp"
         android:text="Save Preference"
-        android:layout_gravity="right"
+        android:layout_gravity="end"
         />
+
+    <RelativeLayout
+        android:id="@+id/layout"
+        android:layout_marginTop="16dp"
+        android:layout_below="@+id/tv_savepref"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.ns.view.CustomTextView
+            android:layout_alignParentLeft="true"
+            android:id="@+id/tv_items"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:layout_centerInParent="true"
+            android:padding="10dp"
+            android:text="Topics"
+            app:font_path="@string/FONT_FIRA_SANS_BOLD" />
+
+        <ImageButton
+            android:id="@+id/forwardBtn"
+            style="@style/fwdBtnStyle"
+            app:srcCompat="@drawable/ic_right_s"
+            android:layout_alignParentRight="true" />
+
+        <ImageButton
+            android:id="@+id/backBtn1"
+            style="@style/backBtnStyle"
+            app:srcCompat="@drawable/ic_left_s1"
+            android:layout_toLeftOf="@+id/forwardBtn" />
+
+    </RelativeLayout>
+
+    <!--<include-->
+        <!--android:id="@+id/progress_container"-->
+        <!--layout="@layout/progress_layout"-->
+        <!--android:layout_gravity="center"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"/>-->
 
     <android.support.v4.view.ViewPager
         android:id="@+id/personalise_viewPager"
         android:layout_marginTop="@dimen/personalise_margin_top"
-        android:layout_below="@+id/tv_savepref"
+        android:layout_below="@+id/layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 </RelativeLayout>

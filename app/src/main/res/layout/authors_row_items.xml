@@ -1,41 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_marginTop="@dimen/personalise_author_margin_top"
+    android:padding="21dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <com.joooonho.SelectableRoundedImageView
         android:id="@+id/image_author"
-        android:layout_width="@dimen/personalise_author_width_height"
-        android:layout_height="@dimen/personalise_author_width_height"
-        app:sriv_left_bottom_corner_radius="6dp"
-        app:sriv_left_top_corner_radius="6dp"
-        app:sriv_right_bottom_corner_radius="6dp"
-        app:sriv_right_top_corner_radius="6dp"
-        android:scaleType="fitXY"
-        app:sriv_border_width="2dp"
-        app:sriv_border_color="@color/greyColor_1"
-        />
+        android:layout_width="41dp"
+        android:layout_height="41dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginRight="5dp"
+        android:background="@drawable/ic_facebook" />
 
-    <TextView
+    <com.ns.view.CustomTextView
         android:id="@+id/tv_author_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
+        android:layout_marginLeft="12dp"
         android:layout_toRightOf="@+id/image_author"
         android:layout_centerInParent="true"
+        android:textSize="16sp"
         android:lineSpacingExtra="-2sp"
-        android:textColor="@color/author_name_text"
+        android:textColor="#4e4e4e"
         android:text="Doglas Grey" />
 
-    <ImageView
+    <com.joooonho.SelectableRoundedImageView
         android:id="@+id/imageview_click"
-        android:layout_width="@dimen/personalise_author_width_height"
-        android:layout_height="@dimen/personalise_author_width_height"
+        android:layout_width="29dp"
+        android:layout_height="29dp"
         android:layout_alignParentRight="true"
         android:layout_marginRight="5dp"
-        android:background="@drawable/ic_plus" />
-
+        android:layout_centerInParent="true"
+        android:background="@drawable/ic_plus_1" />
 
 </RelativeLayout>

@@ -168,6 +168,14 @@
         <item name="font_path">@string/FONT_FIRA_SANS_BOLD</item>
     </style>
 
+    <style name="fwdBtnStyle">
+        <item name="android:layout_width">@dimen/backBtnWidthHeight</item>
+        <item name="android:layout_height">@dimen/backBtnWidthHeight</item>
+        <item name="android:background">@null</item>
+        <item name="android:scaleType">centerInside</item>
+        <item name="android:src">@drawable/ic_right_s</item>
+        <item name="srcCompat">@drawable/ic_right_s</item>
+    </style>
 
 
 </resources>
