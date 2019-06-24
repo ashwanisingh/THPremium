@@ -149,10 +149,12 @@ public class DashboardFragment extends BaseFragmentTHP implements RecyclerViewPu
                         .subscribe(value -> {
                             mRecyclerAdapter.addData(value);
                         }, throwable -> {
-                            if (throwable instanceof HttpException || throwable instanceof ConnectException
+                            /*if (throwable instanceof HttpException || throwable instanceof ConnectException
                                     || throwable instanceof SocketTimeoutException || throwable instanceof TimeoutException) {
-                                loadData(false);
-                            }
+
+                            }*/
+
+                            loadData(false);
 
                             mPullToRefreshLayout.hideProgressBar();
                             mPullToRefreshLayout.setRefreshing(false);

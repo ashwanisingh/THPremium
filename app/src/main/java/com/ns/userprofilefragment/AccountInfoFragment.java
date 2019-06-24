@@ -3,26 +3,30 @@ package com.ns.userprofilefragment;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
 
-import com.ns.alerts.Alerts;
+import com.netoperation.net.ApiManager;
 import com.ns.loginfragment.BaseFragmentTHP;
 import com.ns.loginfragment.OTPVerificationFragment;
 import com.ns.thpremium.R;
 import com.ns.utils.FragmentUtil;
 import com.ns.utils.THPConstants;
-import com.ns.utils.ValidationUtil;
 import com.ns.view.CustomTextView;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
 
 public class AccountInfoFragment extends BaseFragmentTHP {
 
 
     TextInputLayout mobileNumberLayout;
     TextInputLayout emailLayout;
+    TextInputEditText mobileNumberET;
+    TextInputEditText emailET;
 
     CustomTextView verifyViaOTPBtn_Txt;
     CustomTextView updateBtn_Txt;
@@ -44,11 +48,13 @@ public class AccountInfoFragment extends BaseFragmentTHP {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mobileNumberLayout = view.findViewById(R.id.mobileNumberLayout);
+        mobileNumberET = view.findViewById(R.id.mobileNumberET);
+        emailET = view.findViewById(R.id.emailET);
         emailLayout = view.findViewById(R.id.emailLayout);
+        mobileNumberLayout = view.findViewById(R.id.mobileNumberLayout);
 
-//        mobileNumberLayout.setErrorEnabled(true);
-//        emailLayout.setErrorEnabled(true);
+        mobileNumberET.setEnabled(false);
+        emailET.setEnabled(false);
 
 
         // Back button click listener
@@ -56,41 +62,41 @@ public class AccountInfoFragment extends BaseFragmentTHP {
             FragmentUtil.clearSingleBackStack((AppCompatActivity)getActivity());
         });
 
-
-        // Verify OTP button click listener
-        view.findViewById(R.id.verifyViaOTPBtn_Txt).setOnClickListener(v->{
-            OTPVerificationFragment fragment = OTPVerificationFragment.getInstance(THPConstants.FROM_AccountInfoFragment);
-            FragmentUtil.addFragmentAnim((AppCompatActivity)getActivity(), R.id.parentLayout, fragment,
-                    FragmentUtil.FRAGMENT_ANIMATION, false);
-        });
-
-
-        // Back button click listener
-        view.findViewById(R.id.updateBtn_Txt).setOnClickListener(v->{
-            String email = emailLayout.getEditText().getText().toString();
-            String mobile = mobileNumberLayout.getEditText().getText().toString();
-
-            if(!ValidationUtil.isValidMobile(mobile)) {
-                Alerts.showToast(getActivity(),"Please enter valid mobile number");
-                requestFocus(view.findViewById(R.id.mobileNumberET));
-            }
-            else if(!ValidationUtil.isValidEmail(email)) {
-                Alerts.showToast(getActivity(),"Please enter valid email");
-                requestFocus(view.findViewById(R.id.emailET));
-            }
-
-            Log.i("", "");
-        });
-
+        loadUserProfileData();
 
     }
 
-    private void requestFocus(View view) {
-        if (view.requestFocus()) {
-            getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
-        }
-    }
 
+    /**
+     * // Loads User Profile Data from local Database
+     */
+    private void loadUserProfileData() {
+        mDisposable.add(ApiManager.getUserProfile(getActivity())
+                .observeOn(AndroidSchedulers.mainThread())
+                .map(userProfile -> {
+                    if (userProfile == null) {
+                        return "";
+                    }
+                    if(userProfile.getContact()!= null && !TextUtils.isEmpty(userProfile.getContact())) {
+                        mobileNumberET.setText(userProfile.getContact());
+                    }
+                    else {
+                        mobileNumberLayout.setVisibility(View.GONE);
+                    }
+                    if(userProfile.getEmailId()!= null && !TextUtils.isEmpty(userProfile.getEmailId())) {
+                        emailET.setText(userProfile.getEmailId());
+                    }
+                    else {
+                        emailLayout.setVisibility(View.GONE);
+                    }
+                    return "";
+                })
+                .subscribe(v -> {
+                        },
+                        t -> {
+                            Log.i("", "" + t);
+                        }));
+    }
 
     /*private boolean shouldShowError() {
         int textLength = editText.getText().length();

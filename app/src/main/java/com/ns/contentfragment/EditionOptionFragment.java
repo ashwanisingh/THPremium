@@ -3,10 +3,13 @@ package com.ns.contentfragment;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.ns.thpremium.R;
 import com.ns.loginfragment.BaseFragmentTHP;
+import com.ns.utils.FragmentUtil;
+import com.ns.utils.IntentUtil;
 
 public class EditionOptionFragment extends BaseFragmentTHP {
 
@@ -30,6 +33,7 @@ public class EditionOptionFragment extends BaseFragmentTHP {
 
         // To block the touch or click
         view.findViewById(R.id.moreTabLayout).setOnTouchListener((v,event)->{
+            FragmentUtil.clearSingleBackStack((AppCompatActivity) getActivity());
             return true;
         });
 

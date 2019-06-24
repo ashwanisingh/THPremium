@@ -196,12 +196,7 @@ public class BriefcaseFragment extends BaseFragmentTHP implements RecyclerViewPu
                         .subscribe(value -> {
                             mRecyclerAdapter.setData(value);
                         }, throwable -> {
-                            if (throwable instanceof HttpException || throwable instanceof ConnectException
-                                    || throwable instanceof SocketTimeoutException || throwable instanceof TimeoutException
-                                    || throwable instanceof NullPointerException) {
-                                loadData(false);
-                            }
-
+                            loadData(false);
                             mPullToRefreshLayout.hideProgressBar();
                             mPullToRefreshLayout.setRefreshing(false);
 

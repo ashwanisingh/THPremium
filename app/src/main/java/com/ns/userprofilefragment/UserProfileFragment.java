@@ -4,9 +4,13 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
+import com.netoperation.model.UserProfile;
+import com.netoperation.net.ApiManager;
 import com.ns.loginfragment.BaseFragmentTHP;
 import com.ns.loginfragment.SubscriptionStep_3_Fragment;
 import com.ns.loginfragment.TCFragment;
@@ -15,7 +19,10 @@ import com.ns.utils.FragmentUtil;
 import com.ns.utils.ResUtil;
 import com.ns.utils.THPConstants;
 import com.ns.utils.TextSpanCallback;
+import com.ns.utils.TextUtil;
 import com.ns.view.CustomTextView;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
 
 public class UserProfileFragment extends BaseFragmentTHP {
 
@@ -27,6 +34,9 @@ public class UserProfileFragment extends BaseFragmentTHP {
     private CustomTextView mobileNumber_Txt;
 
     private CustomTextView versionName_Txt;
+
+
+    private UserProfile mUserProfile;
 
 
     public static UserProfileFragment getInstance(String from) {
@@ -58,6 +68,12 @@ public class UserProfileFragment extends BaseFragmentTHP {
         packName_Txt = view.findViewById(R.id.packName_Txt);
         planValidity_Txt = view.findViewById(R.id.planValidity_Txt);
         versionName_Txt = view.findViewById(R.id.versionName_Txt);
+        userName_Txt = view.findViewById(R.id.userName_Txt);
+        mobileNumber_Txt = view.findViewById(R.id.mobileNumber_Txt);
+
+
+
+        loadUserProfileData();
 
 
         // Back button click listener
@@ -131,8 +147,33 @@ public class UserProfileFragment extends BaseFragmentTHP {
 
         versionName_Txt.setText(ResUtil.getVersionName(getActivity()));
 
-
-
-
     }
+
+
+    /**
+     * // Loads User Profile Data from local Database
+     */
+    private void loadUserProfileData() {
+        mDisposable.add(ApiManager.getUserProfile(getActivity())
+                .observeOn(AndroidSchedulers.mainThread())
+                .map(userProfile -> {
+                    if (userProfile == null) {
+                        return "";
+                    }
+                    mUserProfile = userProfile;
+                    userName_Txt.setText("Hi "+mUserProfile.getFullName());
+                    if(mUserProfile.getContact()!= null && !TextUtils.isEmpty(mUserProfile.getContact())) {
+                        mobileNumber_Txt.setText(mUserProfile.getContact());
+                    } else {
+                        mobileNumber_Txt.setText(mUserProfile.getEmailId());
+                    }
+                    return "";
+                })
+                .subscribe(v -> {
+                        },
+                        t -> {
+                            Log.i("", "" + t);
+                        }));
+    }
+
 }

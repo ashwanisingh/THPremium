@@ -165,9 +165,9 @@ public class AddAddressFragment extends BaseFragmentTHP {
                 })
                 .subscribe(v -> {
                         },
-                        t -> {
-                            Log.i("", "" + t);
-                        }));
+                        t ->
+                            Log.i("", "" + t)
+                        ));
     }
 
     private void updateAddress() {
