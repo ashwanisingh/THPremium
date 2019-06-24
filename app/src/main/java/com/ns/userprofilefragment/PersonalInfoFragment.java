@@ -332,7 +332,7 @@ public class PersonalInfoFragment extends BaseFragmentTHP {
         String Gender = genderLayoutET.getText().toString();
         String Profile_Country = countryET.getText().toString();
         String Profile_State = stateET.getText().toString();
-        ApiManager.updateProfile(getActivity(), mUserProfile, BuildConfig.SITEID, FullName, DOB, Gender, Profile_Country, Profile_State)
+        mDisposable.add(ApiManager.updateProfile(getActivity(), mUserProfile, BuildConfig.SITEID, FullName, DOB, Gender, Profile_Country, Profile_State)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(bool->{
                     if(bool) {
@@ -346,13 +346,13 @@ public class PersonalInfoFragment extends BaseFragmentTHP {
                     progressBar.setVisibility(View.GONE);
                     if (throwable instanceof HttpException || throwable instanceof ConnectException
                             || throwable instanceof SocketTimeoutException || throwable instanceof TimeoutException) {
-                        Alerts.showErrorDailog(getChildFragmentManager(), "Kindly!", "Check your internet connectivity");
+                        Alerts.showErrorDailog(getChildFragmentManager(), getResources().getString(R.string.kindly), getResources().getString(R.string.please_check_ur_connectivity));
                     }
 
                 }, ()->{
                     disableAllView(true);
                     progressBar.setVisibility(View.GONE);
-                });
+                }));
     }
 
     private void disableAllView(boolean isEnable) {

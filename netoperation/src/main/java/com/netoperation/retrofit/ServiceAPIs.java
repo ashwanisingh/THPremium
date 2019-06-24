@@ -100,5 +100,8 @@ public interface ServiceAPIs {
     @POST("taiauth/updateUserInfo/HINDU")
     Observable<JsonElement> updateProfile(@Body JsonObject updateProfile);
 
+    @POST("taiauth/updateUserInfo/HINDU")
+    Observable<JsonElement> updateAddress(@Body JsonObject updateProfile);
+
 
 }
