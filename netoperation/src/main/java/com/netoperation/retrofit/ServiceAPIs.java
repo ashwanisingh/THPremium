@@ -90,4 +90,7 @@ public interface ServiceAPIs {
                                           @Query("size") String size, @Query("recotype") String recotype);
 
 
+
+
+
 }

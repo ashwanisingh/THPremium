@@ -20,9 +20,9 @@ public class PrefListModel {
         return authors;
     }
 
-    private List<PersonaliseModel> topicsModels = new ArrayList<>();
-    private List<PersonaliseModel> citiesModels = new ArrayList<>();
-    private List<PersonaliseModel> authorsModels = new ArrayList<>();
+    private ArrayList<PersonaliseModel> topicsModels = new ArrayList<>();
+    private ArrayList<PersonaliseModel> citiesModels = new ArrayList<>();
+    private ArrayList<PersonaliseModel> authorsModels = new ArrayList<>();
 
 
 
@@ -30,7 +30,7 @@ public class PrefListModel {
         this.topicsModels.add(topic);
     }
 
-    public List<PersonaliseModel> getTopicsModels() {
+    public ArrayList<PersonaliseModel> getTopicsModels() {
         return topicsModels;
     }
 
@@ -38,7 +38,7 @@ public class PrefListModel {
         this.citiesModels.add(cities);
     }
 
-    public List<PersonaliseModel> getCitiesModels() {
+    public ArrayList<PersonaliseModel> getCitiesModels() {
         return citiesModels;
     }
 
@@ -46,11 +46,11 @@ public class PrefListModel {
         this.authorsModels.add(authors);
     }
 
-    public List<PersonaliseModel> getAuthorsModels() {
+    public ArrayList<PersonaliseModel> getAuthorsModels() {
         return authorsModels;
     }
 
-    public void setAuthorsModels(List<PersonaliseModel> authorsModels) {
+    public void setAuthorsModels(ArrayList<PersonaliseModel> authorsModels) {
         this.authorsModels = authorsModels;
     }
 }
