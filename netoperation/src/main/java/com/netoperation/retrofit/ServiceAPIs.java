@@ -103,6 +103,11 @@ public interface ServiceAPIs {
     @POST("taiauth/updateUserInfo/HINDU")
     Observable<JsonElement> updateAddress(@Body JsonObject updateProfile);
 
+    @POST("taiauth/userPreference/hindu")
+    Observable<JsonElement> setPersonalise(@Body JsonObject updateProfile);
+
+
+
 
 
 

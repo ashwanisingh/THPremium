@@ -846,7 +846,7 @@ public class ApiManager {
                                                     String address_house_no, String address_street, String address_landmark,
                                                     String address_pincode, String address_state, String address_city,
                                                      String address_default_option, String address_fulllname) {
-        return ServiceFactory.getServiceAPIs().updateProfile(ReqBody.updateAddress(userProfile.getEmailId(),
+        return ServiceFactory.getServiceAPIs().updateAddress(ReqBody.updateAddress(userProfile.getEmailId(),
                 userProfile.getContact(), siteId, userProfile.getUserId(), address_house_no,  address_street, address_landmark,
                 address_pincode, address_state, address_city, address_default_option, address_fulllname))
                 .subscribeOn(Schedulers.newThread())
@@ -863,6 +863,25 @@ public class ApiManager {
                                     userProfile.setAddress_default_option(address_default_option);
                                     THPDB thpdb = THPDB.getInstance(context);
                                     thpdb.userProfileDao().updateUserProfile(userProfile.getUserId(), userProfile);
+
+                                    return true;
+                                }
+                                return false;
+                            }
+                            return false;
+                        }
+                );
+    }
+
+
+
+    public static Observable<Boolean> setPersonalise(@NonNull String userId, @NonNull String siteId, @NonNull String deviceId, @NonNull JsonObject preferences) {
+        return ServiceFactory.getServiceAPIs().setPersonalise(ReqBody.setUserPreference(userId, siteId, deviceId, preferences))
+                .subscribeOn(Schedulers.newThread())
+                .map(value-> {
+                            if (((JsonObject) value).has("status")) {
+                                String status = ((JsonObject) value).get("status").getAsString();
+                                if (status.equalsIgnoreCase("success")) {
 
                                     return true;
                                 }
