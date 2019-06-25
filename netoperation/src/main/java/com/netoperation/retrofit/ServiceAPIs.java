@@ -8,6 +8,7 @@ import com.netoperation.model.KeyValueModel;
 import com.netoperation.model.PrefListModel;
 import com.netoperation.model.RecomendationData;
 import com.netoperation.model.SearchedArticleModel;
+import com.netoperation.model.TransactionHistoryModel;
 import com.netoperation.model.UserChoice;
 
 import java.util.ArrayList;
@@ -105,6 +106,9 @@ public interface ServiceAPIs {
 
     @POST("taiauth/userPreference/hindu")
     Observable<JsonElement> setPersonalise(@Body JsonObject updateProfile);
+
+    @GET("charging/transaction/detail/HINDU")
+    Observable<TransactionHistoryModel> getTxnHistory(@Query("userid") String userid, @Query("pageno") String pageno);
 
 
 

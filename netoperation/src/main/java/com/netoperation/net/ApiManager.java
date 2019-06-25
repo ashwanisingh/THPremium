@@ -20,6 +20,7 @@ import com.netoperation.model.PrefListModel;
 import com.netoperation.model.RecoBean;
 import com.netoperation.model.RecomendationData;
 import com.netoperation.model.SearchedArticleModel;
+import com.netoperation.model.TransactionHistoryModel;
 import com.netoperation.model.UserProfile;
 import com.netoperation.retrofit.ReqBody;
 import com.netoperation.retrofit.ServiceFactory;
@@ -889,6 +890,15 @@ public class ApiManager {
                             }
                             return false;
                         }
+                );
+    }
+
+
+    public static Observable<List<TransactionHistoryModel.TxnDataBean>> getTxnHistory(String userId) {
+        return ServiceFactory.getServiceAPIs().getTxnHistory(userId, "0")
+                .subscribeOn(Schedulers.newThread())
+                .map(txnModel->
+                        txnModel.getTxnData()
                 );
     }
 
