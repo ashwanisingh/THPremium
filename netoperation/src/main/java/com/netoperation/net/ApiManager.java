@@ -78,6 +78,24 @@ public class ApiManager {
                 });
     }
 
+
+    public static Observable<Boolean> generateOtp(String email, String contact, String siteId, String otpEventType) {
+
+        Observable<JsonElement> observable = ServiceFactory.getServiceAPIs().userVerification(ReqBody.userVerification(email, contact, siteId, otpEventType));
+        return observable.subscribeOn(Schedulers.newThread())
+                .map(value -> {
+                            if (((JsonObject) value).has("status")) {
+                                String status = ((JsonObject) value).get("status").getAsString();
+                                if (status.equalsIgnoreCase("success")) {
+                                    return true;
+                                }
+                                return false;
+                            }
+                            return false;
+                        }
+                );
+    }
+
     public static void validateOTP(RequestCallback<Boolean> callback, String otp, String emailOrContact) {
 
         Observable<JsonElement> observable = ServiceFactory.getServiceAPIs().validateOtp(ReqBody.validateOtp(otp, emailOrContact));
@@ -904,6 +922,40 @@ public class ApiManager {
 
     public static Observable<KeyValueModel> updatePassword(String userId, String oldPasswd, String newPasswd) {
         return ServiceFactory.getServiceAPIs().updatePassword(ReqBody.updatePassword(userId, oldPasswd, newPasswd))
+                .subscribeOn(Schedulers.newThread())
+                .map(value-> {
+                            KeyValueModel keyValueModel = new KeyValueModel();
+                            if (((JsonObject) value).has("status")) {
+                                String status = ((JsonObject) value).get("status").getAsString();
+                                String reason = ((JsonObject) value).get("reason").getAsString();
+                                keyValueModel.setState(status);
+                                keyValueModel.setName(reason);
+                            }
+
+                            return keyValueModel;
+                        }
+                );
+    }
+
+    public static Observable<KeyValueModel> suspendAccount(String userId, String siteId, String deviceId, String emailId, String contact, String otp) {
+        return ServiceFactory.getServiceAPIs().suspendAccount(ReqBody.suspendAccount(userId, siteId, deviceId, emailId, contact, otp))
+                .subscribeOn(Schedulers.newThread())
+                .map(value-> {
+                            KeyValueModel keyValueModel = new KeyValueModel();
+                            if (((JsonObject) value).has("status")) {
+                                String status = ((JsonObject) value).get("status").getAsString();
+                                String reason = ((JsonObject) value).get("reason").getAsString();
+                                keyValueModel.setState(status);
+                                keyValueModel.setName(reason);
+                            }
+
+                            return keyValueModel;
+                        }
+                );
+    }
+
+    public static Observable<KeyValueModel> deleteAccount(String userId, String siteId, String deviceId, String emailId, String contact, String otp) {
+        return ServiceFactory.getServiceAPIs().deleteAccount(ReqBody.deleteAccount(userId, siteId, deviceId, emailId, contact, otp))
                 .subscribeOn(Schedulers.newThread())
                 .map(value-> {
                             KeyValueModel keyValueModel = new KeyValueModel();

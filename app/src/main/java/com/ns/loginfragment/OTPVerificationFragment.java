@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -12,13 +13,27 @@ import android.widget.Toast;
 import com.alimuzaffar.lib.pin.PinEntryEditText;
 import com.netoperation.net.ApiManager;
 import com.netoperation.net.RequestCallback;
+import com.netoperation.util.NetConstants;
 import com.ns.alerts.Alerts;
 import com.ns.thpremium.BuildConfig;
 import com.ns.thpremium.R;
 import com.ns.utils.FragmentUtil;
 import com.ns.utils.THPConstants;
+import com.ns.view.CustomTextView;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
 
 public class OTPVerificationFragment extends BaseFragmentTHP {
+
+    public OnOtpVerification mOnOtpVerification;
+
+    public void setOtpVerification(OnOtpVerification onOtpVerification) {
+        mOnOtpVerification = onOtpVerification;
+    }
+
+    public interface OnOtpVerification {
+        void onOtpVerification(boolean isOtpVerified, String otp);
+    }
 
     public static OTPVerificationFragment getInstance(String from, boolean isUserEnteredEmail, String email, String contact) {
         OTPVerificationFragment fragment = new OTPVerificationFragment();
@@ -42,6 +57,7 @@ public class OTPVerificationFragment extends BaseFragmentTHP {
     private PinEntryEditText pinEntry;
     private TextView resend_Txt;
     private ProgressBar progressBar;
+    private CustomTextView otpSendTitle_TV;
 
     private String mFrom;
     private boolean isUserEnteredEmail;
@@ -79,11 +95,14 @@ public class OTPVerificationFragment extends BaseFragmentTHP {
         pinEntry = view.findViewById(R.id.pinEntry_ET);
         resend_Txt = view.findViewById(R.id.resend_Txt);
         progressBar = view.findViewById(R.id.progressBar);
+        otpSendTitle_TV = view.findViewById(R.id.otpSendTitle_TV);
 
         if(isUserEnteredEmail) {
             emailOrContact = email;
+            otpSendTitle_TV.setText("Enter OTP sent to your email address");
         } else {
             emailOrContact = contact;
+            otpSendTitle_TV.setText("Enter OTP sent to your mobile number");
         }
 
         view.findViewById(R.id.otpParentLayout).setOnTouchListener((v, e)->{
@@ -110,6 +129,30 @@ public class OTPVerificationFragment extends BaseFragmentTHP {
             reSendSignupOtpReq()
         );
 
+        if(mFrom != null && (mFrom.equalsIgnoreCase(THPConstants.FROM_DELETE_ACCOUNT)
+                || mFrom.equalsIgnoreCase(THPConstants.FROM_SUSPEND_ACCOUNT))) {
+            ApiManager.getUserProfile(getActivity())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .map(userProfile -> {
+                        email = userProfile.getEmailId();
+
+                        if(email != null && !TextUtils.isEmpty(email)) {
+                            emailOrContact = email;
+                            otpSendTitle_TV.setText("Enter OTP sent to your email address");
+                            isUserEnteredEmail = true;
+                        }
+                        else if(userProfile.getContact() != null && !TextUtils.isEmpty(userProfile.getContact())) {
+                            emailOrContact = contact;
+                            otpSendTitle_TV.setText("Enter OTP sent to your mobile number");
+                            contact = userProfile.getContact();
+                        }
+
+                        generateOTP(NetConstants.EVENT_CHANGE_ACCOUNT_STATUS);
+                        return userProfile;
+                    })
+                    .subscribe();
+        }
+
     }
 
     private void validateOTP(String otp, String emailOrContact) {
@@ -119,17 +162,28 @@ public class OTPVerificationFragment extends BaseFragmentTHP {
                 if(getActivity() == null && getView() == null) {
                     return;
                 }
+
+                if(mOnOtpVerification != null) {
+                    mOnOtpVerification.onOtpVerification(bool, otp);
+                }
+
                 progressBar.setVisibility(View.INVISIBLE);
                 if(!bool) {
                     pinEntry.setError(true);
-                    Toast.makeText(getActivity(), "FAIL", Toast.LENGTH_SHORT).show();
                     pinEntry.postDelayed(()-> pinEntry.setText(null), 1000);
+                    Alerts.showAlertDialogOKBtn(getActivity(), "", "Otp is not verified, please try again.");
                 }
                 else {
-                    SetPasswordFragment fragment = SetPasswordFragment.getInstance(mFrom, isUserEnteredEmail, email, contact, otp);
-                    FragmentUtil.pushFragmentAnim((AppCompatActivity) getActivity(),
-                            R.id.parentLayout, fragment,
-                            FragmentUtil.FRAGMENT_NO_ANIMATION, false);
+                    if(mFrom != null && mFrom.equalsIgnoreCase(THPConstants.FROM_SignUpFragment)) {
+                        SetPasswordFragment fragment = SetPasswordFragment.getInstance(mFrom, isUserEnteredEmail, email, contact, otp);
+                        FragmentUtil.pushFragmentAnim((AppCompatActivity) getActivity(),
+                                R.id.parentLayout, fragment,
+                                FragmentUtil.FRAGMENT_NO_ANIMATION, false);
+                    }
+                    else if(mFrom != null && (mFrom.equalsIgnoreCase(THPConstants.FROM_DELETE_ACCOUNT)
+                            || mFrom.equalsIgnoreCase(THPConstants.FROM_SUSPEND_ACCOUNT))) {
+                        FragmentUtil.clearSingleBackStack((AppCompatActivity)getActivity());
+                    }
                 }
             }
 
@@ -188,5 +242,24 @@ public class OTPVerificationFragment extends BaseFragmentTHP {
 
             }
         }, email, contact, BuildConfig.SITEID);
+    }
+
+    private void generateOTP(String otpEventType) {
+        progressBar.setVisibility(View.VISIBLE);
+        ApiManager.generateOtp(email, contact, BuildConfig.SITEID, otpEventType)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(aBoolean -> {
+                    if(getActivity() == null && getView() == null) {
+                        return;
+                    }
+                    progressBar.setVisibility(View.INVISIBLE);
+                    if(!aBoolean) {
+                        Alerts.showAlertDialogOKBtn(getActivity(), "Sorry!", "OTP couldn't generated please try again.");
+                    }
+                }, throwable -> {
+
+                }, () -> {
+                    progressBar.setVisibility(View.INVISIBLE);
+                });
     }
 }
