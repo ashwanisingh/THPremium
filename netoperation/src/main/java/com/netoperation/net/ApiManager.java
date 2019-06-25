@@ -21,6 +21,7 @@ import com.netoperation.model.RecoBean;
 import com.netoperation.model.RecomendationData;
 import com.netoperation.model.SearchedArticleModel;
 import com.netoperation.model.TransactionHistoryModel;
+import com.netoperation.model.UserPlanListBean;
 import com.netoperation.model.UserProfile;
 import com.netoperation.retrofit.ReqBody;
 import com.netoperation.retrofit.ServiceFactory;
@@ -912,6 +913,11 @@ public class ApiManager {
     }
 
 
+    /**
+     * To get transaction history
+     * @param userId
+     * @return
+     */
     public static Observable<List<TransactionHistoryModel.TxnDataBean>> getTxnHistory(String userId) {
         return ServiceFactory.getServiceAPIs().getTxnHistory(userId, "0")
                 .subscribeOn(Schedulers.newThread())
@@ -920,6 +926,13 @@ public class ApiManager {
                 );
     }
 
+    /**
+     * To update Password
+     * @param userId
+     * @param oldPasswd
+     * @param newPasswd
+     * @return
+     */
     public static Observable<KeyValueModel> updatePassword(String userId, String oldPasswd, String newPasswd) {
         return ServiceFactory.getServiceAPIs().updatePassword(ReqBody.updatePassword(userId, oldPasswd, newPasswd))
                 .subscribeOn(Schedulers.newThread())
@@ -937,6 +950,16 @@ public class ApiManager {
                 );
     }
 
+    /**
+     * To suspend user account
+     * @param userId
+     * @param siteId
+     * @param deviceId
+     * @param emailId
+     * @param contact
+     * @param otp
+     * @return
+     */
     public static Observable<KeyValueModel> suspendAccount(String userId, String siteId, String deviceId, String emailId, String contact, String otp) {
         return ServiceFactory.getServiceAPIs().suspendAccount(ReqBody.suspendAccount(userId, siteId, deviceId, emailId, contact, otp))
                 .subscribeOn(Schedulers.newThread())
@@ -954,6 +977,16 @@ public class ApiManager {
                 );
     }
 
+    /**
+     * To Delete user account
+     * @param userId
+     * @param siteId
+     * @param deviceId
+     * @param emailId
+     * @param contact
+     * @param otp
+     * @return
+     */
     public static Observable<KeyValueModel> deleteAccount(String userId, String siteId, String deviceId, String emailId, String contact, String otp) {
         return ServiceFactory.getServiceAPIs().deleteAccount(ReqBody.deleteAccount(userId, siteId, deviceId, emailId, contact, otp))
                 .subscribeOn(Schedulers.newThread())
@@ -968,6 +1001,44 @@ public class ApiManager {
 
                             return keyValueModel;
                         }
+                );
+    }
+
+    /**
+     * To logout user
+     * @param userId
+     * @param siteId
+     * @param deviceId
+     * @return
+     */
+    public static Observable<KeyValueModel> logout(String userId, String siteId, String deviceId) {
+        return ServiceFactory.getServiceAPIs().logout(ReqBody.logout(userId, siteId, deviceId))
+                .subscribeOn(Schedulers.newThread())
+                .map(value-> {
+                    KeyValueModel keyValueModel = new KeyValueModel();
+                    if (((JsonObject) value).has("status")) {
+                        String status = ((JsonObject) value).get("status").getAsString();
+                        String reason = ((JsonObject) value).get("reason").getAsString();
+                        keyValueModel.setState(status);
+                        keyValueModel.setName(reason);
+                    }
+
+                    return keyValueModel;
+                });
+    }
+
+
+    /**
+     * To get user plan info
+     * @param userId
+     * @param siteId
+     * @return
+     */
+    public static Observable<List<UserPlanListBean>> getUserPlanInfo(String userId, String siteId) {
+        return ServiceFactory.getServiceAPIs().getUserPlanInfo(userId, siteId)
+                .subscribeOn(Schedulers.newThread())
+                .map(value->
+                    value.getUserPlanList()
                 );
     }
 

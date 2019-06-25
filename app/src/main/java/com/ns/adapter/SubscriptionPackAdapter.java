@@ -8,16 +8,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.netoperation.model.UserPlanListBean;
 import com.ns.activity.BaseRecyclerViewAdapter;
 import com.ns.loginfragment.SubscriptionStep_2_Fragment;
 import com.ns.thpremium.R;
 import com.ns.utils.FragmentUtil;
 
+import java.util.List;
+
 public class SubscriptionPackAdapter extends BaseRecyclerViewAdapter {
 
     private String mFrom;
-    public SubscriptionPackAdapter(String from){
+    private List<UserPlanListBean> mPlanInfoList;
+    public SubscriptionPackAdapter(String from, List<UserPlanListBean> planInfoList){
         mFrom = from;
+        mPlanInfoList = planInfoList;
     }
 
 
@@ -44,7 +49,7 @@ public class SubscriptionPackAdapter extends BaseRecyclerViewAdapter {
 
     @Override
     public int getItemCount() {
-        return 4;
+        return mPlanInfoList.size();
     }
 
 

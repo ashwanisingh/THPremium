@@ -10,6 +10,7 @@ import com.netoperation.model.RecomendationData;
 import com.netoperation.model.SearchedArticleModel;
 import com.netoperation.model.TransactionHistoryModel;
 import com.netoperation.model.UserChoice;
+import com.netoperation.model.UserPlanList;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -109,6 +110,9 @@ public interface ServiceAPIs {
 
     @GET("charging/transaction/detail/HINDU")
     Observable<TransactionHistoryModel> getTxnHistory(@Query("userid") String userid, @Query("pageno") String pageno);
+
+    @GET("subscription/getuserplaninfo/HINDU")
+    Observable<UserPlanList> getUserPlanInfo(@Query("userid") String userid, @Query("siteid") String siteid);
 
 
 

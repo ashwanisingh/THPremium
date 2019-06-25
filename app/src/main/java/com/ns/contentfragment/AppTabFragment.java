@@ -50,7 +50,7 @@ public class AppTabFragment extends BaseFragmentTHP {
         pagerAdapter = new AppTabPagerAdapter(getChildFragmentManager());
 
         viewPager.setAdapter(pagerAdapter);
-        viewPager.setOffscreenPageLimit(3);
+        viewPager.setOffscreenPageLimit(4);
 
         // This is smooth scroll of ViewPager
         smoothPagerScroll();
