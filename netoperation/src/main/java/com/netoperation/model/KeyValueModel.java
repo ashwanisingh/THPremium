@@ -16,6 +16,14 @@ public class KeyValueModel implements Parcelable {
     private String State;
     private String Code;
 
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public void setState(String state) {
+        State = state;
+    }
+
     public String getState() {
         return State;
     }

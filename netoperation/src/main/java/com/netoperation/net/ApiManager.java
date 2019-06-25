@@ -902,5 +902,22 @@ public class ApiManager {
                 );
     }
 
+    public static Observable<KeyValueModel> updatePassword(String userId, String oldPasswd, String newPasswd) {
+        return ServiceFactory.getServiceAPIs().updatePassword(ReqBody.updatePassword(userId, oldPasswd, newPasswd))
+                .subscribeOn(Schedulers.newThread())
+                .map(value-> {
+                            KeyValueModel keyValueModel = new KeyValueModel();
+                            if (((JsonObject) value).has("status")) {
+                                String status = ((JsonObject) value).get("status").getAsString();
+                                String reason = ((JsonObject) value).get("reason").getAsString();
+                                keyValueModel.setState(status);
+                                keyValueModel.setName(reason);
+                            }
+
+                            return keyValueModel;
+                        }
+                );
+    }
+
 
 }
