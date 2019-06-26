@@ -4,53 +4,31 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PrefListModel {
-    private List<String> topics;
-    private List<String> cities;
-    private List<String> authors;
+    private PersonaliseDetails topics = new PersonaliseDetails();
+    private PersonaliseDetails cities = new PersonaliseDetails();
+    private PersonaliseDetails authors= new PersonaliseDetails();
 
-    public List<String> getTopics() {
+    public PersonaliseDetails getTopics() {
         return topics;
     }
 
-    public List<String> getCities() {
+    public void addTopics(PersonaliseDetails topics) {
+        this.topics = topics;
+    }
+
+    public PersonaliseDetails getCities() {
         return cities;
     }
 
-    public List<String> getAuthors() {
+    public void addCities(PersonaliseDetails cities) {
+        this.cities = cities;
+    }
+
+    public PersonaliseDetails getAuthors() {
         return authors;
     }
 
-    private ArrayList<PersonaliseModel> topicsModels = new ArrayList<>();
-    private ArrayList<PersonaliseModel> citiesModels = new ArrayList<>();
-    private ArrayList<PersonaliseModel> authorsModels = new ArrayList<>();
-
-
-
-    public void addTopicsModels(PersonaliseModel topic) {
-        this.topicsModels.add(topic);
-    }
-
-    public ArrayList<PersonaliseModel> getTopicsModels() {
-        return topicsModels;
-    }
-
-    public void addCitiesModels(PersonaliseModel cities) {
-        this.citiesModels.add(cities);
-    }
-
-    public ArrayList<PersonaliseModel> getCitiesModels() {
-        return citiesModels;
-    }
-
-    public void addAuthorsModels(PersonaliseModel authors) {
-        this.authorsModels.add(authors);
-    }
-
-    public ArrayList<PersonaliseModel> getAuthorsModels() {
-        return authorsModels;
-    }
-
-    public void setAuthorsModels(ArrayList<PersonaliseModel> authorsModels) {
-        this.authorsModels = authorsModels;
+    public void addAuthors(PersonaliseDetails authors) {
+        this.authors = authors;
     }
 }

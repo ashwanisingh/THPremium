@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.netoperation.model.PersonaliseDetails;
 import com.netoperation.model.PersonaliseModel;
 import com.ns.activity.THPPersonaliseActivity;
 import com.ns.adapter.AuthorsRecyclerAdapter;
@@ -31,9 +32,6 @@ import io.reactivex.schedulers.Schedulers;
 public class CitiesFragment extends BaseFragmentTHP implements THPPersonaliseItemClickListener {
 
     private RecyclerViewPullToRefresh mPullToRefreshLayout;
-//    private TextView mErrorText;
-//    private ProgressBar mProgressBar;
-//    private LinearLayout mProgressContainer;
     private TopicsCitiesRecyclerAdapter mRecyclerAdapter;
 
     private THPPersonaliseActivity mActivity;
@@ -44,10 +42,10 @@ public class CitiesFragment extends BaseFragmentTHP implements THPPersonaliseIte
         mPersonaliseItemClickListener = personaliseItemClickListener;
     }
 
-    public static CitiesFragment getInstance(ArrayList<PersonaliseModel> data, String from) {
+    public static CitiesFragment getInstance(PersonaliseDetails data, String from) {
         CitiesFragment fragment = new CitiesFragment();
         Bundle bundle = new Bundle();
-        bundle.putParcelableArrayList("data", data);
+        bundle.putParcelable("data", data);
         bundle.putString("From", from);
         fragment.setArguments(bundle);
         return fragment;
@@ -58,7 +56,7 @@ public class CitiesFragment extends BaseFragmentTHP implements THPPersonaliseIte
         return R.layout.fragment_topics;
     }
 
-    private ArrayList<PersonaliseModel> mData;
+    private PersonaliseDetails mData;
     private String mFrom;
 
     @Override
@@ -78,7 +76,7 @@ public class CitiesFragment extends BaseFragmentTHP implements THPPersonaliseIte
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if(getActivity()!=null) {
-            mData = getArguments().getParcelableArrayList("data");
+            mData = getArguments().getParcelable("data");
             mFrom = getArguments().getString("From");
         }
     }
@@ -88,27 +86,17 @@ public class CitiesFragment extends BaseFragmentTHP implements THPPersonaliseIte
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mPullToRefreshLayout = view.findViewById(R.id.recyclerView_topics);
-//        mProgressBar =  view.findViewById(R.id.section_progress);
-//        mProgressContainer =  view.findViewById(R.id.progress_container);
-//        mErrorText =  view.findViewById(R.id.error_text);
-
         GridLayoutManager glm = new GridLayoutManager(getActivity(), 3);
         mPullToRefreshLayout.getRecyclerView().setLayoutManager(glm);
 
         mRecyclerAdapter=new TopicsCitiesRecyclerAdapter(mData, mFrom, this);
-
         mPullToRefreshLayout.setDataAdapter(mRecyclerAdapter);
-
-//        if (mData != null && mData.size() > 0) {
-//            mProgressContainer.setVisibility(View.GONE);
-//        } else {
-//            mProgressBar.setVisibility(View.GONE);
-//            mErrorText.setVisibility(View.VISIBLE);
-//        }
+        mPullToRefreshLayout.enablePullToRefresh(false);
 
         if(mIsVisible) {
             setPersonaliseItemClickListener(mActivity);
         }
+
     }
 
     @Override

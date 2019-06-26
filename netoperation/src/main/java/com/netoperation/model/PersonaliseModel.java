@@ -5,8 +5,9 @@ import android.os.Parcelable;
 
 public class PersonaliseModel implements Parcelable {
     private String pId;
-    private String name;
-    private String imageUrl;
+    private String title;
+    private String image;
+    private String value;
     private boolean isSelected;
 
     public String getpId() {
@@ -17,27 +18,35 @@ public class PersonaliseModel implements Parcelable {
         this.pId = pId;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public String getImage() {
+        return image;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setImage(String image) {
+        this.image = image;
     }
 
-    public Boolean getSelected() {
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+
+    public boolean isSelected() {
         return isSelected;
     }
 
-    public void setSelected(Boolean selected) {
+    public void setSelected(boolean selected) {
         isSelected = selected;
     }
 
@@ -50,9 +59,10 @@ public class PersonaliseModel implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.pId);
-        dest.writeString(this.name);
-        dest.writeString(this.imageUrl);
-        dest.writeValue(this.isSelected);
+        dest.writeString(this.title);
+        dest.writeString(this.image);
+        dest.writeString(this.value);
+        dest.writeByte(this.isSelected ? (byte) 1 : (byte) 0);
     }
 
     public PersonaliseModel() {
@@ -60,9 +70,10 @@ public class PersonaliseModel implements Parcelable {
 
     protected PersonaliseModel(Parcel in) {
         this.pId = in.readString();
-        this.name = in.readString();
-        this.imageUrl = in.readString();
-        this.isSelected = (Boolean) in.readValue(Boolean.class.getClassLoader());
+        this.title = in.readString();
+        this.image = in.readString();
+        this.value = in.readString();
+        this.isSelected = in.readByte() != 0;
     }
 
     public static final Parcelable.Creator<PersonaliseModel> CREATOR = new Parcelable.Creator<PersonaliseModel>() {

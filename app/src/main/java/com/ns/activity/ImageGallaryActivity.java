@@ -33,7 +33,6 @@ public class ImageGallaryActivity extends BaseAcitivityTHP {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         mImageUrlList = getIntent().getParcelableArrayListExtra("ImageUrl");
         mSelectedPosition = getIntent().getIntExtra("selectedPosition", 0);
         mImageViewPager = (ViewPager) findViewById(R.id.imagePager);

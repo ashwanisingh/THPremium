@@ -13,6 +13,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.load.HttpException;
+import com.netoperation.model.PersonaliseDetails;
 import com.netoperation.model.PersonaliseModel;
 import com.netoperation.model.RecoBean;
 import com.netoperation.net.ApiManager;
@@ -42,11 +43,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 public class AuthorsFragment extends BaseFragmentTHP implements THPPersonaliseItemClickListener {
-
-    private RecyclerView mRecyclerView;
-//    private TextView mErrorText;
-//    private ProgressBar mProgressBar;
-//    private LinearLayout mProgressContainer;
+    private RecyclerViewPullToRefresh mPullToRefreshLayout;
     private AuthorsRecyclerAdapter mAdapter;
 
     private THPPersonaliseActivity mActivity;
@@ -58,10 +55,10 @@ public class AuthorsFragment extends BaseFragmentTHP implements THPPersonaliseIt
     }
 
 
-    public static AuthorsFragment getInstance(ArrayList<PersonaliseModel> data, String frgamentName) {
+    public static AuthorsFragment getInstance(PersonaliseDetails data, String frgamentName) {
         AuthorsFragment fragment = new AuthorsFragment();
         Bundle bundle = new Bundle();
-        bundle.putParcelableArrayList("data", data);
+        bundle.putParcelable("data", data);
         bundle.putString("From", frgamentName);
         fragment.setArguments(bundle);
         return fragment;
@@ -72,7 +69,7 @@ public class AuthorsFragment extends BaseFragmentTHP implements THPPersonaliseIt
         return R.layout.fragment_authors;
     }
 
-    private ArrayList<PersonaliseModel> mData;
+    private PersonaliseDetails mData;
     private String mFrom;
 
 
@@ -93,7 +90,7 @@ public class AuthorsFragment extends BaseFragmentTHP implements THPPersonaliseIt
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if(getActivity()!=null) {
-            mData = getArguments().getParcelableArrayList("data");
+            mData = getArguments().getParcelable("data");
             mFrom = getArguments().getString("From");
         }
     }
@@ -102,25 +99,13 @@ public class AuthorsFragment extends BaseFragmentTHP implements THPPersonaliseIt
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mRecyclerView = view.findViewById(R.id.recyclerView);
-//        mProgressBar =  view.findViewById(R.id.section_progress);
-//        mProgressContainer =  view.findViewById(R.id.progress_container);
-//        mErrorText =  view.findViewById(R.id.error_text);
-
-        LinearLayoutManager llm = new LinearLayoutManager(getActivity());
-        mRecyclerView.setLayoutManager(llm);
+        mPullToRefreshLayout = view.findViewById(R.id.recyclerView_authors);
 
         mAdapter=new AuthorsRecyclerAdapter(mData, mFrom, this);
-        mRecyclerView.setAdapter(mAdapter);
-//
-//        if (mData != null && mData.size() > 0) {
-//            mProgressContainer.setVisibility(View.GONE);
-//        } else {
-//            mProgressBar.setVisibility(View.GONE);
-//            mErrorText.setVisibility(View.VISIBLE);
-//        }
+        mPullToRefreshLayout.setDataAdapter(mAdapter);
+        mPullToRefreshLayout.enablePullToRefresh(false);
 
-        if(mIsVisible) {
+         if(mIsVisible) {
             setPersonaliseItemClickListener(mActivity);
         }
     }
@@ -140,8 +125,5 @@ public class AuthorsFragment extends BaseFragmentTHP implements THPPersonaliseIt
         mFrom=from;
         mActivity.personaliseItemClick(model, mFrom);
     }
-
     }
-
-
 }

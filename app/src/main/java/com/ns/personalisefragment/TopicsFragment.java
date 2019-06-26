@@ -13,6 +13,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.load.HttpException;
+import com.netoperation.model.PersonaliseDetails;
 import com.netoperation.model.PersonaliseModel;
 import com.netoperation.model.RecoBean;
 import com.netoperation.net.ApiManager;
@@ -44,9 +45,6 @@ import io.reactivex.schedulers.Schedulers;
 public class TopicsFragment extends BaseFragmentTHP implements THPPersonaliseItemClickListener{
 
     private RecyclerViewPullToRefresh mPullToRefreshLayout;
-//    private TextView mErrorText;
-//    private ProgressBar mProgressBar;
-//    private LinearLayout mProgressContainer;
     private TopicsCitiesRecyclerAdapter mRecyclerAdapter;
 
     private THPPersonaliseActivity mActivity;
@@ -57,16 +55,16 @@ public class TopicsFragment extends BaseFragmentTHP implements THPPersonaliseIte
         mPersonaliseItemClickListener = personaliseItemClickListener;
     }
 
-    public static TopicsFragment getInstance(ArrayList<PersonaliseModel> data, String from) {
+    public static TopicsFragment getInstance(PersonaliseDetails data, String from) {
         TopicsFragment fragment = new TopicsFragment();
         Bundle bundle = new Bundle();
-        bundle.putParcelableArrayList("data", data);
+        bundle.putParcelable("data", data);
         bundle.putString("From", from);
         fragment.setArguments(bundle);
         return fragment;
     }
 
-    private ArrayList<PersonaliseModel> mData;
+    private PersonaliseDetails mData;
     private String mFrom;
 
     @Override
@@ -90,7 +88,7 @@ public class TopicsFragment extends BaseFragmentTHP implements THPPersonaliseIte
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if(getArguments()!=null) {
-            mData = getArguments().getParcelableArrayList("data");
+            mData = getArguments().getParcelable("data");
             mFrom = getArguments().getString("From");
         }
     }
@@ -99,23 +97,13 @@ public class TopicsFragment extends BaseFragmentTHP implements THPPersonaliseIte
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mPullToRefreshLayout = view.findViewById(R.id.recyclerView_topics);
-//        mProgressBar =  view.findViewById(R.id.section_progress);
-//        mProgressContainer =  view.findViewById(R.id.progress_container);
-//        mErrorText =  view.findViewById(R.id.error_text);
 
         GridLayoutManager glm = new GridLayoutManager(getActivity(), 3);
         mPullToRefreshLayout.getRecyclerView().setLayoutManager(glm);
 
         mRecyclerAdapter = new TopicsCitiesRecyclerAdapter(mData, mFrom, this);
-
         mPullToRefreshLayout.setDataAdapter(mRecyclerAdapter);
-
-        if (mData != null && mData.size() > 0) {
-          //  mProgressContainer.setVisibility(View.GONE);
-        } else {
-           // mProgressBar.setVisibility(View.GONE);
-          //  mErrorText.setVisibility(View.VISIBLE);
-        }
+        mPullToRefreshLayout.enablePullToRefresh(false);
 
         if(mIsVisible) {
             setPersonaliseItemClickListener(mActivity);
@@ -138,5 +126,4 @@ public class TopicsFragment extends BaseFragmentTHP implements THPPersonaliseIte
             mActivity.personaliseItemClick(model, mFrom);
         }
     }
-
 }

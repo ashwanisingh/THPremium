@@ -8,6 +8,7 @@ import com.netoperation.model.KeyValueModel;
 import com.netoperation.model.PrefListModel;
 import com.netoperation.model.RecomendationData;
 import com.netoperation.model.SearchedArticleModel;
+import com.netoperation.model.SelectedPrefModel;
 import com.netoperation.model.UserChoice;
 
 import java.util.ArrayList;
@@ -87,9 +88,8 @@ public interface ServiceAPIs {
     @GET("")
     Observable<BreifingModel> getBriefing(@Url String url);
 
-    @POST("/mydashboard/preflistreco/hindu")
-    Observable<PrefListModel> getPrefList(@Query("userid") String userid, @Query("siteid") String siteid,
-                                          @Query("size") String size, @Query("recotype") String recotype);
+    @GET("")
+    Observable<PrefListModel> getAllPreferences(@Url String url);
 
     @GET("taiauth/list/HINDU")
     Observable<ArrayList<KeyValueModel>> getCountry(@Query("type") String type);
@@ -106,10 +106,6 @@ public interface ServiceAPIs {
     @POST("taiauth/userPreference/hindu")
     Observable<JsonElement> setPersonalise(@Body JsonObject updateProfile);
 
-
-
-
-
-
-
+//    @GET("")
+//    Observable<SelectedPrefModel> setSelectedPreferences(@Url String url);
 }

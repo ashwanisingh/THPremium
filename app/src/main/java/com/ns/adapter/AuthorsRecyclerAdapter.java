@@ -9,21 +9,23 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.joooonho.SelectableRoundedImageView;
+import com.netoperation.model.PersonaliseDetails;
 import com.netoperation.model.PersonaliseModel;
 import com.ns.activity.BaseRecyclerViewAdapter;
 import com.ns.callbacks.THPPersonaliseItemClickListener;
 import com.ns.thpremium.R;
+import com.ns.utils.GlideUtil;
 
 import java.util.ArrayList;
 
 public class AuthorsRecyclerAdapter extends BaseRecyclerViewAdapter {
 
-    ArrayList<PersonaliseModel> modelList;
+    PersonaliseDetails details;
     THPPersonaliseItemClickListener itemClickListener;
     String mFrom;
 
-    public AuthorsRecyclerAdapter(ArrayList<PersonaliseModel> modelList, String mFrom, THPPersonaliseItemClickListener itemClickListener) {
-        this.modelList = modelList;
+    public AuthorsRecyclerAdapter(PersonaliseDetails details, String mFrom, THPPersonaliseItemClickListener itemClickListener) {
+        this.details = details;
         this.itemClickListener=itemClickListener;
         this.mFrom=mFrom;
     }
@@ -40,17 +42,18 @@ public class AuthorsRecyclerAdapter extends BaseRecyclerViewAdapter {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
         AuthorHolder holder = (AuthorHolder) viewHolder;
-        holder.tv_author_name.setText(modelList.get(i).getName());
-        PersonaliseModel model = modelList.get(i);
-        if(model.getSelected()) {
+        GlideUtil.loadImage(holder.image_author.getContext(), holder.image_author, details.getValues().get(i).getImage());
+        holder.tv_author_name.setText(details.getValues().get(i).getTitle());
+        PersonaliseModel model = details.getValues().get(i);
+        if(model.isSelected()) {
             holder.imageview_click.setImageResource(R.drawable.ic_tik_1);
         } else  {
             holder.imageview_click.setImageResource(R.drawable.ic_plus_1);
         }
             holder.imageview_click.setOnClickListener(v -> {
-                    model.setSelected(!model.getSelected());
+                    model.setSelected(!model.isSelected());
                     if (itemClickListener != null) {
-                        itemClickListener.personaliseItemClick(modelList.get(i), mFrom);
+                        itemClickListener.personaliseItemClick(details.getValues().get(i), mFrom);
                     }
                     notifyDataSetChanged();
             });
@@ -58,7 +61,7 @@ public class AuthorsRecyclerAdapter extends BaseRecyclerViewAdapter {
 
     @Override
     public int getItemCount() {
-        return modelList.size();
+        return details.getValues().size();
     }
 
     private static class AuthorHolder extends RecyclerView.ViewHolder{
