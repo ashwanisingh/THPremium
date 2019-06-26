@@ -21,6 +21,12 @@
         app:sriv_right_top_corner_radius="5dp"
         android:scaleType="fitXY" />
 
+    <View
+        android:id="@+id/shadowOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/image_overlay_noncurve" />
+
     <ImageView
         android:id="@+id/btn_personalise"
         android:layout_width="30dp"
@@ -38,9 +44,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
-        android:padding="5dp"
+        android:paddingLeft="5dp"
         android:text="Top Stories"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
+        app:font_path="@string/FONT_FIRA_SANS_REGULAR"
         android:textSize="13sp"
         android:scaleType="centerInside" />
 
