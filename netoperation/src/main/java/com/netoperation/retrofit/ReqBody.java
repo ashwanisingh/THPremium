@@ -144,17 +144,12 @@ public class ReqBody {
         return object;
     }
 
-    public static JsonObject getUserPreference(@NonNull String userId, @NonNull String siteId, @NonNull String deviceId, @Nullable JsonObject preferences) {
+    public static JsonObject getUserPreference(@NonNull String userId, @NonNull String siteId, @NonNull String deviceId) {
         JsonObject object = new JsonObject();
         object.addProperty("userId", userId);
         object.addProperty("siteId", siteId);
         object.addProperty("deviceId", deviceId);
-
-        if(preferences != null) {
-            preferences.addProperty("event", "get");
-            object.add("preferences", preferences);
-        }
-
+        object.addProperty("event", "get");
         return object;
     }
 

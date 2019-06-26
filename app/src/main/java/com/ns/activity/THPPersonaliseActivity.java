@@ -14,9 +14,11 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.load.HttpException;
+import com.netoperation.model.PersonaliseDetails;
 import com.netoperation.model.PersonaliseModel;
+import com.netoperation.model.PrefListModel;
+import com.netoperation.model.UserProfile;
 import com.netoperation.net.ApiManager;
-import com.netoperation.util.NetConstants;
 import com.ns.adapter.PersonaliseAdapter;
 import com.ns.alerts.Alerts;
 import com.ns.callbacks.THPPersonaliseItemClickListener;
@@ -25,14 +27,10 @@ import com.ns.personalisefragment.CitiesFragment;
 import com.ns.personalisefragment.TopicsFragment;
 import com.ns.thpremium.BuildConfig;
 import com.ns.thpremium.R;
-import com.ns.utils.CommonUtil;
 import com.ns.utils.IntentUtil;
 import com.ns.utils.ResUtil;
 import com.ns.view.CustomTextView;
 import com.ns.view.ViewPagerScroller;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -59,6 +57,10 @@ public class THPPersonaliseActivity extends BaseAcitivityTHP implements THPPerso
 
     private CustomTextView tv_savepref, tv_items;
 
+    private UserProfile mUserProfile;
+
+    private PrefListModel mPrefListModel;
+
     @Override
     public int layoutRes() {
         return R.layout.activity_thp_personalise;
@@ -84,7 +86,6 @@ public class THPPersonaliseActivity extends BaseAcitivityTHP implements THPPerso
         smoothPagerScroll();
 
         tv_items.setText("topic");
-        loadData();
 
         tv_savepref.setOnClickListener(v->{
             if((topics!=null && topics.size()>0) || (cities!=null && cities.size()>0) || (authors!=null && authors.size()>0)) {
@@ -163,19 +164,99 @@ public class THPPersonaliseActivity extends BaseAcitivityTHP implements THPPerso
 
             }
         });
+
+        loadUserProfile();
+
+
+    }
+
+    /**
+     * Loads User Profile
+     */
+    private void loadUserProfile() {
+        mDisposable.add(ApiManager.getUserProfile(this)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(userProfile -> {
+                   mUserProfile = userProfile;
+                    getUserSavedPersonalise(mUserProfile.getUserId());
+                    // getUserSavedPersonalise("489"); // For Testing
+                }));
     }
 
 
-    private void loadData() {
+
+    private void getUserSavedPersonalise(String userId) {
+        mDisposable.add(
+                ApiManager.getPersonalise(userId, BuildConfig.SITEID, ResUtil.getDeviceId(this))
+                .map(prefListModel ->{
+                    mPrefListModel = prefListModel;
+                    getAllPersonalise();
+                    return "";
+                })
+                .subscribe(value->{
+
+                })
+        );
+
+    }
+
+
+    private void getAllPersonalise() {
              mDisposable.add(
                 ApiManager.getAllPreferences()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         value -> {
                             List<Fragment> mPersonaliseFragments = new ArrayList<>();
-                            mPersonaliseFragments.add(TopicsFragment.getInstance(value.getTopics(), value.getTopics().getName()));
-                            mPersonaliseFragments.add(CitiesFragment.getInstance(value.getCities(), value.getCities().getName()));
-                            mPersonaliseFragments.add(AuthorsFragment.getInstance(value.getAuthors(), value.getAuthors().getName()));
+                            PersonaliseDetails topicsFromServer = value.getTopics();
+                            PersonaliseDetails citiesFromServer = value.getCities();
+                            PersonaliseDetails authorsFromServer = value.getAuthors();
+
+                            if(mPrefListModel != null) {
+                                PersonaliseDetails topicsFromUser = mPrefListModel.getTopics();
+                                PersonaliseDetails citiesFromUser = mPrefListModel.getCities();
+                                PersonaliseDetails authorsFromUser = mPrefListModel.getAuthors();
+
+                                ArrayList<PersonaliseModel> topicSelected = topicsFromUser.getValues();
+                                if(topicSelected != null) {
+                                    ArrayList<PersonaliseModel> topicDataServer = topicsFromServer.getValues();
+                                    for(PersonaliseModel topicD : topicSelected) {
+                                        int index = topicsFromServer.getValues().indexOf(topicD);
+                                        if (index != -1) {
+                                            topicDataServer.get(index).setSelected(true);
+                                        }
+                                    }
+                                }
+
+                                ArrayList<PersonaliseModel> citiesSelected = citiesFromUser.getValues();
+                                if(citiesSelected != null) {
+                                    ArrayList<PersonaliseModel> citiesDataServer = citiesFromServer.getValues();
+                                    for(PersonaliseModel cityD : citiesSelected) {
+                                        int index = citiesFromServer.getValues().indexOf(cityD);
+                                        if (index != -1) {
+                                            citiesDataServer.get(index).setSelected(true);
+                                        }
+                                    }
+                                }
+
+                                ArrayList<PersonaliseModel> authorsSelected = authorsFromUser.getValues();
+                                if(authorsSelected != null) {
+                                    ArrayList<PersonaliseModel> authorsDataServer = citiesFromServer.getValues();
+                                    for(PersonaliseModel authorD : authorsSelected) {
+                                        int index = authorsFromServer.getValues().indexOf(authorD);
+                                        if (index != -1) {
+                                            authorsDataServer.get(index).setSelected(true);
+                                        }
+                                    }
+                                }
+
+
+                            }
+
+
+                            mPersonaliseFragments.add(TopicsFragment.getInstance(topicsFromServer, topicsFromServer.getName()));
+                            mPersonaliseFragments.add(CitiesFragment.getInstance(citiesFromServer, citiesFromServer.getName()));
+                            mPersonaliseFragments.add(AuthorsFragment.getInstance(authorsFromServer, authorsFromServer.getName()));
 
                             String topic=value.getTopics().getName();
                             String cities=value.getCities().getName();
@@ -201,20 +282,7 @@ public class THPPersonaliseActivity extends BaseAcitivityTHP implements THPPerso
     // loadSelectedData();
     }
 
-//    private void loadSelectedData() {
-//        mDisposable.add(
-//                ApiManager.setSelectedPreferences()
-//                        .observeOn(AndroidSchedulers.mainThread())
-//                        .subscribe(value->{
-//
-//                        }, throwable -> {
-//
-//                                }, ()->{
-//
-//                                }
-//                        )
-//        );
-//    }
+
 
     private void smoothPagerScroll() {
         try {

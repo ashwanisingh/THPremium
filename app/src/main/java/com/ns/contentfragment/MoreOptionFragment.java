@@ -29,7 +29,7 @@ public class MoreOptionFragment extends BaseFragmentTHP {
         super.onViewCreated(view, savedInstanceState);
 
         view.findViewById(R.id.suggested_Txt).setOnClickListener(v->{
-
+            IntentUtil.openBookmarkActivity(getActivity(), "BookmarkListing");
         });
 
 

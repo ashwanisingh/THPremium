@@ -22,6 +22,10 @@ public class PersonaliseDetails implements Parcelable {
         return values;
     }
 
+    public void addPersonalise(PersonaliseModel model) {
+        values.add(model);
+    }
+
 
 
     @Override

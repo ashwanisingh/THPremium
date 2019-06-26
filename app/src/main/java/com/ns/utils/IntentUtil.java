@@ -15,6 +15,7 @@ import com.ns.activity.ImageGallaryVerticleActivity;
 import com.ns.activity.SignInAndUpActivity;
 import com.ns.activity.SubscriptionActivity;
 import com.ns.activity.THPPersonaliseActivity;
+import com.ns.activity.THP_BookmarkActivity;
 import com.ns.activity.THP_DetailActivity;
 import com.ns.activity.THP_WebActivity;
 import com.ns.activity.UserProfileActivity;
@@ -156,6 +157,12 @@ public class IntentUtil {
 
     public static void openPersonaliseActivity(Context context, String from) {
         Intent intent = new Intent(context, THPPersonaliseActivity.class);
+        intent.putExtra("from", from);
+        context.startActivity(intent);
+    }
+
+    public static void openBookmarkActivity(Context context, String from) {
+        Intent intent = new Intent(context, THP_BookmarkActivity.class);
         intent.putExtra("from", from);
         context.startActivity(intent);
     }

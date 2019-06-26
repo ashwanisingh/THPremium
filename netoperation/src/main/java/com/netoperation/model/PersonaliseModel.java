@@ -87,4 +87,23 @@ public class PersonaliseModel implements Parcelable {
             return new PersonaliseModel[size];
         }
     };
+
+    @Override
+    public boolean equals( Object obj) {
+        super.equals(obj);
+        if(obj instanceof  PersonaliseModel) {
+            PersonaliseModel model = (PersonaliseModel) obj;
+            return model.getValue().equals(getValue());
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        super.hashCode();
+        if(getValue() == null) {
+            return 31*41;
+        }
+        return getValue().hashCode();
+    }
 }

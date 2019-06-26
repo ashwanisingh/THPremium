@@ -26,8 +26,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.ns.activity.THPPersonaliseActivity">
-        </activity>
+        <activity android:name="com.ns.activity.THPPersonaliseActivity"/>
 
         <activity android:name="com.ns.activity.SignInAndUpActivity" />
         <activity android:name="com.ns.activity.SubscriptionActivity" />
@@ -37,7 +36,7 @@
         <activity android:name="com.ns.activity.THP_WebActivity" />
         <activity android:name="com.ns.activity.ImageGallaryVerticleActivity" />
         <activity android:name="com.ns.activity.ImageGallaryActivity" />
-      <!--  <activity android:name="com.ns.activity.THPPersonaliseActivity" />-->
+        <activity android:name="com.ns.activity.THP_BookmarkActivity" />
     </application>
 
 </manifest>

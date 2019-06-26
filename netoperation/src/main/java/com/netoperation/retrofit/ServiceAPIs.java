@@ -67,13 +67,6 @@ public interface ServiceAPIs {
     @POST("/taiauth/updateAccountStatus/HINDU")
     Observable<JsonElement> deleteAccount(@Body JsonObject deleteAccountBody);
 
-    @POST("/taiauth/userPreference/HINDU")
-    Observable<JsonElement> getUserPreference(@Body JsonObject getUserPreferenceBody);
-
-    @POST("/taiauth/userPreference/HINDU")
-    Observable<JsonElement> setUserPreference(@Body JsonObject setUserPreferenceBody);
-
-
     @GET("/mydashboard/userreco/hindu")
     Observable<RecomendationData> getRecommendation(@Query("userid") String userid, @Query("recotype") String recotype,
                                                     @Query("size") String size, @Query("siteid") String siteid, @Query("requestSource") String requestSource );
@@ -108,6 +101,9 @@ public interface ServiceAPIs {
 
     @POST("taiauth/userPreference/hindu")
     Observable<JsonElement> setPersonalise(@Body JsonObject updateProfile);
+
+    @POST("taiauth/userPreference/hindu")
+    Observable<SelectedPrefModel> getPersonalise(@Body JsonObject updateProfile);
 
     @GET("charging/transaction/detail/HINDU")
     Observable<TransactionHistoryModel> getTxnHistory(@Query("userid") String userid, @Query("pageno") String pageno);

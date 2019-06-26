@@ -22,7 +22,6 @@ import com.netoperation.model.PrefListModel;
 import com.netoperation.model.RecoBean;
 import com.netoperation.model.RecomendationData;
 import com.netoperation.model.SearchedArticleModel;
-import com.netoperation.model.TransactionHistoryModel;
 import com.netoperation.model.TxnDataBean;
 import com.netoperation.model.UserPlanListBean;
 import com.netoperation.model.UserProfile;
@@ -42,7 +41,6 @@ import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
-import retrofit2.http.Query;
 
 public class ApiManager {
 
@@ -1106,6 +1104,57 @@ public class ApiManager {
                             return false;
                         }
                 );
+    }
+
+    public static Observable<PrefListModel> getPersonalise(String userId, String siteId, String deviceId) {
+        return ServiceFactory.getServiceAPIs().getPersonalise(ReqBody.getUserPreference(userId, siteId, deviceId))
+                .subscribeOn(Schedulers.newThread())
+                .map(selectedPrefModel -> {
+
+                    ArrayList<String> cities = selectedPrefModel.getPreferences().getCity();
+                    ArrayList<String> authors = selectedPrefModel.getPreferences().getAuthor();
+                    ArrayList<String> topics = selectedPrefModel.getPreferences().getTopics();
+
+                    PersonaliseDetails citiesDetails = new PersonaliseDetails();
+                    PersonaliseDetails authorsDetails = new PersonaliseDetails();
+                    PersonaliseDetails topicsDetails = new PersonaliseDetails();
+
+                    if(cities != null) {
+                        for (String city : cities) {
+                            PersonaliseModel model = new PersonaliseModel();
+                            model.setTitle(city);
+                            model.setValue(city);
+                            citiesDetails.addPersonalise(model);
+                        }
+                    }
+
+                    if(authors != null) {
+                        for (String author : authors) {
+                            PersonaliseModel model = new PersonaliseModel();
+                            model.setTitle(author);
+                            model.setValue(author);
+                            authorsDetails.addPersonalise(model);
+                        }
+                    }
+
+                    if(topics != null) {
+                        for (String topic : topics) {
+                            PersonaliseModel model = new PersonaliseModel();
+                            model.setTitle(topic);
+                            model.setValue(topic);
+                            topicsDetails.addPersonalise(model);
+                        }
+                    }
+
+                    PrefListModel prefListModel = new PrefListModel();
+                    prefListModel.addAuthors(authorsDetails);
+                    prefListModel.addTopics(topicsDetails);
+                    prefListModel.addCities(citiesDetails);
+
+                    return prefListModel;
+
+                });
+
     }
 
 
