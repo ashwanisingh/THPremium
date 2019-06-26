@@ -16,6 +16,7 @@ import com.netoperation.db.UserProfileTable;
 import com.netoperation.model.BreifingModel;
 import com.netoperation.model.KeyValueModel;
 import com.netoperation.model.MorningBean;
+import com.netoperation.model.PersonaliseDetails;
 import com.netoperation.model.PersonaliseModel;
 import com.netoperation.model.PrefListModel;
 import com.netoperation.model.RecoBean;
@@ -826,41 +827,6 @@ public class ApiManager {
     }
 
 
-    public static Observable<PrefListModel> getPrefList(String userid, String siteid, String size, String recotype) {
-        Observable<PrefListModel> observable = ServiceFactory.getServiceAPIs().getPrefList(userid, siteid, size, recotype);
-        return observable.subscribeOn(Schedulers.newThread())
-                .timeout(10000, TimeUnit.MILLISECONDS)
-                .map(value -> {
-                    // For topics
-                    List<String> topics = value.getTopics();
-                    for(String stt : topics) {
-                        PersonaliseModel model=new PersonaliseModel();
-                        model.setName(stt);
-                        value.addTopicsModels(model);
-                    }
-
-                    // For cities
-                    List<String> cities = value.getCities();
-                    for(String stc : cities) {
-                        PersonaliseModel model=new PersonaliseModel();
-                        model.setName(stc);
-                        value.addCitiesModels(model);
-                    }
-
-                    // For authors
-                    List<String> authors = value.getAuthors();
-                    for(String sta : authors) {
-                        PersonaliseModel model=new PersonaliseModel();
-                        model.setName(sta);
-                        value.addAuthorsModels(model);
-                    }
-
-                    return value;
-
-                });
-
-    }
-
     public static Observable<UserProfile> getUserProfile(Context context) {
         return Observable.just("userProfile")
                 .subscribeOn(Schedulers.newThread())
@@ -938,25 +904,6 @@ public class ApiManager {
                                     userProfile.setAddress_default_option(address_default_option);
                                     THPDB thpdb = THPDB.getInstance(context);
                                     thpdb.userProfileDao().updateUserProfile(userProfile.getUserId(), userProfile);
-
-                                    return true;
-                                }
-                                return false;
-                            }
-                            return false;
-                        }
-                );
-    }
-
-
-
-    public static Observable<Boolean> setPersonalise(@NonNull String userId, @NonNull String siteId, @NonNull String deviceId, @NonNull JsonObject preferences) {
-        return ServiceFactory.getServiceAPIs().setPersonalise(ReqBody.setUserPreference(userId, siteId, deviceId, preferences))
-                .subscribeOn(Schedulers.newThread())
-                .map(value-> {
-                            if (((JsonObject) value).has("status")) {
-                                String status = ((JsonObject) value).get("status").getAsString();
-                                if (status.equalsIgnoreCase("success")) {
 
                                     return true;
                                 }
@@ -1094,6 +1041,70 @@ public class ApiManager {
                 .subscribeOn(Schedulers.newThread())
                 .map(value->
                     value.getUserPlanList()
+                );
+    }
+
+
+    public static Observable<PrefListModel> getAllPreferences() {
+        Observable<PrefListModel> observable = ServiceFactory.getServiceAPIs().getAllPreferences("https://subscription.thehindu.com/js/preference.json");
+        return observable.subscribeOn(Schedulers.newThread())
+                .timeout(10000, TimeUnit.MILLISECONDS)
+                .map(value -> {
+                    // For topics
+                    PersonaliseDetails topics = value.getTopics();
+                    topics.setName(topics.getName());
+                    value.addTopics(topics);
+
+                    // For cities
+                    PersonaliseDetails cities = value.getCities();
+                    cities.setName(cities.getName());
+                    value.addCities(cities);
+
+
+                    // For authors
+                    PersonaliseDetails authors = value.getAuthors();
+                    authors.setName(authors.getName());
+                    value.addAuthors(authors);
+
+                    return value;
+
+                });
+    }
+
+    public static Observable<Boolean> setPersonalise(@NonNull String userId, @NonNull String siteId, @NonNull String deviceId, @NonNull ArrayList<String> topics,
+                                                     @NonNull ArrayList<String> cities, @NonNull ArrayList<String> authors) {
+        JsonObject personaliseObj = new JsonObject();
+
+        JsonArray ja = new JsonArray();
+        for(String topic : topics) {
+            ja.add(topic);
+        }
+        personaliseObj.add("topics", ja);
+
+        ja = new JsonArray();
+        for(String city : cities) {
+            ja.add(city);
+        }
+        personaliseObj.add("city", ja);
+
+        ja = new JsonArray();
+        for(String author : authors) {
+            ja.add(author);
+        }
+        personaliseObj.add("author", ja);
+
+        return ServiceFactory.getServiceAPIs().setPersonalise(ReqBody.setUserPreference(userId, siteId, deviceId, personaliseObj))
+                .subscribeOn(Schedulers.newThread())
+                .map(value-> {
+                            if (((JsonObject) value).has("status")) {
+                                String status = ((JsonObject) value).get("status").getAsString();
+                                if (status.equalsIgnoreCase("success")) {
+                                    return true;
+                                }
+                                return false;
+                            }
+                            return false;
+                        }
                 );
     }
 
