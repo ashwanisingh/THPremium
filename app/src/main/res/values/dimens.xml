@@ -70,7 +70,7 @@
 
     <dimen name="margin_26">26dp</dimen>
 
-    <dimen name="choose_plan_left_padding">19dp</dimen>
+    <dimen name="choose_plan_left_padding">1dp</dimen>
     <dimen name="choose_plan_top_padding">24dp</dimen>
 
 

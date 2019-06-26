@@ -70,7 +70,7 @@ public class TransactionHistoryFragment extends BaseFragmentTHP {
                     ApiManager.getTxnHistory(userProfile.getUserId())
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe(txnDataBeans -> {
-                                TransactionHistoryAdapter adapter = new TransactionHistoryAdapter(txnDataBeans);
+                                TransactionHistoryAdapter adapter = new TransactionHistoryAdapter(txnDataBeans, "HISTORY");
                                 mRecyclerViewPullToRefresh.setDataAdapter(adapter);
                             }, throwable -> {
                                 mRecyclerViewPullToRefresh.hideProgressBar();

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="25dp"
+    android:paddingStart="25dp"
+    android:paddingEnd="25dp"
+    android:paddingRight="25dp"
+    android:paddingTop="12dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.ns.view.CustomTextView
+        android:id="@+id/orderId_Txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:textSize="16sp"
+        android:textColor="@color/boldBlackColor"
+        android:text="TH1987F635"
+        android:alpha="0.8"
+        app:font_path="@string/FONT_FIRA_SANS_BOLD"
+        />
+
+    <com.ns.view.CustomTextView
+        android:id="@+id/date_Txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/orderId_Txt"
+        android:textSize="13sp"
+        android:layout_marginTop="6dp"
+        android:textColor="@color/boldBlackColor"
+        android:text="Feb 15, 2019 at 8:05 pm"
+        android:alpha="0.6"
+        app:font_path="@string/FONT_FIRA_SANS_REGULAR"
+        />
+
+    <include layout="@layout/listing_divider"
+        android:id="@+id/divider1"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/listing_divider_height"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/date_Txt"
+        android:layout_marginTop="20dp"
+        />
+
+
+    <com.ns.view.CustomTextView
+        android:id="@+id/status_Txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/orderId_Txt"
+        app:layout_constraintBottom_toBottomOf="@+id/divider1"
+        android:textSize="16sp"
+        android:textColor="@color/greenColor_1"
+        android:text="Success"
+        app:font_path="@string/FONT_FIRA_SANS_BOLD"
+        />
+
+</android.support.constraint.ConstraintLayout>

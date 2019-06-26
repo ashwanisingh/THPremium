@@ -86,7 +86,7 @@ public class UserProfileFragment extends BaseFragmentTHP {
         // Change Button click listener
         view.findViewById(R.id.viewAllBtn_Txt).setOnClickListener(v->{
             SubscriptionStep_3_Fragment fragment = SubscriptionStep_3_Fragment.getInstance("");
-            FragmentUtil.addFragmentAnim((AppCompatActivity)getActivity(), R.id.parentLayout, fragment,
+            FragmentUtil.pushFragmentAnim((AppCompatActivity)getActivity(), R.id.parentLayout, fragment,
                     FragmentUtil.FRAGMENT_ANIMATION, false);
         });
 

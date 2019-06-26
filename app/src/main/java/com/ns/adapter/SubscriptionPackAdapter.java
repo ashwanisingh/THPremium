@@ -1,7 +1,6 @@
 package com.ns.adapter;
 
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,9 +9,7 @@ import android.widget.TextView;
 
 import com.netoperation.model.UserPlanListBean;
 import com.ns.activity.BaseRecyclerViewAdapter;
-import com.ns.loginfragment.SubscriptionStep_2_Fragment;
 import com.ns.thpremium.R;
-import com.ns.utils.FragmentUtil;
 
 import java.util.List;
 
@@ -40,9 +37,7 @@ public class SubscriptionPackAdapter extends BaseRecyclerViewAdapter {
         PlanViewHolder holder = (PlanViewHolder) viewHolder;
 
         holder.subscribeBtn_Txt.setOnClickListener(v->{
-            SubscriptionStep_2_Fragment step2Fragment = SubscriptionStep_2_Fragment.getInstance(mFrom);
-            FragmentUtil.pushFragmentAnim((AppCompatActivity)v.getContext(), R.id.parentLayout,
-                    step2Fragment, FragmentUtil.FRAGMENT_NO_ANIMATION, false);
+            // TODO, Open Google Pay Subscription, for payment
         });
 
     }
