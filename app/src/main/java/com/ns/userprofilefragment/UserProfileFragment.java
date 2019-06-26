@@ -11,9 +11,11 @@ import android.widget.EditText;
 
 import com.netoperation.model.UserProfile;
 import com.netoperation.net.ApiManager;
+import com.ns.alerts.Alerts;
 import com.ns.loginfragment.BaseFragmentTHP;
 import com.ns.loginfragment.SubscriptionStep_3_Fragment;
 import com.ns.loginfragment.TCFragment;
+import com.ns.thpremium.BuildConfig;
 import com.ns.thpremium.R;
 import com.ns.utils.FragmentUtil;
 import com.ns.utils.ResUtil;
@@ -84,7 +86,7 @@ public class UserProfileFragment extends BaseFragmentTHP {
         // Change Button click listener
         view.findViewById(R.id.viewAllBtn_Txt).setOnClickListener(v->{
             SubscriptionStep_3_Fragment fragment = SubscriptionStep_3_Fragment.getInstance("");
-            FragmentUtil.addFragmentAnim((AppCompatActivity)getActivity(), R.id.parentLayout, fragment,
+            FragmentUtil.pushFragmentAnim((AppCompatActivity)getActivity(), R.id.parentLayout, fragment,
                     FragmentUtil.FRAGMENT_ANIMATION, false);
         });
 
@@ -111,6 +113,7 @@ public class UserProfileFragment extends BaseFragmentTHP {
         });
 
         // Notification Row click listener - 3
+        view.findViewById(R.id.notification_Row).setVisibility(View.GONE);
         view.findViewById(R.id.notification_Row).setOnClickListener(v->{
             NotificationFragment fragment = NotificationFragment.getInstance("");
             FragmentUtil.pushFragmentAnim((AppCompatActivity) getActivity(), R.id.parentLayout,
@@ -140,9 +143,25 @@ public class UserProfileFragment extends BaseFragmentTHP {
         });
 
         // Sign Out Row click listener - 7
-        view.findViewById(R.id.signOut_Row).setOnClickListener(v->{
+        view.findViewById(R.id.signOut_Row).setOnClickListener(v->
+            ApiManager.logout(mUserProfile.getUserId(), BuildConfig.SITEID, ResUtil.getDeviceId(getActivity()))
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(value->{
+                        if(value.getState() != null && value.getState().equalsIgnoreCase("success")) {
+                            Alerts.showToast(getActivity(), "Logged out successfully.");
+                            // TODO, Clear All Database
+                            // TODO, Launch hindu default home screen
+                            //
+                        }
+                        else {
 
-        });
+                        }
+                    }, throwable -> {
+
+                    }, () ->{
+
+                    })
+        );
 
 
         versionName_Txt.setText(ResUtil.getVersionName(getActivity()));

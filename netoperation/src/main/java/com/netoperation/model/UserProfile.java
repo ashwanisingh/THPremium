@@ -1,5 +1,7 @@
 package com.netoperation.model;
 
+import java.util.ArrayList;
+
 public class UserProfile {
 
     private String emailId;
@@ -32,6 +34,19 @@ public class UserProfile {
     private String fid;
     private String tid;
     private String gid;
+
+    private ArrayList<TxnDataBean> userPlanList;
+
+    public ArrayList<TxnDataBean> getUserPlanList() {
+        return userPlanList;
+    }
+
+    public void addUserPlanList(TxnDataBean planInfoData) {
+        if(this.userPlanList == null) {
+            this.userPlanList = new ArrayList<>();
+        }
+        this.userPlanList.add(planInfoData);
+    }
 
     public String getEmailId() {
         return emailId;

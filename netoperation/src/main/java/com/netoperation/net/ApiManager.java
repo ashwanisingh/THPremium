@@ -4,7 +4,6 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -17,19 +16,21 @@ import com.netoperation.db.UserProfileTable;
 import com.netoperation.model.BreifingModel;
 import com.netoperation.model.KeyValueModel;
 import com.netoperation.model.MorningBean;
-import com.netoperation.model.PersonaliseDetails;
 import com.netoperation.model.PersonaliseModel;
 import com.netoperation.model.PrefListModel;
 import com.netoperation.model.RecoBean;
 import com.netoperation.model.RecomendationData;
 import com.netoperation.model.SearchedArticleModel;
-import com.netoperation.model.SelectedPrefModel;
+import com.netoperation.model.TransactionHistoryModel;
+import com.netoperation.model.TxnDataBean;
+import com.netoperation.model.UserPlanListBean;
 import com.netoperation.model.UserProfile;
 import com.netoperation.retrofit.ReqBody;
 import com.netoperation.retrofit.ServiceFactory;
 import com.netoperation.util.NetConstants;
 import com.netoperation.util.RetentionDef;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -79,6 +80,24 @@ public class ApiManager {
                         callback.onComplete(NetConstants.EVENT_SIGNUP);
                     }
                 });
+    }
+
+
+    public static Observable<Boolean> generateOtp(String email, String contact, String siteId, String otpEventType) {
+
+        Observable<JsonElement> observable = ServiceFactory.getServiceAPIs().userVerification(ReqBody.userVerification(email, contact, siteId, otpEventType));
+        return observable.subscribeOn(Schedulers.newThread())
+                .map(value -> {
+                            if (((JsonObject) value).has("status")) {
+                                String status = ((JsonObject) value).get("status").getAsString();
+                                if (status.equalsIgnoreCase("success")) {
+                                    return true;
+                                }
+                                return false;
+                            }
+                            return false;
+                        }
+                );
     }
 
     public static void validateOTP(RequestCallback<Boolean> callback, String otp, String emailOrContact) {
@@ -212,10 +231,32 @@ public class ApiManager {
 
 
 
-    public static Observable<Boolean> userLogin(Context context, String email, String contact,
+    public static Observable<String> userLogin(String email, String contact,
                                  String siteId, String password, String deviceId, String originUrl) {
 
         Observable<JsonElement> observable = ServiceFactory.getServiceAPIs().login(ReqBody.login(email, contact, password, deviceId, siteId, originUrl));
+        return observable.subscribeOn(Schedulers.newThread())
+                .map(value -> {
+                            if (((JsonObject) value).has("status")) {
+                                String status = ((JsonObject) value).get("status").getAsString();
+                                if (status.equalsIgnoreCase("success")) {
+                                    String userId = ((JsonObject) value).get("userId").getAsString();
+                                    return userId;
+                                } else if (status.equalsIgnoreCase("Fail")) {
+
+                                }
+
+                            }
+                            return "";
+                        }
+                );
+
+    }
+
+
+    public static Observable<Boolean> getUserInfo(Context context, String siteId, String deviceId, String usrId) {
+
+        Observable<JsonElement> observable = ServiceFactory.getServiceAPIs().userInfo(ReqBody.userInfo(deviceId, siteId, usrId));
         return observable.subscribeOn(Schedulers.newThread())
                 .map(value -> {
                             if (((JsonObject) value).has("status")) {
@@ -258,12 +299,42 @@ public class ApiManager {
                                     String tid = ((JsonObject) value).get("tid").getAsString();
                                     String gid = ((JsonObject) value).get("gid").getAsString();
 
+                                    UserProfile userProfile = new UserProfile();
+
+                                    if(obj.has("userPlanList")) {
+                                        JSONArray userPlanList = obj.getJSONArray("userPlanList");
+                                        int planSize = userPlanList.length();
+                                        for (int i = 0; i < planSize; i++) {
+                                            JSONObject object = (JSONObject) userPlanList.get(i);
+                                            String planId = object.getString("planId");
+                                            String planName = object.getString("planName");
+                                            double amount = object.getDouble("amount");
+                                            String statusPlan = object.getString("status");
+                                            String validity = object.getString("validity");
+                                            String nextRenewal = object.getString("nextRenewal");
+                                            String sDate = object.getString("sDate");
+                                            String eDate = object.getString("eDate");
+                                            int isActive = object.getInt("isActive");
+
+                                            TxnDataBean bean = new TxnDataBean();
+                                            bean.setAmount(amount);
+                                            bean.setPlanId(planId);
+                                            bean.setPlanName(planName);
+                                            bean.setTrxnstatus(statusPlan);
+                                            bean.setValidity(validity);
+                                            bean.setNextRenewal(nextRenewal);
+                                            bean.setsDate(sDate);
+                                            bean.seteDate(eDate);
+                                            bean.setIsActive(isActive);
+
+                                            userProfile.addUserPlanList(bean);
+                                        }
+                                    }
 
                                     THPDB thpdb = THPDB.getInstance(context);
                                     // Deleting Previous Profile DB
                                     thpdb.userProfileDao().deleteAll();
 
-                                    UserProfile userProfile = new UserProfile();
 
                                     userProfile.setEmailId(emailId);
                                     userProfile.setContact(contact_);
@@ -755,30 +826,39 @@ public class ApiManager {
     }
 
 
-    public static Observable<PrefListModel> getAllPreferences() {
-        Observable<PrefListModel> observable = ServiceFactory.getServiceAPIs().getAllPreferences("https://subscription.thehindu.com/js/preference.json");
+    public static Observable<PrefListModel> getPrefList(String userid, String siteid, String size, String recotype) {
+        Observable<PrefListModel> observable = ServiceFactory.getServiceAPIs().getPrefList(userid, siteid, size, recotype);
         return observable.subscribeOn(Schedulers.newThread())
                 .timeout(10000, TimeUnit.MILLISECONDS)
                 .map(value -> {
                     // For topics
-                    PersonaliseDetails topics = value.getTopics();
-                        topics.setName(topics.getName());
-                        value.addTopics(topics);
+                    List<String> topics = value.getTopics();
+                    for(String stt : topics) {
+                        PersonaliseModel model=new PersonaliseModel();
+                        model.setName(stt);
+                        value.addTopicsModels(model);
+                    }
 
                     // For cities
-                    PersonaliseDetails cities = value.getCities();
-                        cities.setName(cities.getName());
-                        value.addCities(cities);
-
+                    List<String> cities = value.getCities();
+                    for(String stc : cities) {
+                        PersonaliseModel model=new PersonaliseModel();
+                        model.setName(stc);
+                        value.addCitiesModels(model);
+                    }
 
                     // For authors
-                    PersonaliseDetails authors = value.getAuthors();
-                        authors.setName(authors.getName());
-                        value.addAuthors(authors);
+                    List<String> authors = value.getAuthors();
+                    for(String sta : authors) {
+                        PersonaliseModel model=new PersonaliseModel();
+                        model.setName(sta);
+                        value.addAuthorsModels(model);
+                    }
 
                     return value;
 
                 });
+
     }
 
     public static Observable<UserProfile> getUserProfile(Context context) {
@@ -833,7 +913,7 @@ public class ApiManager {
                         return false;
                     }
                     return false;
-                }
+                        }
                 );
     }
 
@@ -870,34 +950,14 @@ public class ApiManager {
 
 
 
-    public static Observable<Boolean> setPersonalise(@NonNull String userId, @NonNull String siteId, @NonNull String deviceId, @NonNull ArrayList<String> topics,
-                                                     @NonNull ArrayList<String> cities, @NonNull ArrayList<String> authors) {
-        JsonObject personaliseObj = new JsonObject();
-
-        JsonArray ja = new JsonArray();
-        for(String topic : topics) {
-            ja.add(topic);
-        }
-        personaliseObj.add("topics", ja);
-
-        ja = new JsonArray();
-        for(String city : cities) {
-            ja.add(city);
-        }
-        personaliseObj.add("city", ja);
-
-        ja = new JsonArray();
-        for(String author : authors) {
-            ja.add(author);
-        }
-        personaliseObj.add("author", ja);
-
-        return ServiceFactory.getServiceAPIs().setPersonalise(ReqBody.setUserPreference(userId, siteId, deviceId, personaliseObj))
+    public static Observable<Boolean> setPersonalise(@NonNull String userId, @NonNull String siteId, @NonNull String deviceId, @NonNull JsonObject preferences) {
+        return ServiceFactory.getServiceAPIs().setPersonalise(ReqBody.setUserPreference(userId, siteId, deviceId, preferences))
                 .subscribeOn(Schedulers.newThread())
                 .map(value-> {
                             if (((JsonObject) value).has("status")) {
                                 String status = ((JsonObject) value).get("status").getAsString();
                                 if (status.equalsIgnoreCase("success")) {
+
                                     return true;
                                 }
                                 return false;
@@ -907,17 +967,135 @@ public class ApiManager {
                 );
     }
 
-//    public static Observable<SelectedPrefModel> setSelectedPreferences() {
-//        Observable<SelectedPrefModel> observable = ServiceFactory.getServiceAPIs().setSelectedPreferences("http://tai.thehindu.co.in/taiauth/userPreference/hindu");
-//        return observable.subscribeOn(Schedulers.newThread())
-//                .timeout(10000, TimeUnit.MILLISECONDS)
-//                .map(value -> {
-//                    // For topics
-//                    ArrayList<String> topics = value.getPreferences().getTopics();
-//                    return value;
-//
-//                });
-//
-//    }
+
+    /**
+     * To get transaction history
+     * @param userId
+     * @return
+     */
+    public static Observable<List<TxnDataBean>> getTxnHistory(String userId) {
+        return ServiceFactory.getServiceAPIs().getTxnHistory(userId, "0")
+                .subscribeOn(Schedulers.newThread())
+                .map(txnModel->
+                        txnModel.getTxnData()
+                );
+    }
+
+    /**
+     * To update Password
+     * @param userId
+     * @param oldPasswd
+     * @param newPasswd
+     * @return
+     */
+    public static Observable<KeyValueModel> updatePassword(String userId, String oldPasswd, String newPasswd) {
+        return ServiceFactory.getServiceAPIs().updatePassword(ReqBody.updatePassword(userId, oldPasswd, newPasswd))
+                .subscribeOn(Schedulers.newThread())
+                .map(value-> {
+                            KeyValueModel keyValueModel = new KeyValueModel();
+                            if (((JsonObject) value).has("status")) {
+                                String status = ((JsonObject) value).get("status").getAsString();
+                                String reason = ((JsonObject) value).get("reason").getAsString();
+                                keyValueModel.setState(status);
+                                keyValueModel.setName(reason);
+                            }
+
+                            return keyValueModel;
+                        }
+                );
+    }
+
+    /**
+     * To suspend user account
+     * @param userId
+     * @param siteId
+     * @param deviceId
+     * @param emailId
+     * @param contact
+     * @param otp
+     * @return
+     */
+    public static Observable<KeyValueModel> suspendAccount(String userId, String siteId, String deviceId, String emailId, String contact, String otp) {
+        return ServiceFactory.getServiceAPIs().suspendAccount(ReqBody.suspendAccount(userId, siteId, deviceId, emailId, contact, otp))
+                .subscribeOn(Schedulers.newThread())
+                .map(value-> {
+                            KeyValueModel keyValueModel = new KeyValueModel();
+                            if (((JsonObject) value).has("status")) {
+                                String status = ((JsonObject) value).get("status").getAsString();
+                                String reason = ((JsonObject) value).get("reason").getAsString();
+                                keyValueModel.setState(status);
+                                keyValueModel.setName(reason);
+                            }
+
+                            return keyValueModel;
+                        }
+                );
+    }
+
+    /**
+     * To Delete user account
+     * @param userId
+     * @param siteId
+     * @param deviceId
+     * @param emailId
+     * @param contact
+     * @param otp
+     * @return
+     */
+    public static Observable<KeyValueModel> deleteAccount(String userId, String siteId, String deviceId, String emailId, String contact, String otp) {
+        return ServiceFactory.getServiceAPIs().deleteAccount(ReqBody.deleteAccount(userId, siteId, deviceId, emailId, contact, otp))
+                .subscribeOn(Schedulers.newThread())
+                .map(value-> {
+                            KeyValueModel keyValueModel = new KeyValueModel();
+                            if (((JsonObject) value).has("status")) {
+                                String status = ((JsonObject) value).get("status").getAsString();
+                                String reason = ((JsonObject) value).get("reason").getAsString();
+                                keyValueModel.setState(status);
+                                keyValueModel.setName(reason);
+                            }
+
+                            return keyValueModel;
+                        }
+                );
+    }
+
+    /**
+     * To logout user
+     * @param userId
+     * @param siteId
+     * @param deviceId
+     * @return
+     */
+    public static Observable<KeyValueModel> logout(String userId, String siteId, String deviceId) {
+        return ServiceFactory.getServiceAPIs().logout(ReqBody.logout(userId, siteId, deviceId))
+                .subscribeOn(Schedulers.newThread())
+                .map(value-> {
+                    KeyValueModel keyValueModel = new KeyValueModel();
+                    if (((JsonObject) value).has("status")) {
+                        String status = ((JsonObject) value).get("status").getAsString();
+                        String reason = ((JsonObject) value).get("reason").getAsString();
+                        keyValueModel.setState(status);
+                        keyValueModel.setName(reason);
+                    }
+
+                    return keyValueModel;
+                });
+    }
+
+
+    /**
+     * To get user plan info
+     * @param userId
+     * @param siteId
+     * @return
+     */
+    public static Observable<List<UserPlanListBean>> getUserPlanInfo(String userId, String siteId) {
+        return ServiceFactory.getServiceAPIs().getUserPlanInfo(userId, siteId)
+                .subscribeOn(Schedulers.newThread())
+                .map(value->
+                    value.getUserPlanList()
+                );
+    }
+
 
 }

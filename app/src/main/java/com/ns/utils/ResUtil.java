@@ -17,12 +17,18 @@ import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
+import com.ns.alerts.Alerts;
+import com.ns.thpremium.R;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public class ResUtil {
@@ -265,6 +271,21 @@ public class ResUtil {
                 Settings.Secure.ANDROID_ID);
 
         return android_id;
+    }
+
+    public static boolean isValidPassword(String password) {
+        Pattern p = Pattern.compile("[^a-z0-9 ]", Pattern.CASE_INSENSITIVE);
+        Matcher m = p.matcher(password);
+        boolean containSpecialChar = m.find();
+
+        String numRegex   = ".*[0-9].*";
+        String alphaRegex = ".*[A-Z].*";
+        String alphaSmallRegex = ".*[a-z].*";
+
+        if(!containSpecialChar && password.matches(numRegex) && (password.matches(alphaRegex) || password.matches(alphaSmallRegex))) {
+            return true;
+        }
+        return false;
     }
 
 

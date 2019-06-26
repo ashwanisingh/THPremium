@@ -126,6 +126,16 @@
             app:layout_constraintTop_toBottomOf="@+id/youcan_Txt"
             app:layout_constraintLeft_toLeftOf="parent"/>
 
+        <com.ns.view.CustomProgressBar
+            android:id="@+id/progressBarSuspend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/suspendAccountBtn_Txt"
+            app:layout_constraintBottom_toBottomOf="@+id/suspendAccountBtn_Txt"
+            android:visibility="gone"
+            />
+
     </android.support.constraint.ConstraintLayout>
     <!--End Part 2 Layout-->
 
@@ -186,7 +196,7 @@
             android:layout_height="40dp"
             android:gravity="center"
             android:layout_marginTop="32dp"
-            android:text="Suspend My Account"
+            android:text="Delete My Account"
             android:textColor="@color/redColor_1"
             android:background="@drawable/grey_background"
             android:textSize="14sp"
@@ -194,6 +204,16 @@
             app:layout_constraintTop_toBottomOf="@+id/yourAc_Txt"
             app:layout_constraintLeft_toLeftOf="parent"/>
 
+
+        <com.ns.view.CustomProgressBar
+            android:id="@+id/progressBarDelete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/deleteAccountBtn_Txt"
+            app:layout_constraintBottom_toBottomOf="@+id/deleteAccountBtn_Txt"
+            android:visibility="gone"
+            />
 
 
     </android.support.constraint.ConstraintLayout>

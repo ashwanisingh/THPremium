@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.EditText;
@@ -151,22 +152,48 @@ public class SignInFragment extends BaseFragmentTHP {
 
             String deviceId = ResUtil.getDeviceId(getActivity());
 
-            ApiManager.userLogin(getActivity(), email, mobile, BuildConfig.SITEID, passwd, deviceId, BuildConfig.ORIGIN_URL)
+            ApiManager.userLogin(email, mobile, BuildConfig.SITEID, passwd, deviceId, BuildConfig.ORIGIN_URL)
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(bool -> {
+                    .subscribe(userId -> {
                                 if (getActivity() == null && getView() == null) {
                                     return;
                                 }
 
-                                if (!bool) {
+                                if (TextUtils.isEmpty(userId)) {
                                     if (isUserEnteredMobile) {
                                         Alerts.showAlertDialogOKBtn(getActivity(), "Sorry!", "User Mobile number not found.");
                                     } else {
                                         Alerts.showAlertDialogOKBtn(getActivity(), "Sorry!", "User email not found.");
                                     }
                                 } else {
-                                    // TODO, process for user sign - In
-                                    IntentUtil.openContentListingActivity(getActivity(), "");
+                                    // Making server request to get User Info
+                                    ApiManager.getUserInfo(getActivity(), BuildConfig.SITEID, ResUtil.getDeviceId(getActivity()), userId)
+                                            .observeOn(AndroidSchedulers.mainThread())
+                                            .subscribe(bool->{
+
+                                                if(bool) {
+                                                    // TODO, process for user sign - In
+                                                    IntentUtil.openContentListingActivity(getActivity(), "");
+                                                }
+                                                else {
+                                                    Alerts.showErrorDailog(getChildFragmentManager(), "Sorry",
+                                                            "We are fetching some technical problem.\n Please try later.");
+                                                }
+
+                                            }, throwable -> {
+                                                enableButton(true);
+                                                if (throwable instanceof HttpException || throwable instanceof ConnectException
+                                                        || throwable instanceof SocketTimeoutException || throwable instanceof TimeoutException) {
+                                                    Alerts.showErrorDailog(getChildFragmentManager(), getResources().getString(R.string.kindly), getResources().getString(R.string.please_check_ur_connectivity));
+                                                }
+                                                else {
+                                                    Alerts.showErrorDailog(getChildFragmentManager(), null, throwable.getLocalizedMessage());
+                                                }
+                                            }, () ->{
+                                                enableButton(true);
+                                            });
+
+
                                 }
                             }, throwable -> {
                                 if (getActivity() != null && getView() != null) {
@@ -181,7 +208,7 @@ public class SignInFragment extends BaseFragmentTHP {
                                 }
                             },
                             () -> {
-                                enableButton(true);
+
                             });
 
 

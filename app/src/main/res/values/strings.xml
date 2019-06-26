@@ -20,6 +20,10 @@
     <string name="article_not_loaded">Clicked link\'s article is not loaded.\nPlease check your internet connectivity.</string>
     <string name="please_wait">Please wait...</string>
     <string name="kindly">Kindly!</string>
+    <string name="alert">Alert!</string>
+    <string name="passwd_length_err_msg">Password length must be greater than 5.</string>
+    <string name="passwd_char_err_msg">Password should contain atleast 1 number and 1 alphabet. No special characters.</string>
+    <string name="all_field_mandatory">All fields are mandatory.</string>
 
     <string name="comments">COMMENTS</string>
 

@@ -7,8 +7,12 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.netoperation.net.ApiManager;
 import com.ns.adapter.SubscriptionPackAdapter;
+import com.ns.thpremium.BuildConfig;
 import com.ns.thpremium.R;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
 
 public class SubscriptionPackFragment extends BaseFragmentTHP {
 
@@ -48,10 +52,31 @@ public class SubscriptionPackFragment extends BaseFragmentTHP {
         LinearLayoutManager llm = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         mRecyclerView.setLayoutManager(llm);
 
-        mAdapter = new SubscriptionPackAdapter(mFrom);
-        mRecyclerView.setAdapter(mAdapter);
+        loadData();
 
     }
+
+    /**
+     * Load User Plan Info
+     */
+    private void loadData() {
+        mDisposable.add(ApiManager.getUserProfile(getActivity())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(userProfile -> {
+                   ApiManager.getUserPlanInfo(userProfile.getUserId(), BuildConfig.SITEID)
+                           .observeOn(AndroidSchedulers.mainThread())
+                           .subscribe(planInfoList->{
+                               mAdapter = new SubscriptionPackAdapter(mFrom, planInfoList);
+                               mRecyclerView.setAdapter(mAdapter);
+                           }, throwable -> {
+
+                           }, ()->{
+
+                           });
+                }));
+    }
+
+
 
 
 }

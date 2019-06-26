@@ -10,10 +10,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.netoperation.net.ApiManager;
-import com.netoperation.net.RequestCallback;
 import com.ns.alerts.Alerts;
 import com.ns.thpremium.BuildConfig;
 import com.ns.thpremium.R;
@@ -22,9 +20,7 @@ import com.ns.utils.IntentUtil;
 import com.ns.utils.ResUtil;
 import com.ns.view.CustomProgressBar;
 
-import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 
 public class SetPasswordFragment extends BaseFragmentTHP {
 
@@ -135,7 +131,10 @@ public class SetPasswordFragment extends BaseFragmentTHP {
             return;
         }
         else if(password.length()<=5) {
-            Alerts.showErrorDailog(getChildFragmentManager(), "Alert", "Password length must be greater than 5.");
+            Alerts.showErrorDailog(getChildFragmentManager(), "Alert", getString(R.string.passwd_length_err_msg));
+            return;
+        } else if(!ResUtil.isValidPassword(password)) {
+            Alerts.showErrorDailog(getChildFragmentManager(), "Alert", getString(R.string.passwd_char_err_msg));
             return;
         }
 

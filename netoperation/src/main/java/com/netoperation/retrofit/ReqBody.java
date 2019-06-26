@@ -74,10 +74,11 @@ public class ReqBody {
         return object;
     }
 
-    public static JsonObject userInfo(String deviceId, String siteId) {
+    public static JsonObject userInfo(String deviceId, String siteId, String userId) {
         JsonObject object = new JsonObject();
         object.addProperty("deviceId", deviceId);
         object.addProperty("siteId", siteId);
+        object.addProperty("userId", userId);
         return object;
     }
 

@@ -51,7 +51,7 @@
             android:id="@+id/subscriptionPlansLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:layout_height="@dimen/subscription_pack_height_1"/>
+            />
 
 
         <FrameLayout

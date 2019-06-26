@@ -6,19 +6,25 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import com.netoperation.net.ApiManager;
 import com.ns.adapter.TransactionHistoryAdapter;
+import com.ns.alerts.Alerts;
 import com.ns.loginfragment.BaseFragmentTHP;
 import com.ns.thpremium.R;
 import com.ns.utils.FragmentUtil;
+import com.ns.view.CustomProgressBar;
 import com.ns.view.RecyclerViewPullToRefresh;
 
 import java.util.ArrayList;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
 
 public class TransactionHistoryFragment extends BaseFragmentTHP {
 
     private String mFrom;
 
     private RecyclerViewPullToRefresh mRecyclerViewPullToRefresh;
+
 
     @Override
     public int getLayoutRes() {
@@ -36,7 +42,6 @@ public class TransactionHistoryFragment extends BaseFragmentTHP {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         if(getArguments() != null) {
             mFrom = getArguments().getString("from");
         }
@@ -53,10 +58,29 @@ public class TransactionHistoryFragment extends BaseFragmentTHP {
             FragmentUtil.clearSingleBackStack((AppCompatActivity)getActivity());
         });
 
-        TransactionHistoryAdapter adapter = new TransactionHistoryAdapter(new ArrayList<>());
-        mRecyclerViewPullToRefresh.setDataAdapter(adapter);
+        loadData();
+
+    }
 
 
+    private void loadData() {
+        mRecyclerViewPullToRefresh.showProgressBar();
+        mDisposable.add(ApiManager.getUserProfile(getActivity())
+                .subscribe(userProfile ->
+                    ApiManager.getTxnHistory(userProfile.getUserId())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(txnDataBeans -> {
+                                TransactionHistoryAdapter adapter = new TransactionHistoryAdapter(txnDataBeans, "HISTORY");
+                                mRecyclerViewPullToRefresh.setDataAdapter(adapter);
+                            }, throwable -> {
+                                mRecyclerViewPullToRefresh.hideProgressBar();
+                                Alerts.showErrorDailog(getChildFragmentManager(), getResources().getString(R.string.kindly), getResources().getString(R.string.please_check_ur_connectivity));
+                            }, () -> {
+                                mRecyclerViewPullToRefresh.hideProgressBar();
+                            })
+                , throwable -> {
+                            mRecyclerViewPullToRefresh.hideProgressBar();
+                }));
     }
 
 
