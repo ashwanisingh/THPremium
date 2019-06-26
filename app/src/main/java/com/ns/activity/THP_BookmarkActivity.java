@@ -11,6 +11,7 @@ public class THP_BookmarkActivity extends BaseAcitivityTHP {
 
     private String mFrom;
 
+
     @Override
     public int layoutRes() {
         return R.layout.activity_anonymous_layout;
