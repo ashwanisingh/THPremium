@@ -69,7 +69,7 @@ public class BriefcaseFragment extends BaseFragmentTHP implements RecyclerViewPu
         userName_Txt = view.findViewById(R.id.userName_Txt);
         editionBtn_Txt = view.findViewById(R.id.editionBtn_Txt);
 
-        mRecyclerAdapter = new AppTabContentAdapter(new ArrayList<>(), NetConstants.RECO_briefcase);
+        mRecyclerAdapter = new AppTabContentAdapter(new ArrayList<>(), mBreifingType);
 
         mPullToRefreshLayout.setDataAdapter(mRecyclerAdapter);
 
@@ -194,6 +194,7 @@ public class BriefcaseFragment extends BaseFragmentTHP implements RecyclerViewPu
                         })
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(value -> {
+                            mRecyclerAdapter.setFrom(mBreifingType);
                             mRecyclerAdapter.setData(value);
                         }, throwable -> {
                             loadData(false);

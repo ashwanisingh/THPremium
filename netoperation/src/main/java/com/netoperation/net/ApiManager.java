@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.netoperation.db.BookmarkTable;
@@ -21,6 +22,7 @@ import com.netoperation.model.RecoBean;
 import com.netoperation.model.RecomendationData;
 import com.netoperation.model.SearchedArticleModel;
 import com.netoperation.model.TransactionHistoryModel;
+import com.netoperation.model.TxnDataBean;
 import com.netoperation.model.UserPlanListBean;
 import com.netoperation.model.UserProfile;
 import com.netoperation.retrofit.ReqBody;
@@ -28,6 +30,7 @@ import com.netoperation.retrofit.ServiceFactory;
 import com.netoperation.util.NetConstants;
 import com.netoperation.util.RetentionDef;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -228,10 +231,32 @@ public class ApiManager {
 
 
 
-    public static Observable<Boolean> userLogin(Context context, String email, String contact,
+    public static Observable<String> userLogin(String email, String contact,
                                  String siteId, String password, String deviceId, String originUrl) {
 
         Observable<JsonElement> observable = ServiceFactory.getServiceAPIs().login(ReqBody.login(email, contact, password, deviceId, siteId, originUrl));
+        return observable.subscribeOn(Schedulers.newThread())
+                .map(value -> {
+                            if (((JsonObject) value).has("status")) {
+                                String status = ((JsonObject) value).get("status").getAsString();
+                                if (status.equalsIgnoreCase("success")) {
+                                    String userId = ((JsonObject) value).get("userId").getAsString();
+                                    return userId;
+                                } else if (status.equalsIgnoreCase("Fail")) {
+
+                                }
+
+                            }
+                            return "";
+                        }
+                );
+
+    }
+
+
+    public static Observable<Boolean> getUserInfo(Context context, String siteId, String deviceId, String usrId) {
+
+        Observable<JsonElement> observable = ServiceFactory.getServiceAPIs().userInfo(ReqBody.userInfo(deviceId, siteId, usrId));
         return observable.subscribeOn(Schedulers.newThread())
                 .map(value -> {
                             if (((JsonObject) value).has("status")) {
@@ -274,12 +299,42 @@ public class ApiManager {
                                     String tid = ((JsonObject) value).get("tid").getAsString();
                                     String gid = ((JsonObject) value).get("gid").getAsString();
 
+                                    UserProfile userProfile = new UserProfile();
+
+                                    if(obj.has("userPlanList")) {
+                                        JSONArray userPlanList = obj.getJSONArray("userPlanList");
+                                        int planSize = userPlanList.length();
+                                        for (int i = 0; i < planSize; i++) {
+                                            JSONObject object = (JSONObject) userPlanList.get(i);
+                                            String planId = object.getString("planId");
+                                            String planName = object.getString("planName");
+                                            double amount = object.getDouble("amount");
+                                            String statusPlan = object.getString("status");
+                                            String validity = object.getString("validity");
+                                            String nextRenewal = object.getString("nextRenewal");
+                                            String sDate = object.getString("sDate");
+                                            String eDate = object.getString("eDate");
+                                            int isActive = object.getInt("isActive");
+
+                                            TxnDataBean bean = new TxnDataBean();
+                                            bean.setAmount(amount);
+                                            bean.setPlanId(planId);
+                                            bean.setPlanName(planName);
+                                            bean.setTrxnstatus(statusPlan);
+                                            bean.setValidity(validity);
+                                            bean.setNextRenewal(nextRenewal);
+                                            bean.setsDate(sDate);
+                                            bean.seteDate(eDate);
+                                            bean.setIsActive(isActive);
+
+                                            userProfile.addUserPlanList(bean);
+                                        }
+                                    }
 
                                     THPDB thpdb = THPDB.getInstance(context);
                                     // Deleting Previous Profile DB
                                     thpdb.userProfileDao().deleteAll();
 
-                                    UserProfile userProfile = new UserProfile();
 
                                     userProfile.setEmailId(emailId);
                                     userProfile.setContact(contact_);
@@ -918,7 +973,7 @@ public class ApiManager {
      * @param userId
      * @return
      */
-    public static Observable<List<TransactionHistoryModel.TxnDataBean>> getTxnHistory(String userId) {
+    public static Observable<List<TxnDataBean>> getTxnHistory(String userId) {
         return ServiceFactory.getServiceAPIs().getTxnHistory(userId, "0")
                 .subscribeOn(Schedulers.newThread())
                 .map(txnModel->

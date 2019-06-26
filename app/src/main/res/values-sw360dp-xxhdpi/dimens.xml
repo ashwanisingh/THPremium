@@ -24,7 +24,7 @@
     <dimen name="subscription_pack_height_2">273dp</dimen>
     <dimen name="subscription_pack_item_gap">15dp</dimen>
     <dimen name="subscription_pack_item_border_padding">3.4dp</dimen>
-    <dimen name="subscription_pack_item_rupee_gap">13dp</dimen>
+    <dimen name="subscription_pack_item_rupee_gap">1dp</dimen>
 
 
     <string name="bottom_popup_layout_ratio">h,12:14</string>

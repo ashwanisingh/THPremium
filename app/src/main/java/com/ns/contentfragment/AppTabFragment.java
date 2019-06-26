@@ -3,6 +3,7 @@ package com.ns.contentfragment;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.view.animation.LinearInterpolator;
 import android.widget.LinearLayout;
 
+import com.ns.activity.BecomeMemberActivity;
 import com.ns.adapter.AppTabPagerAdapter;
 import com.ns.thpremium.R;
 import com.ns.loginfragment.BaseFragmentTHP;
@@ -20,6 +22,8 @@ import com.ns.view.ViewPagerScroller;
 import java.lang.reflect.Field;
 
 public class AppTabFragment extends BaseFragmentTHP {
+
+    private ConstraintLayout subscribeLayout;
 
     public static AppTabFragment getInstance(String from) {
         AppTabFragment fragment = new AppTabFragment();
@@ -44,6 +48,7 @@ public class AppTabFragment extends BaseFragmentTHP {
         super.onViewCreated(view, savedInstanceState);
 
 
+        subscribeLayout = view.findViewById(R.id.subscribeLayout);
         mTabLayout = view.findViewById(R.id.appTabsTabLayout);
         viewPager = view.findViewById(R.id.appTabsViewPager);
 
@@ -88,24 +93,9 @@ public class AppTabFragment extends BaseFragmentTHP {
             }
         });
 
-        // More tab Click Listener
-        /*view.findViewById(R.id.appTabsMore_Img).setOnClickListener(v->{
-            MoreOptionFragment fragment = MoreOptionFragment.getInstance();
-
-            FragmentUtil.addFragmentAnim((AppCompatActivity) getActivity(),
-                    R.id.parentLayout, fragment, FragmentUtil.FRAGMENT_NO_ANIMATION, false);
-
-            fragment.setOnMoreOptionClickListener(value -> {
-                // Clearing Calendar Fragment
-                if(value.equalsIgnoreCase("cancel")) {
-                    FragmentUtil.clearSingleBackStack((AppCompatActivity) getActivity());
-                    return;
-                }
-
-                FragmentUtil.clearSingleBackStack((AppCompatActivity) getActivity());
-
-            });
-        });*/
+        view.findViewById(R.id.subscribeBtn_Txt).setOnClickListener(v->{
+            IntentUtil.openSubscriptionActivity(getActivity(), "freeTrial");
+        });
 
 
         // Back Button Click Listener

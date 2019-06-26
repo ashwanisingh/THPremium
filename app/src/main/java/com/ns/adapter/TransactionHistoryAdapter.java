@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.netoperation.model.TransactionHistoryModel;
+import com.netoperation.model.TxnDataBean;
 import com.ns.activity.BaseRecyclerViewAdapter;
 import com.ns.thpremium.R;
 import com.ns.utils.ResUtil;
@@ -17,10 +17,10 @@ import java.util.List;
 
 public class TransactionHistoryAdapter extends BaseRecyclerViewAdapter {
 
-    private List<TransactionHistoryModel.TxnDataBean> transactions;
+    private List<TxnDataBean> transactions;
     private String mViewTypeFrom;
 
-    public TransactionHistoryAdapter(List<TransactionHistoryModel.TxnDataBean> transactions, String viewTypeFrom) {
+    public TransactionHistoryAdapter(List<TxnDataBean> transactions, String viewTypeFrom) {
         this.transactions = transactions;
         this.mViewTypeFrom = viewTypeFrom;
     }
@@ -39,7 +39,7 @@ public class TransactionHistoryAdapter extends BaseRecyclerViewAdapter {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
-        TransactionHistoryModel.TxnDataBean bean = transactions.get(i);
+        TxnDataBean bean = transactions.get(i);
         if(viewHolder instanceof TxnHistoryViewHolder) {
             TxnHistoryViewHolder holder = (TxnHistoryViewHolder) viewHolder;
             holder.packName_Txt.setText(bean.getPlanName());

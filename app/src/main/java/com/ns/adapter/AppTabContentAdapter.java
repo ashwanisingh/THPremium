@@ -48,6 +48,9 @@ public class AppTabContentAdapter extends BaseRecyclerViewAdapter {
     private int mDescriptionItemPosition;
     private int mLastDescriptionTextSize;
 
+    public void setFrom(String from) {
+        mFrom = from;
+    }
 
 
     public AppTabContentAdapter(List<AppTabContentModel> content, String from) {

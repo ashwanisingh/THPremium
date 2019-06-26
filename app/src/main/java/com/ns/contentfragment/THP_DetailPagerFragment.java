@@ -10,6 +10,7 @@ import android.view.animation.LinearInterpolator;
 import com.bumptech.glide.load.HttpException;
 import com.netoperation.model.RecoBean;
 import com.netoperation.net.ApiManager;
+import com.netoperation.util.NetConstants;
 import com.ns.adapter.DetailPagerAdapter;
 import com.ns.loginfragment.BaseFragmentTHP;
 import com.ns.thpremium.R;
@@ -108,7 +109,14 @@ public class THP_DetailPagerFragment extends BaseFragmentTHP {
 
 
     private void loadData() {
-        Observable<List<RecoBean>> observable = ApiManager.getRecommendationFromDB(getActivity(), mFrom);
+        Observable<List<RecoBean>> observable = null;
+        if(mFrom.equalsIgnoreCase(NetConstants.BREIFING_ALL) || mFrom.equalsIgnoreCase(NetConstants.BREIFING_EVENING)
+        || mFrom.equalsIgnoreCase(NetConstants.BREIFING_NOON) || mFrom.equalsIgnoreCase(NetConstants.BREIFING_MORNING)) {
+            observable = ApiManager.getBreifingFromDB(getActivity(), mFrom);
+        }
+        else {
+            observable = ApiManager.getRecommendationFromDB(getActivity(), mFrom);
+        }
 
         mDisposable.add(
                 observable.map(value->{
