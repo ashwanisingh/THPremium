@@ -135,7 +135,7 @@ public class SuggestedFragment extends BaseFragmentTHP implements RecyclerViewPu
             observable = ApiManager.getRecommendationFromServer(getActivity(), mUserId,
                     NetConstants.RECO_suggested, ""+mSize, BuildConfig.SITEID);
         } else {
-            observable = ApiManager.getRecommendationFromDB(getActivity(), NetConstants.RECO_trending);
+            observable = ApiManager.getRecommendationFromDB(getActivity(), NetConstants.RECO_suggested);
         }
 
         mDisposable.add(
