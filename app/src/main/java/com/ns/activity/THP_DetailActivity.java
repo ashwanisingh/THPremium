@@ -3,10 +3,14 @@ package com.ns.activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
+import com.netoperation.net.ApiManager;
 import com.ns.callbacks.FragmentTools;
+import com.ns.contentfragment.AppTabFragment;
 import com.ns.contentfragment.THP_DetailPagerFragment;
 import com.ns.thpremium.R;
 import com.ns.utils.FragmentUtil;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
 
 public class THP_DetailActivity extends BaseAcitivityTHP {
 
@@ -14,7 +18,6 @@ public class THP_DetailActivity extends BaseAcitivityTHP {
     private int clickedPosition;
     private String articleId;
     private String url;
-
 
 
     @Override
@@ -35,8 +38,14 @@ public class THP_DetailActivity extends BaseAcitivityTHP {
             articleId = getIntent().getStringExtra("articleId");
         }
 
-        THP_DetailPagerFragment fragment = THP_DetailPagerFragment.getInstance(articleId, clickedPosition, mFrom);
+        ApiManager.getUserProfile(this)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(userProfile -> {
+                    THP_DetailPagerFragment fragment = THP_DetailPagerFragment.getInstance(articleId, clickedPosition, mFrom, userProfile.getUserId());
 
-        FragmentUtil.pushFragmentAnim(this, R.id.parentLayout, fragment, FragmentUtil.FRAGMENT_NO_ANIMATION, true);
+                    FragmentUtil.pushFragmentAnim(this, R.id.parentLayout, fragment, FragmentUtil.FRAGMENT_NO_ANIMATION, true);
+                });
+
+
     }
 }

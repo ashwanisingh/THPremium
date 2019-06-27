@@ -26,6 +26,7 @@ public abstract class BaseFragmentTHP extends Fragment {
     protected boolean mIsOnline;
     protected boolean mIsVisible;
     protected int mSize = 10;
+    protected String mUserId;
 
     protected BaseAcitivityTHP mActivity;
 

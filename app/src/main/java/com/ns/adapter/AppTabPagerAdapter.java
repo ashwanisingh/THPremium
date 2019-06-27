@@ -24,29 +24,31 @@ import com.ns.thpremium.R;
 
 public class AppTabPagerAdapter extends FragmentStatePagerAdapter {
 
-    public AppTabPagerAdapter(FragmentManager fm) {
+    private String mUserId;
+    public AppTabPagerAdapter(FragmentManager fm, String userId) {
         super(fm);
+        mUserId = userId;
     }
 
     @Override
     public Fragment getItem(int i) {
         if(i==0) {
-            return BriefcaseFragment.getInstance();
+            return BriefcaseFragment.getInstance(mUserId);
         }
         else if(i==1) {
-            return DashboardFragment.getInstance();
+            return DashboardFragment.getInstance(mUserId);
         }
         else if(i==2) {
-            return SuggestedFragment.getInstance();
+            return SuggestedFragment.getInstance(mUserId);
         }
         else if(i==3) {
-            return TrendingFragment.getInstance();
+            return TrendingFragment.getInstance(mUserId);
         }
         else if(i==4) {
-            return MoreOptionFragment.getInstance();
+            return MoreOptionFragment.getInstance(mUserId);
         }
         else {
-            return MoreOptionFragment.getInstance();
+            return null;
         }
     }
 

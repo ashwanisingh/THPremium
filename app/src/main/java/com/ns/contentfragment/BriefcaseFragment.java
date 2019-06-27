@@ -46,9 +46,10 @@ public class BriefcaseFragment extends BaseFragmentTHP implements RecyclerViewPu
     private CustomTextView editionBtn_Txt;
     private String mBreifingType = NetConstants.BREIFING_ALL;
 
-    public static BriefcaseFragment getInstance() {
+    public static BriefcaseFragment getInstance(String userId) {
         BriefcaseFragment fragment = new BriefcaseFragment();
         Bundle bundle = new Bundle();
+        bundle.putString("userId", userId);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -56,6 +57,14 @@ public class BriefcaseFragment extends BaseFragmentTHP implements RecyclerViewPu
     @Override
     public int getLayoutRes() {
         return R.layout.fragment_briefcase;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if(getArguments() != null) {
+            mUserId = getArguments().getString("userId");
+        }
     }
 
     @Override
@@ -69,7 +78,7 @@ public class BriefcaseFragment extends BaseFragmentTHP implements RecyclerViewPu
         userName_Txt = view.findViewById(R.id.userName_Txt);
         editionBtn_Txt = view.findViewById(R.id.editionBtn_Txt);
 
-        mRecyclerAdapter = new AppTabContentAdapter(new ArrayList<>(), mBreifingType);
+        mRecyclerAdapter = new AppTabContentAdapter(new ArrayList<>(), mBreifingType, mUserId);
 
         mPullToRefreshLayout.setDataAdapter(mRecyclerAdapter);
 

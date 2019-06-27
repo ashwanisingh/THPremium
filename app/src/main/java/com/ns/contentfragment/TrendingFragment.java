@@ -37,9 +37,10 @@ public class TrendingFragment extends BaseFragmentTHP implements RecyclerViewPul
     private AppTabContentAdapter mRecyclerAdapter;
     private int mSize = 10;
 
-    public static TrendingFragment getInstance() {
+    public static TrendingFragment getInstance(String userId) {
         TrendingFragment fragment = new TrendingFragment();
         Bundle bundle = new Bundle();
+        bundle.putString("userId", userId);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -47,6 +48,14 @@ public class TrendingFragment extends BaseFragmentTHP implements RecyclerViewPul
     @Override
     public int getLayoutRes() {
         return R.layout.fragment_trending;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if(getArguments() != null) {
+            mUserId = getArguments().getString("userId");
+        }
     }
 
 
@@ -57,7 +66,7 @@ public class TrendingFragment extends BaseFragmentTHP implements RecyclerViewPul
         mPullToRefreshLayout = view.findViewById(R.id.recyclerView);
         emptyLayout = view.findViewById(R.id.emptyLayout);
 
-        mRecyclerAdapter = new AppTabContentAdapter(new ArrayList<>(), NetConstants.RECO_trending);
+        mRecyclerAdapter = new AppTabContentAdapter(new ArrayList<>(), NetConstants.RECO_trending, mUserId);
 
         mPullToRefreshLayout.setDataAdapter(mRecyclerAdapter);
 
@@ -123,7 +132,7 @@ public class TrendingFragment extends BaseFragmentTHP implements RecyclerViewPul
         Observable<List<RecoBean>> observable = null;
 
         if (isOnline) {
-            observable = ApiManager.getRecommendationFromServer(getActivity(), NetConstants.USER_ID,
+            observable = ApiManager.getRecommendationFromServer(getActivity(), mUserId,
                     NetConstants.RECO_trending, ""+mSize, BuildConfig.SITEID);
         } else {
             observable = ApiManager.getRecommendationFromDB(getActivity(), NetConstants.RECO_trending);

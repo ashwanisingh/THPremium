@@ -34,7 +34,7 @@ public class NetConstants {
     public static final int LIKE_NEUTRAL = 0;
     public static final int LIKE_NO = -1;
 
-    public static final String USER_ID = "489";
+    public static final String USER_IDs = "489";
 
     public static final String ITEM_SIZE = "10";
 

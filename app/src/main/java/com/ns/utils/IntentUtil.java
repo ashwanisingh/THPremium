@@ -161,9 +161,10 @@ public class IntentUtil {
         context.startActivity(intent);
     }
 
-    public static void openBookmarkActivity(Context context, String from) {
+    public static void openBookmarkActivity(Context context, String from, String userId) {
         Intent intent = new Intent(context, THP_BookmarkActivity.class);
         intent.putExtra("from", from);
+        intent.putExtra("userId", userId);
         context.startActivity(intent);
     }
 

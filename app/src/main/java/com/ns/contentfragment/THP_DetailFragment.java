@@ -47,11 +47,12 @@ public class THP_DetailFragment extends BaseFragmentTHP implements RecyclerViewP
     protected final CompositeDisposable mDisposable = new CompositeDisposable();
 
 
-    public static THP_DetailFragment getInstance(RecoBean recoBean, String articleId) {
+    public static THP_DetailFragment getInstance(RecoBean recoBean, String articleId, String userId) {
         THP_DetailFragment fragment = new THP_DetailFragment();
         Bundle bundle = new Bundle();
         bundle.putParcelable("RecoBean", recoBean);
         bundle.putString("articleId", articleId);
+        bundle.putString("userId", userId);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -81,6 +82,7 @@ public class THP_DetailFragment extends BaseFragmentTHP implements RecyclerViewP
         if(getArguments() != null) {
             mRecoBean = getArguments().getParcelable("RecoBean");
             mArticleId = getArguments().getString("articleId");
+            mUserId = getArguments().getString("userId");
         }
     }
 
@@ -95,7 +97,7 @@ public class THP_DetailFragment extends BaseFragmentTHP implements RecyclerViewP
 
         mPullToRefreshLayout = view.findViewById(R.id.recyclerView);
 
-        mRecyclerAdapter = new AppTabContentAdapter(new ArrayList<>(), "THP_DetailFragment");
+        mRecyclerAdapter = new AppTabContentAdapter(new ArrayList<>(), "THP_DetailFragment", mUserId);
 
         mPullToRefreshLayout.setDataAdapter(mRecyclerAdapter);
 

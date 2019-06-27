@@ -41,12 +41,13 @@ public class THP_DetailPagerFragment extends BaseFragmentTHP {
     protected final CompositeDisposable mDisposable = new CompositeDisposable();
 
     public static final THP_DetailPagerFragment getInstance(String articleId,
-                                                            int clickedPosition, String from) {
+                                                            int clickedPosition, String from, String userId) {
         THP_DetailPagerFragment fragment = new THP_DetailPagerFragment();
         Bundle bundle = new Bundle();
         bundle.putInt("clickedPosition", clickedPosition);
         bundle.putString("articleId", articleId);
         bundle.putString("from", from);
+        bundle.putString("userId", userId);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -66,6 +67,7 @@ public class THP_DetailPagerFragment extends BaseFragmentTHP {
             mArticleId = getArguments().getString("articleId");
             mArticleUrl = getArguments().getString("articleUrl");
             mFrom = getArguments().getString("from");
+            mUserId = getArguments().getString("userId");
         }
     }
 
@@ -126,7 +128,7 @@ public class THP_DetailPagerFragment extends BaseFragmentTHP {
                 .subscribe(value -> {
 
                     for(RecoBean model : value) {
-                        mSectionsPagerAdapter.addFragment(THP_DetailFragment.getInstance(model, model.getArticleId()));
+                        mSectionsPagerAdapter.addFragment(THP_DetailFragment.getInstance(model, model.getArticleId(), mUserId));
                     }
 
                     // To Check the selected article Index
