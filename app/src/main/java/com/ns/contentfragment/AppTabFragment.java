@@ -17,6 +17,7 @@ import com.ns.thpremium.R;
 import com.ns.loginfragment.BaseFragmentTHP;
 import com.ns.utils.FragmentUtil;
 import com.ns.utils.IntentUtil;
+import com.ns.utils.THPConstants;
 import com.ns.view.ViewPagerScroller;
 
 import java.lang.reflect.Field;
@@ -103,7 +104,7 @@ public class AppTabFragment extends BaseFragmentTHP {
         });
 
         view.findViewById(R.id.subscribeBtn_Txt).setOnClickListener(v->{
-            IntentUtil.openSubscriptionActivity(getActivity(), "freeTrial");
+            IntentUtil.openSubscriptionActivity(getActivity(), THPConstants.FROM_SUBSCRIPTION_EXPLORE);
         });
 
 

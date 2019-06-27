@@ -5,6 +5,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.netoperation.model.BreifingModel;
 import com.netoperation.model.KeyValueModel;
+import com.netoperation.model.PlanRecoModel;
 import com.netoperation.model.PrefListModel;
 import com.netoperation.model.RecomendationData;
 import com.netoperation.model.SearchedArticleModel;
@@ -110,6 +111,10 @@ public interface ServiceAPIs {
 
     @GET("subscription/getuserplaninfo/HINDU")
     Observable<UserPlanList> getUserPlanInfo(@Query("userid") String userid, @Query("siteid") String siteid);
+
+    @GET("subscription/getplaninfo/HINDU")
+    Observable<PlanRecoModel> getRecommendedPlan(@Query("siteid") String siteid, @Query("tagid") String tagid,
+                                                 @Query("isInd") String isInd, @Query("isPlt") String isPlt);
 
 
 

@@ -11,23 +11,16 @@ public class UserPlanList {
      */
 
     private RespCodeBean respCode;
-    private List<UserPlanListBean> userPlanList;
+    private List<TxnDataBean> userPlanList;
 
     public RespCodeBean getRespCode() {
         return respCode;
     }
 
-    public void setRespCode(RespCodeBean respCode) {
-        this.respCode = respCode;
-    }
-
-    public List<UserPlanListBean> getUserPlanList() {
+    public List<TxnDataBean> getUserPlanList() {
         return userPlanList;
     }
 
-    public void setUserPlanList(List<UserPlanListBean> userPlanList) {
-        this.userPlanList = userPlanList;
-    }
 
     public static class RespCodeBean {
         /**

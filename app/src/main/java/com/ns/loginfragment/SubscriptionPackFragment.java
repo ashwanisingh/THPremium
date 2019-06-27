@@ -5,12 +5,14 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 
 import com.netoperation.net.ApiManager;
 import com.ns.adapter.SubscriptionPackAdapter;
 import com.ns.thpremium.BuildConfig;
 import com.ns.thpremium.R;
+import com.ns.utils.THPConstants;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 
@@ -52,28 +54,55 @@ public class SubscriptionPackFragment extends BaseFragmentTHP {
         LinearLayoutManager llm = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         mRecyclerView.setLayoutManager(llm);
 
-        loadData();
+
+        mDisposable.add(ApiManager.getUserProfile(getActivity())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(userProfile -> {
+                    mUserId = userProfile.getUserId();
+                    if(mFrom != null && mFrom.equalsIgnoreCase(THPConstants.FROM_PROFILE_VIEWALL)) {
+                        loadUserPlanData();
+                    }
+                    else if(mFrom != null && mFrom.equalsIgnoreCase(THPConstants.FROM_SUBSCRIPTION_EXPLORE)) {
+                        recommendedPlan();
+                    }
+                }));
+
+
 
     }
 
     /**
      * Load User Plan Info
      */
-    private void loadData() {
-        mDisposable.add(ApiManager.getUserProfile(getActivity())
+    private void loadUserPlanData() {
+        mDisposable.add(ApiManager.getUserPlanInfo(mUserId, BuildConfig.SITEID)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(userProfile -> {
-                   ApiManager.getUserPlanInfo(userProfile.getUserId(), BuildConfig.SITEID)
-                           .observeOn(AndroidSchedulers.mainThread())
-                           .subscribe(planInfoList->{
-                               mAdapter = new SubscriptionPackAdapter(mFrom, planInfoList);
-                               mRecyclerView.setAdapter(mAdapter);
-                           }, throwable -> {
+                .subscribe(planInfoList->{
+                    if(planInfoList.size() != 0) {
+                        mAdapter = new SubscriptionPackAdapter(mFrom, planInfoList);
+                        mRecyclerView.setAdapter(mAdapter);
+                    }
+                    else {
+                        recommendedPlan();
+                    }
+                }, throwable -> {
+                    recommendedPlan();
+                }, ()->{
 
-                           }, ()->{
-
-                           });
                 }));
+    }
+
+    private void recommendedPlan() {
+        mDisposable.add(ApiManager.getRecommendedPlan(mUserId, BuildConfig.SITEID)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(planInfoList -> {
+                            mAdapter = new SubscriptionPackAdapter(mFrom, planInfoList);
+                            mRecyclerView.setAdapter(mAdapter);
+                        },
+                        throwable -> {
+                            Log.i("", "");
+                        }));
+
     }
 
 
