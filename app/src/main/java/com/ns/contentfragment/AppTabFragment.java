@@ -17,6 +17,7 @@ import com.ns.thpremium.R;
 import com.ns.loginfragment.BaseFragmentTHP;
 import com.ns.utils.FragmentUtil;
 import com.ns.utils.IntentUtil;
+import com.ns.utils.THPConstants;
 import com.ns.view.ViewPagerScroller;
 
 import java.lang.reflect.Field;
@@ -24,10 +25,12 @@ import java.lang.reflect.Field;
 public class AppTabFragment extends BaseFragmentTHP {
 
     private ConstraintLayout subscribeLayout;
+    private String mUserId;
 
-    public static AppTabFragment getInstance(String from) {
+    public static AppTabFragment getInstance(String from, String userId) {
         AppTabFragment fragment = new AppTabFragment();
         Bundle bundle = new Bundle();
+        bundle.putString("userId", userId);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -42,6 +45,13 @@ public class AppTabFragment extends BaseFragmentTHP {
         return R.layout.fragment_apptab;
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if(getArguments() != null) {
+            mUserId = getArguments().getString("userId");
+        }
+    }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -52,7 +62,7 @@ public class AppTabFragment extends BaseFragmentTHP {
         mTabLayout = view.findViewById(R.id.appTabsTabLayout);
         viewPager = view.findViewById(R.id.appTabsViewPager);
 
-        pagerAdapter = new AppTabPagerAdapter(getChildFragmentManager());
+        pagerAdapter = new AppTabPagerAdapter(getChildFragmentManager(), mUserId);
 
         viewPager.setAdapter(pagerAdapter);
         viewPager.setOffscreenPageLimit(4);
@@ -94,7 +104,7 @@ public class AppTabFragment extends BaseFragmentTHP {
         });
 
         view.findViewById(R.id.subscribeBtn_Txt).setOnClickListener(v->{
-            IntentUtil.openSubscriptionActivity(getActivity(), "freeTrial");
+            IntentUtil.openSubscriptionActivity(getActivity(), THPConstants.FROM_SUBSCRIPTION_EXPLORE);
         });
 
 

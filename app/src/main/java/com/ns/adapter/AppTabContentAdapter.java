@@ -42,6 +42,7 @@ public class AppTabContentAdapter extends BaseRecyclerViewAdapter {
 
     private List<AppTabContentModel> mContent;
     private String mFrom;
+    private String mUserId;
 
     /** This holds description webview position in recyclerview.
      * This is being used to notify recyclerview on TextSize change. */
@@ -52,10 +53,10 @@ public class AppTabContentAdapter extends BaseRecyclerViewAdapter {
         mFrom = from;
     }
 
-
-    public AppTabContentAdapter(List<AppTabContentModel> content, String from) {
+    public AppTabContentAdapter(List<AppTabContentModel> content, String from, String userId) {
         this.mContent = content;
         this.mFrom = from;
+        this.mUserId = userId;
     }
 
     @Override
@@ -373,7 +374,7 @@ public class AppTabContentAdapter extends BaseRecyclerViewAdapter {
         final int book = bookmark;
         final int fav = favourite;
 
-        ApiManager.createBookmarkFavLike(NetConstants.USER_ID, BuildConfig.SITEID, bean.getArticleId(), bookmark, favourite)
+        ApiManager.createBookmarkFavLike(mUserId, BuildConfig.SITEID, bean.getArticleId(), bookmark, favourite)
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(val-> {
                     if (val) {
@@ -409,6 +410,9 @@ public class AppTabContentAdapter extends BaseRecyclerViewAdapter {
                             });
                         }
 
+                    }
+                    else {
+                        notifyItemChanged(position);
                     }
                 },
                 val-> {

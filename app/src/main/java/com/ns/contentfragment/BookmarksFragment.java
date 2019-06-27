@@ -36,10 +36,12 @@ public class BookmarksFragment extends BaseFragmentTHP implements RecyclerViewPu
     private LinearLayout emptyLayout;
     private AppTabContentAdapter mRecyclerAdapter;
     private int mSize = 10;
+    private String mUserId;
 
-    public static BookmarksFragment getInstance() {
+    public static BookmarksFragment getInstance(String userId) {
         BookmarksFragment fragment = new BookmarksFragment();
         Bundle bundle = new Bundle();
+        bundle.putString("userId",userId);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -50,13 +52,21 @@ public class BookmarksFragment extends BaseFragmentTHP implements RecyclerViewPu
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if(getArguments() != null) {
+            mUserId = getArguments().getString("userId");
+        }
+    }
+
+    @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         mPullToRefreshLayout = view.findViewById(R.id.recyclerView);
         emptyLayout = view.findViewById(R.id.emptyLayout);
 
-        mRecyclerAdapter = new AppTabContentAdapter(new ArrayList<>(), NetConstants.RECO_bookmarks);
+        mRecyclerAdapter = new AppTabContentAdapter(new ArrayList<>(), NetConstants.RECO_bookmarks, mUserId);
 
         mPullToRefreshLayout.setDataAdapter(mRecyclerAdapter);
 
@@ -67,16 +77,10 @@ public class BookmarksFragment extends BaseFragmentTHP implements RecyclerViewPu
         // Pull To Refresh Listener
         registerPullToRefresh();
 
+        loadData();
 
     }
 
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        if(mIsVisible && mRecyclerAdapter!= null && mRecyclerAdapter.getItemCount() == 0) {
-            loadData();
-        }
-    }
 
     /**
      * Adding Pull To Refresh Listener
@@ -113,13 +117,13 @@ public class BookmarksFragment extends BaseFragmentTHP implements RecyclerViewPu
                 .subscribe();
     }
 
-    private void loadData(boolean isOnline) {
 
+    private void loadData(boolean isOnline) {
 
         Observable<List<RecoBean>> observable = null;
 
         if (isOnline) {
-            observable = ApiManager.getRecommendationFromServer(getActivity(), NetConstants.USER_ID,
+            observable = ApiManager.getRecommendationFromServer(getActivity(), mUserId,
                     NetConstants.RECO_bookmarks, ""+mSize, BuildConfig.SITEID);
         } else {
             observable = ApiManager.getRecommendationFromDB(getActivity(), NetConstants.RECO_bookmarks);

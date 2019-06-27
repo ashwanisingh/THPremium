@@ -38,9 +38,10 @@ public class DashboardFragment extends BaseFragmentTHP implements RecyclerViewPu
     private RecyclerViewPullToRefresh mPullToRefreshLayout;
     private AppTabContentAdapter mRecyclerAdapter;
 
-    public static DashboardFragment getInstance() {
+    public static DashboardFragment getInstance(String userId) {
         DashboardFragment fragment = new DashboardFragment();
         Bundle bundle = new Bundle();
+        bundle.putString("userId", userId);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -48,6 +49,14 @@ public class DashboardFragment extends BaseFragmentTHP implements RecyclerViewPu
     @Override
     public int getLayoutRes() {
         return R.layout.fragment_dashboard;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if(getArguments() != null) {
+            mUserId = getArguments().getString("userId");
+        }
     }
 
     @Override
@@ -59,7 +68,7 @@ public class DashboardFragment extends BaseFragmentTHP implements RecyclerViewPu
         recentBtn_Txt = view.findViewById(R.id.recentBtn_Txt);
         mPullToRefreshLayout = view.findViewById(R.id.recyclerView);
 
-        mRecyclerAdapter = new AppTabContentAdapter(new ArrayList<>(), NetConstants.RECO_ALL);
+        mRecyclerAdapter = new AppTabContentAdapter(new ArrayList<>(), NetConstants.RECO_ALL, mUserId);
 
         mPullToRefreshLayout.setDataAdapter(mRecyclerAdapter);
 
@@ -128,7 +137,7 @@ public class DashboardFragment extends BaseFragmentTHP implements RecyclerViewPu
         Observable<List<RecoBean>> observable = null;
 
         if (isOnline) {
-            observable = ApiManager.getRecommendationFromServer(getActivity(), NetConstants.USER_ID,
+            observable = ApiManager.getRecommendationFromServer(getActivity(), mUserId,
                     NetConstants.RECO_personalised, ""+mSize, BuildConfig.SITEID);
         } else {
             observable = ApiManager.getRecommendationFromDB(getActivity(), NetConstants.RECO_ALL);

@@ -37,9 +37,11 @@ public class SuggestedFragment extends BaseFragmentTHP implements RecyclerViewPu
     private AppTabContentAdapter mRecyclerAdapter;
 
 
-    public static SuggestedFragment getInstance() {
+
+    public static SuggestedFragment getInstance(String userId) {
         SuggestedFragment fragment = new SuggestedFragment();
         Bundle bundle = new Bundle();
+        bundle.putString("userId",userId);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -49,6 +51,13 @@ public class SuggestedFragment extends BaseFragmentTHP implements RecyclerViewPu
         return R.layout.fragment_trending;
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if(getArguments() != null) {
+            mUserId = getArguments().getString("userId");
+        }
+    }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -57,7 +66,7 @@ public class SuggestedFragment extends BaseFragmentTHP implements RecyclerViewPu
         mPullToRefreshLayout = view.findViewById(R.id.recyclerView);
         emptyLayout = view.findViewById(R.id.emptyLayout);
 
-        mRecyclerAdapter = new AppTabContentAdapter(new ArrayList<>(), NetConstants.RECO_trending);
+        mRecyclerAdapter = new AppTabContentAdapter(new ArrayList<>(), NetConstants.RECO_suggested, mUserId);
 
         mPullToRefreshLayout.setDataAdapter(mRecyclerAdapter);
 
@@ -123,10 +132,10 @@ public class SuggestedFragment extends BaseFragmentTHP implements RecyclerViewPu
         Observable<List<RecoBean>> observable = null;
 
         if (isOnline) {
-            observable = ApiManager.getRecommendationFromServer(getActivity(), NetConstants.USER_ID,
+            observable = ApiManager.getRecommendationFromServer(getActivity(), mUserId,
                     NetConstants.RECO_suggested, ""+mSize, BuildConfig.SITEID);
         } else {
-            observable = ApiManager.getRecommendationFromDB(getActivity(), NetConstants.RECO_trending);
+            observable = ApiManager.getRecommendationFromDB(getActivity(), NetConstants.RECO_suggested);
         }
 
         mDisposable.add(

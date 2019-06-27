@@ -20,7 +20,9 @@ public class SubscriptionActivity extends BaseAcitivityTHP {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        SubscriptionStep_1_Fragment fragment = SubscriptionStep_1_Fragment.getInstance("");
+        String from = getIntent().getExtras().getString("from");
+
+        SubscriptionStep_1_Fragment fragment = SubscriptionStep_1_Fragment.getInstance(from);
         FragmentUtil.pushFragmentAnim(this, R.id.parentLayout, fragment, FragmentUtil.FRAGMENT_NO_ANIMATION, true);
 
 

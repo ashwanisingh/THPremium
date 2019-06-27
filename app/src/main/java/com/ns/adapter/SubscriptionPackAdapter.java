@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.netoperation.model.UserPlanListBean;
+import com.netoperation.model.TxnDataBean;
 import com.ns.activity.BaseRecyclerViewAdapter;
 import com.ns.thpremium.R;
 
@@ -17,8 +17,8 @@ import java.util.List;
 public class SubscriptionPackAdapter extends BaseRecyclerViewAdapter {
 
     private String mFrom;
-    private List<UserPlanListBean> mPlanInfoList;
-    public SubscriptionPackAdapter(String from, List<UserPlanListBean> planInfoList){
+    private List<TxnDataBean> mPlanInfoList;
+    public SubscriptionPackAdapter(String from, List<TxnDataBean> planInfoList){
         mFrom = from;
         mPlanInfoList = planInfoList;
     }
@@ -35,7 +35,7 @@ public class SubscriptionPackAdapter extends BaseRecyclerViewAdapter {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
-        UserPlanListBean bean = mPlanInfoList.get(i);
+        TxnDataBean bean = mPlanInfoList.get(i);
 
         PlanViewHolder holder = (PlanViewHolder) viewHolder;
 

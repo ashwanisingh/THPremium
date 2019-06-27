@@ -23,7 +23,6 @@ import com.netoperation.model.RecoBean;
 import com.netoperation.model.RecomendationData;
 import com.netoperation.model.SearchedArticleModel;
 import com.netoperation.model.TxnDataBean;
-import com.netoperation.model.UserPlanListBean;
 import com.netoperation.model.UserProfile;
 import com.netoperation.retrofit.ReqBody;
 import com.netoperation.retrofit.ServiceFactory;
@@ -1034,11 +1033,25 @@ public class ApiManager {
      * @param siteId
      * @return
      */
-    public static Observable<List<UserPlanListBean>> getUserPlanInfo(String userId, String siteId) {
+    public static Observable<List<TxnDataBean>> getUserPlanInfo(String userId, String siteId) {
         return ServiceFactory.getServiceAPIs().getUserPlanInfo(userId, siteId)
                 .subscribeOn(Schedulers.newThread())
                 .map(value->
                     value.getUserPlanList()
+                );
+    }
+
+    /**
+     * To get user plan info
+     * @param userId
+     * @param siteId
+     * @return
+     */
+    public static Observable<List<TxnDataBean>> getRecommendedPlan(String userId, String siteId) {
+        return ServiceFactory.getServiceAPIs().getRecommendedPlan(siteId, "25", "1", "1")
+                .subscribeOn(Schedulers.newThread())
+                .map(value->
+                        value.getCamapignList()
                 );
     }
 

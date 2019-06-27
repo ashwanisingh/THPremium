@@ -51,7 +51,25 @@ public class TxnDataBean {
     private String planType;
     private String sDate;
     private String eDate;
+    private String status;
+    private String productId;
     private int isActive;
+
+    public String getProductId() {
+        return productId;
+    }
+
+    public void setProductId(String productId) {
+        this.productId = productId;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     public int getIsActive() {
         return isActive;
