@@ -43,8 +43,8 @@ public class SubscriptionStep_1_Fragment extends BaseFragmentTHP {
         SubscriptionPackFragment fragment = SubscriptionPackFragment.getInstance(THPConstants.FROM_SubscriptionStep_1_Fragment);
         FragmentUtil.pushFragmentFromFragment(this, R.id.subscriptionPlansLayout, fragment);
 
-        BecomeMemberIntroFragment benefitsFragment = BecomeMemberIntroFragment.getInstance(THPConstants.FROM_SubscriptionStep_1_Fragment);
-        FragmentUtil.pushFragmentFromFragment(this, R.id.benefitsLayout, benefitsFragment);
+       // BecomeMemberIntroFragment benefitsFragment = BecomeMemberIntroFragment.getInstance(THPConstants.FROM_SubscriptionStep_1_Fragment);
+       // FragmentUtil.pushFragmentFromFragment(this, R.id.benefitsLayout, benefitsFragment);
 
         // Back button click listener
         view.findViewById(R.id.backBtn).setOnClickListener(v->{

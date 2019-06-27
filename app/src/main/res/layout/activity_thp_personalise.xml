@@ -3,34 +3,39 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    style="@style/parentLayoutPaddingStyle">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <RelativeLayout
+            android:id="@+id/pref_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
     <ImageButton
         android:id="@+id/backBtn"
-        android:layout_marginTop="26dp"
         style="@style/backBtnStyle" />
 
        <com.ns.view.CustomTextView
         android:id="@+id/tv_savepref"
-        android:layout_marginTop="33dp"
         android:layout_alignParentRight="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
         android:textSize="15sp"
         android:textColor="#1b528e"
-        android:layout_marginRight="16dp"
         android:text="Save Preference"
-        android:layout_gravity="end"
         />
+
+        </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/layout"
         android:layout_marginTop="16dp"
-        android:layout_below="@+id/tv_savepref"
+        android:layout_below="@+id/pref_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -61,7 +66,6 @@
 
     <android.support.v4.view.ViewPager
         android:id="@+id/personalise_viewPager"
-        android:layout_marginTop="31dp"
         android:layout_below="@+id/layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

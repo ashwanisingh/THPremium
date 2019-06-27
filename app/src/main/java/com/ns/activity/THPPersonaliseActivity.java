@@ -46,7 +46,6 @@ public class THPPersonaliseActivity extends BaseAcitivityTHP implements THPPerso
     private ViewPager viewPager;
     private TextView mErrorText;
     private ProgressBar mProgressBar;
-    private LinearLayout mProgressContainer;
 
     ImageButton backBtn, forwardArrow, backArrow;
     private PersonaliseAdapter personaliseAdapter;
@@ -54,6 +53,10 @@ public class THPPersonaliseActivity extends BaseAcitivityTHP implements THPPerso
     ArrayList<String> topics = new ArrayList<>();
     ArrayList<String> cities = new ArrayList<>();
     ArrayList<String> authors = new ArrayList<>();
+
+    ArrayList<String> topicsAlreadySelected = new ArrayList<>();
+    ArrayList<String> citiesAlreadySelected = new ArrayList<>();
+    ArrayList<String> authorsAlreadySelected = new ArrayList<>();
 
     private CustomTextView tv_savepref, tv_items;
 
@@ -85,10 +88,12 @@ public class THPPersonaliseActivity extends BaseAcitivityTHP implements THPPerso
         // This is smooth scroll of ViewPager
         smoothPagerScroll();
 
-        tv_items.setText("topic");
-
         tv_savepref.setOnClickListener(v->{
-            if((topics!=null && topics.size()>0) || (cities!=null && cities.size()>0) || (authors!=null && authors.size()>0)) {
+            topics.addAll(topicsAlreadySelected);
+            cities.addAll(citiesAlreadySelected);
+            authors.addAll(authorsAlreadySelected);
+            if((topics!=null && topics.size()>0) || (cities!=null && cities.size()>0) ||
+                    (authors!=null && authors.size()>0)) {
                 saveUserPersonalise();
             }else{
                 Alerts.showErrorDailog(getSupportFragmentManager(), getResources().getString(R.string.kindly), getResources().getString(R.string.select_preference));
@@ -139,7 +144,6 @@ public class THPPersonaliseActivity extends BaseAcitivityTHP implements THPPerso
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int i, float v, int i1) {
-
             }
 
             @Override
@@ -166,8 +170,6 @@ public class THPPersonaliseActivity extends BaseAcitivityTHP implements THPPerso
         });
 
         loadUserProfile();
-
-
     }
 
     /**
@@ -179,7 +181,7 @@ public class THPPersonaliseActivity extends BaseAcitivityTHP implements THPPerso
                 .subscribe(userProfile -> {
                    mUserProfile = userProfile;
                     getUserSavedPersonalise(mUserProfile.getUserId());
-                    // getUserSavedPersonalise("489"); // For Testing
+                 //    getUserSavedPersonalise("489"); // For Testing
                 }));
     }
 
@@ -224,6 +226,7 @@ public class THPPersonaliseActivity extends BaseAcitivityTHP implements THPPerso
                                         int index = topicsFromServer.getValues().indexOf(topicD);
                                         if (index != -1) {
                                             topicDataServer.get(index).setSelected(true);
+                                            topicsAlreadySelected.add(topicD.getValue());
                                         }
                                     }
                                 }
@@ -235,25 +238,23 @@ public class THPPersonaliseActivity extends BaseAcitivityTHP implements THPPerso
                                         int index = citiesFromServer.getValues().indexOf(cityD);
                                         if (index != -1) {
                                             citiesDataServer.get(index).setSelected(true);
+                                            citiesAlreadySelected.add(cityD.getValue());
                                         }
                                     }
                                 }
 
                                 ArrayList<PersonaliseModel> authorsSelected = authorsFromUser.getValues();
                                 if(authorsSelected != null) {
-                                    ArrayList<PersonaliseModel> authorsDataServer = citiesFromServer.getValues();
+                                    ArrayList<PersonaliseModel> authorsDataServer = authorsFromServer.getValues();
                                     for(PersonaliseModel authorD : authorsSelected) {
                                         int index = authorsFromServer.getValues().indexOf(authorD);
                                         if (index != -1) {
                                             authorsDataServer.get(index).setSelected(true);
+                                            authorsAlreadySelected.add(authorD.getValue());
                                         }
                                     }
                                 }
-
-
                             }
-
-
                             mPersonaliseFragments.add(TopicsFragment.getInstance(topicsFromServer, topicsFromServer.getName()));
                             mPersonaliseFragments.add(CitiesFragment.getInstance(citiesFromServer, citiesFromServer.getName()));
                             mPersonaliseFragments.add(AuthorsFragment.getInstance(authorsFromServer, authorsFromServer.getName()));
@@ -264,6 +265,8 @@ public class THPPersonaliseActivity extends BaseAcitivityTHP implements THPPerso
 
                             personaliseAdapter = new PersonaliseAdapter(getSupportFragmentManager(), mPersonaliseFragments, topic, cities, authors);
                             viewPager.setAdapter(personaliseAdapter);
+
+                            tv_items.setText(topic);
 
 
                         }, throwable -> {
@@ -279,7 +282,6 @@ public class THPPersonaliseActivity extends BaseAcitivityTHP implements THPPerso
                             mErrorText.setVisibility(View.VISIBLE);
                         })
         );
-    // loadSelectedData();
     }
 
 
