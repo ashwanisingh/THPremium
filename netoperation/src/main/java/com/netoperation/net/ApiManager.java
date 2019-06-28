@@ -267,7 +267,10 @@ public class ApiManager {
 
                                     String emailId = ((JsonObject) value).get("emailId").getAsString();
                                     String contact_ = ((JsonObject) value).get("contact").getAsString();
-                                    String redirectUrl = ((JsonObject) value).get("redirectUrl").getAsString();
+                                    String redirectUrl = "";
+                                    if(((JsonObject) value).has("redirectUrl")) {
+                                        redirectUrl = ((JsonObject) value).get("redirectUrl").getAsString();
+                                    }
                                     String userId = ((JsonObject) value).get("userId").getAsString();
                                     String reason = ((JsonObject) value).get("reason").getAsString();
 
