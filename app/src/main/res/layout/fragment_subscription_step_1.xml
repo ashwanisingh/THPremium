@@ -1,57 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     style="@style/parentLayoutPaddingStyle"
-    >
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <ImageButton
         android:id="@+id/backBtn"
         style="@style/backBtnStyle"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.ns.view.CustomTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/backBtn"
         android:padding="20dp"
         android:text="The Hindu Subscription"
         android:textColor="@color/boldBlackColor"
         android:textSize="@dimen/textSize_27sp"
-        app:font_path="@string/FONT_TUNDRA_OFFC_BOLD" />
+        app:font_path="@string/FONT_TUNDRA_OFFC_BOLD"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/backBtn" />
 
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:background="@drawable/shadow_r12_s6_wh200_ltr"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="@string/subscription_layout_step_1_ratio"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:background="@drawable/shadow_r12_s6_wh200_ltr"
-        android:orientation="vertical"
-        >
+        app:layout_constraintRight_toRightOf="parent">
 
         <com.ns.view.CustomTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
             android:alpha="0.8"
-            android:textColor="@color/boldBlackColor"
-            android:text="Choose Plan"
-            app:font_path="@string/FONT_FIRA_SANS_BOLD"
             android:padding="@dimen/choose_plan_top_padding"
-            />
+            android:text="Choose Plan"
+            android:textColor="@color/boldBlackColor"
+            android:textSize="16sp"
+            app:font_path="@string/FONT_FIRA_SANS_BOLD" />
 
         <FrameLayout
+            android:layout_marginTop="20dp"
             android:id="@+id/subscriptionPlansLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
+            android:layout_height="wrap_content" />
 
 
         <!--<FrameLayout
@@ -63,9 +59,235 @@
             android:layout_marginTop="@dimen/choose_plan_top_padding"
             />
 -->
+        <FrameLayout
+            android:id="@+id/benefitsLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/choose_plan_top_padding"
+            android:paddingStart="@dimen/choose_plan_left_padding"
+            android:paddingLeft="@dimen/choose_plan_left_padding">
 
+            <com.ns.view.CustomTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#191919"
+                android:textSize="16sp"
+                android:text="Subscription Benefits Includes"
+                app:font_path="@string/FONT_FIRA_SANS_BOLD"
+
+                />
+
+            <LinearLayout
+                android:layout_marginTop="29dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:weightSum="10">
+
+                <LinearLayout
+                    android:layout_marginTop="29dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2">
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="left"
+                        android:layout_weight=".1"
+                        app:srcCompat="@drawable/ic_recommend_icon" />
+
+                    <com.ns.view.CustomTextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1.5"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="26dp"
+                        android:textColor="#191919"
+                        android:textSize="14sp"
+                        android:text="Personalised Recommendations"
+                        app:font_path="@string/FONT_FIRA_SANS_BOLD"/>
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_marginTop="27dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2">
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".1"
+                        android:layout_gravity="left"
+                        app:srcCompat="@drawable/ic_dashborad_icon" />
+
+                    <com.ns.view.CustomTextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1.5"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="26dp"
+                        android:textColor="#191919"
+                        android:textSize="14sp"
+                        android:text="Dashboard Tool"
+                        app:font_path="@string/FONT_FIRA_SANS_BOLD"/>
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_marginTop="27dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2">
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".1"
+                        android:layout_gravity="left"
+                        app:srcCompat="@drawable/ic_zero_add_icon" />
+
+                    <com.ns.view.CustomTextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1.5"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="26dp"
+                        android:textColor="#191919"
+                        android:textSize="14sp"
+                        android:text="Zero Advertisements"
+                        app:font_path="@string/FONT_FIRA_SANS_BOLD"/>
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_marginTop="27dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2">
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".1"
+                        android:layout_gravity="left"
+                        app:srcCompat="@drawable/ic_briefing_icon" />
+
+                    <com.ns.view.CustomTextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1.5"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="26dp"
+                        android:textColor="#191919"
+                        android:textSize="14sp"
+                        android:text="Briefing"
+                        app:font_path="@string/FONT_FIRA_SANS_BOLD"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginTop="27dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2">
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".1"
+                        android:layout_gravity="left"
+                        app:srcCompat="@drawable/ic_news_edition_icon" />
+
+                    <com.ns.view.CustomTextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1.5"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="26dp"
+                        android:textColor="#191919"
+                        android:textSize="14sp"
+                        android:text="News Editions"
+                        app:font_path="@string/FONT_FIRA_SANS_BOLD"/>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_margin="28dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#979797"/>
+
+
+                <com.ns.view.CustomTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:textColor="#191919"
+                    android:text="Customer Support"
+                    app:font_path="@string/FONT_FIRA_SANS_BOLD"/>
+
+                <com.ns.view.CustomTextView
+                    android:layout_marginTop="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:textColor="#191919"
+                    android:text="For other queries, please write to"
+                    app:font_path="@string/FONT_FIRA_SANS_REGULAR"/>
+
+                <com.ns.view.CustomTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_query"
+                    android:textSize="16sp"
+                    android:textColor="#195595"
+                    android:text="customersupport@thehindu.co.in"
+                    app:font_path="@string/FONT_FIRA_SANS_BOLD"/>
+
+                <com.ns.view.CustomTextView
+                    android:layout_marginTop="36dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:textColor="#195595"
+                    android:text="Frequently Asked Questions"
+                    app:font_path="@string/FONT_FIRA_SANS_BOLD"/>
+
+
+                <com.ns.view.CustomTextView
+                    android:layout_marginTop="36dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:textColor="#191919"
+                    android:text="By signing up, you agree to our"
+                    app:font_path="@string/FONT_FIRA_SANS_REGULAR" />
+
+                <com.ns.view.CustomTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:textColor="#195595"
+                    android:text="Terms and Conditions"
+                    app:font_path="@string/FONT_FIRA_SANS_BOLD"
+                    android:paddingBottom="22dp"
+                    android:layout_marginBottom="22dp"/>
+
+            </LinearLayout>
+        </ScrollView>
+            </LinearLayout>
+    </FrameLayout>
     </LinearLayout>
-
-
-
 </android.support.constraint.ConstraintLayout>
