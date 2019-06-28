@@ -140,7 +140,7 @@ public class DashboardFragment extends BaseFragmentTHP implements RecyclerViewPu
             observable = ApiManager.getRecommendationFromServer(getActivity(), mUserId,
                     NetConstants.RECO_personalised, ""+mSize, BuildConfig.SITEID);
         } else {
-            observable = ApiManager.getRecommendationFromDB(getActivity(), NetConstants.RECO_ALL);
+            observable = ApiManager.getRecommendationFromDB(getActivity(), NetConstants.RECO_personalised);
         }
 
         mDisposable.add(
