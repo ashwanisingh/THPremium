@@ -40,7 +40,7 @@ public class SubscriptionStep_1_Fragment extends BaseFragmentTHP {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        SubscriptionPackFragment fragment = SubscriptionPackFragment.getInstance(THPConstants.FROM_SubscriptionStep_1_Fragment);
+        SubscriptionPackFragment fragment = SubscriptionPackFragment.getInstance(mFrom);
         FragmentUtil.pushFragmentFromFragment(this, R.id.subscriptionPlansLayout, fragment);
 
        // BecomeMemberIntroFragment benefitsFragment = BecomeMemberIntroFragment.getInstance(THPConstants.FROM_SubscriptionStep_1_Fragment);
