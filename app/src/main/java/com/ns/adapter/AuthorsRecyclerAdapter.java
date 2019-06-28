@@ -42,9 +42,10 @@ public class AuthorsRecyclerAdapter extends BaseRecyclerViewAdapter {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
         AuthorHolder holder = (AuthorHolder) viewHolder;
-        GlideUtil.loadImage(holder.image_author.getContext(), holder.image_author, details.getValues().get(i).getImage());
-        holder.tv_author_name.setText(details.getValues().get(i).getTitle());
         PersonaliseModel model = details.getValues().get(i);
+        GlideUtil.loadImage(holder.image_author.getContext(), holder.image_author, model.getImage());
+        holder.tv_author_name.setText(model.getTitle());
+
         if(model.isSelected()) {
             holder.imageview_click.setImageResource(R.drawable.ic_tik_1);
         } else  {

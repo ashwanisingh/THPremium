@@ -40,11 +40,11 @@ public class SubscriptionStep_1_Fragment extends BaseFragmentTHP {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        SubscriptionPackFragment fragment = SubscriptionPackFragment.getInstance(mFrom);
+        SubscriptionPackFragment fragment = SubscriptionPackFragment.getInstance(THPConstants.FROM_SubscriptionStep_1_Fragment);
         FragmentUtil.pushFragmentFromFragment(this, R.id.subscriptionPlansLayout, fragment);
 
-        BecomeMemberIntroFragment benefitsFragment = BecomeMemberIntroFragment.getInstance(mFrom);
-        FragmentUtil.pushFragmentFromFragment(this, R.id.benefitsLayout, benefitsFragment);
+       // BecomeMemberIntroFragment benefitsFragment = BecomeMemberIntroFragment.getInstance(THPConstants.FROM_SubscriptionStep_1_Fragment);
+       // FragmentUtil.pushFragmentFromFragment(this, R.id.benefitsLayout, benefitsFragment);
 
         // Back button click listener
         view.findViewById(R.id.backBtn).setOnClickListener(v->{
