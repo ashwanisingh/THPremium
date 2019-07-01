@@ -13,21 +13,26 @@ import com.ns.thpremium.R;
  */
 
 public class DetailBannerViewHolder extends RecyclerView.ViewHolder {
-
-    public  ImageView articleTypeimageView;
+    public TextView tv_section;
+    public TextView tv_time;
+    public TextView tv_title;
+    public TextView tv_author_name;
+    public TextView tv_city_name;
+    public TextView tv_updated_time;
     public ImageView imageView;
-    public TextView mTitleTV;
-    public TextView captionText;
-    public TextView timeTxt;
+    public TextView tv_caption;
     public View shadowOverlay;
 
     public DetailBannerViewHolder(View itemView) {
         super(itemView);
-        articleTypeimageView = itemView.findViewById(R.id.articleTypeimageView);
+        tv_section = itemView.findViewById(R.id.tv_section);
+        tv_time = itemView.findViewById(R.id.tv_time);
+        tv_title = itemView.findViewById(R.id.tv_title);
+        tv_author_name = itemView.findViewById(R.id.tv_author_name);
+        tv_city_name = itemView.findViewById(R.id.tv_city_name);
+        tv_updated_time = itemView.findViewById(R.id.tv_updated_time);
+        tv_caption = itemView.findViewById(R.id.tv_caption);
         imageView = itemView.findViewById(R.id.imageView);
-        mTitleTV = itemView.findViewById(R.id.title);
-        captionText = itemView.findViewById(R.id.captionText);
-        timeTxt = itemView.findViewById(R.id.timeTxt);
         shadowOverlay = itemView.findViewById(R.id.shadowOverlay);
     }
 }

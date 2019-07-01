@@ -248,6 +248,7 @@
                     app:font_path="@string/FONT_FIRA_SANS_REGULAR"/>
 
                 <com.ns.view.CustomTextView
+                    android:id="@+id/tv_mail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tv_query"
@@ -257,6 +258,7 @@
                     app:font_path="@string/FONT_FIRA_SANS_BOLD"/>
 
                 <com.ns.view.CustomTextView
+                    android:id="@+id/tv_frequent_questions"
                     android:layout_marginTop="36dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -276,6 +278,7 @@
                     app:font_path="@string/FONT_FIRA_SANS_REGULAR" />
 
                 <com.ns.view.CustomTextView
+                    android:id="@+id/tv_terms"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="16sp"

@@ -39,7 +39,6 @@ import java.util.Locale;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 
 public class AppTabContentAdapter extends BaseRecyclerViewAdapter {
-
     private List<AppTabContentModel> mContent;
     private String mFrom;
     private String mUserId;
@@ -167,7 +166,6 @@ public class AppTabContentAdapter extends BaseRecyclerViewAdapter {
 
     private void ui_Briefing_Populate(RecyclerView.ViewHolder viewHolder, RecoBean bean, int position) {
         BriefcaseViewHolder holder = (BriefcaseViewHolder) viewHolder;
-
         GlideUtil.loadImage(holder.image.getContext(), holder.image, ContentUtil.getThumbUrl(bean.getThumbnailUrl()));
         holder.authorName_Txt.setText(ContentUtil.getAuthor(bean.getAuthor()));
         holder.title.setText(bean.getArticletitle());
@@ -185,14 +183,14 @@ public class AppTabContentAdapter extends BaseRecyclerViewAdapter {
     private void ui_detail_banner(RecyclerView.ViewHolder viewHolder, RecoBean bean) {
         DetailBannerViewHolder holder = (DetailBannerViewHolder) viewHolder;
         // Shows Article Type Image
-        articleTypeImage(bean.getArticletype(), bean, holder.articleTypeimageView);
+      //  articleTypeImage(bean.getArticletype(), bean, holder.articleTypeimageView);
 
-        holder.mTitleTV.setText(bean.getArticletitle());
-        holder.timeTxt.setText(AppDateUtil.getDetailScreenPublishDate(AppDateUtil.changeStringToMillisGMT(bean.getPubDateTime()), Locale.ENGLISH));
+        holder.tv_title.setText(bean.getArticletitle());
+        holder.tv_time.setText(AppDateUtil.getDetailScreenPublishDate(AppDateUtil.changeStringToMillisGMT(bean.getPubDateTime()), Locale.ENGLISH));
 
         if(bean.getThumbnailUrl() == null || TextUtils.isEmpty(ContentUtil.getBannerUrl(bean.getIMAGES()))) {
             holder.imageView.setVisibility(View.GONE);
-            holder.captionText.setVisibility(View.GONE);
+            holder.tv_caption.setVisibility(View.GONE);
             holder.shadowOverlay.setVisibility(View.GONE);
         }
         else {
@@ -206,13 +204,16 @@ public class AppTabContentAdapter extends BaseRecyclerViewAdapter {
 
             if(caption != null && !TextUtils.isEmpty(caption.trim())) {
                 holder.shadowOverlay.setVisibility(View.VISIBLE);
-                holder.captionText.setVisibility(View.VISIBLE);
-                holder.captionText.setText(caption);
+                holder.tv_caption.setVisibility(View.VISIBLE);
+                holder.tv_caption.setText(caption);
             } else {
                 holder.shadowOverlay.setVisibility(View.GONE);
-                holder.captionText.setVisibility(View.GONE);
+                holder.tv_caption.setVisibility(View.GONE);
             }
 
+            holder.tv_author_name.setText(ContentUtil.getAuthor(bean.getAuthor()));
+            holder.tv_city_name.setText(bean.getLocation());
+            holder.tv_updated_time.setText(bean.getPubDate());
         }
 
         holder.imageView.setOnClickListener(v->{
