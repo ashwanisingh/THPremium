@@ -31,6 +31,7 @@ public class AppTabActivity extends BaseAcitivityTHP {
     private Button mPlanBtn;
 //    static final String ITEM_SKU = "38";
     static final String ITEM_SKU = "free_subscription";
+    static final int INAPP_SUBSCRIPTION_REQUEST_CODE = 10001;
 
     @Override
     public int layoutRes() {
@@ -84,7 +85,7 @@ public class AppTabActivity extends BaseAcitivityTHP {
 
             boolean isSubscription = mHelper.subscriptionsSupported();
             Log.i("", "");
-            mHelper.launchSubscriptionPurchaseFlow(this, ITEM_SKU, 10001,
+            mHelper.launchSubscriptionPurchaseFlow(this, ITEM_SKU, INAPP_SUBSCRIPTION_REQUEST_CODE,
                     mPurchaseFinishedListener);
         });
 
@@ -166,5 +167,13 @@ public class AppTabActivity extends BaseAcitivityTHP {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == INAPP_SUBSCRIPTION_REQUEST_CODE) {
+            if(requestCode == RESULT_OK) {
+
+            }
+            else if(requestCode == RESULT_CANCELED) {
+
+            }
+        }
     }
 }
