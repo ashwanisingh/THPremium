@@ -5,8 +5,8 @@ android {
     defaultConfig {
         minSdkVersion "$MIN_SDK".toInteger()
         targetSdkVersion "$TARGET_SDK".toInteger()
-        applicationId "com.ns.thpremium"
-        versionCode 1
+        applicationId "com.ashwa.edu"
+        versionCode 4
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled true
 
@@ -39,7 +39,7 @@ android {
             buildConfigField "String", "LOCALE", "\"en\""
             buildConfigField "String", "BREIGINE_URL", "\"https://alphath.thehindu.co.in/briefing/?requestSource=app\""
             buildConfigField "String", "VUUKLE_API_KEY", "\"432081eb-6e8e-4abc-a88f-ca5357aa7244\""
-            versionName "staging_1.0"
+            versionName "stag_sub_01"
 
         }
 
@@ -92,5 +92,7 @@ dependencies {
     implementation deps.reactivenetwork
 
     implementation deps.rxAndroid2
+
+    implementation 'com.android.billingclient:billing:1.0'
 
 }
