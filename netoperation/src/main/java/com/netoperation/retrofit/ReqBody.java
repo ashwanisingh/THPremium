@@ -137,11 +137,8 @@ public class ReqBody {
         object.addProperty("userId", userId);
         object.addProperty("siteId", siteId);
         object.addProperty("deviceId", deviceId);
-
-        preferences.addProperty("event", "set");
-
+        object.addProperty("event", "set");
         object.add("preferences", preferences);
-
         return object;
     }
 

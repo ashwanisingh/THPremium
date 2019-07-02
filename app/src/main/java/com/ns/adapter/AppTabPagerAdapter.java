@@ -13,10 +13,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.ns.contentfragment.BookmarksFragment;
 import com.ns.contentfragment.BriefcaseFragment;
-import com.ns.contentfragment.DashboardFragment;
-import com.ns.contentfragment.EditionOptionFragment;
+import com.ns.contentfragment.MyStoriesFragment;
 import com.ns.contentfragment.MoreOptionFragment;
 import com.ns.contentfragment.SuggestedFragment;
 import com.ns.contentfragment.TrendingFragment;
@@ -36,7 +34,7 @@ public class AppTabPagerAdapter extends FragmentStatePagerAdapter {
             return BriefcaseFragment.getInstance(mUserId);
         }
         else if(i==1) {
-            return DashboardFragment.getInstance(mUserId);
+            return MyStoriesFragment.getInstance(mUserId);
         }
         else if(i==2) {
             return SuggestedFragment.getInstance(mUserId);
