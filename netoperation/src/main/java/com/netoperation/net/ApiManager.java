@@ -256,57 +256,61 @@ public class ApiManager {
 
         Observable<JsonElement> observable = ServiceFactory.getServiceAPIs().userInfo(ReqBody.userInfo(deviceId, siteId, usrId));
         return observable.subscribeOn(Schedulers.newThread())
-                .map(value -> {
-                            if (((JsonObject) value).has("status")) {
-                                String status = ((JsonObject) value).get("status").getAsString();
+                .map(responseFromServer -> {
+                            if (((JsonObject) responseFromServer).has("status")) {
+                                String status = ((JsonObject) responseFromServer).get("status").getAsString();
                                 if (status.equalsIgnoreCase("success")) {
 
-                                    String userInfo = ((JsonObject) value).get("userInfo").getAsString();
+                                    String userInfo = ((JsonObject) responseFromServer).get("userInfo").getAsString();
 
-                                    JSONObject obj = new JSONObject(userInfo);
+                                    JSONObject userInfoJsonObj = new JSONObject(userInfo);
 
-                                    String emailId = ((JsonObject) value).get("emailId").getAsString();
-                                    String contact_ = ((JsonObject) value).get("contact").getAsString();
+                                    String emailId = ((JsonObject) responseFromServer).get("emailId").getAsString();
+                                    String contact_ = ((JsonObject) responseFromServer).get("contact").getAsString();
                                     String redirectUrl = "";
                                     String reason = "";
-                                    if(((JsonObject) value).has("redirectUrl")) {
-                                        redirectUrl = ((JsonObject) value).get("redirectUrl").getAsString();
+                                    if(((JsonObject) responseFromServer).has("redirectUrl")) {
+                                        redirectUrl = ((JsonObject) responseFromServer).get("redirectUrl").getAsString();
                                     }
-                                    String userId = ((JsonObject) value).get("userId").getAsString();
-                                    if(((JsonObject) value).has("reason")) {
-                                        reason = ((JsonObject) value).get("reason").getAsString();
+                                    String userId = ((JsonObject) responseFromServer).get("userId").getAsString();
+                                    if(((JsonObject) responseFromServer).has("reason")) {
+                                        reason = ((JsonObject) responseFromServer).get("reason").getAsString();
                                     }
 
-                                    String authors_preference = obj.getString("authors_preference");
-                                    String cities_preference = obj.getString("cities_preference");
-                                    String topics_preference = obj.getString("topics_preference");
+                                    String authors_preference = userInfoJsonObj.getString("authors_preference");
+                                    String cities_preference = userInfoJsonObj.getString("cities_preference");
+                                    String topics_preference = userInfoJsonObj.getString("topics_preference");
 
-                                    String address_state = obj.getString("address_state");
-                                    String address_pincode = obj.getString("address_pincode");
-                                    String address_house_no = obj.getString("address_house_no");
-                                    String address_city = obj.getString("address_city");
-                                    String address_street = obj.getString("address_street");
-                                    String address_fulllname = obj.getString("address_fulllname");
-                                    String address_landmark = obj.getString("address_landmark");
-                                    String address_default_option = obj.getString("address_default_option");
-                                    String address_location = obj.getString("address_location");
+                                    String address_state = userInfoJsonObj.getString("address_state");
+                                    String address_pincode = userInfoJsonObj.getString("address_pincode");
+                                    String address_house_no = userInfoJsonObj.getString("address_house_no");
+                                    String address_city = userInfoJsonObj.getString("address_city");
+                                    String address_street = userInfoJsonObj.getString("address_street");
+                                    String address_fulllname = userInfoJsonObj.getString("address_fulllname");
+                                    String address_landmark = userInfoJsonObj.getString("address_landmark");
+                                    String address_default_option = userInfoJsonObj.getString("address_default_option");
+                                    String address_location = userInfoJsonObj.getString("address_location");
 
-                                    String Profile_Country = obj.getString("Profile_Country");
-                                    String Profile_State = obj.getString("Profile_State");
+                                    String Profile_Country = userInfoJsonObj.getString("Profile_Country");
+                                    String Profile_State = userInfoJsonObj.getString("Profile_State");
 
-                                    String FullName = obj.getString("FullName");
-                                    String Gender = obj.getString("Gender");
-                                    String DOB = obj.getString("DOB");
+                                    String FullName = userInfoJsonObj.getString("FullName");
+                                    String Gender = userInfoJsonObj.getString("Gender");
+                                    String DOB = userInfoJsonObj.getString("DOB");
 
-                                    String isNew = ((JsonObject) value).get("isNew").getAsString();
-                                    String fid = ((JsonObject) value).get("fid").getAsString();
-                                    String tid = ((JsonObject) value).get("tid").getAsString();
-                                    String gid = ((JsonObject) value).get("gid").getAsString();
+                                    String isNew = "";
+                                    if(((JsonObject) responseFromServer).has("isNew")) {
+                                        isNew = ((JsonObject) responseFromServer).get("isNew").getAsString();
+                                    }
+
+                                    String fid = ((JsonObject) responseFromServer).get("fid").getAsString();
+                                    String tid = ((JsonObject) responseFromServer).get("tid").getAsString();
+                                    String gid = ((JsonObject) responseFromServer).get("gid").getAsString();
 
                                     UserProfile userProfile = new UserProfile();
 
-                                    if(obj.has("userPlanList")) {
-                                        JSONArray userPlanList = obj.getJSONArray("userPlanList");
+                                    if(userInfoJsonObj.has("userPlanList")) {
+                                        JSONArray userPlanList = userInfoJsonObj.getJSONArray("userPlanList");
                                         int planSize = userPlanList.length();
                                         for (int i = 0; i < planSize; i++) {
                                             JSONObject object = (JSONObject) userPlanList.get(i);
@@ -406,6 +410,12 @@ public class ApiManager {
                                     thp.dashboardDao().deleteAll(recotype);
                                 }
                                 for (RecoBean bean : beans) {
+
+                                    if(recotype.equalsIgnoreCase(NetConstants.RECO_bookmarks)) {
+                                        BookmarkTable bookmarkTable = new BookmarkTable(bean.getArticleId(), bean);
+                                        thp.bookmarkTableDao().insertBookmark(bookmarkTable);
+                                    }
+
                                     DashboardTable dashboardTable = new DashboardTable(bean.getArticleId(), recotype, bean);
                                     thp.dashboardDao().insertDashboard(dashboardTable);
                                 }

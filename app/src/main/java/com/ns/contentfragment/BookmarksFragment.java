@@ -17,6 +17,7 @@ import com.ns.model.AppTabContentModel;
 import com.ns.thpremium.BuildConfig;
 import com.ns.thpremium.R;
 import com.ns.loginfragment.BaseFragmentTHP;
+import com.ns.view.CustomTextView;
 import com.ns.view.RecyclerViewPullToRefresh;
 
 import java.net.ConnectException;
@@ -63,6 +64,9 @@ public class BookmarksFragment extends BaseFragmentTHP implements RecyclerViewPu
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        CustomTextView title_tv = view.findViewById(R.id.title_tv);
+        title_tv.setText("Bookmarks");
+
         mPullToRefreshLayout = view.findViewById(R.id.recyclerView);
         emptyLayout = view.findViewById(R.id.emptyLayout);
 
@@ -73,6 +77,12 @@ public class BookmarksFragment extends BaseFragmentTHP implements RecyclerViewPu
         mPullToRefreshLayout.setTryAgainBtnClickListener(this);
 
         mPullToRefreshLayout.showProgressBar();
+
+        // Back button click listener
+        view.findViewById(R.id.backBtn).setOnClickListener(v->{
+            getActivity().finish();
+        });
+
 
         // Pull To Refresh Listener
         registerPullToRefresh();

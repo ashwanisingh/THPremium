@@ -335,8 +335,13 @@ public class THPPersonaliseActivity extends BaseAcitivityTHP implements THPPerso
                             topics, cities, authors)
                             .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(bool->{
-                        Alerts.showToast(THPPersonaliseActivity.this, "Your personalise is updated successfully.");
-                        IntentUtil.openContentListingActivity(THPPersonaliseActivity.this, "Personalise");
+                        if(bool) {
+                            Alerts.showToast(THPPersonaliseActivity.this, "Your personalise is updated successfully.");
+                            IntentUtil.openContentListingActivity(THPPersonaliseActivity.this, "Personalise");
+                        }
+                        else {
+                            Alerts.showToast(THPPersonaliseActivity.this, "Your personalise is not updated.");
+                        }
                     }, throwable -> {
                         if (throwable instanceof HttpException || throwable instanceof ConnectException
                                 || throwable instanceof SocketTimeoutException || throwable instanceof TimeoutException) {

@@ -5,7 +5,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
 
-import com.bumptech.glide.load.HttpException;
 import com.netoperation.model.RecoBean;
 import com.netoperation.net.ApiManager;
 import com.netoperation.util.NetConstants;
@@ -19,18 +18,15 @@ import com.ns.loginfragment.BaseFragmentTHP;
 import com.ns.view.CustomTextView;
 import com.ns.view.RecyclerViewPullToRefresh;
 
-import java.net.ConnectException;
-import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-public class DashboardFragment extends BaseFragmentTHP implements RecyclerViewPullToRefresh.TryAgainBtnClickListener {
+public class MyStoriesFragment extends BaseFragmentTHP implements RecyclerViewPullToRefresh.TryAgainBtnClickListener {
 
     private CustomTextView recentStoriesCount_Txt;
     private CustomTextView userName_Txt;
@@ -38,8 +34,8 @@ public class DashboardFragment extends BaseFragmentTHP implements RecyclerViewPu
     private RecyclerViewPullToRefresh mPullToRefreshLayout;
     private AppTabContentAdapter mRecyclerAdapter;
 
-    public static DashboardFragment getInstance(String userId) {
-        DashboardFragment fragment = new DashboardFragment();
+    public static MyStoriesFragment getInstance(String userId) {
+        MyStoriesFragment fragment = new MyStoriesFragment();
         Bundle bundle = new Bundle();
         bundle.putString("userId", userId);
         fragment.setArguments(bundle);

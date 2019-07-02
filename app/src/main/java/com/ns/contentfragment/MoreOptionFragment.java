@@ -9,6 +9,7 @@ import com.netoperation.net.ApiManager;
 import com.ns.thpremium.R;
 import com.ns.loginfragment.BaseFragmentTHP;
 import com.ns.utils.IntentUtil;
+import com.ns.utils.THPConstants;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 
@@ -41,7 +42,7 @@ public class MoreOptionFragment extends BaseFragmentTHP {
         super.onViewCreated(view, savedInstanceState);
 
         view.findViewById(R.id.suggested_Txt).setOnClickListener(v->{
-            IntentUtil.openBookmarkActivity(getActivity(), "BookmarkListing", mUserId);
+            IntentUtil.openBookmarkActivity(getActivity(), THPConstants.FROM_BookmarkListing, mUserId);
 
         });
 

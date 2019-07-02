@@ -198,6 +198,7 @@ public class SignInFragment extends BaseFragmentTHP {
                                     } else {
                                         Alerts.showAlertDialogOKBtn(getActivity(), "Sorry!", "User email not found.");
                                     }
+                                    enableButton(true);
                                 } else {
                                     // Making server request to get User Info
                                     ApiManager.getUserInfo(getActivity(), BuildConfig.SITEID, ResUtil.getDeviceId(getActivity()), userId)

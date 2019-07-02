@@ -39,7 +39,7 @@ public interface ServiceAPIs {
     @POST("/taiauth/regSubmit/HINDU")
     Observable<JsonElement> signup(@Body JsonObject logoutBody);
 
-    @POST("/taiauth/logout/HINDU")
+    @POST("/taiauth/logout/hindu")
     Observable<JsonElement> logout(@Body JsonObject loginBody);
 
     @POST("/taiauth/userVerify/HINDU")
