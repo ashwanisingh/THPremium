@@ -1,5 +1,6 @@
 package com.ns.userprofilefragment;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -9,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.DatePicker;
 import android.widget.TextView;
 
 import com.bumptech.glide.load.HttpException;
@@ -32,8 +34,12 @@ import com.ns.view.StandardPopupWindow;
 
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeoutException;
 
@@ -149,7 +155,7 @@ public class PersonalInfoFragment extends BaseFragmentTHP {
         // Date of birth Click Listener
         dobLayoutET.setOnClickListener(v -> {
             CommonUtil.hideKeyboard(v);
-            CalendarFragment fragment = CalendarFragment.getInstance();
+            /*CalendarFragment fragment = CalendarFragment.getInstance();
 
             FragmentUtil.addFragmentAnim((AppCompatActivity) getActivity(),
                     R.id.parentLayout, fragment, FragmentUtil.FRAGMENT_NO_ANIMATION, false);
@@ -161,8 +167,22 @@ public class PersonalInfoFragment extends BaseFragmentTHP {
                 // Clearing Calendar Fragment
                 FragmentUtil.clearSingleBackStack((AppCompatActivity) getActivity());
 
-            });
+            });*/
 
+            //Date picker dialog
+            final Calendar calendar = Calendar.getInstance();
+            int day = calendar.get(Calendar.DAY_OF_MONTH);
+            int month = calendar.get(Calendar.MONTH);
+            int year = calendar.get(Calendar.YEAR);
+            //Date picker dialog
+            DatePickerDialog picker = new DatePickerDialog(getActivity(), R.style.DatePickerDialogTheme,
+                    (view1, year1, monthOfYear, dayOfMonth) -> {
+                        SimpleDateFormat df = new SimpleDateFormat(THPConstants.date_dd_MM_yyyy);
+                        Calendar cal = Calendar.getInstance();
+                        cal.set(year1, monthOfYear, dayOfMonth);
+                        dobLayoutET.setText(df.format(cal.getTime()));
+                    }, year, month, day);
+            picker.show();
         });
 
         // Gender Button Click Listener

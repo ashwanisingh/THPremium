@@ -176,6 +176,9 @@
         <item name="android:src">@drawable/ic_right_s</item>
         <item name="srcCompat">@drawable/ic_right_s</item>
     </style>
+    <style name="DatePickerDialogTheme" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorAccent">#1b528e</item>
+    </style>
 
 
 </resources>
