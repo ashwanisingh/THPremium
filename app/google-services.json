@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "610300983808",
+    "firebase_url": "https://thpremium-328d0.firebaseio.com",
+    "project_id": "thpremium-328d0",
+    "storage_bucket": "thpremium-328d0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:610300983808:android:951ed0ec4ad72805",
+        "android_client_info": {
+          "package_name": "com.ashwa.edu"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "610300983808-qkjmdq3o2t4enq7qtttv88tuoip6dupn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ashwa.edu",
+            "certificate_hash": "2380f7b8d4cdc448dc7ee18315443e6eab9086cb"
+          }
+        },
+        {
+          "client_id": "610300983808-8aj6kl9pkteq4kfihr8godget7ftnd4h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDy0VmE5Q2KS4cgr_iFzjerppPrC_QQquw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "610300983808-8aj6kl9pkteq4kfihr8godget7ftnd4h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

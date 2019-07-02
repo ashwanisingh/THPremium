@@ -1173,8 +1173,27 @@ public class ApiManager {
                     return prefListModel;
 
                 });
-
     }
 
+    public static Observable<String> socialLogin(String deviceId, String originUrl, String provider,
+                                                 String socialId, String userEmail, String userName) {
 
+        Observable<JsonElement> observable = ServiceFactory.getServiceAPIs().socialLogin(ReqBody.socialLogin(deviceId, originUrl, provider, socialId, userEmail, userName));
+        return observable.subscribeOn(Schedulers.newThread())
+                .map(value -> {
+                            if (((JsonObject) value).has("status")) {
+                                String status = ((JsonObject) value).get("status").getAsString();
+                                if (status.equalsIgnoreCase("success")) {
+                                    String userId = ((JsonObject) value).get("userId").getAsString();
+                                    return userId;
+                                } else if (status.equalsIgnoreCase("Fail")) {
+
+                                }
+
+                            }
+                            return "";
+                        }
+                );
+
+    }
 }

@@ -203,7 +203,15 @@ public class ReqBody {
         return object;
     }
 
-
-
-
+    public static JsonObject socialLogin(String deviceId, String originUrl, String provider,
+                                           String socialId, String userEmail, String userName) {
+        JsonObject object = new JsonObject();
+        object.addProperty("deviceId", deviceId);
+        object.addProperty("originUrl", originUrl);
+        object.addProperty("provider", provider);
+        object.addProperty("socialId", socialId);
+        object.addProperty("userEmail", userEmail);
+        object.addProperty("userName", userName);
+        return object;
+    }
 }

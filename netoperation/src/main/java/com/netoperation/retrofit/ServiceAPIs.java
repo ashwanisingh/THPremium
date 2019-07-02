@@ -1,6 +1,4 @@
 package com.netoperation.retrofit;
-
-
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.netoperation.model.BreifingModel;
@@ -116,10 +114,6 @@ public interface ServiceAPIs {
     Observable<PlanRecoModel> getRecommendedPlan(@Query("siteid") String siteid, @Query("tagid") String tagid,
                                                  @Query("isInd") String isInd, @Query("isPlt") String isPlt);
 
-
-
-
-
-
-
+    @POST("taiauth/socialLogin/HINDU")
+    Observable<JsonElement> socialLogin(@Body JsonObject loginDetails);
 }

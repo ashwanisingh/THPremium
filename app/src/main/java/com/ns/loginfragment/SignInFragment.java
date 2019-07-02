@@ -1,18 +1,30 @@
 package com.ns.loginfragment;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
-
+import android.widget.Toast;
 import com.bumptech.glide.load.HttpException;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.netoperation.net.ApiManager;
 import com.netoperation.net.RequestCallback;
+import com.ns.activity.SignInAndUpActivity;
+import com.ns.activity.THPPersonaliseActivity;
 import com.ns.alerts.Alerts;
 import com.ns.thpremium.BuildConfig;
 import com.ns.thpremium.R;
@@ -57,6 +69,21 @@ public class SignInFragment extends BaseFragmentTHP {
 
     private CustomProgressBar progressBar;
 
+    private SignInAndUpActivity mActivity;
+
+    //a constant for detecting the login intent result
+    private static final int RC_SIGN_IN = 234;
+
+    //Tag for the logs optional
+    private static final String TAG = "GoogleSignIn";
+
+    //creating a GoogleSignInClient object
+    GoogleSignInClient mGoogleSignInClient;
+
+    //And also a Firebase Auth object
+    FirebaseAuth mAuth;
+    GoogleSignInAccount alreadyloggedAccount;
+
 
     @Override
     public int getLayoutRes() {
@@ -73,6 +100,12 @@ public class SignInFragment extends BaseFragmentTHP {
         googleBtn.setEnabled(isEnable);
         tweeterBtn.setEnabled(isEnable);
         facebookBtn.setEnabled(isEnable);
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mActivity = (SignInAndUpActivity) context;
     }
 
     @Override
@@ -211,7 +244,6 @@ public class SignInFragment extends BaseFragmentTHP {
 
                             });
 
-
         });
 
 
@@ -221,5 +253,149 @@ public class SignInFragment extends BaseFragmentTHP {
             FragmentUtil.pushFragmentAnim((AppCompatActivity) getActivity(), R.id.parentLayout,
                     fragment, FragmentUtil.FRAGMENT_ANIMATION, false);
         });
+
+        //first we intialized the FirebaseAuth object
+        mAuth = FirebaseAuth.getInstance();
+
+        //Then we need a GoogleSignInOptions object
+        //And we need to build it as below
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+
+
+        //Then we will get the GoogleSignInClient object from GoogleSignIn class
+        mGoogleSignInClient = GoogleSignIn.getClient(getActivity(), gso);
+
+        googleBtn.setOnClickListener(v->{
+            if (alreadyloggedAccount != null) {
+                Alerts.showAlertDialogOKBtn(getActivity(), "Message", "Already Logged In with Gmail");
+            }else{
+                signIn();
+            }
+        });
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (alreadyloggedAccount != null) {
+            Alerts.showAlertDialogOKBtn(getActivity(), "Message", "Already Logged In with Gmail");
+        } else {
+            Log.d(TAG, "Not logged in");
+        }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        //if the user is already signed in
+        //we will close this activity
+        //and take the user to profile activity
+        alreadyloggedAccount = GoogleSignIn.getLastSignedInAccount(getActivity());
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        //if the requestCode is the Google Sign In code that we defined at starting
+        if (requestCode == RC_SIGN_IN) {
+
+            //Getting the GoogleSignIn Task
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            try {
+                //Google Sign In was successful, authenticate with Firebase
+                GoogleSignInAccount account = task.getResult(ApiException.class);
+
+                //authenticating with firebase
+                firebaseAuthWithGoogle(account);
+            } catch (ApiException e) {
+                Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+
+    private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
+        getGmailLoginDetails(acct);
+    }
+
+    private void getGmailLoginDetails(GoogleSignInAccount acct) {
+        String deviceId = ResUtil.getDeviceId(getActivity());
+        String originUrl="https://alphath.thehindu.co.in";
+        String provider="Google";
+        String socialId=acct.getId();
+        String userEmail=acct.getEmail();
+        String userName=acct.getDisplayName();
+
+        ApiManager.socialLogin(deviceId, originUrl, provider, socialId, userEmail, userName)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(userId -> {
+                            if (getActivity() == null && getView() == null) {
+                                return;
+                            }
+
+                            if (TextUtils.isEmpty(userId)) {
+                                if (isUserEnteredMobile) {
+                                    Alerts.showAlertDialogOKBtn(getActivity(), "Sorry!", "User Mobile number not found.");
+                                } else {
+                                    Alerts.showAlertDialogOKBtn(getActivity(), "Sorry!", "User email not found.");
+                                }
+                            } else {
+                                // Making server request to get User Info
+                                ApiManager.getUserInfo(getActivity(), BuildConfig.SITEID, ResUtil.getDeviceId(getActivity()), userId)
+                                        .observeOn(AndroidSchedulers.mainThread())
+                                        .subscribe(bool->{
+
+                                            if(bool) {
+                                                // TODO, process for user sign - In
+                                                IntentUtil.openContentListingActivity(getActivity(), "");
+                                            }
+                                            else {
+                                                Alerts.showErrorDailog(getChildFragmentManager(), "Sorry",
+                                                        "We are fetching some technical problem.\n Please try later.");
+                                            }
+
+                                        }, throwable -> {
+                                            enableButton(true);
+                                            if (throwable instanceof HttpException || throwable instanceof ConnectException
+                                                    || throwable instanceof SocketTimeoutException || throwable instanceof TimeoutException) {
+                                                Alerts.showErrorDailog(getChildFragmentManager(), getResources().getString(R.string.kindly), getResources().getString(R.string.please_check_ur_connectivity));
+                                            }
+                                            else {
+                                                Alerts.showErrorDailog(getChildFragmentManager(), null, throwable.getLocalizedMessage());
+                                            }
+                                        }, () ->{
+                                            enableButton(true);
+                                        });
+
+
+                            }
+                        }, throwable -> {
+                            if (getActivity() != null && getView() != null) {
+                                enableButton(true);
+                                if (throwable instanceof HttpException || throwable instanceof ConnectException
+                                        || throwable instanceof SocketTimeoutException || throwable instanceof TimeoutException) {
+                                    Alerts.showErrorDailog(getChildFragmentManager(), getResources().getString(R.string.kindly), getResources().getString(R.string.please_check_ur_connectivity));
+                                }
+                                else {
+                                    Alerts.showErrorDailog(getChildFragmentManager(), null, throwable.getLocalizedMessage());
+                                }
+                            }
+                        },
+                        () -> {
+
+                        });
+
+    }
+
+    //this method is called on click
+    private void signIn() {
+        //getting the google signin intent
+        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+        //starting the activity for result
+        startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 }

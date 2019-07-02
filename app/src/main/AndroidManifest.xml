@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.ns.thpremium">
-
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -14,10 +13,9 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
-        android:usesCleartextTraffic="true"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
         <activity android:name="com.ns.activity.AppTabActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,9 +23,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name="com.ns.activity.THPPersonaliseActivity"/>
-
+        <activity android:name="com.ns.activity.THPPersonaliseActivity" />
         <activity android:name="com.ns.activity.SignInAndUpActivity" />
         <activity android:name="com.ns.activity.UserProfileActivity" />
         <activity android:name="com.ns.activity.BecomeMemberActivity" />
@@ -36,6 +32,7 @@
         <activity android:name="com.ns.activity.ImageGallaryVerticleActivity" />
         <activity android:name="com.ns.activity.ImageGallaryActivity" />
         <activity android:name="com.ns.activity.THP_BookmarkActivity" />
+        <activity android:name="com.ns.activity.THPGmailProfileActivity" />
     </application>
 
 </manifest>
