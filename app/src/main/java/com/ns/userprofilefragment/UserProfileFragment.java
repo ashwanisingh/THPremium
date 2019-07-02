@@ -143,7 +143,8 @@ public class UserProfileFragment extends BaseFragmentTHP {
         });
 
         // Sign Out Row click listener - 7
-        view.findViewById(R.id.signOut_Row).setOnClickListener(v->
+        view.findViewById(R.id.signOut_Row).setOnClickListener(v-> {
+            Log.i("", "");
             ApiManager.logout(mUserProfile.getUserId(), BuildConfig.SITEID, ResUtil.getDeviceId(getActivity()))
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(value->{
@@ -160,7 +161,8 @@ public class UserProfileFragment extends BaseFragmentTHP {
 
                     }, () ->{
 
-                    })
+                    });
+                }
         );
 
 

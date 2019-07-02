@@ -3,9 +3,12 @@ package com.ns.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.netoperation.model.TxnDataBean;
+import com.netoperation.model.UserProfile;
+import com.netoperation.net.ApiManager;
 import com.ns.alerts.Alerts;
 import com.ns.callbacks.OnPlanInfoLoad;
 import com.ns.callbacks.OnSubscribeBtnClick;
@@ -19,18 +22,23 @@ import com.ns.payment.Purchase;
 import com.ns.thpremium.R;
 import com.ns.userprofilefragment.UserProfileFragment;
 import com.ns.utils.FragmentUtil;
+import com.ns.utils.IntentUtil;
 import com.ns.utils.THPConstants;
+import com.ns.utils.TextUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserProfileActivity extends BaseAcitivityTHP implements OnSubscribeBtnClick, OnPlanInfoLoad {
 
-    private static final String ITEM_SKU = "free_subscription";
+    private String mSelectedPlanId;
     private static final int INAPP_SUBSCRIPTION_REQUEST_CODE = 10001;
     private IabHelper mHelper;
 
     private OnSubscribeEvent mOnSubscribeEvent;
+    private UserProfile mUserProfile;
+
+
 
     public void setOnSubscribeEvent(OnSubscribeEvent onSubscribeEvent) {
         mOnSubscribeEvent = onSubscribeEvent;
@@ -56,6 +64,11 @@ public class UserProfileActivity extends BaseAcitivityTHP implements OnSubscribe
             UserProfileFragment fragment = UserProfileFragment.getInstance("");
             FragmentUtil.pushFragmentAnim(this, R.id.parentLayout, fragment, FragmentUtil.FRAGMENT_NO_ANIMATION, true);
         }
+
+        // Gets User Profile Data
+        ApiManager.getUserProfile(this).subscribe(userProfile -> {
+            mUserProfile = userProfile;
+        });
 
     }
 
@@ -117,10 +130,16 @@ public class UserProfileActivity extends BaseAcitivityTHP implements OnSubscribe
     @Override
     public void onSubscribeBtnClick(TxnDataBean bean) {
 
+        if(mUserProfile == null || mUserProfile.getUserId() == null || TextUtils.isEmpty(mUserProfile.getUserId())) {
+            IntentUtil.openSignInOrUpActivity(this, "signIn");
+            return;
+        }
+
         if(mHelper != null) {
             mHelper.flagEndAsync();
         }
 
+        mSelectedPlanId = bean.getPlanId();
 
         IabHelper.OnIabPurchaseFinishedListener mPurchaseFinishedListener
                 = new IabHelper.OnIabPurchaseFinishedListener() {
@@ -132,7 +151,7 @@ public class UserProfileActivity extends BaseAcitivityTHP implements OnSubscribe
                     // Handle error
                     Alerts.showAlertDialogOKBtn(UserProfileActivity.this, "Purchase Error!", result.getMessage());
                     return;
-                } else if (purchase.getSku().equals(ITEM_SKU)) {
+                } else if (purchase.getSku().equals(mSelectedPlanId)) {
                     loadInventory();
                     // buyButton.setEnabled(false);
                 }
@@ -142,7 +161,7 @@ public class UserProfileActivity extends BaseAcitivityTHP implements OnSubscribe
 
         boolean isSubscription = mHelper.subscriptionsSupported();
         Log.i("", "");
-        mHelper.launchSubscriptionPurchaseFlow(UserProfileActivity.this, ITEM_SKU, INAPP_SUBSCRIPTION_REQUEST_CODE,
+        mHelper.launchSubscriptionPurchaseFlow(UserProfileActivity.this, mSelectedPlanId, INAPP_SUBSCRIPTION_REQUEST_CODE,
                 mPurchaseFinishedListener);
     }
 
@@ -159,7 +178,7 @@ public class UserProfileActivity extends BaseAcitivityTHP implements OnSubscribe
                 if (result.isFailure()) {
                     // Handle failure
                 } else {
-                    mHelper.consumeAsync(inventory.getPurchase(ITEM_SKU),
+                    mHelper.consumeAsync(inventory.getPurchase(mSelectedPlanId),
                             mConsumeFinishedListener);
                 }
             }
