@@ -29,7 +29,6 @@
         <activity android:name="com.ns.activity.THPPersonaliseActivity"/>
 
         <activity android:name="com.ns.activity.SignInAndUpActivity" />
-        <activity android:name="com.ns.activity.SubscriptionActivity" />
         <activity android:name="com.ns.activity.UserProfileActivity" />
         <activity android:name="com.ns.activity.BecomeMemberActivity" />
         <activity android:name="com.ns.activity.THP_DetailActivity" />
