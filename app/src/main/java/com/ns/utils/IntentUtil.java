@@ -13,7 +13,6 @@ import com.ns.activity.BecomeMemberActivity;
 import com.ns.activity.ImageGallaryActivity;
 import com.ns.activity.ImageGallaryVerticleActivity;
 import com.ns.activity.SignInAndUpActivity;
-import com.ns.activity.SubscriptionActivity;
 import com.ns.activity.THPPersonaliseActivity;
 import com.ns.activity.THP_BookmarkActivity;
 import com.ns.activity.THP_DetailActivity;
@@ -53,7 +52,7 @@ public class IntentUtil {
     }
 
     public static void openSubscriptionActivity(Context context, String from) {
-        Intent intent = new Intent(context, SubscriptionActivity.class);
+        Intent intent = new Intent(context, UserProfileActivity.class);
         intent.putExtra("from", from);
         context.startActivity(intent);
     }

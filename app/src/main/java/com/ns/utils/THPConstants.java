@@ -2,7 +2,7 @@ package com.ns.utils;
 
 public class THPConstants {
 
-    public static final String TnC_URL = "https://www.google.com/";
+    public static final String TnC_URL = "https://www.thehindu.com/termsofuse/";
 
     public static final String FROM_SubscriptionStep_1_Fragment = "SubscriptionStep_1_Fragment";
     public static final String FROM_BecomeMemberActivity = "BecomeMemberActivity";
@@ -13,6 +13,7 @@ public class THPConstants {
     public static final String FROM_DELETE_ACCOUNT = "deleteAccount";
     public static final String FROM_PROFILE_VIEWALL = "profileViewAll";
     public static final String FROM_SUBSCRIPTION_EXPLORE = "subscriptionExplore";
+    public static final String FROM_USER_PROFILE = "userProfile";
 
     public static final String date_dd_MM_yyyy = "dd-MM-yyyy";
 

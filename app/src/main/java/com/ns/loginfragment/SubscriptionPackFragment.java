@@ -1,5 +1,7 @@
 package com.ns.loginfragment;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -8,21 +10,44 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 
+import com.netoperation.model.TxnDataBean;
 import com.netoperation.net.ApiManager;
+import com.ns.activity.UserProfileActivity;
 import com.ns.adapter.SubscriptionPackAdapter;
+import com.ns.callbacks.OnPlanInfoLoad;
+import com.ns.callbacks.OnSubscribeBtnClick;
+import com.ns.callbacks.OnSubscribeEvent;
 import com.ns.thpremium.BuildConfig;
 import com.ns.thpremium.R;
 import com.ns.utils.THPConstants;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import io.reactivex.android.schedulers.AndroidSchedulers;
 
-public class SubscriptionPackFragment extends BaseFragmentTHP {
+
+public class SubscriptionPackFragment extends BaseFragmentTHP  implements OnSubscribeBtnClick {
 
     private RecyclerView mRecyclerView;
 
     private SubscriptionPackAdapter mAdapter;
 
     private String mFrom;
+
+    private UserProfileActivity mUserProfileActivity;
+
+
+    private OnSubscribeBtnClick mOnSubscribeBtnClick;
+    private OnPlanInfoLoad mPlanInfoLoad;
+
+    public void setOnSubscribeBtnClick(OnSubscribeBtnClick subscribeBtnClick) {
+        mOnSubscribeBtnClick = subscribeBtnClick;
+    }
+
+    public void setOnPlanInfoLoad(OnPlanInfoLoad onPlanInfoLoad) {
+        mPlanInfoLoad = onPlanInfoLoad;
+    }
 
     public static SubscriptionPackFragment getInstance(String from) {
         Bundle bundle = new Bundle();
@@ -38,6 +63,22 @@ public class SubscriptionPackFragment extends BaseFragmentTHP {
     }
 
     @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if(context instanceof UserProfileActivity) {
+            mUserProfileActivity = (UserProfileActivity) context;
+        }
+    }
+
+    @Override
+    public void onAttach(Activity context) {
+        super.onAttach(context);
+        if(context instanceof UserProfileActivity) {
+            mUserProfileActivity = (UserProfileActivity) context;
+        }
+    }
+
+    @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
@@ -50,6 +91,20 @@ public class SubscriptionPackFragment extends BaseFragmentTHP {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mRecyclerView = view.findViewById(R.id.recyclerView);
+
+        // Setting Listener subscription Button Click
+        setOnSubscribeBtnClick(mUserProfileActivity);
+
+        // Setting Lisener to listen, when Plan is loaded
+        setOnPlanInfoLoad(mUserProfileActivity);
+
+        // Listens Subscription Payment Success and Failure
+        mUserProfileActivity.setOnSubscribeEvent(new OnSubscribeEvent() {
+            @Override
+            public void onSubscribeEvent(boolean isSuccess) {
+
+            }
+        });
 
         LinearLayoutManager llm = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         mRecyclerView.setLayoutManager(llm);
@@ -79,7 +134,7 @@ public class SubscriptionPackFragment extends BaseFragmentTHP {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(planInfoList->{
                     if(planInfoList.size() != 0) {
-                        mAdapter = new SubscriptionPackAdapter(mFrom, planInfoList);
+                        mAdapter = new SubscriptionPackAdapter(mFrom, planInfoList, this);
                         mRecyclerView.setAdapter(mAdapter);
                     }
                     else {
@@ -96,8 +151,12 @@ public class SubscriptionPackFragment extends BaseFragmentTHP {
         mDisposable.add(ApiManager.getRecommendedPlan(mUserId, BuildConfig.SITEID)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(planInfoList -> {
-                            mAdapter = new SubscriptionPackAdapter(mFrom, planInfoList);
+                            mAdapter = new SubscriptionPackAdapter(mFrom, planInfoList, this);
                             mRecyclerView.setAdapter(mAdapter);
+                            if(mPlanInfoLoad != null) {
+                                mPlanInfoLoad.onPlansLoaded(planInfoList);
+                            }
+
                         },
                         throwable -> {
                             Log.i("", "");
@@ -105,6 +164,13 @@ public class SubscriptionPackFragment extends BaseFragmentTHP {
 
     }
 
+
+    @Override
+    public void onSubscribeBtnClick(TxnDataBean bean) {
+        if(mOnSubscribeBtnClick != null) {
+            mOnSubscribeBtnClick.onSubscribeBtnClick(bean);
+        }
+    }
 
 
 

@@ -11,8 +11,10 @@ import android.view.View;
 import android.view.animation.LinearInterpolator;
 import android.widget.LinearLayout;
 
+import com.netoperation.model.TxnDataBean;
 import com.ns.activity.BecomeMemberActivity;
 import com.ns.adapter.AppTabPagerAdapter;
+import com.ns.callbacks.OnSubscribeBtnClick;
 import com.ns.thpremium.R;
 import com.ns.loginfragment.BaseFragmentTHP;
 import com.ns.utils.FragmentUtil;
@@ -22,7 +24,7 @@ import com.ns.view.ViewPagerScroller;
 
 import java.lang.reflect.Field;
 
-public class AppTabFragment extends BaseFragmentTHP {
+public class AppTabFragment extends BaseFragmentTHP implements OnSubscribeBtnClick {
 
     private ConstraintLayout subscribeLayout;
     private String mUserId;
@@ -120,7 +122,7 @@ public class AppTabFragment extends BaseFragmentTHP {
 
         // Profile Icon Button Click Listener
         view.findViewById(R.id.profileBtn).setOnClickListener(v->
-            IntentUtil.openUserProfileActivity(getActivity(), "")
+            IntentUtil.openUserProfileActivity(getActivity(), THPConstants.FROM_USER_PROFILE)
         );
 
     }
@@ -137,5 +139,10 @@ public class AppTabFragment extends BaseFragmentTHP {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void onSubscribeBtnClick(TxnDataBean bean) {
+
     }
 }

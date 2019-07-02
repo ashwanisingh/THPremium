@@ -10,17 +10,21 @@ import android.widget.TextView;
 
 import com.netoperation.model.TxnDataBean;
 import com.ns.activity.BaseRecyclerViewAdapter;
+import com.ns.callbacks.OnSubscribeBtnClick;
 import com.ns.thpremium.R;
 
 import java.util.List;
 
 public class SubscriptionPackAdapter extends BaseRecyclerViewAdapter {
 
+    private OnSubscribeBtnClick mOnSubscribeBtnClick;
+
     private String mFrom;
     private List<TxnDataBean> mPlanInfoList;
-    public SubscriptionPackAdapter(String from, List<TxnDataBean> planInfoList){
+    public SubscriptionPackAdapter(String from, List<TxnDataBean> planInfoList, OnSubscribeBtnClick onSubscribeBtnClick){
         mFrom = from;
         mPlanInfoList = planInfoList;
+        mOnSubscribeBtnClick = onSubscribeBtnClick;
     }
 
 
@@ -58,6 +62,11 @@ public class SubscriptionPackAdapter extends BaseRecyclerViewAdapter {
             if(bean.getIsActive() == 1) {
                 return;
             }
+
+            if(mOnSubscribeBtnClick != null) {
+                mOnSubscribeBtnClick.onSubscribeBtnClick(bean);
+            }
+
             // TODO, Open Google Pay Subscription, for payment
         });
 
@@ -89,5 +98,9 @@ public class SubscriptionPackAdapter extends BaseRecyclerViewAdapter {
 
         }
     }
+
+
+
+
 
 }
