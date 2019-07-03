@@ -16,6 +16,28 @@ public class MeBean implements Parcelable {
     @SerializedName("ca")
     private String ca;
 
+    /** This is coming in Briefing media field*/
+    private String image;
+
+    /** This is coming in Briefing media field*/
+    private String caption;
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getCaption() {
+        return caption;
+    }
+
+    public void setCaption(String caption) {
+        this.caption = caption;
+    }
+
     public String getIm() {
         return im;
     }
@@ -78,6 +100,8 @@ public class MeBean implements Parcelable {
         dest.writeString(this.im);
         dest.writeString(this.im_v2);
         dest.writeString(this.ca);
+        dest.writeString(this.image);
+        dest.writeString(this.caption);
         dest.writeString(this.listingImgUrl);
         dest.writeString(this.bigImgUrl);
     }
@@ -86,6 +110,8 @@ public class MeBean implements Parcelable {
         this.im = in.readString();
         this.im_v2 = in.readString();
         this.ca = in.readString();
+        this.image = in.readString();
+        this.caption = in.readString();
         this.listingImgUrl = in.readString();
         this.bigImgUrl = in.readString();
     }

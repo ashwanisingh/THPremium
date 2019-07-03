@@ -25,6 +25,8 @@ import com.ns.utils.CommonUtil;
 import com.ns.utils.ContentUtil;
 import com.ns.utils.GlideUtil;
 import com.ns.utils.IntentUtil;
+import com.ns.utils.ResUtil;
+import com.ns.utils.TextUtil;
 import com.ns.utils.WebViewLinkClick;
 import com.ns.view.AutoResizeWebview;
 import com.ns.viewholder.BookmarkViewHolder;
@@ -182,20 +184,46 @@ public class AppTabContentAdapter extends BaseRecyclerViewAdapter {
 
     private void ui_detail_banner(RecyclerView.ViewHolder viewHolder, RecoBean bean) {
         DetailBannerViewHolder holder = (DetailBannerViewHolder) viewHolder;
+
         // Shows Article Type Image
-      //  articleTypeImage(bean.getArticletype(), bean, holder.articleTypeimageView);
+        articleTypeImage(bean.getArticletype(), bean, holder.articleTypeimageView);
+
+        String authors = CommonUtil.getAutors(bean.getAuthor());
+        if(authors == null) {
+            holder.tv_author_name.setVisibility(View.GONE);
+        } else {
+            holder.tv_author_name.setText(authors);
+            holder.tv_author_name.setVisibility(View.VISIBLE);
+        }
+
+        String location = bean.getLocation();
+        if(location == null || TextUtils.isEmpty(location)) {
+            holder.tv_city_name.setVisibility(View.GONE);
+        }
+        else {
+            holder.tv_city_name.setVisibility(View.VISIBLE);
+            holder.tv_city_name.setText(location);
+
+        }
+
+        String timeToRead = bean.getTimeToRead();
+        if(timeToRead == null || timeToRead.equalsIgnoreCase("0") || TextUtils.isEmpty(timeToRead)) {
+            holder.tv_time.setVisibility(View.GONE);
+        }else {
+            holder.tv_time.setText(timeToRead);
+            holder.tv_time.setVisibility(View.VISIBLE);
+        }
 
         holder.tv_title.setText(bean.getArticletitle());
-        holder.tv_time.setText(AppDateUtil.getDetailScreenPublishDate(AppDateUtil.changeStringToMillisGMT(bean.getPubDateTime()), Locale.ENGLISH));
 
-        if(bean.getThumbnailUrl() == null || TextUtils.isEmpty(ContentUtil.getBannerUrl(bean.getIMAGES()))) {
+        if(bean.getThumbnailUrl() == null || TextUtils.isEmpty(ContentUtil.getBannerUrl(bean.getIMAGES(), bean.getMedia()))) {
             holder.imageView.setVisibility(View.GONE);
             holder.tv_caption.setVisibility(View.GONE);
             holder.shadowOverlay.setVisibility(View.GONE);
         }
         else {
             holder.imageView.setVisibility(View.VISIBLE);
-            GlideUtil.loadImage(holder.itemView.getContext(), holder.imageView, ContentUtil.getBannerUrl(bean.getIMAGES()));
+            GlideUtil.loadImage(holder.itemView.getContext(), holder.imageView, ContentUtil.getBannerUrl(bean.getIMAGES(), bean.getMedia()));
 
             String caption = null;
             if(bean.getIMAGES() != null && bean.getIMAGES().size() > 0) {

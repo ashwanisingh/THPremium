@@ -161,6 +161,25 @@ public class CommonUtil {
         return Intent.createChooser(sharingIntent, "Share Via");
     }
 
+    public static String getAutors(List<String> authors) {
+        if(authors == null || authors.size() == 0) {
+            return null;
+        }
+        String auth = "";
+        int size = authors.size();
+        int count = 1;
+        for(String author : authors) {
+
+            if(size == count) {
+                auth += author;
+            }else {
+                auth += author +", ";
+            }
+
+        }
+        return auth;
+    }
+
 
 
 }

@@ -170,20 +170,16 @@ public class THP_DetailFragment extends BaseFragmentTHP implements RecyclerViewP
 
     private void loadDataFromServer() {
         Observable<RecoBean> observable =  ApiManager.articleDetailFromServer(getActivity(), mArticleId);
-        observable.observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<RecoBean>() {
-                               @Override
-                               public void accept(RecoBean recoBean) throws Exception {
-                                   mRecyclerAdapter.replaceData(recoBean, 0);
-                                   mRecyclerAdapter.replaceData(recoBean, 1);
-                               }
-                           },
-                        new Consumer<Throwable>() {
-                            @Override
-                            public void accept(Throwable throwable) throws Exception {
-                                Log.i("", "");
-                            }
-                        });
+        mDisposable.add(
+                observable.observeOn(AndroidSchedulers.mainThread())
+                .subscribe(recoBean->{
+                            mRecyclerAdapter.replaceData(recoBean, 0);
+                            mRecyclerAdapter.replaceData(recoBean, 1);
+                        },
+                        throwable->{
+                            Log.i("", "");
+                        })
+        );
     }
 
 
@@ -318,25 +314,13 @@ public class THP_DetailFragment extends BaseFragmentTHP implements RecyclerViewP
      * @param aid
      */
     private void isExistInBookmark(String aid) {
-        ApiManager.isExistInBookmark(getActivity(), aid)
-                .subscribe(new Consumer<Boolean>() {
-                               @Override
-                               public void accept(Boolean aBoolean) throws Exception {
-                                   mActivity.getToolbar().setIsBookmarked(aBoolean);
-                               }
-                           },
-                        new Consumer<Throwable>() {
-                            @Override
-                            public void accept(Throwable throwable) throws Exception {
-
-                            }
-                        },
-                        new Action() {
-                            @Override
-                            public void run() throws Exception {
-
-                            }
+        mDisposable.add(
+                ApiManager.isExistInBookmark(getActivity(), aid)
+                .subscribe(
+                        bool-> mActivity.getToolbar().setIsBookmarked((Boolean) bool),
+                        throwable->{
+                            Log.i("", "");
                         })
-        ;
+        );
     }
 }
