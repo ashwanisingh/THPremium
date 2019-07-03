@@ -59,8 +59,7 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation deps.appcompatv7
     implementation deps.supportAnnotations
     implementation deps.supportDesign
@@ -70,29 +69,19 @@ dependencies {
     implementation deps.glide
     implementation 'com.google.android.gms:play-services-maps:16.1.0'
     annotationProcessor deps.glide_annotationProcessor
-
     // Google Location
     implementation deps.googleLocation
-
     // Multidex
     implementation 'com.android.support:multidex:1.0.3'
-
     implementation 'com.joooonho:selectableroundedimageview:1.0.1'
-
     // Dot Indicator
     implementation 'com.tbuonomo.andrui:viewpagerdotsindicator:3.0.3'
-
     //Image Zooming
     implementation project(':photoview')
-
     implementation deps.otpEntryEditText
-
     implementation deps.calendar
-
     implementation deps.reactivenetwork
-
     implementation deps.rxAndroid2
-
     implementation 'com.android.billingclient:billing:1.0'
-
+    implementation files('libs/YouTubeAndroidPlayerApi.jar')
 }

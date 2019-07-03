@@ -13,6 +13,8 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
 import com.netoperation.model.RecoBean;
+import com.netoperation.util.AppDateUtil;
+import com.netoperation.util.NetConstants;
 
 import java.io.File;
 import java.io.UnsupportedEncodingException;
@@ -22,6 +24,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -178,6 +181,19 @@ public class CommonUtil {
 
         }
         return auth;
+    }
+
+    public static String fomatedDate(String publishDate, String from) {
+        String formatedPubDt = "";
+        if(from.equalsIgnoreCase(NetConstants.BREIFING_ALL) || from.equalsIgnoreCase(NetConstants.BREIFING_EVENING)
+                || from.equalsIgnoreCase(NetConstants.BREIFING_NOON) || from.equalsIgnoreCase(NetConstants.BREIFING_MORNING)) {
+            formatedPubDt = AppDateUtil.getDurationFormattedDate(
+                    AppDateUtil.strToMlsForBriefing(publishDate), Locale.ENGLISH);
+        } else {
+            formatedPubDt = AppDateUtil.getDurationFormattedDate(
+                    AppDateUtil.strToMlsForNonBriefing(publishDate), Locale.ENGLISH);
+        }
+        return formatedPubDt;
     }
 
 

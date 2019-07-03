@@ -9,7 +9,6 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 
-import com.google.android.gms.common.api.Api;
 import com.netoperation.model.RecoBean;
 import com.netoperation.net.ApiManager;
 import com.netoperation.util.UserPref;
@@ -34,8 +33,6 @@ import java.util.ArrayList;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.functions.Action;
-import io.reactivex.functions.Consumer;
 
 public class THP_DetailFragment extends BaseFragmentTHP implements RecyclerViewPullToRefresh.TryAgainBtnClickListener, FragmentTools {
 
@@ -43,16 +40,18 @@ public class THP_DetailFragment extends BaseFragmentTHP implements RecyclerViewP
     private AppTabContentAdapter mRecyclerAdapter;
     private RecoBean mRecoBean;
     private String mArticleId;
+    private String mFrom;
 
     protected final CompositeDisposable mDisposable = new CompositeDisposable();
 
 
-    public static THP_DetailFragment getInstance(RecoBean recoBean, String articleId, String userId) {
+    public static THP_DetailFragment getInstance(RecoBean recoBean, String articleId, String userId, String from) {
         THP_DetailFragment fragment = new THP_DetailFragment();
         Bundle bundle = new Bundle();
         bundle.putParcelable("RecoBean", recoBean);
         bundle.putString("articleId", articleId);
         bundle.putString("userId", userId);
+        bundle.putString("from", from);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -83,6 +82,7 @@ public class THP_DetailFragment extends BaseFragmentTHP implements RecyclerViewP
             mRecoBean = getArguments().getParcelable("RecoBean");
             mArticleId = getArguments().getString("articleId");
             mUserId = getArguments().getString("userId");
+            mFrom = getArguments().getString("from");
         }
     }
 
@@ -97,7 +97,7 @@ public class THP_DetailFragment extends BaseFragmentTHP implements RecyclerViewP
 
         mPullToRefreshLayout = view.findViewById(R.id.recyclerView);
 
-        mRecyclerAdapter = new AppTabContentAdapter(new ArrayList<>(), "THP_DetailFragment", mUserId);
+        mRecyclerAdapter = new AppTabContentAdapter(new ArrayList<>(), mFrom, mUserId);
 
         mPullToRefreshLayout.setDataAdapter(mRecyclerAdapter);
 

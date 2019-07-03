@@ -192,6 +192,9 @@ public class RecoBean implements Parcelable {
     }
 
     public String getArticletype() {
+        if(articletype == null) {
+            return articleType;
+        }
         return articletype;
     }
 

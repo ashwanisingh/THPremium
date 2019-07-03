@@ -52,6 +52,10 @@ public abstract class BaseRecyclerViewAdapter extends RecyclerView.Adapter {
                     articleTypeimageView.setImageResource(R.drawable.yt_play_big);
                 }
             }
+            else if(articleType.equalsIgnoreCase(THPConstants.ARTICLE_TYPE_YOUTUBE_VIDEO)) {
+                articleTypeimageView.setImageResource(R.drawable.yt_play_big);
+                articleTypeimageView.setVisibility(View.VISIBLE);
+            }
             else {
                 articleTypeimageView.setVisibility(View.GONE);
             }
@@ -60,4 +64,22 @@ public abstract class BaseRecyclerViewAdapter extends RecyclerView.Adapter {
             articleTypeimageView.setVisibility(View.GONE);
         }
     }
+
+    protected boolean isVideo(String articleType, RecoBean articleBean) {
+        if(articleType.equalsIgnoreCase(THPConstants.ARTICLE_TYPE_VIDEO)) {
+            if(articleBean.getVIDEO_URL() != null && !TextUtils.isEmpty(articleBean.getVIDEO_URL())) {
+                return true;
+            }
+
+        }
+        else if(articleType.equalsIgnoreCase(THPConstants.ARTICLE_TYPE_YOUTUBE_VIDEO)) {
+            return true;
+        }
+        return false;
+    }
+
+    protected boolean isYoutubeVideo(String articleType) {
+        return articleType != null && articleType.equalsIgnoreCase(THPConstants.ARTICLE_TYPE_YOUTUBE_VIDEO);
+    }
+
 }

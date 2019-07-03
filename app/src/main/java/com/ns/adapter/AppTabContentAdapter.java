@@ -25,8 +25,6 @@ import com.ns.utils.CommonUtil;
 import com.ns.utils.ContentUtil;
 import com.ns.utils.GlideUtil;
 import com.ns.utils.IntentUtil;
-import com.ns.utils.ResUtil;
-import com.ns.utils.TextUtil;
 import com.ns.utils.WebViewLinkClick;
 import com.ns.view.AutoResizeWebview;
 import com.ns.viewholder.BookmarkViewHolder;
@@ -138,8 +136,9 @@ public class AppTabContentAdapter extends BaseRecyclerViewAdapter {
         holder.authorName_Txt.setText(ContentUtil.getAuthor(bean.getAuthor()));
         holder.title.setText(bean.getArticletitle());
         holder.sectionName.setText(bean.getArticleSection());
-        String timeDiff = AppDateUtil.getDurationFormattedDate(AppDateUtil.changeStringToMillisGMT(bean.getPubDateTime()), Locale.ENGLISH);
-        holder.time_Txt.setText(timeDiff);
+        // Publish Date
+        String formatedPubDt = CommonUtil.fomatedDate(bean.getPubDateTime(), mFrom);
+        holder.time_Txt.setText(formatedPubDt);
 
         isExistInBookmark(holder.bookmark_Img.getContext(), bean, holder.bookmark_Img);
         isFavOrLike(holder.like_Img.getContext(), bean, holder.like_Img, holder.toggleBtn_Img);
@@ -172,8 +171,9 @@ public class AppTabContentAdapter extends BaseRecyclerViewAdapter {
         holder.authorName_Txt.setText(ContentUtil.getAuthor(bean.getAuthor()));
         holder.title.setText(bean.getArticletitle());
         holder.sectionName.setText(bean.getArticleSection());
-        String timeDiff = AppDateUtil.getDurationFormattedDate(AppDateUtil.changeStringToMillisGMT(bean.getPubDateTime()), Locale.ENGLISH);
-        holder.time_Txt.setText(timeDiff);
+        // Publish Date
+        String formatedPubDt = CommonUtil.fomatedDate(bean.getPubDateTime(), mFrom);
+        holder.time_Txt.setText(formatedPubDt);
         holder.description_Txt.setText(CommonUtil.htmlText(bean.getDescription()));
 
         holder.itemView.setOnClickListener(v->
@@ -184,9 +184,9 @@ public class AppTabContentAdapter extends BaseRecyclerViewAdapter {
 
     private void ui_detail_banner(RecyclerView.ViewHolder viewHolder, RecoBean bean) {
         DetailBannerViewHolder holder = (DetailBannerViewHolder) viewHolder;
-
-        // Shows Article Type Image
-        articleTypeImage(bean.getArticletype(), bean, holder.articleTypeimageView);
+        final String articleType = bean.getArticletype();
+        // To shows Article Type Image
+        articleTypeImage(articleType, bean, holder.articleTypeimageView);
 
         String authors = CommonUtil.getAutors(bean.getAuthor());
         if(authors == null) {
@@ -214,16 +214,26 @@ public class AppTabContentAdapter extends BaseRecyclerViewAdapter {
             holder.tv_time.setVisibility(View.VISIBLE);
         }
 
+        // Publish Date
+        String formatedPubDt = CommonUtil.fomatedDate(bean.getPubDateTime(), mFrom);
+        if(formatedPubDt == null || TextUtils.isEmpty(formatedPubDt)) {
+            holder.tv_updated_time.setVisibility(View.GONE);
+        }
+        else {
+            holder.tv_updated_time.setText(formatedPubDt);
+            holder.tv_updated_time.setVisibility(View.VISIBLE);
+        }
+
         holder.tv_title.setText(bean.getArticletitle());
 
-        if(bean.getThumbnailUrl() == null || TextUtils.isEmpty(ContentUtil.getBannerUrl(bean.getIMAGES(), bean.getMedia()))) {
+        if(TextUtils.isEmpty(ContentUtil.getBannerUrl(bean.getIMAGES(), bean.getMedia(), bean.getThumbnailUrl())) ) {
             holder.imageView.setVisibility(View.GONE);
             holder.tv_caption.setVisibility(View.GONE);
             holder.shadowOverlay.setVisibility(View.GONE);
         }
         else {
             holder.imageView.setVisibility(View.VISIBLE);
-            GlideUtil.loadImage(holder.itemView.getContext(), holder.imageView, ContentUtil.getBannerUrl(bean.getIMAGES(), bean.getMedia()));
+            GlideUtil.loadImage(holder.itemView.getContext(), holder.imageView, ContentUtil.getBannerUrl(bean.getIMAGES(), bean.getMedia(), bean.getThumbnailUrl()));
 
             String caption = null;
             if(bean.getIMAGES() != null && bean.getIMAGES().size() > 0) {
@@ -239,14 +249,25 @@ public class AppTabContentAdapter extends BaseRecyclerViewAdapter {
                 holder.tv_caption.setVisibility(View.GONE);
             }
 
-            holder.tv_author_name.setText(ContentUtil.getAuthor(bean.getAuthor()));
-            holder.tv_city_name.setText(bean.getLocation());
-            holder.tv_updated_time.setText(bean.getPubDate());
+
         }
 
-        holder.imageView.setOnClickListener(v->{
-//                IntentUtils.openVerticleGalleryActivity(holder.itemView.getContext(), articleBean.getIMAGES(), articleBean.getTITLE());
-            IntentUtil.openHorizontalGalleryActivity(holder.itemView.getContext(), null, bean.getIMAGES(), 0);
+        // Banner Image Click Listener
+        holder.imageView.setOnClickListener(v-> {
+            if (isVideo(articleType, bean)) {
+                if (isYoutubeVideo(articleType)) {
+                    IntentUtil.openYoutubeActivity(holder.itemView.getContext(), bean.getYoutubeVideoId());
+                    return;
+                }
+            }
+
+            // Opens Gallery
+            //IntentUtils.openVerticleGalleryActivity(holder.itemView.getContext(), articleBean.getIMAGES(), articleBean.getTITLE());
+            if (bean.getIMAGES() != null && bean.getIMAGES().size() > 0) {
+                IntentUtil.openHorizontalGalleryActivity(holder.itemView.getContext(), null, bean.getIMAGES(), 0);
+            } else {
+                IntentUtil.openHorizontalGalleryActivity(holder.itemView.getContext(), null, bean.getMedia(), 0);
+            }
         });
     }
 

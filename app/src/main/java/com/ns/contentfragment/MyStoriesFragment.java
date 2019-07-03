@@ -64,7 +64,7 @@ public class MyStoriesFragment extends BaseFragmentTHP implements RecyclerViewPu
         recentBtn_Txt = view.findViewById(R.id.recentBtn_Txt);
         mPullToRefreshLayout = view.findViewById(R.id.recyclerView);
 
-        mRecyclerAdapter = new AppTabContentAdapter(new ArrayList<>(), NetConstants.RECO_ALL, mUserId);
+        mRecyclerAdapter = new AppTabContentAdapter(new ArrayList<>(), NetConstants.RECO_personalised, mUserId);
 
         mPullToRefreshLayout.setDataAdapter(mRecyclerAdapter);
 

@@ -128,7 +128,7 @@ public class THP_DetailPagerFragment extends BaseFragmentTHP {
                 .subscribe(value -> {
 
                     for(RecoBean model : value) {
-                        mSectionsPagerAdapter.addFragment(THP_DetailFragment.getInstance(model, model.getArticleId(), mUserId));
+                        mSectionsPagerAdapter.addFragment(THP_DetailFragment.getInstance(model, model.getArticleId(), mUserId, mFrom));
                     }
 
                     // To Check the selected article Index

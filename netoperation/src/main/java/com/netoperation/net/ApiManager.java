@@ -609,6 +609,7 @@ public class ApiManager {
                                 recoBean.setDescription(model.getData().get(0).getDe());
                                 recoBean.setLeadText(model.getData().get(0).getAl());
                                 recoBean.setIMAGES(model.getData().get(0).getMe());
+                                recoBean.setYoutubeVideoId(model.getData().get(0).getYoutube_video_id());
                                 thp.dashboardDao().updateRecobean(aid, recoBean);
                             }
                             return recoBean;
