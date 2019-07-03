@@ -184,7 +184,7 @@ public class CommonUtil {
     }
 
     public static String fomatedDate(String publishDate, String from) {
-        String formatedPubDt = "";
+        String formatedPubDt = "http://";
         if(from.equalsIgnoreCase(NetConstants.BREIFING_ALL) || from.equalsIgnoreCase(NetConstants.BREIFING_EVENING)
                 || from.equalsIgnoreCase(NetConstants.BREIFING_NOON) || from.equalsIgnoreCase(NetConstants.BREIFING_MORNING)) {
             formatedPubDt = AppDateUtil.getDurationFormattedDate(

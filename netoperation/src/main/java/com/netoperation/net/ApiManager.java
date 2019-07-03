@@ -450,7 +450,7 @@ public class ApiManager {
     }
 
 
-    public static Observable isExistInBookmark(Context context, final String aid) {
+    public static Observable<RecoBean> isExistInBookmark(Context context, final String aid) {
         return Observable.just(aid)
                 .subscribeOn(Schedulers.io())
                 .map(articleId -> {

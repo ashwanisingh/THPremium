@@ -132,7 +132,7 @@ public class AppTabContentAdapter extends BaseRecyclerViewAdapter {
         DashboardViewHolder holder = (DashboardViewHolder) viewHolder;
         holder.trendingIcon_Img.setVisibility(View.GONE);
 
-        GlideUtil.loadImage(holder.image.getContext(), holder.image, ContentUtil.getThumbUrl(bean.getThumbnailUrl()));
+        GlideUtil.loadImage(holder.image.getContext(), holder.image, ContentUtil.getThumbUrl(bean.getThumbnailUrl()), R.drawable.th_ph_01);
         holder.authorName_Txt.setText(ContentUtil.getAuthor(bean.getAuthor()));
         holder.title.setText(bean.getArticletitle());
         holder.sectionName.setText(bean.getArticleSection());
@@ -165,9 +165,15 @@ public class AppTabContentAdapter extends BaseRecyclerViewAdapter {
         );
     }
 
+    /**
+     * Briefing Listing Row UI
+     * @param viewHolder
+     * @param bean
+     * @param position
+     */
     private void ui_Briefing_Populate(RecyclerView.ViewHolder viewHolder, RecoBean bean, int position) {
         BriefcaseViewHolder holder = (BriefcaseViewHolder) viewHolder;
-        GlideUtil.loadImage(holder.image.getContext(), holder.image, ContentUtil.getThumbUrl(bean.getThumbnailUrl()));
+        GlideUtil.loadImage(holder.image.getContext(), holder.image, ContentUtil.getThumbUrl(bean.getThumbnailUrl()), R.drawable.th_ph_02);
         holder.authorName_Txt.setText(ContentUtil.getAuthor(bean.getAuthor()));
         holder.title.setText(bean.getArticletitle());
         holder.sectionName.setText(bean.getArticleSection());
@@ -182,6 +188,11 @@ public class AppTabContentAdapter extends BaseRecyclerViewAdapter {
         );
     }
 
+    /**
+     * Detail Page Banner UI
+     * @param viewHolder
+     * @param bean
+     */
     private void ui_detail_banner(RecyclerView.ViewHolder viewHolder, RecoBean bean) {
         DetailBannerViewHolder holder = (DetailBannerViewHolder) viewHolder;
         final String articleType = bean.getArticletype();
@@ -226,14 +237,15 @@ public class AppTabContentAdapter extends BaseRecyclerViewAdapter {
 
         holder.tv_title.setText(bean.getArticletitle());
 
-        if(TextUtils.isEmpty(ContentUtil.getBannerUrl(bean.getIMAGES(), bean.getMedia(), bean.getThumbnailUrl())) ) {
+        if(ContentUtil.getBannerUrl(bean.getIMAGES(), bean.getMedia(), bean.getThumbnailUrl()).equalsIgnoreCase("http://") ) {
             holder.imageView.setVisibility(View.GONE);
             holder.tv_caption.setVisibility(View.GONE);
             holder.shadowOverlay.setVisibility(View.GONE);
         }
         else {
             holder.imageView.setVisibility(View.VISIBLE);
-            GlideUtil.loadImage(holder.itemView.getContext(), holder.imageView, ContentUtil.getBannerUrl(bean.getIMAGES(), bean.getMedia(), bean.getThumbnailUrl()));
+            GlideUtil.loadImage(holder.itemView.getContext(), holder.imageView, ContentUtil.getBannerUrl(bean.getIMAGES(),
+                    bean.getMedia(), bean.getThumbnailUrl()), R.drawable.th_ph_02);
 
             String caption = null;
             if(bean.getIMAGES() != null && bean.getIMAGES().size() > 0) {
@@ -347,21 +359,6 @@ public class AppTabContentAdapter extends BaseRecyclerViewAdapter {
                 });
     }
 
-    private void bookmarkClick(int position, Context context, RecoBean bean) {
-        ApiManager.isExistInBookmark(context, bean.getArticleId())
-                .subscribe(bool->{
-                    if ((Boolean) bool) {
-                        ApiManager.createUnBookmark(context, bean.getArticleId()).subscribe(boole->{
-                            notifyItemChanged(position);
-                        });
-                    } else {
-                        ApiManager.createBookmark(context, bean).subscribe(boole->{
-                            notifyItemChanged(position);
-                        });
-                    }
-                });
-    }
-
     private void isFavOrLike(Context context, RecoBean recoBean, final ImageView like_Img, final ImageView toggleBtn_Img) {
         ApiManager.isExistFavNdLike(context, recoBean.getArticleId())
                 .subscribe(likeVal-> {
@@ -390,6 +387,7 @@ public class AppTabContentAdapter extends BaseRecyclerViewAdapter {
                     Log.i("", "");
                 });
     }
+
 
     private void updateBookmarkFavLike(ProgressBar bar, ImageView imageView, final Context context, int position, RecoBean bean
             , String from) {

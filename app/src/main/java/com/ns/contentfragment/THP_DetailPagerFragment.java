@@ -38,7 +38,6 @@ public class THP_DetailPagerFragment extends BaseFragmentTHP {
 
     private DetailPagerAdapter mSectionsPagerAdapter;
 
-    protected final CompositeDisposable mDisposable = new CompositeDisposable();
 
     public static final THP_DetailPagerFragment getInstance(String articleId,
                                                             int clickedPosition, String from, String userId) {

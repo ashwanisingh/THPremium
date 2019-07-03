@@ -200,10 +200,17 @@ public class THP_DetailFragment extends BaseFragmentTHP implements RecyclerViewP
 
     @Override
     public void onCreateBookmarkClickListener(ToolbarCallModel toolbarCallModel) {
-        ApiManager.createBookmark(getActivity(), mRecoBean)
+        mDisposable.add(
+                ApiManager.createBookmark(getActivity(), mRecoBean)
                 .subscribe(value->
                         mActivity.getToolbar().setIsBookmarked((Boolean)value)
-                );
+                )
+        );
+    }
+
+    @Override
+    public void onFavClickListener(ToolbarCallModel toolbarCallModel) {
+
     }
 
     @Override
@@ -317,7 +324,9 @@ public class THP_DetailFragment extends BaseFragmentTHP implements RecyclerViewP
         mDisposable.add(
                 ApiManager.isExistInBookmark(getActivity(), aid)
                 .subscribe(
-                        bool-> mActivity.getToolbar().setIsBookmarked((Boolean) bool),
+                        recoBean-> {
+                            mActivity.getToolbar().setIsBookmarked(recoBean.getIsBookmark()==1);
+                        },
                         throwable->{
                             Log.i("", "");
                         })
