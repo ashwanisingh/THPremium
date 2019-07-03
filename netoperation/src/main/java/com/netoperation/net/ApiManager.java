@@ -37,6 +37,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
+import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
@@ -450,7 +451,7 @@ public class ApiManager {
     }
 
 
-    public static Observable isExistInBookmark(Context context, final String aid) {
+    public static Observable<RecoBean> isExistInBookmark(Context context, final String aid) {
         return Observable.just(aid)
                 .subscribeOn(Schedulers.io())
                 .map(articleId -> {
@@ -609,6 +610,7 @@ public class ApiManager {
                                 recoBean.setDescription(model.getData().get(0).getDe());
                                 recoBean.setLeadText(model.getData().get(0).getAl());
                                 recoBean.setIMAGES(model.getData().get(0).getMe());
+                                recoBean.setYoutubeVideoId(model.getData().get(0).getYoutube_video_id());
                                 thp.dashboardDao().updateRecobean(aid, recoBean);
                             }
                             return recoBean;
@@ -1183,7 +1185,40 @@ public class ApiManager {
                     return prefListModel;
 
                 });
+
     }
+
+
+    public static Observable<KeyValueModel> createSubscription(String userid,
+                                          String trxnid,
+                                          String amt,
+                                          String channel,
+                                          String siteid,
+                                          String planid,
+                                          String plantype,
+                                          String billingchannel,
+                                          String validity,
+                                          String contact,
+                                          String currency,
+                                          String tax,
+                                          String netAmount) {
+        return ServiceFactory.getServiceAPIs().createSubscription(ReqBody.createSubscription(userid, trxnid,
+                amt, channel, siteid, planid, plantype, billingchannel, validity, contact, currency, tax, netAmount))
+                .subscribeOn(Schedulers.newThread())
+                .map(jsonElement -> {
+                    KeyValueModel keyValueModel = new KeyValueModel();
+                    if (((JsonObject) jsonElement).has("status")) {
+                        String status = ((JsonObject) jsonElement).get("status").getAsString();
+                        String reason = ((JsonObject) jsonElement).get("msg").getAsString();
+                        keyValueModel.setState(status);
+                        keyValueModel.setName(reason);
+                    }
+                    return keyValueModel;
+                });
+
+
+    }
+
 
     public static Observable<String> socialLogin(String deviceId, String originUrl, String provider,
                                                  String socialId, String userEmail, String userName) {
@@ -1206,4 +1241,6 @@ public class ApiManager {
                 );
 
     }
+
+
 }

@@ -1,5 +1,6 @@
 package com.netoperation.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MorningBean {
@@ -41,7 +42,7 @@ public class MorningBean {
     private String thumbnailUrl;
     private String timeToRead;
     private List<String> author;
-    private List<BriefingMediaBean> media;
+    private ArrayList<MeBean> media;
 
     public String getArticleId() {
         return articleId;
@@ -175,12 +176,9 @@ public class MorningBean {
         this.author = author;
     }
 
-    public List<BriefingMediaBean> getMedia() {
+    public ArrayList<MeBean> getMedia() {
         return media;
     }
 
-    public void setMedia(List<BriefingMediaBean> media) {
-        this.media = media;
-    }
 
 }

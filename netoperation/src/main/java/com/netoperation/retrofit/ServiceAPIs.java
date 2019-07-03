@@ -13,6 +13,8 @@ import com.netoperation.model.UserPlanList;
 import com.netoperation.model.SelectedPrefModel;
 
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -113,6 +115,10 @@ public interface ServiceAPIs {
     @GET("subscription/getplaninfo/HINDU")
     Observable<PlanRecoModel> getRecommendedPlan(@Query("siteid") String siteid, @Query("tagid") String tagid,
                                                  @Query("isInd") String isInd, @Query("isPlt") String isPlt);
+    @POST("subscription/createsub/HINDU")
+    Observable<JsonElement> createSubscription(@Body JsonObject subscriptionBody);
+
+
 
     @POST("taiauth/socialLogin/HINDU")
     Observable<JsonElement> socialLogin(@Body JsonObject loginDetails);

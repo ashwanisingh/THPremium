@@ -136,5 +136,10 @@ public abstract class BaseAcitivityTHP extends AppCompatActivity implements Tool
         }
     }
 
-
+    @Override
+    public void onFavClickListener(ToolbarCallModel toolbarCallModel) {
+        if(mFragmentTools != null) {
+            mFragmentTools.onFavClickListener(toolbarCallModel);
+        }
+    }
 }

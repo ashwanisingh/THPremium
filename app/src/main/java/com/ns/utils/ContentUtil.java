@@ -32,10 +32,16 @@ public class ContentUtil {
         return "http://";
     }
 
-    public static String getBannerUrl(ArrayList<MeBean> urls) {
-        if(urls != null && urls.size()>0) {
-            return urls.get(0).getIm_v2();
+    public static String getBannerUrl(ArrayList<MeBean> meBeans, ArrayList<MeBean> briefingMeBeans, List<String> thumbUrls) {
+        if(meBeans != null && meBeans.size()>0) {
+            return meBeans.get(0).getIm_v2();
         }
-        return "http://";
+        else if(briefingMeBeans != null && briefingMeBeans.size()>0) {
+            return briefingMeBeans.get(0).getImage();
+        }
+        else if(thumbUrls != null && thumbUrls.size()>0) {
+            return thumbUrls.get(0);
+        }
+        return "";
     }
 }

@@ -4,6 +4,7 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.speech.tts.TextToSpeech;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.netoperation.model.MeBean;
@@ -17,6 +18,7 @@ import com.ns.activity.THPPersonaliseActivity;
 import com.ns.activity.THP_BookmarkActivity;
 import com.ns.activity.THP_DetailActivity;
 import com.ns.activity.THP_WebActivity;
+import com.ns.activity.THP_YouTubeFullScreenActivity;
 import com.ns.activity.UserProfileActivity;
 import com.ns.model.ImageGallaryUrl;
 import com.ns.thpremium.BuildConfig;
@@ -165,6 +167,12 @@ public class IntentUtil {
         intent.putExtra("from", from);
         intent.putExtra("userId", userId);
         context.startActivity(intent);
+    }
+
+    public static void openYoutubeActivity(Context context, String videoId) {
+            Intent intent = new Intent(context, THP_YouTubeFullScreenActivity.class);
+            intent.putExtra("videoId", videoId);
+            context.startActivity(intent);
     }
 
 }

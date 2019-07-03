@@ -98,12 +98,24 @@ public class AppDateUtil {
         return result;
     }
 
-    public static long changeStringToMillisGMT(String dateInString) {
+    public static long strToMlsForNonBriefing(String dateInString) {
         // May 23, 2019 8:44:42 PM
         SimpleDateFormat formatter = new SimpleDateFormat("MMM dd, yyyy HH:mm:ss a");
 //        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         try {
 //            formatter.setTimeZone(TimeZone.getTimeZone("GMT"));
+            Date date = formatter.parse(dateInString);
+            return date.getTime();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    public static long strToMlsForBriefing(String dateInString) {
+        // Thu, 6 Jun 2019 12:17:30 +0530
+        SimpleDateFormat formatter = new SimpleDateFormat("EEE, dd MMM yyyy hh:mm:ss Z");
+        try {
             Date date = formatter.parse(dateInString);
             return date.getTime();
         } catch (Exception e) {

@@ -143,16 +143,6 @@ public class SignInFragment extends BaseFragmentTHP {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        // For Twitter login  in
-        TwitterConfig config = new TwitterConfig.Builder(getActivity())
-                .logger(new DefaultLogger(Log.DEBUG))//enable logging when app is in debug mode
-                .twitterAuthConfig(new TwitterAuthConfig(getResources().getString(R.string.com_twitter_sdk_android_CONSUMER_KEY), getResources().getString(R.string.com_twitter_sdk_android_CONSUMER_SECRET)))//pass the created app Consumer KEY and Secret also called API Key and Secret
-                .debug(true)//enable debug mode
-                .build();
-
-        //finally initialize twitter with created configs
-        Twitter.initialize(config);
     }
 
     @Override

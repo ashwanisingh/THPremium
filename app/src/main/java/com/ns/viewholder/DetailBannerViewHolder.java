@@ -20,6 +20,7 @@ public class DetailBannerViewHolder extends RecyclerView.ViewHolder {
     public TextView tv_city_name;
     public TextView tv_updated_time;
     public ImageView imageView;
+    public ImageView articleTypeimageView;
     public TextView tv_caption;
     public View shadowOverlay;
 
@@ -33,6 +34,7 @@ public class DetailBannerViewHolder extends RecyclerView.ViewHolder {
         tv_updated_time = itemView.findViewById(R.id.tv_updated_time);
         tv_caption = itemView.findViewById(R.id.tv_caption);
         imageView = itemView.findViewById(R.id.imageView);
+        articleTypeimageView = itemView.findViewById(R.id.articleTypeimageView);
         shadowOverlay = itemView.findViewById(R.id.shadowOverlay);
     }
 }
