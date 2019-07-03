@@ -25,8 +25,6 @@ import com.ns.utils.CommonUtil;
 import com.ns.utils.ContentUtil;
 import com.ns.utils.GlideUtil;
 import com.ns.utils.IntentUtil;
-import com.ns.utils.ResUtil;
-import com.ns.utils.TextUtil;
 import com.ns.utils.WebViewLinkClick;
 import com.ns.view.AutoResizeWebview;
 import com.ns.viewholder.BookmarkViewHolder;
@@ -134,12 +132,13 @@ public class AppTabContentAdapter extends BaseRecyclerViewAdapter {
         DashboardViewHolder holder = (DashboardViewHolder) viewHolder;
         holder.trendingIcon_Img.setVisibility(View.GONE);
 
-        GlideUtil.loadImage(holder.image.getContext(), holder.image, ContentUtil.getThumbUrl(bean.getThumbnailUrl()));
+        GlideUtil.loadImage(holder.image.getContext(), holder.image, ContentUtil.getThumbUrl(bean.getThumbnailUrl()), R.drawable.th_ph_01);
         holder.authorName_Txt.setText(ContentUtil.getAuthor(bean.getAuthor()));
         holder.title.setText(bean.getArticletitle());
         holder.sectionName.setText(bean.getArticleSection());
-        String timeDiff = AppDateUtil.getDurationFormattedDate(AppDateUtil.changeStringToMillisGMT(bean.getPubDateTime()), Locale.ENGLISH);
-        holder.time_Txt.setText(timeDiff);
+        // Publish Date
+        String formatedPubDt = CommonUtil.fomatedDate(bean.getPubDateTime(), mFrom);
+        holder.time_Txt.setText(formatedPubDt);
 
         isExistInBookmark(holder.bookmark_Img.getContext(), bean, holder.bookmark_Img);
         isFavOrLike(holder.like_Img.getContext(), bean, holder.like_Img, holder.toggleBtn_Img);
@@ -166,14 +165,21 @@ public class AppTabContentAdapter extends BaseRecyclerViewAdapter {
         );
     }
 
+    /**
+     * Briefing Listing Row UI
+     * @param viewHolder
+     * @param bean
+     * @param position
+     */
     private void ui_Briefing_Populate(RecyclerView.ViewHolder viewHolder, RecoBean bean, int position) {
         BriefcaseViewHolder holder = (BriefcaseViewHolder) viewHolder;
-        GlideUtil.loadImage(holder.image.getContext(), holder.image, ContentUtil.getThumbUrl(bean.getThumbnailUrl()));
+        GlideUtil.loadImage(holder.image.getContext(), holder.image, ContentUtil.getThumbUrl(bean.getThumbnailUrl()), R.drawable.th_ph_02);
         holder.authorName_Txt.setText(ContentUtil.getAuthor(bean.getAuthor()));
         holder.title.setText(bean.getArticletitle());
         holder.sectionName.setText(bean.getArticleSection());
-        String timeDiff = AppDateUtil.getDurationFormattedDate(AppDateUtil.changeStringToMillisGMT(bean.getPubDateTime()), Locale.ENGLISH);
-        holder.time_Txt.setText(timeDiff);
+        // Publish Date
+        String formatedPubDt = CommonUtil.fomatedDate(bean.getPubDateTime(), mFrom);
+        holder.time_Txt.setText(formatedPubDt);
         holder.description_Txt.setText(CommonUtil.htmlText(bean.getDescription()));
 
         holder.itemView.setOnClickListener(v->
@@ -182,11 +188,16 @@ public class AppTabContentAdapter extends BaseRecyclerViewAdapter {
         );
     }
 
+    /**
+     * Detail Page Banner UI
+     * @param viewHolder
+     * @param bean
+     */
     private void ui_detail_banner(RecyclerView.ViewHolder viewHolder, RecoBean bean) {
         DetailBannerViewHolder holder = (DetailBannerViewHolder) viewHolder;
-
-        // Shows Article Type Image
-        articleTypeImage(bean.getArticletype(), bean, holder.articleTypeimageView);
+        final String articleType = bean.getArticletype();
+        // To shows Article Type Image
+        articleTypeImage(articleType, bean, holder.articleTypeimageView);
 
         String authors = CommonUtil.getAutors(bean.getAuthor());
         if(authors == null) {
@@ -214,16 +225,27 @@ public class AppTabContentAdapter extends BaseRecyclerViewAdapter {
             holder.tv_time.setVisibility(View.VISIBLE);
         }
 
+        // Publish Date
+        String formatedPubDt = CommonUtil.fomatedDate(bean.getPubDateTime(), mFrom);
+        if(formatedPubDt == null || TextUtils.isEmpty(formatedPubDt)) {
+            holder.tv_updated_time.setVisibility(View.GONE);
+        }
+        else {
+            holder.tv_updated_time.setText(formatedPubDt);
+            holder.tv_updated_time.setVisibility(View.VISIBLE);
+        }
+
         holder.tv_title.setText(bean.getArticletitle());
 
-        if(bean.getThumbnailUrl() == null || TextUtils.isEmpty(ContentUtil.getBannerUrl(bean.getIMAGES(), bean.getMedia()))) {
+        if(ContentUtil.getBannerUrl(bean.getIMAGES(), bean.getMedia(), bean.getThumbnailUrl()).equalsIgnoreCase("http://") ) {
             holder.imageView.setVisibility(View.GONE);
             holder.tv_caption.setVisibility(View.GONE);
             holder.shadowOverlay.setVisibility(View.GONE);
         }
         else {
             holder.imageView.setVisibility(View.VISIBLE);
-            GlideUtil.loadImage(holder.itemView.getContext(), holder.imageView, ContentUtil.getBannerUrl(bean.getIMAGES(), bean.getMedia()));
+            GlideUtil.loadImage(holder.itemView.getContext(), holder.imageView, ContentUtil.getBannerUrl(bean.getIMAGES(),
+                    bean.getMedia(), bean.getThumbnailUrl()), R.drawable.th_ph_02);
 
             String caption = null;
             if(bean.getIMAGES() != null && bean.getIMAGES().size() > 0) {
@@ -239,14 +261,25 @@ public class AppTabContentAdapter extends BaseRecyclerViewAdapter {
                 holder.tv_caption.setVisibility(View.GONE);
             }
 
-            holder.tv_author_name.setText(ContentUtil.getAuthor(bean.getAuthor()));
-            holder.tv_city_name.setText(bean.getLocation());
-            holder.tv_updated_time.setText(bean.getPubDate());
+
         }
 
-        holder.imageView.setOnClickListener(v->{
-//                IntentUtils.openVerticleGalleryActivity(holder.itemView.getContext(), articleBean.getIMAGES(), articleBean.getTITLE());
-            IntentUtil.openHorizontalGalleryActivity(holder.itemView.getContext(), null, bean.getIMAGES(), 0);
+        // Banner Image Click Listener
+        holder.imageView.setOnClickListener(v-> {
+            if (isVideo(articleType, bean)) {
+                if (isYoutubeVideo(articleType)) {
+                    IntentUtil.openYoutubeActivity(holder.itemView.getContext(), bean.getYoutubeVideoId());
+                    return;
+                }
+            }
+
+            // Opens Gallery
+            //IntentUtils.openVerticleGalleryActivity(holder.itemView.getContext(), articleBean.getIMAGES(), articleBean.getTITLE());
+            if (bean.getIMAGES() != null && bean.getIMAGES().size() > 0) {
+                IntentUtil.openHorizontalGalleryActivity(holder.itemView.getContext(), null, bean.getIMAGES(), 0);
+            } else {
+                IntentUtil.openHorizontalGalleryActivity(holder.itemView.getContext(), null, bean.getMedia(), 0);
+            }
         });
     }
 
@@ -326,21 +359,6 @@ public class AppTabContentAdapter extends BaseRecyclerViewAdapter {
                 });
     }
 
-    private void bookmarkClick(int position, Context context, RecoBean bean) {
-        ApiManager.isExistInBookmark(context, bean.getArticleId())
-                .subscribe(bool->{
-                    if ((Boolean) bool) {
-                        ApiManager.createUnBookmark(context, bean.getArticleId()).subscribe(boole->{
-                            notifyItemChanged(position);
-                        });
-                    } else {
-                        ApiManager.createBookmark(context, bean).subscribe(boole->{
-                            notifyItemChanged(position);
-                        });
-                    }
-                });
-    }
-
     private void isFavOrLike(Context context, RecoBean recoBean, final ImageView like_Img, final ImageView toggleBtn_Img) {
         ApiManager.isExistFavNdLike(context, recoBean.getArticleId())
                 .subscribe(likeVal-> {
@@ -369,6 +387,7 @@ public class AppTabContentAdapter extends BaseRecyclerViewAdapter {
                     Log.i("", "");
                 });
     }
+
 
     private void updateBookmarkFavLike(ProgressBar bar, ImageView imageView, final Context context, int position, RecoBean bean
             , String from) {

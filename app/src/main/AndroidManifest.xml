@@ -18,7 +18,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name="com.ns.activity.AppTabActivity">
+        <activity android:name="com.ns.activity.AppTabActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,16 +27,26 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.ns.activity.THPPersonaliseActivity"/>
-
-        <activity android:name="com.ns.activity.SignInAndUpActivity" />
-        <activity android:name="com.ns.activity.UserProfileActivity" />
-        <activity android:name="com.ns.activity.BecomeMemberActivity" />
-        <activity android:name="com.ns.activity.THP_DetailActivity" />
-        <activity android:name="com.ns.activity.THP_WebActivity" />
-        <activity android:name="com.ns.activity.ImageGallaryVerticleActivity" />
-        <activity android:name="com.ns.activity.ImageGallaryActivity" />
-        <activity android:name="com.ns.activity.THP_BookmarkActivity" />
+        <activity android:name="com.ns.activity.THPPersonaliseActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name="com.ns.activity.SignInAndUpActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name="com.ns.activity.UserProfileActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name="com.ns.activity.BecomeMemberActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name="com.ns.activity.THP_DetailActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name="com.ns.activity.THP_WebActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name="com.ns.activity.ImageGallaryVerticleActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name="com.ns.activity.ImageGallaryActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name="com.ns.activity.THP_BookmarkActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name="com.ns.activity.THP_YouTubeFullScreenActivity"
+            android:screenOrientation="landscape"/>
     </application>
 
 </manifest>

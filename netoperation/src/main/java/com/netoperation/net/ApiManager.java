@@ -451,7 +451,7 @@ public class ApiManager {
     }
 
 
-    public static Observable isExistInBookmark(Context context, final String aid) {
+    public static Observable<RecoBean> isExistInBookmark(Context context, final String aid) {
         return Observable.just(aid)
                 .subscribeOn(Schedulers.io())
                 .map(articleId -> {
@@ -610,6 +610,7 @@ public class ApiManager {
                                 recoBean.setDescription(model.getData().get(0).getDe());
                                 recoBean.setLeadText(model.getData().get(0).getAl());
                                 recoBean.setIMAGES(model.getData().get(0).getMe());
+                                recoBean.setYoutubeVideoId(model.getData().get(0).getYoutube_video_id());
                                 thp.dashboardDao().updateRecobean(aid, recoBean);
                             }
                             return recoBean;

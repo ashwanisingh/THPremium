@@ -37,6 +37,10 @@ public class CustomToolbar extends Toolbar {
     private ImageView mTTSPauseImageView;
     private ProgressBar mTtsProgress;
 
+    private ImageView favTHPIC;
+    private ImageView shareTHPIC;
+    private ImageView likeTHPIC;
+
     private View mView;
     private String mTitle;
     private ToolbarCallModel mToolbarCallModel;
@@ -75,6 +79,34 @@ public class CustomToolbar extends Toolbar {
         mTTSPlayImageView = findViewById(R.id.ttsPlayIC);
         mTTSPauseImageView = findViewById(R.id.ttsPauseIC);
         mTtsProgress = findViewById(R.id.ttsProgress);
+
+        favTHPIC = findViewById(R.id.favTHPIC);
+        shareTHPIC = findViewById(R.id.shareTHPIC);
+        likeTHPIC = findViewById(R.id.likeTHPIC);
+
+        if(favTHPIC != null) {
+            favTHPIC.setOnClickListener(v -> {
+                if (mToolbarClickListener != null) {
+                    mToolbarClickListener.onFavClickListener(mToolbarCallModel);
+                }
+            });
+        }
+
+        if(shareTHPIC != null) {
+            shareTHPIC.setOnClickListener(v -> {
+                if (mToolbarClickListener != null) {
+                    mToolbarClickListener.onShareClickListener(mToolbarCallModel);
+                }
+            });
+        }
+
+        if(likeTHPIC != null) {
+            likeTHPIC.setOnClickListener(v -> {
+                if (mToolbarClickListener != null) {
+                    mToolbarClickListener.onFavClickListener(mToolbarCallModel);
+                }
+            });
+        }
 
         if(mBackImageView != null) {
             mBackImageView.setOnClickListener(v -> {
@@ -167,18 +199,22 @@ public class CustomToolbar extends Toolbar {
         View view = null;
         if(mCreateBookMarkImageView != null) {
             if(isBookmarked) {
-                mCreateBookMarkImageView.setVisibility(GONE);
+                mRemoveBookMarkedImageView.setVisibility(GONE);
+                mCreateBookMarkImageView.setVisibility(VISIBLE);
             } else {
                 mCreateBookMarkImageView.setVisibility(VISIBLE);
+                mRemoveBookMarkedImageView.setVisibility(GONE);
                 view = mCreateBookMarkImageView;
             }
         }
         if(mRemoveBookMarkedImageView != null) {
             if(isBookmarked) {
                 mRemoveBookMarkedImageView.setVisibility(VISIBLE);
+                mCreateBookMarkImageView.setVisibility(GONE);
                 view = mRemoveBookMarkedImageView;
             } else {
                 mRemoveBookMarkedImageView.setVisibility(GONE);
+                mCreateBookMarkImageView.setVisibility(VISIBLE);
             }
         }
 

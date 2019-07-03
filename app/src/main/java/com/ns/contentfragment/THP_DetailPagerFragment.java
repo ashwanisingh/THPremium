@@ -38,7 +38,6 @@ public class THP_DetailPagerFragment extends BaseFragmentTHP {
 
     private DetailPagerAdapter mSectionsPagerAdapter;
 
-    protected final CompositeDisposable mDisposable = new CompositeDisposable();
 
     public static final THP_DetailPagerFragment getInstance(String articleId,
                                                             int clickedPosition, String from, String userId) {
@@ -128,7 +127,7 @@ public class THP_DetailPagerFragment extends BaseFragmentTHP {
                 .subscribe(value -> {
 
                     for(RecoBean model : value) {
-                        mSectionsPagerAdapter.addFragment(THP_DetailFragment.getInstance(model, model.getArticleId(), mUserId));
+                        mSectionsPagerAdapter.addFragment(THP_DetailFragment.getInstance(model, model.getArticleId(), mUserId, mFrom));
                     }
 
                     // To Check the selected article Index
