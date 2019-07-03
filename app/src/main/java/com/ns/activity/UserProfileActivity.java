@@ -32,6 +32,7 @@ import com.ns.utils.NetUtils;
 import com.ns.utils.THPConstants;
 import com.ns.utils.TextUtil;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -122,8 +123,8 @@ public class UserProfileActivity extends BaseAcitivityTHP implements OnSubscribe
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         if(requestCode == INAPP_SUBSCRIPTION_REQUEST_CODE) {
+            mHelper.handleActivityResult(requestCode, resultCode, data);
             if(requestCode == RESULT_OK) {
                 if(mOnSubscribeEvent != null) {
                     mOnSubscribeEvent.onSubscribeEvent(true);
@@ -134,8 +135,6 @@ public class UserProfileActivity extends BaseAcitivityTHP implements OnSubscribe
                     mOnSubscribeEvent.onSubscribeEvent(false);
                 }
             }
-
-
         }
     }
 
@@ -160,14 +159,14 @@ public class UserProfileActivity extends BaseAcitivityTHP implements OnSubscribe
 
                 Log.i("", "");
                 if (result.isFailure()) {
-                    // Handle error
+                    //Handle error
                     Alerts.showAlertDialogOKBtn(UserProfileActivity.this, "Purchase Error!", result.getMessage());
                     return;
                 } else if (purchase.getSku().equals(mSelectedPlanId)) {
                     loadInventory();
                     // buyButton.setEnabled(false);
                     //Submit subscription purchase details
-                    createSubscription();
+                    createSubscription(purchase);
                 }
 
             }
@@ -183,35 +182,62 @@ public class UserProfileActivity extends BaseAcitivityTHP implements OnSubscribe
     }
 
     @SuppressLint("CheckResult")
-    private void createSubscription() {
+    private void createSubscription(Purchase purchase) {
         String email = mUserProfile.getEmailId();
         String contact = mUserProfile.getContact();
         String prefContact = email;
         if(email == null || TextUtils.isEmpty(email)) {
             prefContact = contact;
         }
-        //Alerts
 
         String currency = "inr";
         if(mSelectedBean.getAmount() == 0.0) {
             currency = null;
         }
-        ApiManager.createSubscription(mUserProfile.getUserId(), "txnId", "amt", "WEB", BuildConfig.SITEID,
-                mSelectedBean.getPlanId(), mSelectedBean.getPlanType(),"GooglePay", mSelectedBean.getValidity(),
-                prefContact, currency, null, ""+mSelectedBean.getNetamount())
+        ApiManager.createSubscription(mUserProfile.getUserId(), purchase.getOrderId(), ""+mSelectedBean.getAmount(), "WEB", BuildConfig.SITEID,
+                mSelectedBean.getPlanId(), "Subscription","GooglePay", mSelectedBean.getValidity(),
+                prefContact, currency, createTaxJsonObject().toString(), ""+mSelectedBean.getNetamount())
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(keyValueModel -> {
-            // TODO, fail and success conditional implementation
-            Alerts.showToast(this, keyValueModel.getName());
-        }, throwable -> {
-            // TODO, Handle Error and network interruption
-            Log.i("", "");
-            if(NetUtils.isConnected(this)) {
-                Alerts.showErrorDailog(getSupportFragmentManager(), "Error", "Purchase could not be completed");
+            //Fail and success conditional implementation
+            if(keyValueModel.getName().equals("Fail")) {
+                Alerts.showErrorDailog(getSupportFragmentManager(),
+                        getString(R.string.api_create_subscription_failure_title),
+                        getString(R.string.api_create_subscription_failure_message));
             } else {
-                Alerts.showSnackbar(this, "Connect to Internet");
+                Alerts.showErrorDailog(getSupportFragmentManager(),
+                        getString(R.string.api_create_subscription_success_title),
+                        getString(R.string.api_create_subscription_success_message));
             }
+
+        }, throwable -> {
+            //Handle Error and network interruption
+            Log.i("UserProfileActivity", throwable.getMessage());
+            Alerts.showErrorDailog(getSupportFragmentManager(),
+                    getString(R.string.api_create_subscription_failure_title),
+                    getString(R.string.api_create_subscription_failure_message));
         });
+    }
+
+    private JSONObject createTaxJsonObject() {
+        JSONObject jsonTax = new JSONObject();
+        try {
+            jsonTax.accumulate("state", mUserProfile.getAddress_state());
+            jsonTax.accumulate("stCode", "");
+            JSONObject gstJson = new JSONObject();
+            gstJson.accumulate("igst", 0);
+            gstJson.accumulate("igst_amt", 0);
+            gstJson.accumulate("cgst", 0);
+            gstJson.accumulate("cgst_amt", 0);
+            gstJson.accumulate("sgst", 0);
+            gstJson.accumulate("sgst_amt", 0);
+            gstJson.accumulate("utgst", 0);
+            gstJson.accumulate("utgst_amt", 0);
+            //Put gstJson in jsonTax
+            jsonTax.accumulate("gst", gstJson);
+        } catch (Exception ignore) {}
+
+        return jsonTax;
     }
 
 
@@ -246,7 +272,7 @@ public class UserProfileActivity extends BaseAcitivityTHP implements OnSubscribe
                     if (result.isSuccess()) {
                         //clickButton.setEnabled(true);
                     } else {
-                        // handle error
+                        //handle error
                     }
                 }
             };

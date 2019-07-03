@@ -35,6 +35,10 @@
 
     <string name="select_preference">Please select preference.</string>
 
+    <string name="api_create_subscription_failure_message">We are unable to confirm your payment due to some technical issues. Please wait for 30 minutes for the confirmation.</string>
+    <string name="api_create_subscription_failure_title">Payment Failure</string>
+    <string name="api_create_subscription_success_message">Purchase was successful. Enjoy!</string>
+    <string name="api_create_subscription_success_title">Payment confirmed</string>
 
 
 </resources>

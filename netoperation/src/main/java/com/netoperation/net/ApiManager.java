@@ -1201,8 +1201,8 @@ public class ApiManager {
                                           String currency,
                                           String tax,
                                           String netAmount) {
-      return ServiceFactory.getServiceAPIs().createSubscription(userid, trxnid,
-                amt, channel, siteid, planid, plantype, billingchannel, validity, contact, currency, tax, netAmount)
+        return ServiceFactory.getServiceAPIs().createSubscription(ReqBody.createSubscription(userid, trxnid,
+                amt, channel, siteid, planid, plantype, billingchannel, validity, contact, currency, tax, netAmount))
                 .subscribeOn(Schedulers.newThread())
                 .map(jsonElement -> {
                     KeyValueModel keyValueModel = new KeyValueModel();

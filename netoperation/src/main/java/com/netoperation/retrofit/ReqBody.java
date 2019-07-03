@@ -200,7 +200,37 @@ public class ReqBody {
         return object;
     }
 
+    public static JsonObject createSubscription(String userid,
+                                                String trxnid,
+                                                String amt,
+                                                String channel,
+                                                String siteid,
+                                                String planid,
+                                                String plantype,
+                                                String billingchannel,
+                                                String validity,
+                                                String contact,
+                                                String currency,
+                                                String tax,
+                                                String netAmount) {
+        JsonObject object = new JsonObject();
+        object.addProperty("userid", userid);
+        object.addProperty("trxnid", trxnid);
+        object.addProperty("amt", amt);
+        object.addProperty("channel", channel);
+        object.addProperty("siteid", siteid);
+        object.addProperty("planid", planid);
+        object.addProperty("plantype", plantype);
+        object.addProperty("billingchannel", billingchannel);
+        object.addProperty("validity", validity);
+        object.addProperty("contact", contact);
+        object.addProperty("currency", currency);
+        object.addProperty("tax", tax);
+        object.addProperty("netAmount", netAmount);
 
+        return object;
+
+    }
 
 
 }
