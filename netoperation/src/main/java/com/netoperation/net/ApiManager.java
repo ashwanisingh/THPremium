@@ -411,6 +411,12 @@ public class ApiManager {
                                     thp.dashboardDao().deleteAll(recotype);
                                 }
                                 for (RecoBean bean : beans) {
+
+                                    if(recotype.equalsIgnoreCase(NetConstants.RECO_bookmarks)) {
+                                        BookmarkTable bookmarkTable = new BookmarkTable(bean.getArticleId(), bean);
+                                        thp.bookmarkTableDao().insertBookmark(bookmarkTable);
+                                    }
+
                                     DashboardTable dashboardTable = new DashboardTable(bean.getArticleId(), recotype, bean);
                                     thp.dashboardDao().insertDashboard(dashboardTable);
                                 }

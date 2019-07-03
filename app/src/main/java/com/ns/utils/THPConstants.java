@@ -14,6 +14,7 @@ public class THPConstants {
     public static final String FROM_PROFILE_VIEWALL = "profileViewAll";
     public static final String FROM_SUBSCRIPTION_EXPLORE = "subscriptionExplore";
     public static final String FROM_USER_PROFILE = "userProfile";
+    public static final String FROM_BookmarkListing = "BookmarkListing";
 
     public static final String date_dd_MM_yyyy = "dd-MM-yyyy";
 

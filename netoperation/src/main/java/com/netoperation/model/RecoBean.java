@@ -58,7 +58,7 @@ public class RecoBean implements Parcelable {
     private String videoId;
     private String articleType;
     private String timeToRead;
-    private List<BriefingMediaBean> media;
+    private ArrayList<MeBean> media;
 
 
 
@@ -69,6 +69,14 @@ public class RecoBean implements Parcelable {
 
     public void setIMAGES(ArrayList<MeBean> IMAGES) {
         this.IMAGES = IMAGES;
+    }
+
+    public ArrayList<MeBean> getMedia() {
+        return media;
+    }
+
+    public void setMedia(ArrayList<MeBean> media) {
+        this.media = media;
     }
 
     public String getAUDIO_URL() {
@@ -315,13 +323,7 @@ public class RecoBean implements Parcelable {
         this.timeToRead = timeToRead;
     }
 
-    public List<BriefingMediaBean> getMedia() {
-        return media;
-    }
 
-    public void setMedia(List<BriefingMediaBean> media) {
-        this.media = media;
-    }
 
     @Override
     public boolean equals(Object obj) {
@@ -355,6 +357,7 @@ public class RecoBean implements Parcelable {
         dest.writeString(this.AUDIO_URL);
         dest.writeString(this.VIDEO_URL);
         dest.writeTypedList(this.IMAGES);
+        dest.writeTypedList(this.media);
         dest.writeString(this.articletitle);
         dest.writeString(this.articleSection);
         dest.writeString(this.articleUrl);
@@ -379,7 +382,6 @@ public class RecoBean implements Parcelable {
         dest.writeString(this.videoId);
         dest.writeString(this.articleType);
         dest.writeString(this.timeToRead);
-        dest.writeList(this.media);
     }
 
     protected RecoBean(Parcel in) {
@@ -390,6 +392,7 @@ public class RecoBean implements Parcelable {
         this.AUDIO_URL = in.readString();
         this.VIDEO_URL = in.readString();
         this.IMAGES = in.createTypedArrayList(MeBean.CREATOR);
+        this.media = in.createTypedArrayList(MeBean.CREATOR);
         this.articletitle = in.readString();
         this.articleSection = in.readString();
         this.articleUrl = in.readString();
@@ -414,8 +417,6 @@ public class RecoBean implements Parcelable {
         this.videoId = in.readString();
         this.articleType = in.readString();
         this.timeToRead = in.readString();
-        this.media = new ArrayList<BriefingMediaBean>();
-        in.readList(this.media, BriefingMediaBean.class.getClassLoader());
     }
 
     public static final Creator<RecoBean> CREATOR = new Creator<RecoBean>() {
