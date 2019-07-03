@@ -97,7 +97,17 @@ dependencies {
 
     implementation 'com.android.billingclient:billing:1.0'
 
+    // For Google Sign in
     implementation 'com.google.android.gms:play-services-auth:15.0.1'
+
+    // For Facebook sign in
+    implementation 'com.facebook.android:facebook-login:5.0.1'
+
+    // For twitter Sign in
+
+    implementation 'com.twitter.sdk.android:twitter:3.1.1'
+    implementation 'com.twitter.sdk.android:twitter-core:3.1.1'
+
 }
 
 apply plugin: 'com.google.gms.google-services'

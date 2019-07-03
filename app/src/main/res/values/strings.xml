@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="test">THPremium</string>
 
     <string name="FONT_FIRA_SANS_BOLD">fonts/FiraSans-Bold.ttf</string>
@@ -35,5 +35,11 @@
 
     <string name="select_preference">Please select preference.</string>
 
+    <!-- For Facebook Login-->
+    <string name="facebook_app_id">429571521229925</string>
+    <string name="fb_login_protocol_scheme">fb429571521229925</string>
 
-</resources>
+    <!-- For twitter Login-->
+    <string name="com.twitter.sdk.android.CONSUMER_KEY" tools:ignore="ExtraTranslation">9Pv4Nhb75iRCxHRaZhyLz0SFu</string>
+    <string name="com.twitter.sdk.android.CONSUMER_SECRET" tools:ignore="ExtraTranslation">zqTD3DWTFQqK0hwMm0YADfXYH6AOKrDMjk40gxMUo75zn3frdf</string>
+    </resources>

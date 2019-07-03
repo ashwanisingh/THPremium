@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.facebook.FacebookSdk;
 import com.github.pwittchen.reactivenetwork.library.rx2.ReactiveNetwork;
 import com.ns.activity.BaseAcitivityTHP;
 import com.ns.alerts.Alerts;
