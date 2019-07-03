@@ -438,10 +438,19 @@ public class ApiManager {
                                 return beans;
                             }
                             THPDB thp = THPDB.getInstance(context);
-                            List<DashboardTable> dashboardTable = thp.dashboardDao().getAllDashboardBean(recotype);
-                            if (dashboardTable != null) {
-                                for (DashboardTable dash : dashboardTable) {
-                                    beans.add(dash.getBean());
+                            if(recotype.equalsIgnoreCase(NetConstants.RECO_bookmarks)) {
+                                List<BookmarkTable> bookmarkTable = thp.bookmarkTableDao().getAllBookmark();
+                                if (bookmarkTable != null) {
+                                    for (BookmarkTable dash : bookmarkTable) {
+                                        beans.add(dash.getBean());
+                                    }
+                                }
+                            } else {
+                                List<DashboardTable> dashboardTable = thp.dashboardDao().getAllDashboardBean(recotype);
+                                if (dashboardTable != null) {
+                                    for (DashboardTable dash : dashboardTable) {
+                                        beans.add(dash.getBean());
+                                    }
                                 }
                             }
                             return beans;
