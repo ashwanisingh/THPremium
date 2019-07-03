@@ -37,6 +37,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
+import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
@@ -1177,6 +1178,37 @@ public class ApiManager {
                     return prefListModel;
 
                 });
+
+    }
+
+
+    public static Observable<KeyValueModel> createSubscription(String userid,
+                                          String trxnid,
+                                          String amt,
+                                          String channel,
+                                          String siteid,
+                                          String planid,
+                                          String plantype,
+                                          String billingchannel,
+                                          String validity,
+                                          String contact,
+                                          String currency,
+                                          String tax,
+                                          String netAmount) {
+      return ServiceFactory.getServiceAPIs().createSubscription(userid, trxnid,
+                amt, channel, siteid, planid, plantype, billingchannel, validity, contact, currency, tax, netAmount)
+                .subscribeOn(Schedulers.newThread())
+                .map(jsonElement -> {
+                    KeyValueModel keyValueModel = new KeyValueModel();
+                    if (((JsonObject) jsonElement).has("status")) {
+                        String status = ((JsonObject) jsonElement).get("status").getAsString();
+                        String reason = ((JsonObject) jsonElement).get("msg").getAsString();
+                        keyValueModel.setState(status);
+                        keyValueModel.setName(reason);
+                    }
+                    return keyValueModel;
+                });
+
 
     }
 

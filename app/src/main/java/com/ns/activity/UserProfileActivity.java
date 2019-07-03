@@ -1,14 +1,18 @@
 package com.ns.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.netoperation.model.TxnDataBean;
 import com.netoperation.model.UserProfile;
 import com.netoperation.net.ApiManager;
+import com.netoperation.retrofit.ServiceAPIs;
+import com.netoperation.retrofit.ServiceFactory;
 import com.ns.alerts.Alerts;
 import com.ns.callbacks.OnPlanInfoLoad;
 import com.ns.callbacks.OnSubscribeBtnClick;
@@ -19,15 +23,22 @@ import com.ns.payment.IabHelper;
 import com.ns.payment.IabResult;
 import com.ns.payment.Inventory;
 import com.ns.payment.Purchase;
+import com.ns.thpremium.BuildConfig;
 import com.ns.thpremium.R;
 import com.ns.userprofilefragment.UserProfileFragment;
 import com.ns.utils.FragmentUtil;
 import com.ns.utils.IntentUtil;
+import com.ns.utils.NetUtils;
 import com.ns.utils.THPConstants;
 import com.ns.utils.TextUtil;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 
 public class UserProfileActivity extends BaseAcitivityTHP implements OnSubscribeBtnClick, OnPlanInfoLoad {
 
@@ -37,6 +48,7 @@ public class UserProfileActivity extends BaseAcitivityTHP implements OnSubscribe
 
     private OnSubscribeEvent mOnSubscribeEvent;
     private UserProfile mUserProfile;
+    private TxnDataBean mSelectedBean;
 
 
 
@@ -140,7 +152,7 @@ public class UserProfileActivity extends BaseAcitivityTHP implements OnSubscribe
         }
 
         mSelectedPlanId = bean.getPlanId();
-
+        mSelectedBean = bean;
         IabHelper.OnIabPurchaseFinishedListener mPurchaseFinishedListener
                 = new IabHelper.OnIabPurchaseFinishedListener() {
             public void onIabPurchaseFinished(IabResult result,
@@ -154,6 +166,8 @@ public class UserProfileActivity extends BaseAcitivityTHP implements OnSubscribe
                 } else if (purchase.getSku().equals(mSelectedPlanId)) {
                     loadInventory();
                     // buyButton.setEnabled(false);
+                    //Submit subscription purchase details
+                    createSubscription();
                 }
 
             }
@@ -163,8 +177,42 @@ public class UserProfileActivity extends BaseAcitivityTHP implements OnSubscribe
         Log.i("", "");
         mHelper.launchSubscriptionPurchaseFlow(UserProfileActivity.this, mSelectedPlanId, INAPP_SUBSCRIPTION_REQUEST_CODE,
                 mPurchaseFinishedListener);
+
+        //Testing create subscription
+        //createSubscription();
     }
 
+    @SuppressLint("CheckResult")
+    private void createSubscription() {
+        String email = mUserProfile.getEmailId();
+        String contact = mUserProfile.getContact();
+        String prefContact = email;
+        if(email == null || TextUtils.isEmpty(email)) {
+            prefContact = contact;
+        }
+        //Alerts
+
+        String currency = "inr";
+        if(mSelectedBean.getAmount() == 0.0) {
+            currency = null;
+        }
+        ApiManager.createSubscription(mUserProfile.getUserId(), "txnId", "amt", "WEB", BuildConfig.SITEID,
+                mSelectedBean.getPlanId(), mSelectedBean.getPlanType(),"GooglePay", mSelectedBean.getValidity(),
+                prefContact, currency, null, ""+mSelectedBean.getNetamount())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(keyValueModel -> {
+            // TODO, fail and success conditional implementation
+            Alerts.showToast(this, keyValueModel.getName());
+        }, throwable -> {
+            // TODO, Handle Error and network interruption
+            Log.i("", "");
+            if(NetUtils.isConnected(this)) {
+                Alerts.showErrorDailog(getSupportFragmentManager(), "Error", "Purchase could not be completed");
+            } else {
+                Alerts.showSnackbar(this, "Connect to Internet");
+            }
+        });
+    }
 
 
     public void loadInventory() {
