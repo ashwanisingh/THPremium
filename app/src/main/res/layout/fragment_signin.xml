@@ -114,6 +114,7 @@
             android:id="@+id/tweeterBtn"
             style="@style/crossBtnStyle"
             android:src="@drawable/ic_twitter"
+            android:visibility="invisible"
             app:srcCompat="@drawable/ic_twitter"
             app:layout_constraintRight_toLeftOf="@+id/googleBtn"
             app:layout_constraintVertical_chainStyle="spread_inside"
