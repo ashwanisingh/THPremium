@@ -55,7 +55,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="60dp"
             android:text="Tap on above icon"
             android:textColor="@android:color/darker_gray"
             android:layout_below="@id/premiumLogoBtn"/>
