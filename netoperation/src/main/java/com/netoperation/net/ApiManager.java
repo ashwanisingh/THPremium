@@ -230,23 +230,30 @@ public class ApiManager {
 
 
 
-    public static Observable<String> userLogin(String email, String contact,
+    public static Observable<KeyValueModel> userLogin(String email, String contact,
                                  String siteId, String password, String deviceId, String originUrl) {
 
         Observable<JsonElement> observable = ServiceFactory.getServiceAPIs().login(ReqBody.login(email, contact, password, deviceId, siteId, originUrl));
         return observable.subscribeOn(Schedulers.newThread())
                 .map(value -> {
+                                KeyValueModel keyValueModel = new KeyValueModel();
                             if (((JsonObject) value).has("status")) {
-                                String status = ((JsonObject) value).get("status").getAsString();
-                                if (status.equalsIgnoreCase("success")) {
-                                    String userId = ((JsonObject) value).get("userId").getAsString();
-                                    return userId;
-                                } else if (status.equalsIgnoreCase("Fail")) {
+
+
+                                if (((JsonObject) value).has("status")) {
+                                    String status = ((JsonObject) value).get("status").getAsString();
+                                    String reason = ((JsonObject) value).get("reason").getAsString();
+                                    if (((JsonObject) value).has("userId")) {
+                                        String userId = ((JsonObject) value).get("userId").getAsString();
+                                        keyValueModel.setCode(userId);
+                                    }
+                                    keyValueModel.setState(status);
+                                    keyValueModel.setName(reason);
 
                                 }
 
                             }
-                            return "";
+                            return keyValueModel;
                         }
                 );
 
@@ -1037,7 +1044,7 @@ public class ApiManager {
      * @param deviceId
      * @return
      */
-    public static Observable<KeyValueModel> logout(String userId, String siteId, String deviceId) {
+    public static Observable<KeyValueModel> logout(Context context, String userId, String siteId, String deviceId) {
         return ServiceFactory.getServiceAPIs().logout(ReqBody.logout(userId, siteId, deviceId))
                 .subscribeOn(Schedulers.newThread())
                 .map(value-> {
@@ -1048,6 +1055,12 @@ public class ApiManager {
                         //String reason = ((JsonObject) value).get("reason").getAsString();
                         //keyValueModel.setName(reason);
                         keyValueModel.setState(status);
+                    }
+
+                    if (keyValueModel.getState() != null &&
+                            keyValueModel.getState().equalsIgnoreCase("success")) {
+                        THPDB db = THPDB.getInstance(context);
+                        db.userProfileDao().deleteAll();
                     }
 
                     return keyValueModel;

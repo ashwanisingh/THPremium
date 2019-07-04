@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -20,6 +21,7 @@ import com.ns.thpremium.R;
 import com.ns.loginfragment.BaseFragmentTHP;
 import com.ns.utils.FragmentUtil;
 import com.ns.utils.THPConstants;
+import com.ns.utils.TextUtil;
 import com.ns.view.CustomTextView;
 import com.ns.view.RecyclerViewPullToRefresh;
 
@@ -135,8 +137,24 @@ public class BriefcaseFragment extends BaseFragmentTHP implements RecyclerViewPu
 
         if(mIsVisible) {
             loadData();
-//            ApiManager.getBreifingFromServerTest(getActivity(), BuildConfig.BREIGINE_URL);
+
+            // Shows user name
+            ApiManager.getUserProfile(getActivity())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(userProfile -> {
+                        if(userProfile != null && !TextUtils.isEmpty(userProfile.getFullName())) {
+                            userName_Txt.setText("Hi "+userProfile.getFullName());
+                        } else if(userProfile != null && !TextUtils.isEmpty(userProfile.getEmailId())) {
+                            userName_Txt.setText(userProfile.getEmailId());
+                        } else if(userProfile != null && !TextUtils.isEmpty(userProfile.getContact())) {
+                            userName_Txt.setText(userProfile.getContact());
+                        } else {
+                            userName_Txt.setVisibility(View.GONE);
+                        }
+                    });
         }
+
+
 
 
     }

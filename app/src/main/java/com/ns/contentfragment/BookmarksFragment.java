@@ -170,7 +170,8 @@ public class BookmarksFragment extends BaseFragmentTHP implements RecyclerViewPu
 
                             // Showing Empty Msg.
                             if (mRecyclerAdapter != null && mRecyclerAdapter.getItemCount() == 0) {
-                                mPullToRefreshLayout.showTryAgainBtn("Please Try Again.");
+                                //mPullToRefreshLayout.showTryAgainBtn("You haven’t added any bookmarks yet");
+                                showEmptyLayout();
                             }
 
                         }));

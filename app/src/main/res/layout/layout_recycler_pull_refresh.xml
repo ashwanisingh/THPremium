@@ -24,14 +24,16 @@
 
         <com.ns.view.CustomTextView
             android:id="@+id/tryAgainButton"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
+            android:minWidth="200dp"
             android:layout_height="wrap_content"
             android:minHeight="45dp"
             android:background="@drawable/grey_btn_background"
             android:text="Try Again"
-            android:visibility="gone"
             android:layout_gravity="center"
             android:gravity="center"
+            android:alpha="0.5"
+            android:textColor="@color/dateColor"
             />
 
         <com.ns.view.CustomProgressBar
@@ -40,6 +42,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:visibility="gone"/>
+
+
 
     </FrameLayout>
 
@@ -65,6 +69,8 @@
             />
 
     </LinearLayout>
+
+
 
 
 </FrameLayout>
