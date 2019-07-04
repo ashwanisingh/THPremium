@@ -237,7 +237,7 @@ public class AppTabContentAdapter extends BaseRecyclerViewAdapter {
 
         holder.tv_title.setText(bean.getArticletitle());
 
-        if(ContentUtil.getBannerUrl(bean.getIMAGES(), bean.getMedia(), bean.getThumbnailUrl()).equalsIgnoreCase("http://") ) {
+        if(ContentUtil.getBannerUrl(bean.getIMAGES(), bean.getMedia(), bean.getThumbnailUrl()).equalsIgnoreCase("") ) {
             holder.imageView.setVisibility(View.GONE);
             holder.tv_caption.setVisibility(View.GONE);
             holder.shadowOverlay.setVisibility(View.GONE);
@@ -359,28 +359,28 @@ public class AppTabContentAdapter extends BaseRecyclerViewAdapter {
                 });
     }
 
-    private void isFavOrLike(Context context, RecoBean recoBean, final ImageView like_Img, final ImageView toggleBtn_Img) {
+    private void isFavOrLike(Context context, RecoBean recoBean, final ImageView favStartImg, final ImageView toggleLikeDisLikeImg) {
         ApiManager.isExistFavNdLike(context, recoBean.getArticleId())
                 .subscribe(likeVal-> {
                     int like = (int)likeVal;
                     if(recoBean != null) {
                         recoBean.setIsFavourite(like);
                     }
-                    like_Img.setVisibility(View.VISIBLE);
-                    toggleBtn_Img.setVisibility(View.VISIBLE);
-                    like_Img.setEnabled(true);
-                    toggleBtn_Img.setEnabled(true);
+                    favStartImg.setVisibility(View.VISIBLE);
+                    toggleLikeDisLikeImg.setVisibility(View.VISIBLE);
+                    favStartImg.setEnabled(true);
+                    toggleLikeDisLikeImg.setEnabled(true);
                     if(like == NetConstants.LIKE_NEUTRAL) {
-                        like_Img.setImageResource(R.drawable.ic_like_unselected);
-                        toggleBtn_Img.setImageResource(R.drawable.ic_switch_on_copy);
+                        favStartImg.setImageResource(R.drawable.ic_like_unselected);
+                        toggleLikeDisLikeImg.setImageResource(R.drawable.ic_switch_on_copy);
                     }
                     else if(like == NetConstants.LIKE_YES) {
-                        like_Img.setImageResource(R.drawable.ic_like_selected);
-                        toggleBtn_Img.setImageResource(R.drawable.ic_switch_on_copy);
+                        favStartImg.setImageResource(R.drawable.ic_like_selected);
+                        toggleLikeDisLikeImg.setImageResource(R.drawable.ic_switch_on_copy);
                     }
                     else if(like == NetConstants.LIKE_NO) {
-                        like_Img.setImageResource(R.drawable.ic_like_unselected);
-                        toggleBtn_Img.setImageResource(R.drawable.ic_switch_off_copy);
+                        favStartImg.setImageResource(R.drawable.ic_like_unselected);
+                        toggleLikeDisLikeImg.setImageResource(R.drawable.ic_switch_off_copy);
                     }
 
                 }, val->{
@@ -416,12 +416,19 @@ public class AppTabContentAdapter extends BaseRecyclerViewAdapter {
             }
         }
         else if(from.equals("dislike")) {
-            favourite = NetConstants.LIKE_NO;
+            if(bean.getIsFavourite() == NetConstants.LIKE_NO) {
+                favourite = NetConstants.LIKE_NEUTRAL;
+            }
+            else if(bean.getIsFavourite() == NetConstants.LIKE_NEUTRAL) {
+                favourite = NetConstants.LIKE_NO;
+            }
+
         }
 
         final int book = bookmark;
         final int fav = favourite;
 
+        // To Create and Remove at server end
         ApiManager.createBookmarkFavLike(mUserId, BuildConfig.SITEID, bean.getArticleId(), bookmark, favourite)
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(val-> {
@@ -430,6 +437,7 @@ public class AppTabContentAdapter extends BaseRecyclerViewAdapter {
                         bean.setIsBookmark(book);
                         if(from.equals("bookmark")) {
                             if(book == NetConstants.BOOKMARK_YES) {
+                                // To Create at App end
                                 ApiManager.createBookmark(context, bean).subscribe(boole -> {
                                     bar.setVisibility(View.GONE);
                                     imageView.setVisibility(View.VISIBLE);
@@ -438,6 +446,7 @@ public class AppTabContentAdapter extends BaseRecyclerViewAdapter {
                                 });
                             }
                             else if(book == NetConstants.BOOKMARK_NO) {
+                                // To Remove at App end
                                 ApiManager.createUnBookmark(context, bean.getArticleId()).subscribe(boole -> {
                                     bar.setVisibility(View.GONE);
                                     imageView.setVisibility(View.VISIBLE);
@@ -448,11 +457,12 @@ public class AppTabContentAdapter extends BaseRecyclerViewAdapter {
                         }
                         else if(from.equals("dislike") || from.equals("favourite")) {
                             if(book == NetConstants.BOOKMARK_YES) {
+                                // To Update at App end
                                 ApiManager.updateBookmark(context, bean.getArticleId(), fav).subscribe(boole ->
                                         Log.i("updateBookmark", "true")
                                 );
                             }
-
+                            // To Update at App end
                             ApiManager.updateLike(context, bean.getArticleId(), fav).subscribe(boole -> {
                                 notifyItemChanged(position);
                             });

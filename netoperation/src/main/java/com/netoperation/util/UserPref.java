@@ -80,7 +80,7 @@ public class UserPref {
     }
 
     public int getDescriptionSize() {
-        return mPreferences.getInt("current_size", 1);
+        return mPreferences.getInt("current_size", 2);
     }
 
     public void setTheme(int themeVal) {

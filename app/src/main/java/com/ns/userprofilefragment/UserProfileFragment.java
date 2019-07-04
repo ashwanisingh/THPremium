@@ -153,18 +153,16 @@ public class UserProfileFragment extends BaseFragmentTHP {
                             // TODO, Clear All Database
                             // TODO, Launch hindu default home screen
                             //
-                        }
-                        else {
-
+                        } else {
+                            Alerts.showToast(getActivity(), "Could not logged out, try again later");
                         }
                     }, throwable -> {
-
+                        Alerts.showToast(getActivity(), throwable.getMessage());
                     }, () ->{
-
+                        Alerts.showToast(getActivity(), "Could not logged out, try again later");
                     });
                 }
         );
-
 
         versionName_Txt.setText(ResUtil.getVersionName(getActivity()));
 
