@@ -95,6 +95,7 @@
             style="@style/crossBtnStyle"
             android:src="@drawable/ic_twitter"
             app:srcCompat="@drawable/ic_twitter"
+            android:visibility="invisible"
             app:layout_constraintRight_toLeftOf="@+id/googleBtn"
             app:layout_constraintVertical_chainStyle="spread_inside"
             app:layout_constraintLeft_toRightOf="@+id/facebookBtn"

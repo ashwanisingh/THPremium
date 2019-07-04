@@ -45,7 +45,7 @@
     <string name="fb_login_protocol_scheme">fb429571521229925</string>
 
     <!-- For twitter Login-->
-    <string name="CONSUMER_KEY">eYnv3slZ2fny3DtT47WkJaGwa</string>
-    <string name="CONSUMER_SECRET">A4rnhzJVVGTr9cpFIQwW4JzoHm1dfhXrMIwUes2KEqvgoufKoO</string>
+    <string name="com.twitter.sdk.android.CONSUMER_KEY" tools:ignore="ExtraTranslation">R4aG29tZVOgu3t8bIA2t7T9by</string>
+    <string name="com.twitter.sdk.android.CONSUMER_SECRET" tools:ignore="ExtraTranslation">1YIayOnN05m8dPdYHV87n5luuZOl7aVJbYjo6h8guDFXISZNOH</string>
 
 </resources>

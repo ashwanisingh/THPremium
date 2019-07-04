@@ -36,7 +36,7 @@ public class SignInAndUpActivity extends BaseAcitivityTHP {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         printHashKey();
-        configureTwitter();
+       // configureTwitter();
        setContentView(layoutRes());
 
         mFrom = getIntent().getExtras().getString("from");
@@ -65,23 +65,23 @@ public class SignInAndUpActivity extends BaseAcitivityTHP {
         }
     }
 
-    private void configureTwitter() {
-        TwitterConfig config = new TwitterConfig.Builder(this)
-                .logger(new DefaultLogger(Log.DEBUG))//enable logging when app is in debug mode
-                .twitterAuthConfig(new TwitterAuthConfig(getResources().getString(R.string.CONSUMER_KEY), getResources().getString(R.string.CONSUMER_SECRET)))//pass the created app Consumer KEY and Secret also called API Key and Secret
-                .debug(true)//enable debug mode
-                .build();
+//    private void configureTwitter() {
+//        TwitterConfig config = new TwitterConfig.Builder(this)
+//                .logger(new DefaultLogger(Log.DEBUG))//enable logging when app is in debug mode
+//                .twitterAuthConfig(new TwitterAuthConfig(getResources().getString(R.string.CONSUMER_KEY), getResources().getString(R.string.CONSUMER_SECRET)))//pass the created app Consumer KEY and Secret also called API Key and Secret
+//                .debug(true)//enable debug mode
+//                .build();
+//
+//        //finally initialize twitter with created configs
+//        Twitter.initialize(config);
+//    }
 
-        //finally initialize twitter with created configs
-        Twitter.initialize(config);
-    }
 
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        for (Fragment fragment : getSupportFragmentManager().getFragments()) {
-            fragment.onActivityResult(requestCode, resultCode, data);
-        }
-    }
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        for (Fragment fragment : getSupportFragmentManager().getFragments()) {
+//            fragment.onActivityResult(requestCode, resultCode, data);
+//        }
+//    }
 }

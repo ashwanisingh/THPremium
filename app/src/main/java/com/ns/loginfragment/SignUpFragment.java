@@ -142,6 +142,7 @@ public class SignUpFragment extends BaseFragmentTHP {
 
         googleBtn = view.findViewById(R.id.googleBtn);
         tweeterBtn = view.findViewById(R.id.tweeterBtn);
+        tweeterBtn.setEnabled(false);
         facebookBtn = view.findViewById(R.id.facebookBtn);
 
         // Terms and Conditions Click Listener
@@ -273,12 +274,12 @@ public class SignUpFragment extends BaseFragmentTHP {
      //   configureTwitter();
 
         //initialize twitter auth client
-        client = new TwitterAuthClient();
+       // client = new TwitterAuthClient();
 
         // Twitter Sign in click listener
-        tweeterBtn.setOnClickListener(v->{
-            twitterLogin();
-        });
+//        tweeterBtn.setOnClickListener(v->{
+//            twitterLogin();
+//        });
 
     }
 
@@ -408,16 +409,16 @@ public class SignUpFragment extends BaseFragmentTHP {
 
     /*Twitter Sign In methods starts here*/
 
-    private void configureTwitter() {
-        TwitterConfig config = new TwitterConfig.Builder(getActivity())
-                .logger(new DefaultLogger(Log.DEBUG))//enable logging when app is in debug mode
-                .twitterAuthConfig(new TwitterAuthConfig(getResources().getString(R.string.CONSUMER_KEY), getResources().getString(R.string.CONSUMER_SECRET)))//pass the created app Consumer KEY and Secret also called API Key and Secret
-                .debug(true)//enable debug mode
-                .build();
-
-        //finally initialize twitter with created configs
-        Twitter.initialize(config);
-    }
+//    private void configureTwitter() {
+//        TwitterConfig config = new TwitterConfig.Builder(getActivity())
+//                .logger(new DefaultLogger(Log.DEBUG))//enable logging when app is in debug mode
+//                .twitterAuthConfig(new TwitterAuthConfig(getResources().getString(R.string.CONSUMER_KEY), getResources().getString(R.string.CONSUMER_SECRET)))//pass the created app Consumer KEY and Secret also called API Key and Secret
+//                .debug(true)//enable debug mode
+//                .build();
+//
+//        //finally initialize twitter with created configs
+//        Twitter.initialize(config);
+//    }
 
     private void twitterLogin() {
         if (getTwitterSession() == null) {
@@ -444,7 +445,6 @@ public class SignUpFragment extends BaseFragmentTHP {
         } else {
             //if user is already authenticated direct call fetch twitter email api
             Toast.makeText(getActivity(), "User already authenticated", Toast.LENGTH_SHORT).show();
-            fetchTwitterEmail(getTwitterSession());
         }
     }
 
@@ -641,6 +641,9 @@ public class SignUpFragment extends BaseFragmentTHP {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
+        if (client != null)
+            client.onActivityResult(requestCode, resultCode, data);
 
         if(requestCode == TwitterAuthConfig.DEFAULT_AUTH_REQUEST_CODE){
             if (client != null)
