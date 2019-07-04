@@ -9,7 +9,6 @@ import android.util.Log;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -116,7 +115,10 @@ public class THPPersonaliseActivity extends BaseAcitivityTHP implements THPPerso
             getCurrentItemPosition();
         });
 
-        onPageScrolling();
+        // It load First UserProfile Data, next User Preference data
+        loadUserProfile();
+
+        registerPageChangeListener();
     }
 
     private void getCurrentItemPosition() {
@@ -140,7 +142,7 @@ public class THPPersonaliseActivity extends BaseAcitivityTHP implements THPPerso
         }
     }
 
-    private void onPageScrolling() {
+    private void registerPageChangeListener() {
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int i, float v, int i1) {
@@ -150,6 +152,7 @@ public class THPPersonaliseActivity extends BaseAcitivityTHP implements THPPerso
             public void onPageSelected(int i) {
                 getCurrentItemPosition();
                 String fragName =personaliseAdapter.getPageTitle(i).toString();
+                fragName = fragName.substring(0,1).toUpperCase() + fragName.substring(1).toLowerCase();
                 switch (i){
                     case 0:
                         tv_items.setText(fragName);
@@ -169,7 +172,7 @@ public class THPPersonaliseActivity extends BaseAcitivityTHP implements THPPerso
             }
         });
 
-        loadUserProfile();
+
     }
 
     /**
@@ -181,7 +184,6 @@ public class THPPersonaliseActivity extends BaseAcitivityTHP implements THPPerso
                 .subscribe(userProfile -> {
                    mUserProfile = userProfile;
                     getUserSavedPersonalise(mUserProfile.getUserId());
-                 //    getUserSavedPersonalise("489"); // For Testing
                 }));
     }
 
@@ -195,8 +197,15 @@ public class THPPersonaliseActivity extends BaseAcitivityTHP implements THPPerso
                     getAllPersonalise();
                     return "";
                 })
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(value->{
-
+                    Log.i("", "");
+                }, throwable -> {
+                    Log.i("", "");
+                    Alerts.showErrorDailog(getSupportFragmentManager(), getResources().getString(R.string.kindly), getResources().getString(R.string.please_check_ur_connectivity));
+                    mProgressBar.setVisibility(View.GONE);
+                    mErrorText.setVisibility(View.VISIBLE);
+                    mErrorText.setText(R.string.please_check_ur_connectivity);
                 })
         );
 
@@ -266,14 +275,17 @@ public class THPPersonaliseActivity extends BaseAcitivityTHP implements THPPerso
                             personaliseAdapter = new PersonaliseAdapter(getSupportFragmentManager(), mPersonaliseFragments, topic, cities, authors);
                             viewPager.setAdapter(personaliseAdapter);
 
+                            topic = topic.substring(0,1).toUpperCase() + topic.substring(1).toLowerCase();
+
                             tv_items.setText(topic);
 
 
                         }, throwable -> {
-                            if (throwable instanceof HttpException || throwable instanceof ConnectException
+                            /*if (throwable instanceof HttpException || throwable instanceof ConnectException
                                     || throwable instanceof SocketTimeoutException || throwable instanceof TimeoutException) {
                                 Alerts.showErrorDailog(getSupportFragmentManager(), getResources().getString(R.string.kindly), getResources().getString(R.string.please_check_ur_connectivity));
-                            }
+                            }*/
+                            Alerts.showErrorDailog(getSupportFragmentManager(), getResources().getString(R.string.kindly), getResources().getString(R.string.please_check_ur_connectivity));
                             mProgressBar.setVisibility(View.GONE);
                             mErrorText.setVisibility(View.VISIBLE);
 

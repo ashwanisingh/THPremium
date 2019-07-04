@@ -83,7 +83,8 @@ public class AutoResizeWebview extends WebView {
         String color = "#FFFFFF";
         switch (theme) {
             case THPConstants.THEME_WHITE:
-                color = "#FFFFFF";
+//                color = "#FFFFFF";
+                color = "#00000000";
                 break;
 
             case THPConstants.THEME_GREY:
