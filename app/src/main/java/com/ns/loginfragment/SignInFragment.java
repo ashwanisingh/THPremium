@@ -2,12 +2,16 @@ package com.ns.loginfragment;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -66,6 +70,8 @@ import org.json.JSONObject;
 
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.concurrent.TimeoutException;
 
@@ -111,10 +117,10 @@ public class SignInFragment extends BaseFragmentTHP {
     FirebaseAuth mAuth;
     GoogleSignInAccount alreadyloggedAccount;
 
-    // For facebook Login
+    // facebook CallbackManager
     private CallbackManager callbackManager;
 
-    // For twitter Login
+    // twitter client
     private TwitterAuthClient client;
 
     @Override
@@ -138,11 +144,6 @@ public class SignInFragment extends BaseFragmentTHP {
     public void onAttach(Context context) {
         super.onAttach(context);
         mActivity = (SignInAndUpActivity) context;
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
     }
 
     @Override
@@ -306,9 +307,11 @@ public class SignInFragment extends BaseFragmentTHP {
         //Then we will get the GoogleSignInClient object from GoogleSignIn class
         mGoogleSignInClient = GoogleSignIn.getClient(getActivity(), gso);
 
+
+        // Google Sign in click listener
         googleBtn.setOnClickListener(v->{
             if (alreadyloggedAccount != null) {
-                Alerts.showToast(getActivity(), "User Already Logged In with Gmail");
+                Alerts.showToast(getActivity(), "Already Logged In with Gmail");
             }else{
                 signIn();
             }
@@ -316,25 +319,24 @@ public class SignInFragment extends BaseFragmentTHP {
 
         // Facebook Sign in click listener
         facebookBtn.setOnClickListener(v->{
-          //  if(AccessToken.getCurrentAccessToken()!=null){
-          //      Alerts.showToast(getActivity(), "User Already Logged In with Facebook");
-          //  }else{
+            if(AccessToken.getCurrentAccessToken()!=null){
+                Alerts.showToast(getActivity(), "Already Logged In with Facebook");
+            }else{
                 Fblogin();
-        //    }
+            }
+
         });
 
 
-        // For twitter Login
-
+     //   configureTwitter();
         //initialize twitter auth client
-       client = new TwitterAuthClient();
+        client = new TwitterAuthClient();
 
+        // Twitter Sign in click listener
         tweeterBtn.setOnClickListener(v->{
             twitterLogin();
         });
     }
-
-
 
     /*Facebook Sign In methods starts here*/
     private void Fblogin() {
@@ -344,18 +346,20 @@ public class SignInFragment extends BaseFragmentTHP {
                 new FacebookCallback<LoginResult>() {
                     @Override
                     public void onSuccess(LoginResult loginResult) {
-                        GraphRequest.newMeRequest(
-                                loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
-                                    @Override
-                                    public void onCompleted(JSONObject json, GraphResponse response) {
-                                        if (response.getError() != null) {
-                                            Toast.makeText(getActivity(), "Error", Toast.LENGTH_LONG).show();
-                                        } else {
-                                            getFaceBookLoginDetails(json);
-                                        }
-                                    }
-
-                                }).executeAsync();
+                        GraphRequest request=GraphRequest.newMeRequest(loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
+                            @Override
+                            public void onCompleted(JSONObject json, GraphResponse response) {
+                                if (response.getError() != null) {
+                                    Toast.makeText(getActivity(), "Error", Toast.LENGTH_LONG).show();
+                                } else {
+                                    getFaceBookLoginDetails(json);
+                                }
+                            }
+                        });
+                        Bundle parameters=new Bundle();
+                        parameters.putString("fields", "name, email, id");
+                        request.setParameters(parameters);
+                        request.executeAsync();
                     }
 
                     @Override
@@ -445,7 +449,7 @@ public class SignInFragment extends BaseFragmentTHP {
                                     });
                 }
             }else{
-                Alerts.showAlertDialogOKBtn(getActivity(), "Sorry !", " You didn't find your primary contact details, please make it is visible to create the account from social Login");
+                Alerts.showAlertDialogOKBtn(getActivity(), "Sorry !", " We didn't find your primary contact details, please make it is visible to create the account from social Login");
             }
 
         } catch (JSONException e) {
@@ -457,8 +461,22 @@ public class SignInFragment extends BaseFragmentTHP {
     /*Facebook Sign In methods ends here*/
 
 
+
     /*Twitter Sign In methods starts here*/
-    private void twitterLogin() {
+
+
+    private void configureTwitter() {
+        TwitterConfig config = new TwitterConfig.Builder(getActivity())
+                .logger(new DefaultLogger(Log.DEBUG))//enable logging when app is in debug mode
+                .twitterAuthConfig(new TwitterAuthConfig(getResources().getString(R.string.CONSUMER_KEY), getResources().getString(R.string.CONSUMER_SECRET)))//pass the created app Consumer KEY and Secret also called API Key and Secret
+                .debug(true)//enable debug mode
+                .build();
+
+        //finally initialize twitter with created configs
+        Twitter.initialize(config);
+    }
+
+       private void twitterLogin() {
         if (getTwitterSession() == null) {
 
             //if user is not authenticated start authenticating
@@ -476,12 +494,12 @@ public class SignInFragment extends BaseFragmentTHP {
                 @Override
                 public void failure(TwitterException e) {
                     // Do something on failure
-                    Toast.makeText(getActivity(), "Failed to authenticate. Please try again.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Failed to authenticate. Please try again.", Toast.LENGTH_LONG).show();
                 }
             });
         } else {
             //if user is already authenticated direct call fetch twitter email api
-            Toast.makeText(getActivity(), "User already authenticated", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "User already authenticated", Toast.LENGTH_LONG).show();
             fetchTwitterEmail(getTwitterSession());
         }
     }
@@ -492,7 +510,7 @@ public class SignInFragment extends BaseFragmentTHP {
 
         //NOTE : if you want to get token and secret too use uncomment the below code
 
-        /*TwitterAuthToken authToken = session.getAuthToken();
+       /* TwitterAuthToken authToken = session.getAuthToken();
         String token = authToken.token;
         String secret = authToken.secret;*/
 
@@ -506,8 +524,9 @@ public class SignInFragment extends BaseFragmentTHP {
                 //here it will give u only email and rest of other information u can get from TwitterSession
                 //                // Do something with result, which provides a TwitterSession for making API calls
                 TwitterSession session = TwitterCore.getInstance().getSessionManager().getActiveSession();
-                getTwitterLoginDetails(result, session);
+                Toast.makeText(getActivity(), "Login Succes", Toast.LENGTH_SHORT).show();
 
+                getTwitterLoginDetails(result, session);
             }
 
             @Override
@@ -544,7 +563,7 @@ public class SignInFragment extends BaseFragmentTHP {
 
                                             if(bool) {
                                                 // TODO, process for user sign - In
-                                                Alerts.showToast(getActivity(), "Successfully Logged In with Gmail.");
+                                                Alerts.showToast(getActivity(), "Successfully Logged In with Twitter.");
                                                 IntentUtil.openContentListingActivity(getActivity(), "");
                                             }
                                             else {
@@ -583,6 +602,8 @@ public class SignInFragment extends BaseFragmentTHP {
 
                         });
     }
+
+    /*Twitter Sign In methods ends here*/
 
 
     /*Google Sign In methods starts here*/
@@ -629,8 +650,9 @@ public class SignInFragment extends BaseFragmentTHP {
 
                                             if(bool) {
                                                 // TODO, process for user sign - In
-                                                Alerts.showToast(getActivity(), "Successfully Logged In with Gmail.");
                                                 IntentUtil.openContentListingActivity(getActivity(), "");
+                                               Toast.makeText(getActivity(), "Successfully Logged In with Gmail.", Toast.LENGTH_LONG).show();
+
                                             }
                                             else {
                                                 Alerts.showErrorDailog(getChildFragmentManager(), "Sorry",
@@ -676,23 +698,31 @@ public class SignInFragment extends BaseFragmentTHP {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        //if the requestCode is the Google Sign In code that we defined at starting
-        if (requestCode == RC_SIGN_IN) {
+        if(requestCode == TwitterAuthConfig.DEFAULT_AUTH_REQUEST_CODE){
+            if (client != null)
+                client.onActivityResult(requestCode, resultCode, data);
 
-            //Getting the GoogleSignIn Task
-            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            try {
-                //Google Sign In was successful, authenticate with Firebase
-                GoogleSignInAccount account = task.getResult(ApiException.class);
+        }else {
+            //if the requestCode is the Google Sign In code that we defined at starting
+            if (requestCode == RC_SIGN_IN) {
 
-                //authenticating with firebase
-                firebaseAuthWithGoogle(account);
-            } catch (ApiException e) {
-                Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                //Getting the GoogleSignIn Task
+                Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+                try {
+                    //Google Sign In was successful, authenticate with Firebase
+                    GoogleSignInAccount account = task.getResult(ApiException.class);
+
+                    //authenticating with firebase
+                    firebaseAuthWithGoogle(account);
+                } catch (ApiException e) {
+                    Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }else {
+
+                /*For Facebook callback*/
+                if (callbackManager != null)
+                    callbackManager.onActivityResult(requestCode, resultCode, data);
             }
         }
-
-        /*For Facebook callback*/
-        callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 }
