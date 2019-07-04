@@ -237,7 +237,7 @@ public class AppTabContentAdapter extends BaseRecyclerViewAdapter {
 
         holder.tv_title.setText(bean.getArticletitle());
 
-        if(ContentUtil.getBannerUrl(bean.getIMAGES(), bean.getMedia(), bean.getThumbnailUrl()).equalsIgnoreCase("http://") ) {
+        if(ContentUtil.getBannerUrl(bean.getIMAGES(), bean.getMedia(), bean.getThumbnailUrl()).equalsIgnoreCase("") ) {
             holder.imageView.setVisibility(View.GONE);
             holder.tv_caption.setVisibility(View.GONE);
             holder.shadowOverlay.setVisibility(View.GONE);

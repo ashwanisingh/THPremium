@@ -4,7 +4,7 @@
     android:layout_height="fill_parent"
     android:orientation="vertical">
 
-    <ProgressBar
+    <com.ns.view.CustomProgressBar
         android:id="@+id/section_progress"
         android:layout_width="50dp"
         android:layout_height="50dp"
