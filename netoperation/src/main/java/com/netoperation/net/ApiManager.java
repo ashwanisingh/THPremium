@@ -133,12 +133,16 @@ public class ApiManager {
 
 
 
-    public static Observable<Boolean> userSignUp(Context context, String otp, String countryCode, String password, String email, String contact, String deviceId, String siteId, String originUrl) {
+    public static Observable<KeyValueModel> userSignUp(Context context, String otp, String countryCode, String password, String email, String contact, String deviceId, String siteId, String originUrl) {
         return ServiceFactory.getServiceAPIs().signup(ReqBody.signUp(otp, countryCode, password, email, contact, deviceId, siteId, originUrl))
                 .subscribeOn(Schedulers.newThread())
                 .map(value -> {
+
+                            KeyValueModel keyValueModel = new KeyValueModel();
+
                             if (((JsonObject) value).has("status")) {
                                 String status = ((JsonObject) value).get("status").getAsString();
+                                keyValueModel.setState(status);
                                 if (status.equalsIgnoreCase("success")) {
                                     String userInfo = ((JsonObject) value).get("userInfo").getAsString();
 
@@ -219,11 +223,15 @@ public class ApiManager {
 
                                     thpdb.userProfileDao().insertUserProfile(userProfileTable);
 
-                                    return true;
+
+                                } else {
+                                    String reason = ((JsonObject) value).get("reason").getAsString();
+                                    keyValueModel.setName(reason);
                                 }
-                                return false;
+
+
                             }
-                            return false;
+                            return keyValueModel;
                         }
                 );
     }

@@ -231,7 +231,7 @@ public class SignInFragment extends BaseFragmentTHP {
 
                                 String userId = "";
 
-                                if (keyValueModel.getState() != null && !keyValueModel.getState().equalsIgnoreCase("success")) {
+                                if (keyValueModel.getState() != null && keyValueModel.getState().equalsIgnoreCase("success")) {
                                     userId = keyValueModel.getCode();
                                 }
 

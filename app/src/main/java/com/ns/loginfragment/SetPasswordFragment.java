@@ -143,25 +143,23 @@ public class SetPasswordFragment extends BaseFragmentTHP {
 
         mDisposable.add(ApiManager.userSignUp(getActivity(), otp, "", password, email, contact, ResUtil.getDeviceId(getActivity()), BuildConfig.SITEID, BuildConfig.ORIGIN_URL)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(bool->{
+                .subscribe(keyValueModel->{
                     if(getActivity() == null && getView() == null) {
                         return;
                     }
+
                     progressBar.setVisibility(View.INVISIBLE);
-                    if(!bool) {
-                        if(isUserEnteredEmail) {
-                            Alerts.showAlertDialogOKBtn(getActivity(), "Sorry!", "Email already exist");
-                        }
-                        else {
-                            Alerts.showAlertDialogOKBtn(getActivity(), "Sorry!", "Mobile already exist");
-                        }
+                    submit_Txt.setEnabled(true);
+
+                    if(keyValueModel.getState() != null && !keyValueModel.getState().equalsIgnoreCase("success")) {
+                        Alerts.showAlertDialogOKBtn(getActivity(), "Sorry!", keyValueModel.getName());
                     }
                     else {
                         // Open new Screen
                         IntentUtil.openContentListingActivity(getActivity(), "SignUp");
                     }
                 }, throwable -> {
-
+                    submit_Txt.setEnabled(true);
                 }));
 
 
