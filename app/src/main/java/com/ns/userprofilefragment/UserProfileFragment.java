@@ -162,7 +162,7 @@ public class UserProfileFragment extends BaseFragmentTHP {
                         Alerts.showToast(getActivity(), throwable.getMessage());
                     }, () ->{
                         progressDialog.cancel();
-                        Alerts.showToast(getActivity(), "Could not logged out, try again later");
+                        //Alerts.showToast(getActivity(), "Could not logged out, try again later");
                     });
                 }
         );

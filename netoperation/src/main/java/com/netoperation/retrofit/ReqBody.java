@@ -44,7 +44,7 @@ public class ReqBody {
         return object;
     }
 
-    public static JsonObject logout(String userId, String deviceId, String siteId) {
+    public static JsonObject logout(String userId, String siteId, String  deviceId) {
         JsonObject object = new JsonObject();
         object.addProperty("userId", userId);
         object.addProperty("deviceId", deviceId);
