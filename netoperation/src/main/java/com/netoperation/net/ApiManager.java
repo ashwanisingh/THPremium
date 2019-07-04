@@ -1044,9 +1044,10 @@ public class ApiManager {
                     KeyValueModel keyValueModel = new KeyValueModel();
                     if (((JsonObject) value).has("status")) {
                         String status = ((JsonObject) value).get("status").getAsString();
-                        String reason = ((JsonObject) value).get("reason").getAsString();
+                        //Status is not in response as the Api Doc
+                        //String reason = ((JsonObject) value).get("reason").getAsString();
+                        //keyValueModel.setName(reason);
                         keyValueModel.setState(status);
-                        keyValueModel.setName(reason);
                     }
 
                     return keyValueModel;
