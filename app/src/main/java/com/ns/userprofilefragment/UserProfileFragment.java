@@ -1,5 +1,6 @@
 package com.ns.userprofilefragment;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -9,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
+import com.netoperation.db.THPDB;
 import com.netoperation.model.UserProfile;
 import com.netoperation.net.ApiManager;
 import com.ns.alerts.Alerts;
@@ -18,6 +20,7 @@ import com.ns.loginfragment.TCFragment;
 import com.ns.thpremium.BuildConfig;
 import com.ns.thpremium.R;
 import com.ns.utils.FragmentUtil;
+import com.ns.utils.IntentUtil;
 import com.ns.utils.ResUtil;
 import com.ns.utils.THPConstants;
 import com.ns.utils.TextSpanCallback;
@@ -144,21 +147,21 @@ public class UserProfileFragment extends BaseFragmentTHP {
 
         // Sign Out Row click listener - 7
         view.findViewById(R.id.signOut_Row).setOnClickListener(v-> {
-            Log.i("", "");
-            ApiManager.logout(mUserProfile.getUserId(), BuildConfig.SITEID, ResUtil.getDeviceId(getActivity()))
+            final ProgressDialog progressDialog = Alerts.showProgressDialog(getActivity());
+            ApiManager.logout(getActivity(), mUserProfile.getUserId(), BuildConfig.SITEID, ResUtil.getDeviceId(getActivity()))
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(value->{
-                        if(value.getState() != null && value.getState().equalsIgnoreCase("success")) {
+                    .subscribe(keyValueModel->{
+                        if(keyValueModel.getState() != null && keyValueModel.getState().equalsIgnoreCase("success")) {
                             Alerts.showToast(getActivity(), "Logged out successfully.");
-                            // TODO, Clear All Database
-                            // TODO, Launch hindu default home screen
-                            //
+                            IntentUtil.openDemoActivity(getActivity());
                         } else {
                             Alerts.showToast(getActivity(), "Could not logged out, try again later");
                         }
                     }, throwable -> {
+                        progressDialog.cancel();
                         Alerts.showToast(getActivity(), throwable.getMessage());
                     }, () ->{
+                        progressDialog.cancel();
                         Alerts.showToast(getActivity(), "Could not logged out, try again later");
                     });
                 }

@@ -11,6 +11,7 @@ import com.netoperation.model.MeBean;
 import com.netoperation.model.RecoBean;
 import com.ns.activity.AppTabActivity;
 import com.ns.activity.BecomeMemberActivity;
+import com.ns.activity.DemoActivity;
 import com.ns.activity.ImageGallaryActivity;
 import com.ns.activity.ImageGallaryVerticleActivity;
 import com.ns.activity.SignInAndUpActivity;
@@ -173,6 +174,12 @@ public class IntentUtil {
             Intent intent = new Intent(context, THP_YouTubeFullScreenActivity.class);
             intent.putExtra("videoId", videoId);
             context.startActivity(intent);
+    }
+
+    public static void openDemoActivity(Context context) {
+        Intent intent = new Intent(context, DemoActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        context.startActivity(intent);
     }
 
 }

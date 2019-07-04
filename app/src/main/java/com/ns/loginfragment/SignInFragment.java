@@ -224,29 +224,30 @@ public class SignInFragment extends BaseFragmentTHP {
 
             ApiManager.userLogin(email, mobile, BuildConfig.SITEID, passwd, deviceId, BuildConfig.ORIGIN_URL)
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(userId -> {
+                    .subscribe(keyValueModel -> {
                                 if (getActivity() == null && getView() == null) {
                                     return;
                                 }
 
+                                String userId = "";
+
+                                if (keyValueModel.getState() != null && !keyValueModel.getState().equalsIgnoreCase("success")) {
+                                    userId = keyValueModel.getCode();
+                                }
+
                                 if (TextUtils.isEmpty(userId)) {
-                                    if (isUserEnteredMobile) {
-                                        Alerts.showAlertDialogOKBtn(getActivity(), "Sorry!", "User Mobile number not found.");
-                                    } else {
-                                        Alerts.showAlertDialogOKBtn(getActivity(), "Sorry!", "User email not found.");
-                                    }
+                                    Alerts.showAlertDialogOKBtn(getActivity(), "Sorry!", keyValueModel.getName());
                                     enableButton(true);
                                 } else {
                                     // Making server request to get User Info
                                     ApiManager.getUserInfo(getActivity(), BuildConfig.SITEID, ResUtil.getDeviceId(getActivity()), userId)
                                             .observeOn(AndroidSchedulers.mainThread())
-                                            .subscribe(bool->{
+                                            .subscribe(bool -> {
 
-                                                if(bool) {
+                                                if (bool) {
                                                     // TODO, process for user sign - In
                                                     IntentUtil.openContentListingActivity(getActivity(), "");
-                                                }
-                                                else {
+                                                } else {
                                                     Alerts.showErrorDailog(getChildFragmentManager(), "Sorry",
                                                             "We are fetching some technical problem.\n Please try later.");
                                                 }
@@ -256,11 +257,10 @@ public class SignInFragment extends BaseFragmentTHP {
                                                 if (throwable instanceof HttpException || throwable instanceof ConnectException
                                                         || throwable instanceof SocketTimeoutException || throwable instanceof TimeoutException) {
                                                     Alerts.showErrorDailog(getChildFragmentManager(), getResources().getString(R.string.kindly), getResources().getString(R.string.please_check_ur_connectivity));
-                                                }
-                                                else {
+                                                } else {
                                                     Alerts.showErrorDailog(getChildFragmentManager(), null, throwable.getLocalizedMessage());
                                                 }
-                                            }, () ->{
+                                            }, () -> {
                                                 enableButton(true);
                                             });
 
