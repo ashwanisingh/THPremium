@@ -8,9 +8,12 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import com.netoperation.model.RecoBean;
 import com.netoperation.net.ApiManager;
+import com.netoperation.util.NetConstants;
 import com.netoperation.util.UserPref;
 import com.ns.activity.BaseRecyclerViewAdapter;
 import com.ns.activity.THP_DetailActivity;
@@ -20,6 +23,7 @@ import com.ns.callbacks.FragmentTools;
 import com.ns.loginfragment.BaseFragmentTHP;
 import com.ns.model.AppTabContentModel;
 import com.ns.model.ToolbarCallModel;
+import com.ns.thpremium.BuildConfig;
 import com.ns.thpremium.R;
 import com.ns.tts.TTSCallbacks;
 import com.ns.tts.TTSManager;
@@ -127,6 +131,8 @@ public class THP_DetailFragment extends BaseFragmentTHP implements RecyclerViewP
 
             // Checking Visible Article is bookmarked or not.
             isExistInBookmark(mArticleId);
+            // Checking Visible Article is Like and Fav or not.
+            mActivity.getToolbar().isFavOrLike(getActivity(), mRecoBean, mArticleId);
         }
 
 
@@ -142,6 +148,9 @@ public class THP_DetailFragment extends BaseFragmentTHP implements RecyclerViewP
 
             // Checking Visible Article is bookmarked or not.
             isExistInBookmark(mRecoBean.getArticleId());
+
+            // Checking Visible Article is Like and Fav or not.
+            mActivity.getToolbar().isFavOrLike(getActivity(), mRecoBean, mArticleId);
         }
     }
 
@@ -200,26 +209,142 @@ public class THP_DetailFragment extends BaseFragmentTHP implements RecyclerViewP
 
     @Override
     public void onCreateBookmarkClickListener(ToolbarCallModel toolbarCallModel) {
-        mDisposable.add(
+        /*mDisposable.add(
                 ApiManager.createBookmark(getActivity(), mRecoBean)
                 .subscribe(value->
                         mActivity.getToolbar().setIsBookmarked((Boolean)value)
                 )
-        );
+        );*/
+        updateBookmarkFavLike(getActivity(), mRecoBean, "bookmark");
     }
 
     @Override
     public void onFavClickListener(ToolbarCallModel toolbarCallModel) {
+        updateBookmarkFavLike(getActivity(), mRecoBean, "favourite");
+    }
 
+    @Override
+    public void onLikeClickListener(ToolbarCallModel toolbarCallModel) {
+        updateBookmarkFavLike(getActivity(), mRecoBean, "dislike");
     }
 
     @Override
     public void onRemoveBookmarkClickListener(ToolbarCallModel toolbarCallModel) {
-        ApiManager.createUnBookmark(getActivity(), mArticleId)
+        /*ApiManager.createUnBookmark(getActivity(), mArticleId)
                 .subscribe(value->
                         mActivity.getToolbar().setIsBookmarked((Boolean)value)
+                );*/
+
+        updateBookmarkFavLike(getActivity(), mRecoBean, "bookmark");
+    }
+
+
+
+    ////////// Start For Bookmark, Fav, Like & Dislike ///////////////////////////////
+
+    private void updateBookmarkFavLike(final Context context,  RecoBean bean, String from) {
+        int bookmark = bean.getIsBookmark();
+        int favourite = bean.getIsFavourite();
+        if(from.equals("bookmark")) {
+            if(bean.getIsBookmark() == NetConstants.BOOKMARK_YES) {
+                bookmark = NetConstants.BOOKMARK_NO;
+            }
+            else {
+                bookmark = NetConstants.BOOKMARK_YES;
+            }
+        }
+        else if(from.equals("favourite")) {
+            if(bean.getIsFavourite() == NetConstants.LIKE_NEUTRAL) {
+                favourite = NetConstants.LIKE_YES;
+            }
+            else if(bean.getIsFavourite() == NetConstants.LIKE_NO) {
+                favourite = NetConstants.LIKE_YES;
+            }
+            else {
+                favourite = NetConstants.LIKE_NEUTRAL;
+            }
+        }
+        else if(from.equals("dislike")) {
+            if(bean.getIsFavourite() == NetConstants.LIKE_NO) {
+                favourite = NetConstants.LIKE_NEUTRAL;
+            }
+            else if(bean.getIsFavourite() == NetConstants.LIKE_NEUTRAL) {
+                favourite = NetConstants.LIKE_NO;
+            }
+        }
+
+        final int book = bookmark;
+        final int fav = favourite;
+
+        // To Create and Remove at server end
+        ApiManager.createBookmarkFavLike(mUserId, BuildConfig.SITEID, bean.getArticleId(), bookmark, favourite)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(val-> {
+                            if (val) {
+                                bean.setIsFavourite(fav);
+                                bean.setIsBookmark(book);
+                                if(from.equals("bookmark")) {
+                                    if(book == NetConstants.BOOKMARK_YES) {
+                                        // To Create at App end
+                                        ApiManager.createBookmark(context, bean).subscribe(boole -> {
+                                            /*bar.setVisibility(View.GONE);
+                                            imageView.setVisibility(View.VISIBLE);
+                                            imageView.setEnabled(true);
+                                            notifyItemChanged(position);*/
+                                            mActivity.getToolbar().setIsBookmarked((Boolean)boole);
+                                        });
+                                    }
+                                    else if(book == NetConstants.BOOKMARK_NO) {
+                                        // To Remove at App end
+                                        ApiManager.createUnBookmark(context, bean.getArticleId()).subscribe(boole -> {
+                                            /*bar.setVisibility(View.GONE);
+                                            imageView.setVisibility(View.VISIBLE);
+                                            imageView.setEnabled(true);
+                                            notifyItemChanged(position);*/
+                                            mActivity.getToolbar().setIsBookmarked(!(Boolean)boole);
+                                        });
+                                    }
+                                }
+                                else if(from.equals("dislike") || from.equals("favourite")) {
+                                    if(book == NetConstants.BOOKMARK_YES) {
+                                        // To Update at App end
+                                        ApiManager.updateBookmark(context, bean.getArticleId(), fav).subscribe(boole ->
+                                                Log.i("updateBookmark", "true")
+                                        );
+                                    }
+                                    // To Update at App end
+                                    ApiManager.updateLike(context, bean.getArticleId(), fav).subscribe(boole -> {
+                                        // notifyItemChanged(position);
+                                        Log.i("updateLIKE", "true");
+                                        mActivity.getToolbar().isFavOrLike(context, bean, bean.getArticleId());
+                                    });
+                                }
+
+                            }
+                            else {
+                                // notifyItemChanged(position);
+                            }
+                        },
+                        val-> {
+                            //notifyItemChanged(position);
+                            Alerts.showAlertDialogOKBtn(getActivity(),
+                                    getActivity().getResources().getString(R.string.failed_to_connect),
+                                    getActivity().getResources().getString(R.string.please_check_ur_connectivity));
+                        }
                 );
     }
+
+
+
+
+
+
+    //////////End For Bookmark, Fav, Like & Dislike ///////////////////////////////
+
+
+
+
+
 
     @Override
     public void onFontSizeClickListener(ToolbarCallModel toolbarCallModel) {

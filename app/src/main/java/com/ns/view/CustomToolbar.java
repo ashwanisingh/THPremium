@@ -1,12 +1,11 @@
 package com.ns.view;
 
 import android.content.Context;
-import android.content.res.TypedArray;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +13,9 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.netoperation.model.RecoBean;
+import com.netoperation.net.ApiManager;
+import com.netoperation.util.NetConstants;
 import com.ns.callbacks.ToolbarClickListener;
 import com.ns.model.ToolbarCallModel;
 import com.ns.thpremium.R;
@@ -28,18 +30,20 @@ public class CustomToolbar extends Toolbar {
     private ToolbarClickListener mToolbarClickListener;
     private TextView mTitleTextView;
     private ImageView mBackImageView;
-    private ImageView mShareImageView;
     private ImageView mCreateBookMarkImageView;
     private ImageView mRemoveBookMarkedImageView;
     private ImageView mTextSizeImageView;
-    private ImageView mCommentImageView;
     private ImageView mTTSPlayImageView;
     private ImageView mTTSPauseImageView;
-    private ProgressBar mTtsProgress;
 
-    private ImageView favTHPIC;
+    private ProgressBar mTtsProgress;
+    private ProgressBar favTHPProgressBar;
+    private ProgressBar bookmarkProgressBar;
+    private ProgressBar likeTHPProgressBar;
+
+    private ImageView favStarTHPIC;
     private ImageView shareTHPIC;
-    private ImageView likeTHPIC;
+    private ImageView toggleLikeDisLikeTHPIC;
 
     private View mView;
     private String mTitle;
@@ -60,6 +64,85 @@ public class CustomToolbar extends Toolbar {
         init(context, attrs);
     }
 
+    private void showHideBookmarkImg(boolean isBookmarked) {
+        bookmarkProgressBar.setVisibility(GONE);
+        if(isBookmarked) {
+            mCreateBookMarkImageView.setVisibility(GONE);
+            mRemoveBookMarkedImageView.setVisibility(VISIBLE);
+        } else {
+            mRemoveBookMarkedImageView.setVisibility(GONE);
+            mCreateBookMarkImageView.setVisibility(VISIBLE);
+        }
+    }
+
+    private void showBookmarkProgTHP(boolean shouldVisible, boolean isBookmarked) {
+        if(shouldVisible) {
+            bookmarkProgressBar.setVisibility(VISIBLE);
+            mCreateBookMarkImageView.setVisibility(GONE);
+            mRemoveBookMarkedImageView.setVisibility(GONE);
+        }
+        else {
+            if(isBookmarked) {
+                mCreateBookMarkImageView.setVisibility(GONE);
+                mRemoveBookMarkedImageView.setVisibility(VISIBLE);
+            } else {
+                mRemoveBookMarkedImageView.setVisibility(GONE);
+                mCreateBookMarkImageView.setVisibility(VISIBLE);
+            }
+            bookmarkProgressBar.setVisibility(GONE);
+        }
+    }
+
+    private void hideFavProgTHP(boolean shouldVisible) {
+        if(shouldVisible) {
+            favTHPProgressBar.setVisibility(GONE);
+            favStarTHPIC.setVisibility(VISIBLE);
+        } else {
+            favTHPProgressBar.setVisibility(VISIBLE);
+            favStarTHPIC.setVisibility(INVISIBLE);
+        }
+    }
+
+    private void hideLikeProgTHP(boolean shouldVisible) {
+        if(shouldVisible) {
+            likeTHPProgressBar.setVisibility(GONE);
+            toggleLikeDisLikeTHPIC.setVisibility(VISIBLE);
+        } else {
+            likeTHPProgressBar.setVisibility(VISIBLE);
+            toggleLikeDisLikeTHPIC.setVisibility(INVISIBLE);
+        }
+    }
+
+    public void isFavOrLike(Context context, RecoBean recoBean, String articleId) {
+        ApiManager.isExistFavNdLike(context, articleId)
+                .subscribe(likeVal-> {
+                    hideLikeProgTHP(true);
+                    hideFavProgTHP(true);
+                    int like = (int)likeVal;
+                    if(recoBean != null) {
+                        recoBean.setIsFavourite(like);
+                    }
+                    favStarTHPIC.setVisibility(View.VISIBLE);
+                    toggleLikeDisLikeTHPIC.setVisibility(View.VISIBLE);
+                    favStarTHPIC.setEnabled(true);
+                    toggleLikeDisLikeTHPIC.setEnabled(true);
+                    if(like == NetConstants.LIKE_NEUTRAL) {
+                        favStarTHPIC.setImageResource(R.drawable.ic_like_unselected);
+                        toggleLikeDisLikeTHPIC.setImageResource(R.drawable.ic_switch_on_copy);
+                    }
+                    else if(like == NetConstants.LIKE_YES) {
+                        favStarTHPIC.setImageResource(R.drawable.ic_like_selected);
+                        toggleLikeDisLikeTHPIC.setImageResource(R.drawable.ic_switch_on_copy);
+                    }
+                    else if(like == NetConstants.LIKE_NO) {
+                        favStarTHPIC.setImageResource(R.drawable.ic_like_unselected);
+                        toggleLikeDisLikeTHPIC.setImageResource(R.drawable.ic_switch_off_copy);
+                    }
+
+                }, val->{
+                    Log.i("", "");
+                });
+    }
 
     private void init(Context context, AttributeSet attrs) {
 
@@ -71,39 +154,54 @@ public class CustomToolbar extends Toolbar {
 
         mTitleTextView =  findViewById(R.id.title);
         mBackImageView = (ImageView) findViewById(R.id.back);
-        mShareImageView = findViewById(R.id.shareIC);
         mCreateBookMarkImageView = findViewById(R.id.bookmarkIC);
         mRemoveBookMarkedImageView = findViewById(R.id.bookmarkedIC);
         mTextSizeImageView = findViewById(R.id.fontSizeIC);
-        mCommentImageView = findViewById(R.id.commentIC);
         mTTSPlayImageView = findViewById(R.id.ttsPlayIC);
         mTTSPauseImageView = findViewById(R.id.ttsPauseIC);
+
         mTtsProgress = findViewById(R.id.ttsProgress);
+        favTHPProgressBar = findViewById(R.id.favTHPProgressBar);
+        bookmarkProgressBar = findViewById(R.id.bookmarkrogressBar);
+        likeTHPProgressBar = findViewById(R.id.likeTHPProgressBar);
 
-        favTHPIC = findViewById(R.id.favTHPIC);
+        favStarTHPIC = findViewById(R.id.favTHPIC);
         shareTHPIC = findViewById(R.id.shareTHPIC);
-        likeTHPIC = findViewById(R.id.likeTHPIC);
+        toggleLikeDisLikeTHPIC = findViewById(R.id.likeTHPIC);
 
-        if(favTHPIC != null) {
-            favTHPIC.setOnClickListener(v -> {
+        if(favStarTHPIC != null) {
+            favStarTHPIC.setOnClickListener(v -> {
                 if (mToolbarClickListener != null) {
+                    hideFavProgTHP(false);
                     mToolbarClickListener.onFavClickListener(mToolbarCallModel);
+
                 }
             });
         }
 
-        if(shareTHPIC != null) {
-            shareTHPIC.setOnClickListener(v -> {
+        if(toggleLikeDisLikeTHPIC != null) {
+            toggleLikeDisLikeTHPIC.setOnClickListener(v -> {
                 if (mToolbarClickListener != null) {
-                    mToolbarClickListener.onShareClickListener(mToolbarCallModel);
+                    hideLikeProgTHP(false);
+                    mToolbarClickListener.onLikeClickListener(mToolbarCallModel);
                 }
             });
         }
 
-        if(likeTHPIC != null) {
-            likeTHPIC.setOnClickListener(v -> {
+        if(mCreateBookMarkImageView != null) {
+            mCreateBookMarkImageView.setOnClickListener(v->{
                 if (mToolbarClickListener != null) {
-                    mToolbarClickListener.onFavClickListener(mToolbarCallModel);
+                    showBookmarkProgTHP(true, false);
+                    mToolbarClickListener.onCreateBookmarkClickListener(mToolbarCallModel);
+                }
+            });
+        }
+
+        if(mRemoveBookMarkedImageView != null) {
+            mRemoveBookMarkedImageView.setOnClickListener(v->{
+                if (mToolbarClickListener != null) {
+                    showBookmarkProgTHP(true, false);
+                    mToolbarClickListener.onRemoveBookmarkClickListener(mToolbarCallModel);
                 }
             });
         }
@@ -116,47 +214,20 @@ public class CustomToolbar extends Toolbar {
             });
         }
 
-
-
-        if(mShareImageView != null) {
-            mShareImageView.setOnClickListener(v->{
+        if(shareTHPIC != null) {
+            shareTHPIC.setOnClickListener(v -> {
                 if (mToolbarClickListener != null) {
                     mToolbarClickListener.onShareClickListener(mToolbarCallModel);
                 }
             });
         }
 
-        if(mCreateBookMarkImageView != null) {
 
-            // CLick Listener
-            mCreateBookMarkImageView.setOnClickListener(v->{
-                if (mToolbarClickListener != null) {
-                    mToolbarClickListener.onCreateBookmarkClickListener(mToolbarCallModel);
-                }
-            });
-        }
-
-        if(mRemoveBookMarkedImageView != null) {
-            // CLick Listener
-            mRemoveBookMarkedImageView.setOnClickListener(v->{
-                if (mToolbarClickListener != null) {
-                    mToolbarClickListener.onRemoveBookmarkClickListener(mToolbarCallModel);
-                }
-            });
-        }
 
         if(mTextSizeImageView != null) {
             mTextSizeImageView.setOnClickListener(v->{
                 if (mToolbarClickListener != null) {
                     mToolbarClickListener.onFontSizeClickListener(mToolbarCallModel);
-                }
-            });
-        }
-
-        if(mCommentImageView != null) {
-            mCommentImageView.setOnClickListener(v->{
-                if (mToolbarClickListener != null) {
-                    mToolbarClickListener.onCommentClickListener(mToolbarCallModel);
                 }
             });
         }
@@ -196,28 +267,7 @@ public class CustomToolbar extends Toolbar {
     }
 
     public void setIsBookmarked(boolean isBookmarked) {
-        View view = null;
-        if(mCreateBookMarkImageView != null) {
-            if(isBookmarked) {
-                mRemoveBookMarkedImageView.setVisibility(GONE);
-                mCreateBookMarkImageView.setVisibility(VISIBLE);
-            } else {
-                mCreateBookMarkImageView.setVisibility(VISIBLE);
-                mRemoveBookMarkedImageView.setVisibility(GONE);
-                view = mCreateBookMarkImageView;
-            }
-        }
-        if(mRemoveBookMarkedImageView != null) {
-            if(isBookmarked) {
-                mRemoveBookMarkedImageView.setVisibility(VISIBLE);
-                mCreateBookMarkImageView.setVisibility(GONE);
-                view = mRemoveBookMarkedImageView;
-            } else {
-                mRemoveBookMarkedImageView.setVisibility(GONE);
-                mCreateBookMarkImageView.setVisibility(VISIBLE);
-            }
-        }
-
+        showHideBookmarkImg(isBookmarked);
     }
 
 
@@ -279,12 +329,6 @@ public class CustomToolbar extends Toolbar {
     }
 
 
-
-    public void hideShareView() {
-        if(mShareImageView != null) {
-            mShareImageView.setVisibility(GONE);
-        }
-    }
 
     public void showTTSPlayView(int isLanguageSupportTTS) {
         if(isLanguageSupportTTS == 0) {
