@@ -33,6 +33,7 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:alpha="0.5"
+            android:visibility="gone"
             android:textColor="@color/dateColor"
             />
 
