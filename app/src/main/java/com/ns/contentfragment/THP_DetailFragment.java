@@ -132,7 +132,7 @@ public class THP_DetailFragment extends BaseFragmentTHP implements RecyclerViewP
             // Checking Visible Article is bookmarked or not.
             isExistInBookmark(mArticleId);
             // Checking Visible Article is Like and Fav or not.
-            mActivity.getToolbar().isFavOrLike(getActivity(), mRecoBean, mArticleId);
+            isFavOrLike();
         }
 
 
@@ -150,9 +150,10 @@ public class THP_DetailFragment extends BaseFragmentTHP implements RecyclerViewP
             isExistInBookmark(mRecoBean.getArticleId());
 
             // Checking Visible Article is Like and Fav or not.
-            mActivity.getToolbar().isFavOrLike(getActivity(), mRecoBean, mArticleId);
+            isFavOrLike();
         }
     }
+
 
     /**
      * Adding Pull To Refresh Listener
@@ -209,12 +210,6 @@ public class THP_DetailFragment extends BaseFragmentTHP implements RecyclerViewP
 
     @Override
     public void onCreateBookmarkClickListener(ToolbarCallModel toolbarCallModel) {
-        /*mDisposable.add(
-                ApiManager.createBookmark(getActivity(), mRecoBean)
-                .subscribe(value->
-                        mActivity.getToolbar().setIsBookmarked((Boolean)value)
-                )
-        );*/
         updateBookmarkFavLike(getActivity(), mRecoBean, "bookmark");
     }
 
@@ -230,11 +225,6 @@ public class THP_DetailFragment extends BaseFragmentTHP implements RecyclerViewP
 
     @Override
     public void onRemoveBookmarkClickListener(ToolbarCallModel toolbarCallModel) {
-        /*ApiManager.createUnBookmark(getActivity(), mArticleId)
-                .subscribe(value->
-                        mActivity.getToolbar().setIsBookmarked((Boolean)value)
-                );*/
-
         updateBookmarkFavLike(getActivity(), mRecoBean, "bookmark");
     }
 
@@ -446,6 +436,9 @@ public class THP_DetailFragment extends BaseFragmentTHP implements RecyclerViewP
      * @param aid
      */
     private void isExistInBookmark(String aid) {
+        if(isBriefingDetail()) {
+            return;
+        }
         mDisposable.add(
                 ApiManager.isExistInBookmark(getActivity(), aid)
                 .subscribe(
@@ -457,4 +450,27 @@ public class THP_DetailFragment extends BaseFragmentTHP implements RecyclerViewP
                         })
         );
     }
+
+    /**
+     * Checking Visible Article is Like and Fav or not.
+     */
+    private void isFavOrLike() {
+        if(isBriefingDetail()) {
+            return;
+        }
+        mActivity.getToolbar().isFavOrLike(getActivity(), mRecoBean, mArticleId);
+    }
+
+    private boolean isBriefingDetail() {
+        if(mFrom != null && ((NetConstants.BREIFING_ALL.equalsIgnoreCase(mFrom))
+                || (NetConstants.BREIFING_EVENING.equalsIgnoreCase(mFrom))
+                || (NetConstants.BREIFING_NOON.equalsIgnoreCase(mFrom))
+                || (NetConstants.BREIFING_MORNING.equalsIgnoreCase(mFrom)))) {
+            return true;
+        }
+        return false;
+    }
+
+
+
 }

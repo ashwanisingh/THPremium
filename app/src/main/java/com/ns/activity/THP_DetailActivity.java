@@ -4,11 +4,13 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import com.netoperation.net.ApiManager;
+import com.netoperation.util.NetConstants;
 import com.ns.callbacks.FragmentTools;
 import com.ns.contentfragment.AppTabFragment;
 import com.ns.contentfragment.THP_DetailPagerFragment;
 import com.ns.thpremium.R;
 import com.ns.utils.FragmentUtil;
+import com.ns.utils.THPConstants;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 
@@ -36,6 +38,13 @@ public class THP_DetailActivity extends BaseAcitivityTHP {
             url = getIntent().getStringExtra("url");
             clickedPosition = getIntent().getIntExtra("clickedPosition", 0);
             articleId = getIntent().getStringExtra("articleId");
+        }
+
+        if(mFrom != null && ((NetConstants.BREIFING_ALL.equalsIgnoreCase(mFrom))
+                || (NetConstants.BREIFING_EVENING.equalsIgnoreCase(mFrom))
+                || (NetConstants.BREIFING_NOON.equalsIgnoreCase(mFrom))
+                || (NetConstants.BREIFING_MORNING.equalsIgnoreCase(mFrom)))) {
+            getToolbar().hideBookmark_Fav_Like();
         }
 
         ApiManager.getUserProfile(this)

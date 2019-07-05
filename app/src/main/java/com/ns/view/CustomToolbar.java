@@ -64,6 +64,18 @@ public class CustomToolbar extends Toolbar {
         init(context, attrs);
     }
 
+    public void hideBookmark_Fav_Like() {
+        bookmarkProgressBar.setVisibility(GONE);
+        favTHPProgressBar.setVisibility(GONE);
+        likeTHPProgressBar.setVisibility(GONE);
+
+        mCreateBookMarkImageView.setVisibility(GONE);
+        mRemoveBookMarkedImageView.setVisibility(GONE);
+
+        favStarTHPIC.setVisibility(GONE);
+        toggleLikeDisLikeTHPIC.setVisibility(GONE);
+    }
+
     private void showHideBookmarkImg(boolean isBookmarked) {
         bookmarkProgressBar.setVisibility(GONE);
         if(isBookmarked) {
