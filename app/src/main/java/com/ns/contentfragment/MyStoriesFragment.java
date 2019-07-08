@@ -3,6 +3,8 @@ package com.ns.contentfragment;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 
 import com.netoperation.model.RecoBean;
@@ -79,6 +81,8 @@ public class MyStoriesFragment extends BaseFragmentTHP implements RecyclerViewPu
         // Pull To Refresh Listener
         registerPullToRefresh();
 
+        loadUserProfile();
+
     }
 
     @Override
@@ -91,6 +95,34 @@ public class MyStoriesFragment extends BaseFragmentTHP implements RecyclerViewPu
         else if (mIsVisible && getView() != null && mRecyclerAdapter != null) {
             mRecyclerAdapter.notifyDataSetChanged();
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.i("", "");
+        if(mIsVisible && getView() != null && mRecyclerAdapter != null) {
+            mRecyclerAdapter.notifyDataSetChanged();
+        }
+    }
+
+    /**
+     * Loads User Profile Data
+     */
+    private void loadUserProfile() {
+        ApiManager.getUserProfile(getActivity())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(userProfile -> {
+                    if(userProfile != null && !TextUtils.isEmpty(userProfile.getFullName())) {
+                        userName_Txt.setText(userProfile.getFullName().toUpperCase());
+                    } else if(userProfile != null && !TextUtils.isEmpty(userProfile.getEmailId())) {
+                        userName_Txt.setText(userProfile.getEmailId().toUpperCase());
+                    } else if(userProfile != null && !TextUtils.isEmpty(userProfile.getContact())) {
+                        userName_Txt.setText(userProfile.getContact().toUpperCase());
+                    } else {
+                        userName_Txt.setVisibility(View.GONE);
+                    }
+                });
     }
 
     /**

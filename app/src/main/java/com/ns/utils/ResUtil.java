@@ -6,10 +6,13 @@ import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Html;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.text.Spanned;
 import android.text.TextPaint;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
@@ -286,6 +289,14 @@ public class ResUtil {
             return true;
         }
         return false;
+    }
+
+    public static Spanned htmlText(String text) {
+        if (Build.VERSION.SDK_INT >= 24) {
+            return Html.fromHtml(text, Html.FROM_HTML_MODE_LEGACY); // for 24 api and more
+        } else {
+            return Html.fromHtml(text); // or for older api
+        }
     }
 
 

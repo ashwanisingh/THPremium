@@ -25,6 +25,7 @@ import com.ns.utils.CommonUtil;
 import com.ns.utils.ContentUtil;
 import com.ns.utils.GlideUtil;
 import com.ns.utils.IntentUtil;
+import com.ns.utils.ResUtil;
 import com.ns.utils.WebViewLinkClick;
 import com.ns.view.AutoResizeWebview;
 import com.ns.viewholder.BookmarkViewHolder;
@@ -175,12 +176,12 @@ public class AppTabContentAdapter extends BaseRecyclerViewAdapter {
         BriefcaseViewHolder holder = (BriefcaseViewHolder) viewHolder;
         GlideUtil.loadImage(holder.image.getContext(), holder.image, ContentUtil.getThumbUrl(bean.getThumbnailUrl()), R.drawable.th_ph_02);
         holder.authorName_Txt.setText(ContentUtil.getAuthor(bean.getAuthor()));
-        holder.title.setText(bean.getArticletitle());
+        holder.title.setText(ResUtil.htmlText(bean.getArticletitle()));
         holder.sectionName.setText(bean.getArticleSection());
         // Publish Date
         String formatedPubDt = CommonUtil.fomatedDate(bean.getPubDateTime(), mFrom);
         holder.time_Txt.setText(formatedPubDt);
-        holder.description_Txt.setText(CommonUtil.htmlText(bean.getDescription()));
+        holder.description_Txt.setText(ResUtil.htmlText(bean.getDescription()));
 
         holder.itemView.setOnClickListener(v->
                 IntentUtil.openDetailActivity(holder.itemView.getContext(), mFrom,

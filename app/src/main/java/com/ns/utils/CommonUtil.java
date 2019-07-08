@@ -78,13 +78,7 @@ public class CommonUtil {
     }
 
 
-    public static Spanned htmlText(String text) {
-        if (Build.VERSION.SDK_INT >= 24) {
-            return Html.fromHtml(text, Html.FROM_HTML_MODE_LEGACY); // for 24 api and more
-        } else {
-            return Html.fromHtml(text); // or for older api
-        }
-    }
+
 
     public static int getArticleIdFromArticleUrl(String url) {
         Pattern p = Pattern.compile("article(\\d+)");

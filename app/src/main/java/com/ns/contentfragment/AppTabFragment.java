@@ -7,11 +7,13 @@ import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
 import android.widget.LinearLayout;
 
 import com.netoperation.model.TxnDataBean;
+import com.netoperation.net.ApiManager;
 import com.ns.activity.BecomeMemberActivity;
 import com.ns.adapter.AppTabPagerAdapter;
 import com.ns.callbacks.OnSubscribeBtnClick;
@@ -20,9 +22,12 @@ import com.ns.loginfragment.BaseFragmentTHP;
 import com.ns.utils.FragmentUtil;
 import com.ns.utils.IntentUtil;
 import com.ns.utils.THPConstants;
+import com.ns.view.CustomTextView;
 import com.ns.view.ViewPagerScroller;
 
 import java.lang.reflect.Field;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
 
 public class AppTabFragment extends BaseFragmentTHP implements OnSubscribeBtnClick {
 
@@ -41,6 +46,7 @@ public class AppTabFragment extends BaseFragmentTHP implements OnSubscribeBtnCli
     private TabLayout mTabLayout;
     private ViewPager viewPager;
     private AppTabPagerAdapter pagerAdapter;
+    private CustomTextView profileBtn;
 
     @Override
     public int getLayoutRes() {
@@ -59,10 +65,10 @@ public class AppTabFragment extends BaseFragmentTHP implements OnSubscribeBtnCli
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
         subscribeLayout = view.findViewById(R.id.subscribeLayout);
         mTabLayout = view.findViewById(R.id.appTabsTabLayout);
         viewPager = view.findViewById(R.id.appTabsViewPager);
+        profileBtn = view.findViewById(R.id.profileBtn);
 
         pagerAdapter = new AppTabPagerAdapter(getChildFragmentManager(), mUserId);
 
@@ -116,15 +122,38 @@ public class AppTabFragment extends BaseFragmentTHP implements OnSubscribeBtnCli
         );
 
         // Premium Logo Button Click Listener
-        view.findViewById(R.id.premiumLogoBtn).setOnClickListener(v->
-            IntentUtil.openMemberActivity(getActivity(), "")
+        view.findViewById(R.id.premiumLogoBtn).setOnClickListener(v-> {
+                    // IntentUtil.openMemberActivity(getActivity(), "")
+                }
         );
 
         // Profile Icon Button Click Listener
-        view.findViewById(R.id.profileBtn).setOnClickListener(v->
+        profileBtn.setOnClickListener(v->
             IntentUtil.openUserProfileActivity(getActivity(), THPConstants.FROM_USER_PROFILE)
         );
 
+        // Shows user name
+        loadUserProfile();
+
+    }
+
+    /**
+     * Loads User Profile Data
+     */
+    private void loadUserProfile() {
+        ApiManager.getUserProfile(getActivity())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(userProfile -> {
+                    if(userProfile != null && !TextUtils.isEmpty(userProfile.getFullName())) {
+                        profileBtn.setText(userProfile.getFullName().toUpperCase());
+                    } else if(userProfile != null && !TextUtils.isEmpty(userProfile.getEmailId())) {
+                        profileBtn.setText(userProfile.getEmailId().toUpperCase());
+                    } else if(userProfile != null && !TextUtils.isEmpty(userProfile.getContact())) {
+                        profileBtn.setText(userProfile.getContact().toUpperCase());
+                    } else {
+                        profileBtn.setVisibility(View.GONE);
+                    }
+                });
     }
 
     /**

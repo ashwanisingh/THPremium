@@ -973,8 +973,13 @@ public class ApiManager {
     public static Observable<List<TxnDataBean>> getTxnHistory(String userId) {
         return ServiceFactory.getServiceAPIs().getTxnHistory(userId, "0")
                 .subscribeOn(Schedulers.newThread())
-                .map(txnModel->
-                        txnModel.getTxnData()
+                .map(txnModel -> {
+                            List<TxnDataBean> txnDataBeans = txnModel.getTxnData();
+                            if (txnDataBeans == null) {
+                                txnDataBeans = new ArrayList<>();
+                            }
+                            return txnDataBeans;
+                        }
                 );
     }
 

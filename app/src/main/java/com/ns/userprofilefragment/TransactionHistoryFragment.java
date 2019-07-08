@@ -62,6 +62,8 @@ public class TransactionHistoryFragment extends BaseFragmentTHP {
 
     }
 
+    private TransactionHistoryAdapter adapter;
+
 
     private void loadData() {
         mRecyclerViewPullToRefresh.showProgressBar();
@@ -70,13 +72,16 @@ public class TransactionHistoryFragment extends BaseFragmentTHP {
                     ApiManager.getTxnHistory(userProfile.getUserId())
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe(txnDataBeans -> {
-                                TransactionHistoryAdapter adapter = new TransactionHistoryAdapter(txnDataBeans, "HISTORY");
+                                adapter = new TransactionHistoryAdapter(txnDataBeans, "HISTORY");
                                 mRecyclerViewPullToRefresh.setDataAdapter(adapter);
                             }, throwable -> {
                                 mRecyclerViewPullToRefresh.hideProgressBar();
                                 Alerts.showErrorDailog(getChildFragmentManager(), getResources().getString(R.string.kindly), getResources().getString(R.string.please_check_ur_connectivity));
                             }, () -> {
                                 mRecyclerViewPullToRefresh.hideProgressBar();
+                                if(adapter == null || adapter.getItemCount()==0) {
+                                    mRecyclerViewPullToRefresh.showTryAgainBtn("You don't have purchased any subscription.");
+                                }
                             })
                 , throwable -> {
                             mRecyclerViewPullToRefresh.hideProgressBar();
