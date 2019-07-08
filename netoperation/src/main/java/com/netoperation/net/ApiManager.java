@@ -49,20 +49,31 @@ public class ApiManager {
     private ApiManager() {
     }
 
-    public static void userVerification(RequestCallback<Boolean> callback, String email, String contact, String siteId) {
+    public static void userVerification(RequestCallback<KeyValueModel> callback,
+                                        String email, String contact, String siteId, @RetentionDef.userVerificationMode String event) {
 
-        Observable<JsonElement> observable = ServiceFactory.getServiceAPIs().userVerification(ReqBody.userVerification(email, contact, siteId, NetConstants.EVENT_SIGNUP));
+        Observable<JsonElement> observable = ServiceFactory.getServiceAPIs().userVerification(ReqBody.userVerification(email, contact, siteId, event));
         observable.subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .map(value -> {
-                            if (((JsonObject) value).has("status")) {
-                                String status = ((JsonObject) value).get("status").getAsString();
-                                if (status.equalsIgnoreCase("success")) {
-                                    return true;
-                                }
-                                return false;
-                            }
-                            return false;
+
+
+                    KeyValueModel keyValueModel = new KeyValueModel();
+
+                    if (((JsonObject) value).has("status")) {
+                        String status = ((JsonObject) value).get("status").getAsString();
+                        keyValueModel.setState(status);
+                        if (status.equalsIgnoreCase("success")) {
+
+
+                        } else {
+                            String reason = ((JsonObject) value).get("reason").getAsString();
+                            keyValueModel.setName(reason);
+                        }
+                    }
+
+
+                            return keyValueModel;
                         }
                 )
                 .subscribe(value -> {

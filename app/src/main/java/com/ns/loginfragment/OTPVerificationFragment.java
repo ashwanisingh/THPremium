@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alimuzaffar.lib.pin.PinEntryEditText;
+import com.netoperation.model.KeyValueModel;
 import com.netoperation.net.ApiManager;
 import com.netoperation.net.RequestCallback;
 import com.netoperation.util.NetConstants;
@@ -64,6 +65,8 @@ public class OTPVerificationFragment extends BaseFragmentTHP {
     private String email = "";
     private String contact = "";
     private String emailOrContact;
+
+    private String mEventType;
 
 
     @Override
@@ -131,6 +134,9 @@ public class OTPVerificationFragment extends BaseFragmentTHP {
 
         if(mFrom != null && (mFrom.equalsIgnoreCase(THPConstants.FROM_DELETE_ACCOUNT)
                 || mFrom.equalsIgnoreCase(THPConstants.FROM_SUSPEND_ACCOUNT))) {
+
+            mEventType = NetConstants.EVENT_CHANGE_ACCOUNT_STATUS;
+
             ApiManager.getUserProfile(getActivity())
                     .observeOn(AndroidSchedulers.mainThread())
                     .map(userProfile -> {
@@ -147,10 +153,16 @@ public class OTPVerificationFragment extends BaseFragmentTHP {
                             contact = userProfile.getContact();
                         }
 
-                        generateOTP(NetConstants.EVENT_CHANGE_ACCOUNT_STATUS);
+                        generateOTP();
                         return userProfile;
                     })
                     .subscribe();
+        }
+        else if(mFrom != null && (mFrom.equalsIgnoreCase(THPConstants.FROM_FORGOT_PASSWORD))) {
+            mEventType = NetConstants.EVENT_FORGOT_PASSWORD;
+        }
+        else if(mFrom != null && (mFrom.equalsIgnoreCase(THPConstants.FROM_SignUpFragment))) {
+            mEventType = NetConstants.EVENT_SIGNUP;
         }
 
     }
@@ -209,20 +221,15 @@ public class OTPVerificationFragment extends BaseFragmentTHP {
      */
     private void reSendSignupOtpReq() {
         progressBar.setVisibility(View.VISIBLE);
-        ApiManager.userVerification(new RequestCallback<Boolean>() {
+        ApiManager.userVerification(new RequestCallback<KeyValueModel>() {
             @Override
-            public void onNext(Boolean bool) {
+            public void onNext(KeyValueModel keyValueModel) {
                 if(getActivity() == null && getView() == null) {
                     return;
                 }
                 progressBar.setVisibility(View.INVISIBLE);
-                if(!bool) {
-                    if(isUserEnteredEmail) {
-                        Alerts.showAlertDialogOKBtn(getActivity(), "Sorry!", "Email already exist");
-                    }
-                    else {
-                        Alerts.showAlertDialogOKBtn(getActivity(), "Sorry!", "Mobile already exist");
-                    }
+                if(keyValueModel.getState() != null && !keyValueModel.getState().equalsIgnoreCase("success")) {
+                    Alerts.showAlertDialogOKBtn(getActivity(), "Sorry!", keyValueModel.getName());
                 }
                 else {
                     // TODO, Nothing
@@ -241,12 +248,12 @@ public class OTPVerificationFragment extends BaseFragmentTHP {
             public void onComplete(String str) {
 
             }
-        }, email, contact, BuildConfig.SITEID);
+        }, email, contact, BuildConfig.SITEID, mEventType);
     }
 
-    private void generateOTP(String otpEventType) {
+    private void generateOTP() {
         progressBar.setVisibility(View.VISIBLE);
-        ApiManager.generateOtp(email, contact, BuildConfig.SITEID, otpEventType)
+        ApiManager.generateOtp(email, contact, BuildConfig.SITEID, mEventType)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(aBoolean -> {
                     if(getActivity() == null && getView() == null) {

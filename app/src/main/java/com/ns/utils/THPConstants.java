@@ -7,6 +7,7 @@ public class THPConstants {
     public static final String FROM_SubscriptionStep_1_Fragment = "SubscriptionStep_1_Fragment";
     public static final String FROM_BecomeMemberActivity = "BecomeMemberActivity";
     public static final String FROM_SignUpFragment = "SignUpFragment";
+    public static final String FROM_FORGOT_PASSWORD = "FORGOT_PASSWORD";
     public static final String FROM_AccountInfoFragment = "AccountInfoFragment";
     public static final String FROM_PersonalInfoFragment = "PersonalInfoFragment";
     public static final String FROM_SUSPEND_ACCOUNT = "suspendAccount";

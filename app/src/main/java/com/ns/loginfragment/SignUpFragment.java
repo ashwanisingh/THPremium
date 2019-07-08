@@ -29,8 +29,10 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.netoperation.model.KeyValueModel;
 import com.netoperation.net.ApiManager;
 import com.netoperation.net.RequestCallback;
+import com.netoperation.util.NetConstants;
 import com.ns.activity.SignInAndUpActivity;
 import com.ns.alerts.Alerts;
 import com.ns.sharedpreference.THPPreferences;
@@ -193,20 +195,15 @@ public class SignUpFragment extends BaseFragmentTHP {
             // Hide SoftKeyboard
             CommonUtil.hideKeyboard(getView());
 
-            ApiManager.userVerification(new RequestCallback<Boolean>() {
+            ApiManager.userVerification(new RequestCallback<KeyValueModel>() {
                 @Override
-                public void onNext(Boolean bool) {
+                public void onNext(KeyValueModel keyValueModel) {
                     if(getActivity() == null && getView() == null) {
                         return;
                     }
 
-                    if(!bool) {
-                        if(isUserEnteredMobile) {
-                            Alerts.showAlertDialogOKBtn(getActivity(), "Sorry!", "Mobile already exist");
-                        }
-                        else {
-                            Alerts.showAlertDialogOKBtn(getActivity(), "Sorry!", "Email already exist");
-                        }
+                    if(keyValueModel.getState() != null && !keyValueModel.getState().equalsIgnoreCase("success")) {
+                        Alerts.showAlertDialogOKBtn(getActivity(), "Sorry!", keyValueModel.getName());
                     }
                     else {
                          // Opening OTP Verification Screen
@@ -233,7 +230,7 @@ public class SignUpFragment extends BaseFragmentTHP {
                     progressBar.setVisibility(View.GONE);
                     signUp_Txt.setEnabled(true);
                 }
-            }, emailStr, mobileStr, BuildConfig.SITEID);
+            }, emailStr, mobileStr, BuildConfig.SITEID, NetConstants.EVENT_SIGNUP);
 
 
 
