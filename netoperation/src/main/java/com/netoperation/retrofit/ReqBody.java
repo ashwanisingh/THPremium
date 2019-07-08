@@ -62,7 +62,8 @@ public class ReqBody {
         return object;
     }
 
-    public static JsonObject resetPassword(String otp, String password, String countryCode, String emailId, String siteId, String originUrl, String contact) {
+    public static JsonObject resetPassword(String otp, String password, String countryCode, String emailId,
+                                           String siteId, String originUrl, String contact) {
         JsonObject object = new JsonObject();
         object.addProperty("otp", otp);
         object.addProperty("password", password);

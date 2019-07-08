@@ -196,6 +196,12 @@ public class OTPVerificationFragment extends BaseFragmentTHP {
                             || mFrom.equalsIgnoreCase(THPConstants.FROM_SUSPEND_ACCOUNT))) {
                         FragmentUtil.clearSingleBackStack((AppCompatActivity)getActivity());
                     }
+                    else if(mFrom != null && (mFrom.equalsIgnoreCase(THPConstants.FROM_FORGOT_PASSWORD))) {
+                        SetPasswordFragment fragment = SetPasswordFragment.getInstance(mFrom, isUserEnteredEmail, email, contact, otp);
+                        FragmentUtil.pushFragmentAnim((AppCompatActivity) getActivity(),
+                                R.id.parentLayout, fragment,
+                                FragmentUtil.FRAGMENT_NO_ANIMATION, false);
+                    }
                 }
             }
 

@@ -37,7 +37,6 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
-import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
@@ -51,28 +50,22 @@ public class ApiManager {
 
     public static void userVerification(RequestCallback<KeyValueModel> callback,
                                         String email, String contact, String siteId, @RetentionDef.userVerificationMode String event) {
-
         Observable<JsonElement> observable = ServiceFactory.getServiceAPIs().userVerification(ReqBody.userVerification(email, contact, siteId, event));
         observable.subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .map(value -> {
+                            KeyValueModel keyValueModel = new KeyValueModel();
 
+                            if (((JsonObject) value).has("status")) {
+                                String status = ((JsonObject) value).get("status").getAsString();
+                                keyValueModel.setState(status);
+                                if (status.equalsIgnoreCase("success")) {
 
-                    KeyValueModel keyValueModel = new KeyValueModel();
-
-                    if (((JsonObject) value).has("status")) {
-                        String status = ((JsonObject) value).get("status").getAsString();
-                        keyValueModel.setState(status);
-                        if (status.equalsIgnoreCase("success")) {
-
-
-                        } else {
-                            String reason = ((JsonObject) value).get("reason").getAsString();
-                            keyValueModel.setName(reason);
-                        }
-                    }
-
-
+                                } else {
+                                    String reason = ((JsonObject) value).get("reason").getAsString();
+                                    keyValueModel.setName(reason);
+                                }
+                            }
                             return keyValueModel;
                         }
                 )
@@ -92,6 +85,41 @@ public class ApiManager {
                 });
     }
 
+
+    public static void resetPassword(RequestCallback<KeyValueModel> callback, String otp, String password, String countryCode, String emailId, String siteId, String originUrl, String contact) {
+        Observable<JsonElement> observable = ServiceFactory.getServiceAPIs().resetPassword(ReqBody.resetPassword(otp, password, countryCode, emailId, siteId, originUrl, contact));
+        observable.subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .map(value -> {
+                            KeyValueModel keyValueModel = new KeyValueModel();
+                            if (((JsonObject) value).has("status")) {
+                                String status = ((JsonObject) value).get("status").getAsString();
+                                keyValueModel.setState(status);
+                                if (status.equalsIgnoreCase("success")) {
+
+                                } else {
+                                    String reason = ((JsonObject) value).get("reason").getAsString();
+                                    keyValueModel.setName(reason);
+                                }
+                            }
+                            return keyValueModel;
+                        }
+                )
+                .subscribe(value -> {
+                    if (callback != null) {
+                        callback.onNext(value);
+                    }
+
+                }, throwable -> {
+                    if (callback != null) {
+                        callback.onError(throwable, NetConstants.EVENT_SIGNUP);
+                    }
+                }, () -> {
+                    if (callback != null) {
+                        callback.onComplete(NetConstants.EVENT_SIGNUP);
+                    }
+                });
+    }
 
     public static Observable<Boolean> generateOtp(String email, String contact, String siteId, String otpEventType) {
 
