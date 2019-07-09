@@ -147,6 +147,12 @@ public class SignUpFragment extends BaseFragmentTHP {
         tweeterBtn.setEnabled(false);
         facebookBtn = view.findViewById(R.id.facebookBtn);
 
+        faq_Txt.setOnClickListener(v->{
+            TCFragment fragment = TCFragment.getInstance(THPConstants.FAQ_URL);
+            FragmentUtil.pushFragmentAnim((AppCompatActivity)getActivity(), R.id.parentLayout,
+                    fragment, FragmentUtil.FRAGMENT_ANIMATION, false);
+        });
+
         // Terms and Conditions Click Listener
         ResUtil.doClickSpanForString(getActivity(), "By signing up, you agree to our  ",
                 "Terms and Conditions",
