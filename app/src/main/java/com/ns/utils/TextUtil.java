@@ -120,8 +120,14 @@ public class TextUtil {
     }
 
     public static String speakableText(String title, String shortDescription, String description) {
-        String parsedShortDescription = String.valueOf(Html.fromHtml(Html.fromHtml(shortDescription).toString()));
-        String parsedDescription = String.valueOf(Html.fromHtml(Html.fromHtml(description).toString()));
+        String parsedShortDescription = "";
+        String parsedDescription = "";
+        if(shortDescription != null) {
+            parsedShortDescription = String.valueOf(Html.fromHtml(Html.fromHtml(shortDescription).toString()));
+        }
+        if(description != null) {
+            parsedDescription = String.valueOf(Html.fromHtml(Html.fromHtml(description).toString()));
+        }
         String toPlay = title + "..." + parsedShortDescription + "..." + parsedDescription;
         return toPlay;
     }

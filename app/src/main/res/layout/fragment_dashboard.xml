@@ -3,12 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:paddingLeft="@dimen/apptab_listing_left_padding"
     android:paddingStart="@dimen/apptab_listing_left_padding"
     android:paddingEnd="@dimen/apptab_listing_right_padding"
     android:paddingRight="@dimen/apptab_listing_right_padding"
-    android:paddingTop="@dimen/apptab_listing_top_padding"
-    >
+    android:paddingTop="@dimen/apptab_listing_top_padding">
 
     <com.ns.view.CustomTextView
         android:id="@+id/userName_Txt"
@@ -17,7 +17,7 @@
         android:textSize="16sp"
         android:textColor="@color/boldBlackColor"
         android:lineSpacingExtra="12sp"
-        android:text="Udhay’s Dashboard"
+        tools:text="Ashwani’s Dashboard"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:font_path="@string/FONT_FIRA_SANS_BOLD"
@@ -35,6 +35,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/userName_Txt"
         app:font_path="@string/FONT_FIRA_SANS_REGULAR"
+        android:visibility="gone"
         />
 
     <com.ns.view.CustomTextView
@@ -52,6 +53,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:font_path="@string/FONT_FIRA_SANS_REGULAR"
+        android:visibility="gone"
         />
 
     <com.ns.view.RecyclerViewPullToRefresh

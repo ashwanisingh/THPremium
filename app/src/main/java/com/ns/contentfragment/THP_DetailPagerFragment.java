@@ -1,5 +1,7 @@
 package com.ns.contentfragment;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -11,9 +13,13 @@ import com.bumptech.glide.load.HttpException;
 import com.netoperation.model.RecoBean;
 import com.netoperation.net.ApiManager;
 import com.netoperation.util.NetConstants;
+import com.netoperation.util.UserPref;
+import com.ns.activity.BaseAcitivityTHP;
+import com.ns.activity.THP_DetailActivity;
 import com.ns.adapter.DetailPagerAdapter;
 import com.ns.loginfragment.BaseFragmentTHP;
 import com.ns.thpremium.R;
+import com.ns.tts.TTSManager;
 import com.ns.view.ViewPagerScroller;
 
 import java.lang.reflect.Field;
@@ -38,6 +44,8 @@ public class THP_DetailPagerFragment extends BaseFragmentTHP {
 
     private DetailPagerAdapter mSectionsPagerAdapter;
 
+    private THP_DetailActivity mActivity;
+
 
     public static final THP_DetailPagerFragment getInstance(String articleId,
                                                             int clickedPosition, String from, String userId) {
@@ -56,6 +64,21 @@ public class THP_DetailPagerFragment extends BaseFragmentTHP {
         return R.layout.fragment_pager_detail_thp;
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if(context instanceof THP_DetailActivity) {
+            mActivity = (THP_DetailActivity) context;
+        }
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        if(activity instanceof THP_DetailActivity) {
+            mActivity = (THP_DetailActivity) activity;
+        }
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -85,6 +108,27 @@ public class THP_DetailPagerFragment extends BaseFragmentTHP {
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
         loadData();
+
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int i, float v, int i1) {
+
+            }
+
+            @Override
+            public void onPageSelected(int i) {
+                // It stops TTS if it's playing.
+                TTSManager.getInstance().stopTTS();
+                // It shows TTS Play view and hides Stop View
+                mActivity.getToolbar().showTTSPlayView(UserPref.getInstance(getActivity()).isLanguageSupportTTS());
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int i) {
+
+            }
+        });
     }
 
 

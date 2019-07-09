@@ -93,7 +93,7 @@ public class AppDateUtil {
             else
                 result = t + hrsAgo;
         } else {
-            result = new SimpleDateFormat("dd-MMM-yyyy", locale).format(time_created);
+            result = new SimpleDateFormat("MMM dd, yyyy hh:mm a", locale).format(time_created)+ " IST";
         }
         return result;
     }
@@ -101,9 +101,7 @@ public class AppDateUtil {
     public static long strToMlsForNonBriefing(String dateInString) {
         // May 23, 2019 8:44:42 PM
         SimpleDateFormat formatter = new SimpleDateFormat("MMM dd, yyyy HH:mm:ss a");
-//        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         try {
-//            formatter.setTimeZone(TimeZone.getTimeZone("GMT"));
             Date date = formatter.parse(dateInString);
             return date.getTime();
         } catch (Exception e) {

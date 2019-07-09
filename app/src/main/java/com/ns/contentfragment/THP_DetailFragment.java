@@ -185,6 +185,7 @@ public class THP_DetailFragment extends BaseFragmentTHP implements RecyclerViewP
                 .subscribe(recoBean->{
                             mRecyclerAdapter.replaceData(recoBean, 0);
                             mRecyclerAdapter.replaceData(recoBean, 1);
+                            mRecoBean = recoBean;
                         },
                         throwable->{
                             Log.i("", "");
@@ -307,6 +308,13 @@ public class THP_DetailFragment extends BaseFragmentTHP implements RecyclerViewP
                                         // notifyItemChanged(position);
                                         Log.i("updateLIKE", "true");
                                         mActivity.getToolbar().isFavOrLike(context, bean, bean.getArticleId());
+
+                                        if(fav == NetConstants.LIKE_YES) {
+                                            Alerts.showToast(context, "You will more stories like this.");
+                                        }
+                                        else if(fav == NetConstants.LIKE_NO) {
+                                            Alerts.showToast(context, "Show fewer stories like this.");
+                                        }
                                     });
                                 }
 

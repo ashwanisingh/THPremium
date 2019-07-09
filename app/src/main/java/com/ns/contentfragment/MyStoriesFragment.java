@@ -114,11 +114,11 @@ public class MyStoriesFragment extends BaseFragmentTHP implements RecyclerViewPu
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(userProfile -> {
                     if(userProfile != null && !TextUtils.isEmpty(userProfile.getFullName())) {
-                        userName_Txt.setText(userProfile.getFullName().toUpperCase());
+                        userName_Txt.setText(userProfile.getFullName().toUpperCase()+"'s My Stories");
                     } else if(userProfile != null && !TextUtils.isEmpty(userProfile.getEmailId())) {
-                        userName_Txt.setText(userProfile.getEmailId().toUpperCase());
+                        userName_Txt.setText(userProfile.getEmailId().toUpperCase()+"'s My Stories");
                     } else if(userProfile != null && !TextUtils.isEmpty(userProfile.getContact())) {
-                        userName_Txt.setText(userProfile.getContact().toUpperCase());
+                        userName_Txt.setText(userProfile.getContact().toUpperCase()+"'s My Stories");
                     } else {
                         userName_Txt.setVisibility(View.GONE);
                     }

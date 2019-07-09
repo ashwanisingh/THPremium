@@ -256,7 +256,7 @@ public class AppTabContentAdapter extends BaseRecyclerViewAdapter {
             if(caption != null && !TextUtils.isEmpty(caption.trim())) {
                 holder.shadowOverlay.setVisibility(View.VISIBLE);
                 holder.tv_caption.setVisibility(View.VISIBLE);
-                holder.tv_caption.setText(caption);
+                holder.tv_caption.setText(ResUtil.htmlText(caption));
             } else {
                 holder.shadowOverlay.setVisibility(View.GONE);
                 holder.tv_caption.setVisibility(View.GONE);
@@ -466,6 +466,12 @@ public class AppTabContentAdapter extends BaseRecyclerViewAdapter {
                             // To Update at App end
                             ApiManager.updateLike(context, bean.getArticleId(), fav).subscribe(boole -> {
                                 notifyItemChanged(position);
+                                if(fav == NetConstants.LIKE_YES) {
+                                    Alerts.showToast(context, "You will more stories like this.");
+                                }
+                                else if(fav == NetConstants.LIKE_NO) {
+                                    Alerts.showToast(context, "Show fewer stories like this.");
+                                }
                             });
                         }
 

@@ -1212,14 +1212,25 @@ public class ApiManager {
                 );
     }
 
-    public static Observable<PrefListModel> getPersonalise(String userId, String siteId, String deviceId) {
+    public static Observable<PrefListModel> getUserSavedPersonalise(String userId, String siteId, String deviceId) {
         return ServiceFactory.getServiceAPIs().getPersonalise(ReqBody.getUserPreference(userId, siteId, deviceId))
                 .subscribeOn(Schedulers.newThread())
                 .map(selectedPrefModel -> {
 
-                    ArrayList<String> cities = selectedPrefModel.getPreferences().getCity();
-                    ArrayList<String> authors = selectedPrefModel.getPreferences().getAuthor();
-                    ArrayList<String> topics = selectedPrefModel.getPreferences().getTopics();
+                    ArrayList<String> cities = new ArrayList<>();
+                    ArrayList<String> authors = new ArrayList<>();
+                    ArrayList<String> topics = new ArrayList<>();
+
+                    if(selectedPrefModel.getPreferences() != null && selectedPrefModel.getPreferences().getCity() != null) {
+                        cities = selectedPrefModel.getPreferences().getCity();
+                    }
+                    if(selectedPrefModel.getPreferences() != null && selectedPrefModel.getPreferences().getCity() != null) {
+                        authors = selectedPrefModel.getPreferences().getAuthor();
+                    }
+                    if(selectedPrefModel.getPreferences() != null && selectedPrefModel.getPreferences().getCity() != null) {
+                        topics = selectedPrefModel.getPreferences().getTopics();
+                    }
+
 
                     PersonaliseDetails citiesDetails = new PersonaliseDetails();
                     PersonaliseDetails authorsDetails = new PersonaliseDetails();
