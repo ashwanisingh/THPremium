@@ -18,6 +18,7 @@ import com.ns.loginfragment.BaseFragmentTHP;
 import com.ns.model.AppTabContentModel;
 import com.ns.thpremium.BuildConfig;
 import com.ns.thpremium.R;
+import com.ns.view.CustomTextView;
 import com.ns.view.RecyclerViewPullToRefresh;
 
 import java.net.ConnectException;
@@ -34,9 +35,8 @@ import io.reactivex.schedulers.Schedulers;
 public class SuggestedFragment extends BaseFragmentTHP implements RecyclerViewPullToRefresh.TryAgainBtnClickListener {
 
     private RecyclerViewPullToRefresh mPullToRefreshLayout;
-    private LinearLayout emptyLayout;
     private AppTabContentAdapter mRecyclerAdapter;
-
+    private CustomTextView pageTitle_Txt;
 
 
     public static SuggestedFragment getInstance(String userId) {
@@ -65,7 +65,7 @@ public class SuggestedFragment extends BaseFragmentTHP implements RecyclerViewPu
         super.onViewCreated(view, savedInstanceState);
 
         mPullToRefreshLayout = view.findViewById(R.id.recyclerView);
-        emptyLayout = view.findViewById(R.id.emptyLayout);
+        pageTitle_Txt = view.findViewById(R.id.pageTitle_Txt);
 
         mRecyclerAdapter = new AppTabContentAdapter(new ArrayList<>(), NetConstants.RECO_suggested, mUserId);
 
@@ -77,6 +77,8 @@ public class SuggestedFragment extends BaseFragmentTHP implements RecyclerViewPu
 
         // Pull To Refresh Listener
         registerPullToRefresh();
+
+        pageTitle_Txt.setText("Suggested");
 
 
     }
@@ -185,13 +187,5 @@ public class SuggestedFragment extends BaseFragmentTHP implements RecyclerViewPu
                         }));
 
     }
-    private void showEmptyLayout() {
-        if(mRecyclerAdapter.getItemCount() == 0) {
-            emptyLayout.setVisibility(View.VISIBLE);
-            mPullToRefreshLayout.setVisibility(View.GONE);
-        } else {
-            emptyLayout.setVisibility(View.VISIBLE);
-            mPullToRefreshLayout.setVisibility(View.GONE);
-        }
-    }
+
 }
