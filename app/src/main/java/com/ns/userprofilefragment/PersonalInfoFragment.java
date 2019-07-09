@@ -19,6 +19,7 @@ import com.netoperation.db.UserProfileTable;
 import com.netoperation.model.KeyValueModel;
 import com.netoperation.model.UserProfile;
 import com.netoperation.net.ApiManager;
+import com.netoperation.util.NetConstants;
 import com.ns.alerts.Alerts;
 import com.ns.contentfragment.CalendarFragment;
 import com.ns.loginfragment.BaseFragmentTHP;
@@ -130,6 +131,11 @@ public class PersonalInfoFragment extends BaseFragmentTHP {
 
         stateET.setFocusable(false);
         stateET.setClickable(true);
+
+        view.findViewById(R.id.info_Txt).setOnClickListener(v->{
+            Alerts.showAlertDialogOKBtn(getActivity(), "",
+                    "Your profile details will enables us to tailor the stories that we bring to better suit your interst and tastes.");
+        });
 
          // Update Profile Button Click Listener
         updateBtn_Txt.setOnClickListener(v->{
@@ -354,12 +360,12 @@ public class PersonalInfoFragment extends BaseFragmentTHP {
         String Profile_State = stateET.getText().toString();
         mDisposable.add(ApiManager.updateProfile(getActivity(), mUserProfile, BuildConfig.SITEID, FullName, DOB, Gender, Profile_Country, Profile_State)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(bool->{
-                    if(bool) {
+                .subscribe(keyValueModel->{
+                    if(keyValueModel.getState().equalsIgnoreCase(NetConstants.SUCCESS)) {
                         Alerts.showToast(getActivity(), "Profile is updated successfully.");
                         FragmentUtil.clearSingleBackStack((AppCompatActivity) getActivity());
                     } else {
-                        Alerts.showAlertDialogOKBtn(getActivity(), "Sorry!", "Profile could not updated.\n Kindly try again.");
+                        Alerts.showAlertDialogOKBtn(getActivity(), "Sorry!", keyValueModel.getName());
                     }
                 }, throwable -> {
                     disableAllView(true);

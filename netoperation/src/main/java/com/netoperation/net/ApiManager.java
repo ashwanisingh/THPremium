@@ -934,34 +934,36 @@ public class ApiManager {
                 );
     }
 
-    public static Observable<Boolean> updateProfile(Context context, UserProfile userProfile, String siteId,
+    public static Observable<KeyValueModel> updateProfile(Context context, UserProfile userProfile, String siteId,
                                                         String FullName, String DOB,
                                                         String Gender, String Profile_Country, String Profile_State) {
         return ServiceFactory.getServiceAPIs().updateProfile(ReqBody.updateProfile(userProfile.getEmailId(), userProfile.getContact(),
                 siteId, userProfile.getUserId(), FullName, DOB, Gender, Profile_Country, Profile_State))
                 .subscribeOn(Schedulers.newThread())
                 .map(value-> {
-                    if (((JsonObject) value).has("status")) {
-                        String status = ((JsonObject) value).get("status").getAsString();
-                        if (status.equalsIgnoreCase("success")) {
-                            userProfile.setFullName(FullName);
-                            userProfile.setDOB(DOB);
-                            userProfile.setGender(Gender);
-                            userProfile.setProfile_Country(Profile_Country);
-                            userProfile.setProfile_State(Profile_State);
-                            THPDB thpdb = THPDB.getInstance(context);
-                            thpdb.userProfileDao().updateUserProfile(userProfile.getUserId(), userProfile);
-
-                            return true;
-                        }
-                        return false;
-                    }
-                    return false;
+                            KeyValueModel keyValueModel = new KeyValueModel();
+                            if (((JsonObject) value).has("status")) {
+                                String status = ((JsonObject) value).get("status").getAsString();
+                                keyValueModel.setState(status);
+                                if (status.equalsIgnoreCase(NetConstants.SUCCESS)) {
+                                    userProfile.setFullName(FullName);
+                                    userProfile.setDOB(DOB);
+                                    userProfile.setGender(Gender);
+                                    userProfile.setProfile_Country(Profile_Country);
+                                    userProfile.setProfile_State(Profile_State);
+                                    THPDB thpdb = THPDB.getInstance(context);
+                                    thpdb.userProfileDao().updateUserProfile(userProfile.getUserId(), userProfile);
+                                } else {
+                                    String reason = ((JsonObject) value).get("reason").getAsString();
+                                    keyValueModel.setName(reason);
+                                }
+                            }
+                            return keyValueModel;
                         }
                 );
     }
 
-    public static Observable<Boolean> updateAddress(Context context, UserProfile userProfile, String siteId,
+    public static Observable<KeyValueModel> updateAddress(Context context, UserProfile userProfile, String siteId,
                                                     String address_house_no, String address_street, String address_landmark,
                                                     String address_pincode, String address_state, String address_city,
                                                      String address_default_option, String address_fulllname) {
@@ -970,9 +972,11 @@ public class ApiManager {
                 address_pincode, address_state, address_city, address_default_option, address_fulllname))
                 .subscribeOn(Schedulers.newThread())
                 .map(value-> {
+                    KeyValueModel keyValueModel = new KeyValueModel();
                             if (((JsonObject) value).has("status")) {
                                 String status = ((JsonObject) value).get("status").getAsString();
-                                if (status.equalsIgnoreCase("success")) {
+                                keyValueModel.setState(status);
+                                if (status.equalsIgnoreCase(NetConstants.SUCCESS)) {
                                     userProfile.setAddress_house_no(address_house_no);
                                     userProfile.setAddress_street(address_street);
                                     userProfile.setAddress_landmark(address_landmark);
@@ -982,12 +986,13 @@ public class ApiManager {
                                     userProfile.setAddress_default_option(address_default_option);
                                     THPDB thpdb = THPDB.getInstance(context);
                                     thpdb.userProfileDao().updateUserProfile(userProfile.getUserId(), userProfile);
-
-                                    return true;
                                 }
-                                return false;
+                                else {
+                                    String reason = ((JsonObject) value).get("reason").getAsString();
+                                    keyValueModel.setName(reason);
+                                }
                             }
-                            return false;
+                            return keyValueModel;
                         }
                 );
     }

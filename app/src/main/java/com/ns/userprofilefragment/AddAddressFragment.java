@@ -12,6 +12,7 @@ import android.view.View;
 import com.bumptech.glide.load.HttpException;
 import com.netoperation.model.UserProfile;
 import com.netoperation.net.ApiManager;
+import com.netoperation.util.NetConstants;
 import com.ns.alerts.Alerts;
 import com.ns.loginfragment.BaseFragmentTHP;
 import com.ns.thpremium.BuildConfig;
@@ -194,13 +195,13 @@ public class AddAddressFragment extends BaseFragmentTHP {
         mDisposable.add(ApiManager.updateAddress(getActivity(), mUserProfile, BuildConfig.SITEID, flatNo, addressLine1,
                 landmark, pincode, state, city, mPrimaryAddress, "")
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(bool->{
-                    if(bool) {
+                .subscribe(keyValueModel->{
+                    if(keyValueModel.getState().equalsIgnoreCase(NetConstants.SUCCESS)) {
                         Alerts.showToast(getActivity(), "Address is updated successfully.");
                         FragmentUtil.clearSingleBackStack((AppCompatActivity) getActivity());
                     }
                     else {
-                        Alerts.showAlertDialogOKBtn(getActivity(), "Sorry!", "Address could not updated.\n Kindly try again.");
+                        Alerts.showAlertDialogOKBtn(getActivity(), "Sorry!", keyValueModel.getName());
                     }
                 }, throwable -> {
                     if (throwable instanceof HttpException || throwable instanceof ConnectException
