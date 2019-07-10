@@ -161,6 +161,7 @@ public class ReqBody {
         object.addProperty("contentId", contentId);
         object.addProperty("isBookmark", isBookmark);
         object.addProperty("isFavourite", isFavourite);
+        object.addProperty("requestSource", "app");
 
         return object;
     }

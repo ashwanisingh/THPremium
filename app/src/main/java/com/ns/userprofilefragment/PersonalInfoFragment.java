@@ -1,6 +1,8 @@
 package com.ns.userprofilefragment;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -20,7 +22,9 @@ import com.netoperation.model.KeyValueModel;
 import com.netoperation.model.UserProfile;
 import com.netoperation.net.ApiManager;
 import com.netoperation.util.NetConstants;
+import com.ns.activity.UserProfileActivity;
 import com.ns.alerts.Alerts;
+import com.ns.callbacks.AppLocationListener;
 import com.ns.contentfragment.CalendarFragment;
 import com.ns.loginfragment.BaseFragmentTHP;
 import com.ns.loginfragment.OTPVerificationFragment;
@@ -31,6 +35,7 @@ import com.ns.utils.FragmentUtil;
 import com.ns.utils.ResUtil;
 import com.ns.utils.THPConstants;
 import com.ns.view.CustomProgressBar;
+import com.ns.view.CustomTextView;
 import com.ns.view.StandardPopupWindow;
 
 import java.net.ConnectException;
@@ -68,6 +73,7 @@ public class PersonalInfoFragment extends BaseFragmentTHP {
     private TextInputEditText stateET;
 
     private CustomProgressBar progressBar;
+    private CustomTextView currentLocationBtn_Txt;
 
     private TextView updateBtn_Txt;
 
@@ -75,6 +81,8 @@ public class PersonalInfoFragment extends BaseFragmentTHP {
     private KeyValueModel mSelectedCountryModel;
 
     private UserProfile mUserProfile;
+
+    private UserProfileActivity mActivity;
 
     @Override
     public int getLayoutRes() {
@@ -90,6 +98,22 @@ public class PersonalInfoFragment extends BaseFragmentTHP {
     }
 
     @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if(context instanceof UserProfileActivity) {
+            mActivity = (UserProfileActivity) context;
+        }
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        if(activity instanceof UserProfileActivity) {
+            mActivity = (UserProfileActivity) activity;
+        }
+    }
+
+    @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
@@ -102,6 +126,7 @@ public class PersonalInfoFragment extends BaseFragmentTHP {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        currentLocationBtn_Txt = view.findViewById(R.id.currentLocationBtn_Txt);
         progressBar = view.findViewById(R.id.progressBar);
         updateBtn_Txt = view.findViewById(R.id.updateBtn_Txt);
 
@@ -252,11 +277,38 @@ public class PersonalInfoFragment extends BaseFragmentTHP {
         });
 
         // Current Location Click Listener
-        view.findViewById(R.id.currentLocationBtn_Txt).setOnClickListener(v -> {
+        currentLocationBtn_Txt.setOnClickListener(v -> {
             CommonUtil.hideKeyboard(v);
             if (!ResUtil.isGooglePlayServicesAvailable(getActivity())) {
                 Alerts.showToast(getActivity(), "Re-Install Google Play Services App");
                 return;
+            }
+            else if(mActivity != null) {
+                mActivity.getLocation(new AppLocationListener() {
+                    @Override
+                    public void locationReceived(String maxAddress, String pin, String state,
+                                                 String city, String subCity, String countryCode, String countryName) {
+                        if(mCountryModels == null) {
+                            mCountryModels = new ArrayList<>();
+                        }
+
+                        mSelectedCountryModel = new KeyValueModel();
+                        mSelectedCountryModel.setCode(countryCode);
+                        mSelectedCountryModel.setName(countryName);
+                        mCountryModels.add(mSelectedCountryModel);
+
+                        countryET.setText(countryName);
+                        stateET.setText(state);
+
+
+                    }
+
+                    @Override
+                    public void locationFailed() {
+                        currentLocationBtn_Txt.setText("Failed");
+
+                    }
+                });
             }
 
 

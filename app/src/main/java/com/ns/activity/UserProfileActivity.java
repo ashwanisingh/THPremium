@@ -6,13 +6,10 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.netoperation.model.TxnDataBean;
 import com.netoperation.model.UserProfile;
 import com.netoperation.net.ApiManager;
-import com.netoperation.retrofit.ServiceAPIs;
-import com.netoperation.retrofit.ServiceFactory;
 import com.ns.alerts.Alerts;
 import com.ns.callbacks.OnPlanInfoLoad;
 import com.ns.callbacks.OnSubscribeBtnClick;
@@ -28,20 +25,15 @@ import com.ns.thpremium.R;
 import com.ns.userprofilefragment.UserProfileFragment;
 import com.ns.utils.FragmentUtil;
 import com.ns.utils.IntentUtil;
-import com.ns.utils.NetUtils;
 import com.ns.utils.THPConstants;
-import com.ns.utils.TextUtil;
-
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 
-public class UserProfileActivity extends BaseAcitivityTHP implements OnSubscribeBtnClick, OnPlanInfoLoad {
+public class UserProfileActivity extends AppLocationActivity implements OnSubscribeBtnClick, OnPlanInfoLoad {
 
     private String mSelectedPlanId;
     private static final int INAPP_SUBSCRIPTION_REQUEST_CODE = 10001;
@@ -50,7 +42,6 @@ public class UserProfileActivity extends BaseAcitivityTHP implements OnSubscribe
     private OnSubscribeEvent mOnSubscribeEvent;
     private UserProfile mUserProfile;
     private TxnDataBean mSelectedBean;
-
 
 
     public void setOnSubscribeEvent(OnSubscribeEvent onSubscribeEvent) {
@@ -82,6 +73,28 @@ public class UserProfileActivity extends BaseAcitivityTHP implements OnSubscribe
         ApiManager.getUserProfile(this).subscribe(userProfile -> {
             mUserProfile = userProfile;
         });
+
+        /*getCurrentLocationTxt.setOnClickListener(v->{
+            getCurrentLocationTxt.setText(R.string.please_wait);
+            getLocation(new AppLocationListener() {
+                @Override
+                public void locationReceived(String maxAddress, String pin, String state, String city, String subCity, String countryCode) {
+                    getCurrentLocationTxt.setText(maxAddress);
+
+                    if(mAppLocationListener != null) {
+                        mAppLocationListener.locationReceived(maxAddress, pin, state, city, subCity, countryCode);
+                    }
+                }
+
+                @Override
+                public void locationFailed() {
+                    getCurrentLocationTxt.setText("Failed");
+                    if(mAppLocationListener != null) {
+                        mAppLocationListener.locationFailed();
+                    }
+                }
+            });
+        });*/
 
     }
 
