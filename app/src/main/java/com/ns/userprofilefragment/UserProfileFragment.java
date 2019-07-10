@@ -13,6 +13,7 @@ import android.widget.EditText;
 import com.netoperation.db.THPDB;
 import com.netoperation.model.UserProfile;
 import com.netoperation.net.ApiManager;
+import com.netoperation.util.NetConstants;
 import com.ns.alerts.Alerts;
 import com.ns.loginfragment.BaseFragmentTHP;
 import com.ns.loginfragment.SubscriptionStep_3_Fragment;
@@ -151,7 +152,7 @@ public class UserProfileFragment extends BaseFragmentTHP {
             ApiManager.logout(getActivity(), mUserProfile.getUserId(), BuildConfig.SITEID, ResUtil.getDeviceId(getActivity()))
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(keyValueModel->{
-                        if(keyValueModel.getState() != null && keyValueModel.getState().equalsIgnoreCase("success")) {
+                        if(keyValueModel.getState() != null && keyValueModel.getState().equalsIgnoreCase(NetConstants.SUCCESS)) {
                             Alerts.showToast(getActivity(), "Logged out successfully.");
                             IntentUtil.openDemoActivity(getActivity());
                         } else {

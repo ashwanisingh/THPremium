@@ -18,6 +18,7 @@ import com.netoperation.model.PersonaliseModel;
 import com.netoperation.model.PrefListModel;
 import com.netoperation.model.UserProfile;
 import com.netoperation.net.ApiManager;
+import com.netoperation.util.NetConstants;
 import com.ns.adapter.PersonaliseAdapter;
 import com.ns.alerts.Alerts;
 import com.ns.callbacks.THPPersonaliseItemClickListener;
@@ -346,13 +347,13 @@ public class THPPersonaliseActivity extends BaseAcitivityTHP implements THPPerso
                     ApiManager.setPersonalise(userProfile.getUserId(), BuildConfig.SITEID, ResUtil.getDeviceId(THPPersonaliseActivity.this),
                             topics, cities, authors)
                             .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(bool->{
-                        if(bool) {
+                    .subscribe(keyValueModel->{
+                        if(keyValueModel.getState() != null && keyValueModel.getState().equalsIgnoreCase(NetConstants.SUCCESS)) {
                             Alerts.showToast(THPPersonaliseActivity.this, "Your personalise is updated successfully.");
                             IntentUtil.openContentListingActivity(THPPersonaliseActivity.this, "Personalise");
                         }
                         else {
-                            Alerts.showToast(THPPersonaliseActivity.this, "Your personalise is not updated.");
+                            Alerts.showAlertDialogOKBtn(THPPersonaliseActivity.this, "Sorry!", keyValueModel.getName());
                         }
                     }, throwable -> {
                         if (throwable instanceof HttpException || throwable instanceof ConnectException

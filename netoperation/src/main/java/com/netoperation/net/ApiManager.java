@@ -1111,8 +1111,10 @@ public class ApiManager {
                     if (((JsonObject) value).has("status")) {
                         String status = ((JsonObject) value).get("status").getAsString();
                         //Status is not in response as the Api Doc
-                        //String reason = ((JsonObject) value).get("reason").getAsString();
-                        //keyValueModel.setName(reason);
+                        if (((JsonObject) value).has("reason")) {
+                            String reason = ((JsonObject) value).get("reason").getAsString();
+                            keyValueModel.setName(reason);
+                        }
                         keyValueModel.setState(status);
                     }
 
@@ -1182,7 +1184,7 @@ public class ApiManager {
                 });
     }
 
-    public static Observable<Boolean> setPersonalise(@NonNull String userId, @NonNull String siteId, @NonNull String deviceId, @NonNull ArrayList<String> topics,
+    public static Observable<KeyValueModel> setPersonalise(@NonNull String userId, @NonNull String siteId, @NonNull String deviceId, @NonNull ArrayList<String> topics,
                                                      @NonNull ArrayList<String> cities, @NonNull ArrayList<String> authors) {
         JsonObject personaliseObj = new JsonObject();
 
@@ -1207,14 +1209,15 @@ public class ApiManager {
         return ServiceFactory.getServiceAPIs().setPersonalise(ReqBody.setUserPreference(userId, siteId, deviceId, personaliseObj))
                 .subscribeOn(Schedulers.newThread())
                 .map(value-> {
+                            KeyValueModel keyValueModel = new KeyValueModel();
                             if (((JsonObject) value).has("status")) {
                                 String status = ((JsonObject) value).get("status").getAsString();
-                                if (status.equalsIgnoreCase("success")) {
-                                    return true;
-                                }
-                                return false;
+                                String reason = ((JsonObject) value).get("reason").getAsString();
+                                keyValueModel.setState(status);
+                                keyValueModel.setName(reason);
                             }
-                            return false;
+
+                            return keyValueModel;
                         }
                 );
     }
