@@ -110,7 +110,7 @@ public interface ServiceAPIs {
     Observable<TransactionHistoryModel> getTxnHistory(@Query("userid") String userid, @Query("pageno") String pageno);
 
     @GET("subscription/getuserplaninfo/HINDU")
-    Observable<UserPlanList> getUserPlanInfo(@Query("userid") String userid, @Query("siteid") String siteid);
+    Observable<UserPlanList> getUserPlanInfo(@Query("userid") String userid, @Query("siteid") String siteid, @Query("requestSource") String requestSource);
 
     @GET("subscription/getplaninfo/HINDU")
     Observable<PlanRecoModel> getRecommendedPlan(@Query("siteid") String siteid, @Query("tagid") String tagid,

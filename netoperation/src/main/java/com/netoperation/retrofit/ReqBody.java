@@ -9,6 +9,8 @@ import com.netoperation.util.RetentionDef;
 
 public class ReqBody {
 
+    public static final String REQUEST_SOURCE = "app";
+
     public static JsonObject recommendation(String tagId, String aid, String siteId,
                                             String sectionName, String transactionId) {
         JsonObject object = new JsonObject();
@@ -80,7 +82,7 @@ public class ReqBody {
         object.addProperty("deviceId", deviceId);
         object.addProperty("siteId", siteId);
         object.addProperty("userId", userId);
-        object.addProperty("requestSource", "app");
+        object.addProperty("requestSource", REQUEST_SOURCE);
         return object;
     }
 
@@ -90,6 +92,7 @@ public class ReqBody {
         object.addProperty("siteId", siteId);
         object.addProperty("emailId", emailId);
         object.addProperty("contact", contact);
+        object.addProperty("requestSource", REQUEST_SOURCE);
         return object;
     }
 
@@ -106,6 +109,7 @@ public class ReqBody {
         object.addProperty("userId", userId);
         object.addProperty("oldPassword", oldPassword);
         object.addProperty("newPassword", newPassword);
+        object.addProperty("requestSource", REQUEST_SOURCE);
         return object;
     }
 
@@ -118,6 +122,7 @@ public class ReqBody {
         object.addProperty("contact", contact);
         object.addProperty("otp", otp);
         object.addProperty("event", "suspendAccount");
+        object.addProperty("requestSource", REQUEST_SOURCE);
         return object;
     }
 
@@ -130,6 +135,7 @@ public class ReqBody {
         object.addProperty("contact", contact);
         object.addProperty("otp", otp);
         object.addProperty("event", "deleteAccount");
+        object.addProperty("requestSource", REQUEST_SOURCE);
         return object;
     }
 
@@ -140,6 +146,7 @@ public class ReqBody {
         object.addProperty("deviceId", deviceId);
         object.addProperty("event", "set");
         object.add("preferences", preferences);
+        object.addProperty("requestSource", REQUEST_SOURCE);
         return object;
     }
 
@@ -149,6 +156,7 @@ public class ReqBody {
         object.addProperty("siteId", siteId);
         object.addProperty("deviceId", deviceId);
         object.addProperty("event", "get");
+        object.addProperty("requestSource", REQUEST_SOURCE);
         return object;
     }
 
@@ -161,8 +169,7 @@ public class ReqBody {
         object.addProperty("contentId", contentId);
         object.addProperty("isBookmark", isBookmark);
         object.addProperty("isFavourite", isFavourite);
-        object.addProperty("requestSource", "app");
-
+        object.addProperty("requestSource", REQUEST_SOURCE);
         return object;
     }
 
@@ -179,6 +186,7 @@ public class ReqBody {
         object.addProperty("Gender", Gender);
         object.addProperty("Profile_Country", Profile_Country);
         object.addProperty("Profile_State", Profile_State);
+        object.addProperty("requestSource", REQUEST_SOURCE);
         return object;
     }
 
@@ -199,6 +207,7 @@ public class ReqBody {
         object.addProperty("address_state", address_state);
         object.addProperty("address_city", address_city);
         object.addProperty("address_default_option", address_default_option);
+        object.addProperty("requestSource", REQUEST_SOURCE);
         return object;
     }
 
@@ -229,7 +238,7 @@ public class ReqBody {
         object.addProperty("currency", currency);
         object.addProperty("tax", tax);
         object.addProperty("netAmount", netAmount);
-
+        object.addProperty("requestSource", REQUEST_SOURCE);
         return object;
 
     }

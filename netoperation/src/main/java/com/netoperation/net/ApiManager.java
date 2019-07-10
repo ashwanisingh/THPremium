@@ -448,10 +448,11 @@ public class ApiManager {
 
     }
 
-    public static Observable<List<RecoBean>> getRecommendationFromServer(final Context context,
-                                                                         String userid, final @RetentionDef.Recomendation String recotype,
+    public static Observable<List<RecoBean>> getRecommendationFromServer(final Context context, String userid,
+                                                                         final @RetentionDef.Recomendation String recotype,
                                                                          String size, String siteid) {
-        Observable<RecomendationData> observable = ServiceFactory.getServiceAPIs().getRecommendation(userid, recotype, size, siteid, "app");
+        Observable<RecomendationData> observable = ServiceFactory.getServiceAPIs().getRecommendation(userid, recotype,
+                size, siteid, ReqBody.REQUEST_SOURCE);
         return observable.subscribeOn(Schedulers.newThread())
                 .timeout(10000, TimeUnit.MILLISECONDS)
                 .map(value -> {
@@ -594,7 +595,8 @@ public class ApiManager {
     public static Observable<Boolean> createBookmarkFavLike(@NonNull String userId, @NonNull String siteId,
                                                             @NonNull String contentId, @NonNull int bookmarkVal,
                                                             @NonNull int favoriteVal) {
-        Observable<JsonElement> observable = ServiceFactory.getServiceAPIs().createBookmarkFavLike(ReqBody.createBookmarkFavLike(userId, siteId, contentId, bookmarkVal, favoriteVal));
+        Observable<JsonElement> observable = ServiceFactory.getServiceAPIs()
+                .createBookmarkFavLike(ReqBody.createBookmarkFavLike(userId, siteId, contentId, bookmarkVal, favoriteVal));
         return observable.subscribeOn(Schedulers.newThread())
                 .map(value -> {
                     if (((JsonObject) value).has("status")) {
@@ -1132,7 +1134,7 @@ public class ApiManager {
      * @return
      */
     public static Observable<List<TxnDataBean>> getUserPlanInfo(String userId, String siteId) {
-        return ServiceFactory.getServiceAPIs().getUserPlanInfo(userId, siteId)
+        return ServiceFactory.getServiceAPIs().getUserPlanInfo(userId, siteId, ReqBody.REQUEST_SOURCE)
                 .subscribeOn(Schedulers.newThread())
                 .map(value->
                     value.getUserPlanList()
