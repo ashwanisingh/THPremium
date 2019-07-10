@@ -123,7 +123,7 @@ public class AppTabFragment extends BaseFragmentTHP implements OnSubscribeBtnCli
 
         // Premium Logo Button Click Listener
         view.findViewById(R.id.premiumLogoBtn).setOnClickListener(v-> {
-                    // IntentUtil.openMemberActivity(getActivity(), "")
+                     // IntentUtil.openMemberActivity(getActivity(), "");
                 }
         );
 

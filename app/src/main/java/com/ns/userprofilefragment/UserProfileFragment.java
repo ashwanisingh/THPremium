@@ -167,7 +167,7 @@ public class UserProfileFragment extends BaseFragmentTHP {
                 }
         );
 
-        versionName_Txt.setText(ResUtil.getVersionName(getActivity()));
+        versionName_Txt.setText(ResUtil.getVersionName(getActivity())+"  "+getString(R.string.type_device));
 
     }
 
