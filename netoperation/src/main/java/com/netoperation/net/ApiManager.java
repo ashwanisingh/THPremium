@@ -1212,9 +1212,14 @@ public class ApiManager {
                             KeyValueModel keyValueModel = new KeyValueModel();
                             if (((JsonObject) value).has("status")) {
                                 String status = ((JsonObject) value).get("status").getAsString();
-                                String reason = ((JsonObject) value).get("reason").getAsString();
                                 keyValueModel.setState(status);
-                                keyValueModel.setName(reason);
+                                //Reason is not coming in response
+                                if (((JsonObject) value).has("reason")) {
+                                    String reason = ((JsonObject) value).get("reason").getAsString();
+                                    keyValueModel.setName(reason);
+                                } else {
+                                    keyValueModel.setName("");
+                                }
                             }
 
                             return keyValueModel;
