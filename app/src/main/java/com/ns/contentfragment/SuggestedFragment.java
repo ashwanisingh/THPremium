@@ -163,7 +163,7 @@ public class SuggestedFragment extends BaseFragmentTHP implements RecyclerViewPu
                         })
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(value -> {
-                            mRecyclerAdapter.addData(value);
+                            mRecyclerAdapter.setData(value);
                         }, throwable -> {
                             if (throwable instanceof HttpException || throwable instanceof ConnectException
                                     || throwable instanceof SocketTimeoutException || throwable instanceof TimeoutException

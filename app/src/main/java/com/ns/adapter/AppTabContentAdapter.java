@@ -373,15 +373,15 @@ public class AppTabContentAdapter extends BaseRecyclerViewAdapter {
                     toggleLikeDisLikeImg.setEnabled(true);
                     if(like == NetConstants.LIKE_NEUTRAL) {
                         favStartImg.setImageResource(R.drawable.ic_like_unselected);
-                        toggleLikeDisLikeImg.setImageResource(R.drawable.ic_switch_on_copy);
+                        toggleLikeDisLikeImg.setImageResource(R.drawable.ic_switch_off_copy);
                     }
                     else if(like == NetConstants.LIKE_YES) {
                         favStartImg.setImageResource(R.drawable.ic_like_selected);
-                        toggleLikeDisLikeImg.setImageResource(R.drawable.ic_switch_on_copy);
+                        toggleLikeDisLikeImg.setImageResource(R.drawable.ic_switch_off_copy);
                     }
                     else if(like == NetConstants.LIKE_NO) {
                         favStartImg.setImageResource(R.drawable.ic_like_unselected);
-                        toggleLikeDisLikeImg.setImageResource(R.drawable.ic_switch_off_copy);
+                        toggleLikeDisLikeImg.setImageResource(R.drawable.ic_switch_on_copy);
                     }
 
                 }, val->{
@@ -467,13 +467,17 @@ public class AppTabContentAdapter extends BaseRecyclerViewAdapter {
                             }
                             // To Update at App end
                             ApiManager.updateLike(context, bean.getArticleId(), fav).subscribe(boole -> {
-                                notifyItemChanged(position);
+
                                 if(fav == NetConstants.LIKE_YES) {
-                                    Alerts.showToast(context, "You will more stories like this.");
+                                    Alerts.showToast(context, "You will see more stories like this.");
+                                    notifyItemChanged(position);
                                 }
                                 else if(fav == NetConstants.LIKE_NO) {
                                     Alerts.showToast(context, "Show fewer stories like this.");
+                                    mContent.remove(position);
+                                    notifyDataSetChanged();
                                 }
+
                             });
                         }
 

@@ -140,15 +140,15 @@ public class CustomToolbar extends Toolbar {
                     toggleLikeDisLikeTHPIC.setEnabled(true);
                     if(like == NetConstants.LIKE_NEUTRAL) {
                         favStarTHPIC.setImageResource(R.drawable.ic_like_unselected);
-                        toggleLikeDisLikeTHPIC.setImageResource(R.drawable.ic_switch_on_copy);
+                        toggleLikeDisLikeTHPIC.setImageResource(R.drawable.ic_switch_off_copy);
                     }
                     else if(like == NetConstants.LIKE_YES) {
                         favStarTHPIC.setImageResource(R.drawable.ic_like_selected);
-                        toggleLikeDisLikeTHPIC.setImageResource(R.drawable.ic_switch_on_copy);
+                        toggleLikeDisLikeTHPIC.setImageResource(R.drawable.ic_switch_off_copy);
                     }
                     else if(like == NetConstants.LIKE_NO) {
                         favStarTHPIC.setImageResource(R.drawable.ic_like_unselected);
-                        toggleLikeDisLikeTHPIC.setImageResource(R.drawable.ic_switch_off_copy);
+                        toggleLikeDisLikeTHPIC.setImageResource(R.drawable.ic_switch_on_copy);
                     }
 
                 }, val->{

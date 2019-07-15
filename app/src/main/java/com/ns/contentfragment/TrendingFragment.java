@@ -165,7 +165,7 @@ public class TrendingFragment extends BaseFragmentTHP implements RecyclerViewPul
                         })
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(value -> {
-                            mRecyclerAdapter.addData(value);
+                            mRecyclerAdapter.setData(value);
                         }, throwable -> {
                             if (throwable instanceof HttpException || throwable instanceof ConnectException
                                     || throwable instanceof SocketTimeoutException || throwable instanceof TimeoutException
