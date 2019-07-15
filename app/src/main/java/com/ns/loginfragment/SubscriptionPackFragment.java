@@ -152,6 +152,12 @@ public class SubscriptionPackFragment extends BaseFragmentTHP  implements OnSubs
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(planInfoList -> {
                             mAdapter = new SubscriptionPackAdapter(mFrom, planInfoList, this);
+                            if(planInfoList == null || planInfoList.size()==0) {
+                                planInfoList = new ArrayList<>();
+                                TxnDataBean bean = new TxnDataBean();
+                                planInfoList.add(bean);
+                                mAdapter.setEmpty(true, planInfoList);
+                            }
                             mRecyclerView.setAdapter(mAdapter);
                             if(mPlanInfoLoad != null) {
                                 mPlanInfoLoad.onPlansLoaded(planInfoList);

@@ -120,7 +120,7 @@ public class UserProfileActivity extends AppLocationActivity implements OnSubscr
                 if(result.isSuccess()) {
                     try {
                         Inventory inventory = mHelper.queryInventory(true, mPlanIds);
-
+                        
                         Log.i("", "");
                     } catch (IabException e) {
                         e.printStackTrace();

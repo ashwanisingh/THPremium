@@ -21,54 +21,77 @@ public class SubscriptionPackAdapter extends BaseRecyclerViewAdapter {
 
     private String mFrom;
     private List<TxnDataBean> mPlanInfoList;
+
+    private boolean isEmpty = false;
+
     public SubscriptionPackAdapter(String from, List<TxnDataBean> planInfoList, OnSubscribeBtnClick onSubscribeBtnClick){
         mFrom = from;
         mPlanInfoList = planInfoList;
         mOnSubscribeBtnClick = onSubscribeBtnClick;
     }
 
+    public boolean isEmpty() {
+        return isEmpty;
+    }
+
+    public void setEmpty(boolean empty, List<TxnDataBean> planInfoList) {
+        isEmpty = empty;
+        mPlanInfoList = planInfoList;
+    }
 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.item_subscription_pack, viewGroup, false);
-        PlanViewHolder holder = new PlanViewHolder(view);
-        return holder;
+        if(isEmpty()) {
+            View view = LayoutInflater.from(viewGroup.getContext())
+                    .inflate(R.layout.item_subscription_empty, viewGroup, false);
+            EmptyViewHolder holder = new EmptyViewHolder(view);
+            return holder;
+        } else {
+            View view = LayoutInflater.from(viewGroup.getContext())
+                    .inflate(R.layout.item_subscription_pack, viewGroup, false);
+            PlanViewHolder holder = new PlanViewHolder(view);
+            return holder;
+        }
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
         TxnDataBean bean = mPlanInfoList.get(i);
 
-        PlanViewHolder holder = (PlanViewHolder) viewHolder;
+        if(viewHolder instanceof PlanViewHolder) {
+            PlanViewHolder holder = (PlanViewHolder) viewHolder;
 
-        holder.packName_Txt.setText(bean.getPlanName());
-        holder.planValidity_Txt.setText(bean.getValidity());
-        if(bean.getAmount() == 0.0) {
-            holder.currencyLayout.setVisibility(View.INVISIBLE);
-        } else {
-            holder.currencyLayout.setVisibility(View.VISIBLE);
-            holder.currencyValue_Txt.setText("" + bean.getAmount());
-        }
-        // holder.planOffer_Txt.setText("");
-        if(bean.getIsActive() == 1) {
-            holder.subscribeBtn_Txt.setText("Subscribed");
-        } else {
-            holder.subscribeBtn_Txt.setText("Subscribe");
-        }
-
-        holder.subscribeBtn_Txt.setOnClickListener(v->{
-            if(bean.getIsActive() == 1) {
-                return;
+            holder.packName_Txt.setText(bean.getPlanName());
+            holder.planValidity_Txt.setText(bean.getValidity());
+            if (bean.getAmount() == 0.0) {
+                holder.currencyLayout.setVisibility(View.INVISIBLE);
+            } else {
+                holder.currencyLayout.setVisibility(View.VISIBLE);
+                holder.currencyValue_Txt.setText("" + bean.getAmount());
+            }
+            // holder.planOffer_Txt.setText("");
+            if (bean.getIsActive() == 1) {
+                holder.subscribeBtn_Txt.setText("Subscribed");
+            } else {
+                holder.subscribeBtn_Txt.setText("Subscribe");
             }
 
-            if(mOnSubscribeBtnClick != null) {
-                mOnSubscribeBtnClick.onSubscribeBtnClick(bean);
-            }
+            holder.subscribeBtn_Txt.setOnClickListener(v -> {
+                if (bean.getIsActive() == 1) {
+                    return;
+                }
 
-            // TODO, Open Google Pay Subscription, for payment
-        });
+                if (mOnSubscribeBtnClick != null) {
+                    mOnSubscribeBtnClick.onSubscribeBtnClick(bean);
+                }
+
+                // TODO, Open Google Pay Subscription, for payment
+            });
+        }
+        else if(viewHolder instanceof EmptyViewHolder) {
+
+        }
 
     }
 
@@ -96,6 +119,13 @@ public class SubscriptionPackAdapter extends BaseRecyclerViewAdapter {
             subscribeBtn_Txt = itemView.findViewById(R.id.subscribeBtn_Txt);
             currencyLayout = itemView.findViewById(R.id.currencyLayout);
 
+        }
+    }
+
+    private class EmptyViewHolder extends RecyclerView.ViewHolder {
+
+        public EmptyViewHolder(@NonNull View itemView) {
+            super(itemView);
         }
     }
 

@@ -262,6 +262,9 @@ public class THP_DetailFragment extends BaseFragmentTHP implements RecyclerViewP
             else if(bean.getIsFavourite() == NetConstants.LIKE_NEUTRAL) {
                 favourite = NetConstants.LIKE_NO;
             }
+            else if(bean.getIsFavourite() == NetConstants.LIKE_YES) {
+                favourite = NetConstants.LIKE_NO;
+            }
         }
 
         final int book = bookmark;
