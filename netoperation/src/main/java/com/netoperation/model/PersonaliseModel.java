@@ -93,7 +93,7 @@ public class PersonaliseModel implements Parcelable {
         super.equals(obj);
         if(obj instanceof  PersonaliseModel) {
             PersonaliseModel model = (PersonaliseModel) obj;
-            return model.getValue().equals(getValue());
+            return model.getValue().equalsIgnoreCase(getValue());
         }
         return false;
     }

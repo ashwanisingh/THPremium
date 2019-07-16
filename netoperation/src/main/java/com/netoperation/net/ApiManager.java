@@ -1239,10 +1239,10 @@ public class ApiManager {
                     if(selectedPrefModel.getPreferences() != null && selectedPrefModel.getPreferences().getCity() != null) {
                         cities = selectedPrefModel.getPreferences().getCity();
                     }
-                    if(selectedPrefModel.getPreferences() != null && selectedPrefModel.getPreferences().getCity() != null) {
+                    if(selectedPrefModel.getPreferences() != null && selectedPrefModel.getPreferences().getAuthor() != null) {
                         authors = selectedPrefModel.getPreferences().getAuthor();
                     }
-                    if(selectedPrefModel.getPreferences() != null && selectedPrefModel.getPreferences().getCity() != null) {
+                    if(selectedPrefModel.getPreferences() != null && selectedPrefModel.getPreferences().getTopics() != null) {
                         topics = selectedPrefModel.getPreferences().getTopics();
                     }
 

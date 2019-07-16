@@ -476,6 +476,8 @@ public class AppTabContentAdapter extends BaseRecyclerViewAdapter {
                                     Alerts.showToast(context, "Show fewer stories like this.");
                                     mContent.remove(position);
                                     notifyDataSetChanged();
+                                } else {
+                                    notifyItemChanged(position);
                                 }
 
                             });
