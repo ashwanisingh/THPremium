@@ -313,6 +313,8 @@ public class SignInFragment extends BaseFragmentTHP {
         googleBtn.setOnClickListener(v->{
             if (alreadyloggedAccount != null) {
                 Alerts.showToast(getActivity(), "Already Logged In with Gmail");
+                //Allow ReSignIn
+                signIn();
             }else{
                 signIn();
             }
@@ -320,7 +322,7 @@ public class SignInFragment extends BaseFragmentTHP {
 
         // Facebook Sign in click listener
         facebookBtn.setOnClickListener(v->{
-            if(AccessToken.getCurrentAccessToken()!=null){
+            if(AccessToken.getCurrentAccessToken() != null){
                 Alerts.showToast(getActivity(), "Already Logged In with Facebook");
             }else{
                 Fblogin();

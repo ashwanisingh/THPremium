@@ -66,7 +66,7 @@ public class SubscriptionStep_1_Fragment extends BaseFragmentTHP {
 
         // frequently asked questions click listener
         view.findViewById(R.id.tv_frequent_questions).setOnClickListener(v->{
-            TCFragment tcFragment = TCFragment.getInstance(THPConstants.TnC_URL);
+            TCFragment tcFragment = TCFragment.getInstance(THPConstants.FAQ_URL);
             FragmentUtil.pushFragmentAnim((AppCompatActivity) getActivity(), R.id.parentLayout,
                     tcFragment, FragmentUtil.FRAGMENT_ANIMATION, false);
         });
