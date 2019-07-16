@@ -49,10 +49,28 @@ public class THPPersonaliseActivity extends BaseAcitivityTHP implements THPPerso
 
     ImageButton backBtn, forwardArrow, backArrow;
     private PersonaliseAdapter personaliseAdapter;
+
+    private class CustomArrayList extends ArrayList<String> {
+        @Override
+        public boolean contains(Object o) {
+            String paramStr = (String) o;
+            for (String s : this) {
+                if (paramStr.equalsIgnoreCase(s)) return true;
+            }
+            return false;
+        }
+
+        @Override
+        public boolean remove(Object o) {
+            String paramStr = (String) o;
+            return super.remove(paramStr.toLowerCase());
+        }
+    }
+
     protected final CompositeDisposable mDisposable = new CompositeDisposable();
-    ArrayList<String> topics = new ArrayList<>();
-    ArrayList<String> cities = new ArrayList<>();
-    ArrayList<String> authors = new ArrayList<>();
+    ArrayList<String> topics = new CustomArrayList();
+    ArrayList<String> cities = new CustomArrayList();
+    ArrayList<String> authors = new CustomArrayList();
 
     ArrayList<String> topicsAlreadySelected = new ArrayList<>();
     ArrayList<String> citiesAlreadySelected = new ArrayList<>();
@@ -89,9 +107,9 @@ public class THPPersonaliseActivity extends BaseAcitivityTHP implements THPPerso
         smoothPagerScroll();
 
         tv_savepref.setOnClickListener(v->{
-            topics.addAll(topicsAlreadySelected);
+            /*topics.addAll(topicsAlreadySelected);
             cities.addAll(citiesAlreadySelected);
-            authors.addAll(authorsAlreadySelected);
+            authors.addAll(authorsAlreadySelected);*/
             if((topics!=null && topics.size()>0) || (cities!=null && cities.size()>0) ||
                     (authors!=null && authors.size()>0)) {
                 saveUserPersonalise();
@@ -270,16 +288,20 @@ public class THPPersonaliseActivity extends BaseAcitivityTHP implements THPPerso
                             mPersonaliseFragments.add(AuthorsFragment.getInstance(authorsFromServer, authorsFromServer.getName()));
 
                             String topic=value.getTopics().getName();
-                            String cities=value.getCities().getName();
-                            String authors=value.getAuthors().getName();
+                            String city=value.getCities().getName();
+                            String author=value.getAuthors().getName();
 
-                            personaliseAdapter = new PersonaliseAdapter(getSupportFragmentManager(), mPersonaliseFragments, topic, cities, authors);
+                            personaliseAdapter = new PersonaliseAdapter(getSupportFragmentManager(), mPersonaliseFragments, topic, city, author);
                             viewPager.setAdapter(personaliseAdapter);
 
                             topic = topic.substring(0,1).toUpperCase() + topic.substring(1).toLowerCase();
 
                             tv_items.setText(topic);
 
+                            //Set the already selected values
+                            topics.addAll(topicsAlreadySelected);
+                            cities.addAll(citiesAlreadySelected);
+                            authors.addAll(authorsAlreadySelected);
 
                         }, throwable -> {
                             /*if (throwable instanceof HttpException || throwable instanceof ConnectException
@@ -322,11 +344,23 @@ public class THPPersonaliseActivity extends BaseAcitivityTHP implements THPPerso
         Alerts.showToast(this, model.getTitle());
         if (from != null) {
             if (from.equalsIgnoreCase("Topics")) {
-                topics.add(model.getValue());
+                if (topics.contains(model.getValue())) {
+                    topics.remove(model.getValue());
+                } else {
+                    topics.add(model.getValue());
+                }
             } else if (from.equalsIgnoreCase("Cities")) {
-                cities.add(model.getValue());
+                if (cities.contains(model.getValue())) {
+                    cities.remove(model.getValue());
+                } else {
+                    cities.add(model.getValue());
+                }
             } else if (from.equalsIgnoreCase("Authors")) {
-                authors.add(model.getValue());
+                if (authors.contains(model.getValue())) {
+                    authors.remove(model.getValue());
+                } else {
+                    authors.add(model.getValue());
+                }
             }
         }
     }
