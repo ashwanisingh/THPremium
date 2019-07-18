@@ -85,6 +85,7 @@ public class SignInAndUpActivity extends BaseAcitivityTHP {
         if(requestCode == TwitterAuthConfig.DEFAULT_AUTH_REQUEST_CODE) {
             try {
                 SignInFragment.getInstance().onActivityResult(requestCode, resultCode, data);
+                SignInFragment.getInstance().onActivityResult(requestCode, resultCode, data);
             } catch (Exception e) {
                 e.printStackTrace();
             }
