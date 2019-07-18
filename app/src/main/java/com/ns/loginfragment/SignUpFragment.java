@@ -69,8 +69,12 @@ import java.util.concurrent.TimeoutException;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 
 public class SignUpFragment extends BaseFragmentTHP {
+    private static SignUpFragment fragment;
+
     public static SignUpFragment getInstance() {
-        SignUpFragment fragment = new SignUpFragment();
+        if (fragment == null) {
+            fragment = new SignUpFragment();
+        }
         return fragment;
     }
 
@@ -645,8 +649,8 @@ public class SignUpFragment extends BaseFragmentTHP {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (client != null)
-            client.onActivityResult(requestCode, resultCode, data);
+//        if (client != null)
+//            client.onActivityResult(requestCode, resultCode, data);
 
         if(requestCode == TwitterAuthConfig.DEFAULT_AUTH_REQUEST_CODE){
             if (client != null)
@@ -673,5 +677,11 @@ public class SignUpFragment extends BaseFragmentTHP {
                     callbackManager.onActivityResult(requestCode, resultCode, data);
             }
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        fragment = null;
     }
 }

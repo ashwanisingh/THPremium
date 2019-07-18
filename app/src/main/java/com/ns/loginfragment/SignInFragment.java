@@ -1,5 +1,6 @@
 package com.ns.loginfragment;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -79,8 +80,13 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 
 public class SignInFragment extends BaseFragmentTHP {
 
+    @SuppressLint("StaticFieldLeak")
+    private static SignInFragment fragment;
+
     public static SignInFragment getInstance() {
-        SignInFragment fragment = new SignInFragment();
+        if (fragment == null) {
+            fragment = new SignInFragment();
+        }
         return fragment;
     }
 
@@ -157,7 +163,7 @@ public class SignInFragment extends BaseFragmentTHP {
 
         googleBtn = view.findViewById(R.id.googleBtn);
         tweeterBtn = view.findViewById(R.id.tweeterBtn);
-        tweeterBtn.setEnabled(false);
+        tweeterBtn.setEnabled(true);
         facebookBtn = view.findViewById(R.id.facebookBtn);
         signIn_Txt = view.findViewById(R.id.signIn_Txt);
         progressBar = view.findViewById(R.id.progressBar);
@@ -331,14 +337,14 @@ public class SignInFragment extends BaseFragmentTHP {
         });
 
 
-     //   configureTwitter();
+        configureTwitter();
         //initialize twitter auth client
-      //  client = new TwitterAuthClient();
+        client = new TwitterAuthClient();
 
         // Twitter Sign in click listener
-//        tweeterBtn.setOnClickListener(v->{
-//            twitterLogin();
-//        });
+        tweeterBtn.setOnClickListener(v->{
+            twitterLogin();
+        });
     }
 
     /*Facebook Sign In methods starts here*/
@@ -468,16 +474,16 @@ public class SignInFragment extends BaseFragmentTHP {
     /*Twitter Sign In methods starts here*/
 
 
-//    private void configureTwitter() {
-//        TwitterConfig config = new TwitterConfig.Builder(getActivity())
-//                .logger(new DefaultLogger(Log.DEBUG))//enable logging when app is in debug mode
-//                .twitterAuthConfig(new TwitterAuthConfig(getResources().getString(R.string.CONSUMER_KEY), getResources().getString(R.string.CONSUMER_SECRET)))//pass the created app Consumer KEY and Secret also called API Key and Secret
-//                .debug(true)//enable debug mode
-//                .build();
-//
-//        //finally initialize twitter with created configs
-//        Twitter.initialize(config);
-//    }
+    private void configureTwitter() {
+        TwitterConfig config = new TwitterConfig.Builder(getActivity())
+                .logger(new DefaultLogger(Log.DEBUG))//enable logging when app is in debug mode
+                .twitterAuthConfig(new TwitterAuthConfig(BuildConfig.CONSUMER_API_KEY, BuildConfig.CONSUMER_API_SECRET_KEY))//pass the created app Consumer KEY and Secret also called API Key and Secret
+                .debug(true)//enable debug mode
+                .build();
+
+        //finally initialize twitter with created configs
+        Twitter.initialize(config);
+    }
 
        private void twitterLogin() {
         if (getTwitterSession() == null) {
@@ -490,7 +496,7 @@ public class SignInFragment extends BaseFragmentTHP {
                     // Do something with result, which provides a TwitterSession for making API calls
                     TwitterSession twitterSession = result.data;
 
-                    //call fetch email only when permission is granted
+                    //Call fetch email only when permission is granted
                     fetchTwitterEmail(twitterSession);
                 }
 
@@ -704,7 +710,6 @@ public class SignInFragment extends BaseFragmentTHP {
         if(requestCode == TwitterAuthConfig.DEFAULT_AUTH_REQUEST_CODE){
             if (client != null)
                 client.onActivityResult(requestCode, resultCode, data);
-
         }else {
             //if the requestCode is the Google Sign In code that we defined at starting
             if (requestCode == RC_SIGN_IN) {
@@ -727,5 +732,11 @@ public class SignInFragment extends BaseFragmentTHP {
                     callbackManager.onActivityResult(requestCode, resultCode, data);
             }
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        fragment = null;
     }
 }

@@ -12,6 +12,8 @@ import android.util.Base64;
 import android.util.Log;
 
 import com.ns.loginfragment.SignInAndUpFragment;
+import com.ns.loginfragment.SignInFragment;
+import com.ns.loginfragment.SignUpFragment;
 import com.ns.thpremium.R;
 import com.ns.utils.FragmentUtil;
 import com.twitter.sdk.android.core.DefaultLogger;
@@ -77,11 +79,23 @@ public class SignInAndUpActivity extends BaseAcitivityTHP {
 //    }
 
 
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        for (Fragment fragment : getSupportFragmentManager().getFragments()) {
-//            fragment.onActivityResult(requestCode, resultCode, data);
-//        }
-//    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == TwitterAuthConfig.DEFAULT_AUTH_REQUEST_CODE) {
+            try {
+                SignInFragment.getInstance().onActivityResult(requestCode, resultCode, data);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        /*for (Fragment fragment : getSupportFragmentManager().getFragments()) {
+            try {
+                SignInFragment signInFragment = ((SignInFragment) fragment);
+                signInFragment.onActivityResult(requestCode, resultCode, data);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }*/
+    }
 }
