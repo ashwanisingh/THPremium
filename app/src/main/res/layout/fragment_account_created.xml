@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/accoutCreatedParent"
+    android:background="@color/dimBackground"
+    android:focusable="false"
+    android:focusableInTouchMode="false"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <FrameLayout
+        android:id="@+id/otpLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="@string/account_created_layout_ratio"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        >
+        <LinearLayout
+            android:background="@drawable/shadow_white_r12_s6_wh200_ltr"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/baseLayoutLeftPadding"
+            android:paddingRight="@dimen/baseLayoutRightPadding"
+            android:paddingTop="@dimen/baseLayoutTopPadding"
+            android:layout_marginTop="15dp"
+            android:gravity="center_horizontal"
+            >
+
+            <com.ns.view.CustomTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="36dp"
+                android:textSize="20sp"
+                android:textColor="#033da2"
+                android:letterSpacing="0.03"
+                android:text="Account Created"
+                app:font_path="@string/THP_TundraOffc_Bold"
+                />
+
+            <com.ns.view.CustomTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textSize="14sp"
+                android:gravity="center_horizontal"
+                android:alpha="0.6"
+                android:textColor="@color/boldBlackColor"
+                android:letterSpacing="0.03"
+                android:text="You have unlocked The Hindu Premium"
+                app:font_path="@string/THP_FiraSans_Regular"
+                />
+
+            <com.ns.view.CustomTextView
+                android:id="@+id/emailOrMobile_Et"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:gravity="center_horizontal"
+                android:layout_marginTop="36dp"
+                android:alpha="0.6"
+                android:textColor="@color/boldBlackColor"
+                android:imeOptions="actionDone"
+                android:textSize="14sp"
+                android:text="You can now able to"
+                />
+
+            <com.ns.view.CustomTextView
+                android:id="@+id/viewSubscriptionBtn_Txt"
+                android:layout_width="250dp"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:layout_marginTop="24dp"
+                android:text="View Subscription Details"
+                android:textColor="@color/boldBlackColor"
+                android:background="@drawable/grey_background"
+                android:textSize="14sp"
+                app:font_path="@string/THP_FiraSans_Regular"
+                />
+
+            <com.ns.view.CustomTextView
+                android:id="@+id/setPreferenceBtn_Txt"
+                android:layout_width="250dp"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:layout_marginTop="26dp"
+                android:text="Set Preferences"
+                android:textColor="@color/boldBlackColor"
+                android:background="@drawable/grey_background"
+                android:textSize="14sp"
+                app:font_path="@string/THP_FiraSans_Regular"
+                />
+
+        </LinearLayout>
+
+
+    </FrameLayout>
+
+
+
+</android.support.constraint.ConstraintLayout>

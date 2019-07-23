@@ -1,33 +1,23 @@
 package com.ns.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
-import android.widget.Button;
+import android.text.TextUtils;
 
 import com.netoperation.net.ApiManager;
 import com.netoperation.retrofit.ServiceFactory;
-import com.ns.alerts.Alerts;
 import com.ns.contentfragment.AppTabFragment;
-import com.ns.payment.IabException;
-import com.ns.payment.IabHelper;
-import com.ns.payment.IabResult;
-import com.ns.payment.Inventory;
-import com.ns.payment.Purchase;
+import com.ns.loginfragment.AccountCreatedFragment;
 import com.ns.thpremium.BuildConfig;
 import com.ns.thpremium.R;
 import com.ns.utils.FragmentUtil;
-import com.ns.utils.THPConstants;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 
 public class AppTabActivity extends BaseAcitivityTHP {
 
-    private IabHelper mHelper;
+    private String mFrom;
+
 
     @Override
     public int layoutRes() {
@@ -38,6 +28,10 @@ public class AppTabActivity extends BaseAcitivityTHP {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        if(getIntent() != null && getIntent().getExtras()!= null) {
+            mFrom = getIntent().getStringExtra("from");
+        }
+
         ServiceFactory.BASE_URL = BuildConfig.BASE_URL;
 
         ApiManager.getUserProfile(this)
@@ -46,6 +40,13 @@ public class AppTabActivity extends BaseAcitivityTHP {
                     AppTabFragment fragment = AppTabFragment.getInstance("", userProfile.getUserId());
 
                     FragmentUtil.pushFragmentAnim(this, R.id.parentLayout, fragment, FragmentUtil.FRAGMENT_NO_ANIMATION, true);
+
+                    // THis below condition will be executed when user creates normal Sign-UP
+                    if(mFrom != null && !TextUtils.isEmpty(mFrom) ) {
+                        AccountCreatedFragment accountCreated = AccountCreatedFragment.getInstance("");
+
+                        FragmentUtil.addFragmentAnim(this, R.id.parentLayout, accountCreated, FragmentUtil.FRAGMENT_NO_ANIMATION, false);
+                    }
                 });
 
     }

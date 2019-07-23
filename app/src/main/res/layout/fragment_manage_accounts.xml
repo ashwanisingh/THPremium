@@ -50,7 +50,7 @@
                 android:text="Manage Accounts"
                 android:textColor="@color/boldBlackColor"
                 android:textSize="20sp"
-                app:font_path="@string/FONT_FIRA_SANS_BOLD" />
+                app:font_path="@string/THP_FiraSans_Bold" />
 
             <com.ns.view.CustomTextView
                 android:id="@+id/mobileNumber_Txt"
@@ -60,7 +60,7 @@
                 android:text="Accounts are managed here"
                 android:textColor="@color/boldBlackColor"
                 android:textSize="15sp"
-                app:font_path="@string/FONT_FIRA_SANS_REGULAR" />
+                app:font_path="@string/THP_FiraSans_Regular" />
         </LinearLayout>
 
 
@@ -94,7 +94,7 @@
             android:text="Suspend Account"
             android:textColor="@color/boldBlackColor"
             android:textSize="16sp"
-            app:font_path="@string/FONT_FIRA_SANS_BOLD"
+            app:font_path="@string/THP_FiraSans_Bold"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"/>
 
@@ -107,7 +107,7 @@
             android:text="You can suspend the account for lifetime.Still you will be allowed to sign in suspension period"
             android:textColor="@color/boldBlackColor"
             android:textSize="12sp"
-            app:font_path="@string/FONT_FIRA_SANS_REGULAR"
+            app:font_path="@string/THP_FiraSans_Regular"
             app:layout_constraintTop_toBottomOf="@+id/suspendAccount_Txt"
             app:layout_constraintLeft_toLeftOf="parent"/>
 
@@ -122,7 +122,7 @@
             android:textColor="@color/boldBlackColor"
             android:background="@drawable/grey_background"
             android:textSize="14sp"
-            app:font_path="@string/FONT_FIRA_SANS_REGULAR"
+            app:font_path="@string/THP_FiraSans_Regular"
             app:layout_constraintTop_toBottomOf="@+id/youcan_Txt"
             app:layout_constraintLeft_toLeftOf="parent"/>
 
@@ -176,7 +176,7 @@
             android:text="Delete Account"
             android:textColor="@color/boldBlackColor"
             android:textSize="16sp"
-            app:font_path="@string/FONT_FIRA_SANS_BOLD"
+            app:font_path="@string/THP_FiraSans_Bold"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"/>
 
@@ -189,7 +189,7 @@
             android:text="Your account will be deleted permanentaly. You can’t get back your data after deleting account"
             android:textColor="@color/boldBlackColor"
             android:textSize="12sp"
-            app:font_path="@string/FONT_FIRA_SANS_REGULAR"
+            app:font_path="@string/THP_FiraSans_Regular"
             app:layout_constraintTop_toBottomOf="@+id/deleteAccount_Txt"
             app:layout_constraintLeft_toLeftOf="parent"/>
 
@@ -204,7 +204,7 @@
             android:textColor="@color/redColor_1"
             android:background="@drawable/grey_background"
             android:textSize="14sp"
-            app:font_path="@string/FONT_FIRA_SANS_REGULAR"
+            app:font_path="@string/THP_FiraSans_Regular"
             app:layout_constraintTop_toBottomOf="@+id/yourAc_Txt"
             app:layout_constraintLeft_toLeftOf="parent"/>
 

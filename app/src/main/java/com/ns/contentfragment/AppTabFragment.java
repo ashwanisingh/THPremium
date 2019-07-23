@@ -111,6 +111,7 @@ public class AppTabFragment extends BaseFragmentTHP implements OnSubscribeBtnCli
             }
         });
 
+        // Subscribe Button Click Listener
         view.findViewById(R.id.subscribeBtn_Txt).setOnClickListener(v->{
             IntentUtil.openSubscriptionActivity(getActivity(), THPConstants.FROM_SUBSCRIPTION_EXPLORE);
         });
