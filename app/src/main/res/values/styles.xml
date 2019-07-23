@@ -53,7 +53,7 @@
         <item name="android:src">@drawable/ic_close_ss</item>
         <item name="android:scaleType">centerInside</item>
         <item name="android:background">@drawable/blue_backgraoud</item>
-        <item name="srcCompat">@drawable/ic_close_ss</item>
+        <item name="srcCompat">@drawable/ic_back_copy_42</item>
     </style>
 
     <style name="introTextStyle">
