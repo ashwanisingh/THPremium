@@ -300,5 +300,20 @@ public class ResUtil {
     }
 
 
+    public static boolean isEmpty(CharSequence str) {
+        return (str == null || str.length() == 0);
+    }
+
+    public static String capitalizeFirstLetter(String str) {
+        if (isEmpty(str)) {
+            return str;
+        }
+
+        char c = str.charAt(0);
+        return (!Character.isLetter(c) || Character.isUpperCase(c)) ? str : new StringBuilder(str.length())
+                .append(Character.toUpperCase(c)).append(str.substring(1)).toString();
+    }
+
+
 
 }

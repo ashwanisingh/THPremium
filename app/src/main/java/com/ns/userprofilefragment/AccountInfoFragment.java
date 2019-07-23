@@ -1,5 +1,6 @@
 package com.ns.userprofilefragment;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -77,6 +78,12 @@ public class AccountInfoFragment extends BaseFragmentTHP {
                     if (userProfile == null) {
                         return "";
                     }
+
+                    Typeface custom_font = Typeface.createFromAsset(getActivity().getAssets(),  getString(R.string.THP_FiraSans_Regular));
+
+                    mobileNumberET.setTypeface(custom_font);
+                    emailET.setTypeface(custom_font);
+
                     if(userProfile.getContact()!= null && !TextUtils.isEmpty(userProfile.getContact())) {
                         mobileNumberET.setText(userProfile.getContact());
                     }

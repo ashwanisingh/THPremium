@@ -54,11 +54,10 @@
                 android:id="@+id/mobileNumber_Txt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:alpha="0.6"
-                android:text="Edit your account details"
+                android:text="Edit your personal details"
                 android:textColor="@color/boldBlackColor"
                 android:textSize="14sp"
-                app:font_path="@string/FONT_FIRA_SANS_REGULAR" />
+                app:font_path="@string/THP_FiraSans_Regular" />
         </LinearLayout>
 
 
@@ -340,7 +339,7 @@
             android:textColor="@color/white"
             android:background="@drawable/blue_backgraoud"
             android:textSize="@dimen/personal_info_textSize_18sp"
-            app:font_path="@string/FONT_TUNDRA_OFFC_BOLD" />
+            app:font_path="@string/THP_FiraSans_SemiBold" />
 
 
     </FrameLayout>

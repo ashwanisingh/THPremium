@@ -341,7 +341,7 @@ public class THPPersonaliseActivity extends BaseAcitivityTHP implements THPPerso
 
     @Override
     public void personaliseItemClick(PersonaliseModel model, String from) {
-        Alerts.showToast(this, model.getTitle());
+//        Alerts.showToast(this, model.getTitle());
         if (from != null) {
             if (from.equalsIgnoreCase("Topics")) {
                 if (topics.contains(model.getValue())) {

@@ -6,7 +6,7 @@
 
 <RelativeLayout
     android:layout_width="match_parent"
-    android:layout_height="110dp"
+    android:layout_height="wrap_content"
     android:layout_margin="5dp">
 
     <com.joooonho.SelectableRoundedImageView
@@ -24,8 +24,8 @@
     <View
         android:id="@+id/shadowOverlay"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/image_overlay_noncurve" />
+        android:layout_height="110dp"
+        android:background="@drawable/image_overlay_curve" />
 
     <ImageView
         android:id="@+id/btn_personalise"
@@ -47,7 +47,7 @@
         android:paddingLeft="5dp"
         android:text="Top Stories"
         android:textColor="@color/white"
-        app:font_path="@string/FONT_FIRA_SANS_REGULAR"
+        app:font_path="@string/THP_FiraSans_Regular"
         android:textSize="13sp"
         android:scaleType="centerInside" />
 

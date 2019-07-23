@@ -136,7 +136,14 @@ public class AppTabContentAdapter extends BaseRecyclerViewAdapter {
         GlideUtil.loadImage(holder.image.getContext(), holder.image, ContentUtil.getThumbUrl(bean.getThumbnailUrl()), R.drawable.th_ph_01);
         holder.authorName_Txt.setText(ContentUtil.getAuthor(bean.getAuthor()));
         holder.title.setText(bean.getArticletitle());
-        holder.sectionName.setText(bean.getArticleSection());
+        // Section Name
+        String sectionName = bean.getArticleSection();
+        if(sectionName == null || TextUtils.isEmpty(sectionName)) {
+            sectionName = bean.getSectionName();
+        }
+
+        sectionName = ResUtil.capitalizeFirstLetter(sectionName);
+        holder.sectionName.setText(sectionName);
         // Publish Date
         String formatedPubDt = CommonUtil.fomatedDate(bean.getPubDateTime(), mFrom);
         holder.time_Txt.setText(formatedPubDt);
@@ -177,7 +184,15 @@ public class AppTabContentAdapter extends BaseRecyclerViewAdapter {
         GlideUtil.loadImage(holder.image.getContext(), holder.image, ContentUtil.getThumbUrl(bean.getThumbnailUrl()), R.drawable.th_ph_02);
         holder.authorName_Txt.setText(ContentUtil.getAuthor(bean.getAuthor()));
         holder.title.setText(ResUtil.htmlText(bean.getArticletitle()));
-        holder.sectionName.setText(bean.getArticleSection());
+
+        // Section name
+        String sectionName = bean.getArticleSection();
+        if(sectionName == null || TextUtils.isEmpty(sectionName)) {
+            sectionName = bean.getSectionName();
+        }
+
+        sectionName = ResUtil.capitalizeFirstLetter(sectionName);
+        holder.sectionName.setText(sectionName);
         // Publish Date
         String formatedPubDt = CommonUtil.fomatedDate(bean.getPubDateTime(), mFrom);
         holder.time_Txt.setText(formatedPubDt);
@@ -204,6 +219,8 @@ public class AppTabContentAdapter extends BaseRecyclerViewAdapter {
         if(sectionName == null || TextUtils.isEmpty(sectionName)) {
             sectionName = bean.getSectionName();
         }
+
+        sectionName = ResUtil.capitalizeFirstLetter(sectionName);
 
         holder.tv_section.setText(sectionName);
 

@@ -108,7 +108,7 @@
         <item name="android:background">@drawable/blue_backgraoud</item>
         <item name="android:textColor">@android:color/white</item>
         <item name="android:gravity">center</item>
-        <item name="font_path">@string/FONT_FIRA_SANS_BOLD</item>
+        <item name="font_path">@string/THP_FiraSans_SemiBold</item>
         <item name="android:textSize">@dimen/personal_info_textSize_14sp</item>
     </style>
 

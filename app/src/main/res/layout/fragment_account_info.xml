@@ -100,6 +100,8 @@
                 android:inputType="number"
                 android:maxLength="10"
                 android:maxLines="1"
+                android:textSize="16sp"
+                android:textColor="@color/boldBlackColor"
                 app:hintTextAppearance="@style/HintLabel"
                 />
         </android.support.design.widget.TextInputLayout>
@@ -119,6 +121,8 @@
                 style="@style/accountInfoET_Style"
                 android:inputType="number"
                 android:maxLines="1"
+                android:textSize="16sp"
+                android:textColor="@color/boldBlackColor"
                 app:hintTextAppearance="@style/HintLabel"
                 />
         </android.support.design.widget.TextInputLayout>

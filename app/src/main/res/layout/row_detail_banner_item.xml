@@ -2,12 +2,13 @@
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_marginStart="16dp"
-    android:layout_marginLeft="16dp"
-    android:layout_marginEnd="16dp"
-    android:layout_marginRight="16dp"
+    android:paddingEnd="16dp"
+    android:paddingRight="16dp"
+    android:paddingStart="16dp"
+    android:paddingLeft="16dp"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@color/white">
 
     <com.ns.view.CustomTextView
         android:id="@+id/tv_section"
@@ -18,7 +19,7 @@
         android:text="SCI - TECH"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:font_path="@string/FONT_FIRA_SANS_REGULAR"/>
+        app:font_path="@string/THP_FiraSans_Regular"/>
 
 
     <com.ns.view.CustomTextView
@@ -42,12 +43,12 @@
         android:textSize="20sp"
         android:textColor="#191919"
         android:letterSpacing="0.02"
-        android:lineSpacingExtra="6sp"
+        android:lineSpacingExtra="3sp"
         android:paddingTop="5dp"
         app:layout_constraintTop_toBottomOf="@id/tv_section"
         app:layout_constraintStart_toStartOf="parent"
         android:text="Fellowship hike will be announced today: Ashutosh Sharma"
-        app:font_path="@string/FONT_FIRA_SANS_BOLD"
+        app:font_path="@string/THP_FiraSans_SemiBold"
         />
 
     <com.ns.view.CustomTextView
@@ -58,11 +59,12 @@
         android:lineSpacingExtra="10sp"
         android:paddingTop="2dp"
         android:text="R. Prasad"
-        android:textColor="#191919"
+        android:textColor="@color/boldBlackColor"
+        android:alpha="0.6"
         android:textSize="14sp"
         app:layout_constraintTop_toBottomOf="@id/tv_title"
         app:layout_constraintStart_toStartOf="parent"
-        app:font_path="@string/FONT_FIRA_SANS_REGULAR"/>
+        app:font_path="@string/THP_FiraSans_Regular"/>
 
     <com.ns.view.CustomTextView
         android:id="@+id/tv_city_name"
