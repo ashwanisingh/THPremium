@@ -200,6 +200,13 @@ public class AppTabContentAdapter extends BaseRecyclerViewAdapter {
         // To shows Article Type Image
         articleTypeImage(articleType, bean, holder.articleTypeimageView);
 
+        String sectionName = bean.getArticleSection();
+        if(sectionName == null || TextUtils.isEmpty(sectionName)) {
+            sectionName = bean.getSectionName();
+        }
+
+        holder.tv_section.setText(sectionName);
+
         String authors = CommonUtil.getAutors(bean.getAuthor());
         if(authors == null) {
             holder.tv_author_name.setVisibility(View.GONE);

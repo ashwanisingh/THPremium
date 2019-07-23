@@ -94,6 +94,7 @@
                     android:id="@+id/subscribeNowForExclusive_Txt"
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
+                    android:layout_marginTop="@dimen/become_member_margintop"
                     android:text="Subscribe now for exclusive feature "
                     android:textColor="@color/boldBlackColor"
                     android:textSize="@dimen/textSize_20sp" />
@@ -104,8 +105,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:paddingLeft="@dimen/baseLayoutLeftPadding"
-                android:paddingRight="@dimen/baseLayoutRightPadding">
+                android:paddingLeft="24dp"
+                android:paddingRight="24dp">
 
                 <com.ns.view.CustomTextView
                     android:id="@+id/exploreSubscriptionPlans_Txt"
@@ -127,7 +128,8 @@
                 android:letterSpacing="0.02"
                 android:text="Already have an account? Sign In"
                 android:textColor="@color/boldBlackColor"
-                android:textSize="15sp" />
+                android:textSize="15sp"
+                android:layout_marginBottom="@dimen/become_member_marginbottom"/>
 
         </LinearLayout>
 
