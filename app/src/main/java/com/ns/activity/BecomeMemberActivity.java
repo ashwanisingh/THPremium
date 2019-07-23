@@ -41,10 +41,10 @@ public class BecomeMemberActivity extends BaseAcitivityTHP {
         signIn_Txt = findViewById(R.id.signIn_Txt);
 
 
-        signUpFor30Days_Txt.applyCustomFont(this, getResources().getString(R.string.FONT_FIRA_SANS_BOLD));
-        subscribeNowForExclusive_Txt.applyCustomFont(this, getResources().getString(R.string.FONT_TUNDRA_OFFC_BOLD));
-        exploreSubscriptionPlans_Txt.applyCustomFont(this, getResources().getString(R.string.FONT_FIRA_SANS_BOLD));
-        signIn_Txt.applyCustomFont(this, getResources().getString(R.string.FONT_FIRA_SANS_REGULAR));
+        signUpFor30Days_Txt.applyCustomFont(this, getResources().getString(R.string.THP_FiraSans_Bold));
+        subscribeNowForExclusive_Txt.applyCustomFont(this, getResources().getString(R.string.THP_TundraOffc_Bold));
+        exploreSubscriptionPlans_Txt.applyCustomFont(this, getResources().getString(R.string.THP_FiraSans_Bold));
+        signIn_Txt.applyCustomFont(this, getResources().getString(R.string.THP_FiraSans_Regular));
 
 
         // Sign Up Click Listener

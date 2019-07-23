@@ -31,7 +31,7 @@
             android:gravity="center"
             android:textSize="@dimen/personal_info_textSize_16sp"
             android:textColor="@color/boldBlackColor"
-            app:font_path="@string/FONT_FIRA_SANS_BOLD"
+            app:font_path="@string/THP_FiraSans_Bold"
             />
 
 

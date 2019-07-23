@@ -19,7 +19,7 @@
         android:textColor="@color/boldBlackColor"
         android:text="TH1987F635"
         android:alpha="0.8"
-        app:font_path="@string/FONT_FIRA_SANS_BOLD"
+        app:font_path="@string/THP_FiraSans_Bold"
         />
 
     <com.ns.view.CustomTextView
@@ -33,7 +33,7 @@
         android:textColor="@color/boldBlackColor"
         android:text="Feb 15, 2019 at 8:05 pm"
         android:alpha="0.6"
-        app:font_path="@string/FONT_FIRA_SANS_REGULAR"
+        app:font_path="@string/THP_FiraSans_Regular"
         />
 
     <include layout="@layout/listing_divider"
@@ -56,7 +56,7 @@
         android:textSize="16sp"
         android:textColor="@color/greenColor_1"
         android:text="Success"
-        app:font_path="@string/FONT_FIRA_SANS_BOLD"
+        app:font_path="@string/THP_FiraSans_Bold"
         />
 
 </android.support.constraint.ConstraintLayout>

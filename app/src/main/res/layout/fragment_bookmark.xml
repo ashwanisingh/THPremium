@@ -21,7 +21,7 @@
         android:layout_marginStart="10dp"
         android:textColor="@color/boldBlackColor"
         android:textSize="18sp"
-        app:font_path="@string/FONT_FIRA_SANS_REGULAR"
+        app:font_path="@string/THP_FiraSans_Regular"
         app:layout_constraintLeft_toRightOf="@+id/backBtn"
         app:layout_constraintTop_toTopOf="@+id/backBtn"
         app:layout_constraintBottom_toBottomOf="@+id/backBtn"/>

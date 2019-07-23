@@ -66,7 +66,7 @@
             android:textColor="@color/greyColor_1"
             android:paddingLeft="20dp"
             android:paddingStart="20dp"
-            app:font_path="@string/FONT_FIRA_SANS_BOLD"
+            app:font_path="@string/THP_FiraSans_Bold"
             />
 
     </LinearLayout>

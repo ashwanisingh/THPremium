@@ -48,7 +48,7 @@
                 android:text="@string/type_device"
                 android:textColor="@color/blueColor_1"
                 android:textSize="18sp"
-                app:font_path="@string/FONT_FIRA_SANS_BOLD" />
+                app:font_path="@string/THP_FiraSans_Bold" />
 
             <com.ns.view.CustomTextView
                 android:id="@+id/mobileNumber_Txt"
@@ -58,7 +58,7 @@
                 android:text="99999999990"
                 android:textColor="@color/boldBlackColor"
                 android:textSize="14sp"
-                app:font_path="@string/FONT_FIRA_SANS_REGULAR" />
+                app:font_path="@string/THP_FiraSans_Regular" />
         </LinearLayout>
 
 
@@ -109,7 +109,7 @@
                 android:text="Starter Pack  - Rs. 99"
                 android:textColor="#ffffff"
                 android:textSize="18sp"
-                app:font_path="@string/FONT_TUNDRA_OFFC_BOLD" />
+                app:font_path="@string/THP_FiraSans_Regular" />
 
             <com.ns.view.CustomTextView
                 android:id="@+id/planValidity_Txt"
@@ -119,7 +119,7 @@
                 android:text="Valid Till - 21 Mar 2018"
                 android:textColor="#ffffff"
                 android:textSize="14sp"
-                app:font_path="@string/FONT_FIRA_SANS_REGULAR" />
+                app:font_path="@string/THP_FiraSans_Regular" />
         </LinearLayout>
 
 
@@ -132,7 +132,7 @@
             android:text="View All"
             android:textColor="#ffffff"
             android:textSize="18sp"
-            app:font_path="@string/FONT_FIRA_SANS_REGULAR"
+            app:font_path="@string/THP_FiraSans_Regular"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -178,7 +178,7 @@
                         android:text="Personal Info"
                         android:textColor="@color/boldBlackColor"
                         android:textSize="16sp"
-                        app:font_path="@string/FONT_FIRA_SANS_BOLD" />
+                        app:font_path="@string/THP_FiraSans_Bold" />
 
                     <com.ns.view.CustomTextView
                         android:layout_width="wrap_content"
@@ -187,7 +187,7 @@
                         android:text="Subscribe to get these features free for"
                         android:textColor="@color/boldBlackColor"
                         android:textSize="14sp"
-                        app:font_path="@string/FONT_FIRA_SANS_REGULAR" />
+                        app:font_path="@string/THP_FiraSans_Regular" />
                 </LinearLayout>
 
 
@@ -225,7 +225,7 @@
                         android:text="My Address"
                         android:textColor="@color/boldBlackColor"
                         android:textSize="16sp"
-                        app:font_path="@string/FONT_FIRA_SANS_BOLD" />
+                        app:font_path="@string/THP_FiraSans_Bold" />
 
                     <com.ns.view.CustomTextView
                         android:layout_width="wrap_content"
@@ -234,7 +234,7 @@
                         android:text="Subscribe to get these features free for"
                         android:textColor="@color/boldBlackColor"
                         android:textSize="14sp"
-                        app:font_path="@string/FONT_FIRA_SANS_REGULAR" />
+                        app:font_path="@string/THP_FiraSans_Regular" />
                 </LinearLayout>
 
 
@@ -271,7 +271,7 @@
                         android:text="Notification"
                         android:textColor="@color/boldBlackColor"
                         android:textSize="16sp"
-                        app:font_path="@string/FONT_FIRA_SANS_BOLD" />
+                        app:font_path="@string/THP_FiraSans_Bold" />
 
                     <com.ns.view.CustomTextView
                         android:layout_width="wrap_content"
@@ -280,7 +280,7 @@
                         android:text="Subscribe to get these features free for"
                         android:textColor="@color/boldBlackColor"
                         android:textSize="14sp"
-                        app:font_path="@string/FONT_FIRA_SANS_REGULAR" />
+                        app:font_path="@string/THP_FiraSans_Regular" />
                 </LinearLayout>
 
 
@@ -317,7 +317,7 @@
                         android:text="Transaction History"
                         android:textColor="@color/boldBlackColor"
                         android:textSize="16sp"
-                        app:font_path="@string/FONT_FIRA_SANS_BOLD" />
+                        app:font_path="@string/THP_FiraSans_Bold" />
 
                     <com.ns.view.CustomTextView
                         android:layout_width="wrap_content"
@@ -326,7 +326,7 @@
                         android:text="Subscribe to get these features free for"
                         android:textColor="@color/boldBlackColor"
                         android:textSize="14sp"
-                        app:font_path="@string/FONT_FIRA_SANS_REGULAR" />
+                        app:font_path="@string/THP_FiraSans_Regular" />
                 </LinearLayout>
 
 
@@ -364,7 +364,7 @@
                         android:text="Change Password"
                         android:textColor="@color/boldBlackColor"
                         android:textSize="16sp"
-                        app:font_path="@string/FONT_FIRA_SANS_BOLD" />
+                        app:font_path="@string/THP_FiraSans_Bold" />
 
                     <com.ns.view.CustomTextView
                         android:layout_width="wrap_content"
@@ -373,7 +373,7 @@
                         android:text="Subscribe to get these features free for"
                         android:textColor="@color/boldBlackColor"
                         android:textSize="14sp"
-                        app:font_path="@string/FONT_FIRA_SANS_REGULAR" />
+                        app:font_path="@string/THP_FiraSans_Regular" />
                 </LinearLayout>
 
 
@@ -410,7 +410,7 @@
                         android:text="Manage Your Accounts"
                         android:textColor="@color/boldBlackColor"
                         android:textSize="16sp"
-                        app:font_path="@string/FONT_FIRA_SANS_BOLD" />
+                        app:font_path="@string/THP_FiraSans_Bold" />
 
                     <com.ns.view.CustomTextView
                         android:layout_width="wrap_content"
@@ -419,7 +419,7 @@
                         android:text="Subscribe to get these features free for"
                         android:textColor="@color/boldBlackColor"
                         android:textSize="14sp"
-                        app:font_path="@string/FONT_FIRA_SANS_REGULAR" />
+                        app:font_path="@string/THP_FiraSans_Regular" />
                 </LinearLayout>
 
 
@@ -456,7 +456,7 @@
                         android:text="Sign Out"
                         android:textColor="@color/boldBlackColor"
                         android:textSize="16sp"
-                        app:font_path="@string/FONT_FIRA_SANS_BOLD" />
+                        app:font_path="@string/THP_FiraSans_Bold" />
 
                     <com.ns.view.CustomTextView
                         android:id="@+id/versionName_Txt"
@@ -466,7 +466,7 @@
                         android:text="1.0"
                         android:textColor="@color/boldBlackColor"
                         android:textSize="14sp"
-                        app:font_path="@string/FONT_FIRA_SANS_REGULAR" />
+                        app:font_path="@string/THP_FiraSans_Regular" />
                 </LinearLayout>
 
 

@@ -48,7 +48,7 @@
                 android:text="Personal Info"
                 android:textColor="@color/boldBlackColor"
                 android:textSize="@dimen/personal_info_textSize_18sp"
-                app:font_path="@string/FONT_FIRA_SANS_BOLD" />
+                app:font_path="@string/THP_FiraSans_Bold" />
 
             <com.ns.view.CustomTextView
                 android:id="@+id/mobileNumber_Txt"
@@ -211,7 +211,7 @@
             android:text="Use my current location"
             android:textColor="@color/boldBlackColor"
             android:textSize="@dimen/personal_info_textSize_16sp"
-            app:font_path="@string/FONT_FIRA_SANS_REGULAR"
+            app:font_path="@string/THP_FiraSans_Regular"
             android:drawableLeft="@drawable/ic_location"/>
 
 
@@ -245,7 +245,7 @@
             android:text="Additional UID"
             android:textColor="@color/boldBlackColor"
             android:textSize="@dimen/personal_info_textSize_18sp"
-            app:font_path="@string/FONT_FIRA_SANS_BOLD" />
+            app:font_path="@string/THP_FiraSans_Bold" />
 
         <include layout="@layout/listing_divider"
             android:layout_width="match_parent"
@@ -281,7 +281,7 @@
             android:textColor="@color/blueColor_1"
             android:background="@drawable/blue_outline_backgraoud"
             android:textSize="@dimen/personal_info_textSize_18sp"
-            app:font_path="@string/FONT_FIRA_SANS_BOLD" />
+            app:font_path="@string/THP_FiraSans_Bold" />
 
     </LinearLayout>
     <!--End Part 3 Layout-->
@@ -303,7 +303,7 @@
         android:paddingEnd="15dp"
         android:paddingRight="15dp"
         android:textSize="14sp"
-        app:font_path="@string/FONT_FIRA_SANS_REGULAR"
+        app:font_path="@string/THP_FiraSans_Regular"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/part4Layout"

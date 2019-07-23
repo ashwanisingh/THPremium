@@ -39,7 +39,7 @@ public class CalendarFragment extends BaseFragmentTHP {
         super.onViewCreated(view, savedInstanceState);
 
         calendarView = view.findViewById(R.id.calendarView);
-        calendarView.setCustomTypeface(FontCache.getTypeface(getResources().getString(R.string.FONT_FIRA_SANS_REGULAR), getActivity()));
+        calendarView.setCustomTypeface(FontCache.getTypeface(getResources().getString(R.string.THP_FiraSans_Regular), getActivity()));
 
         //Initialize calendar with date
         Calendar currentCalendar = Calendar.getInstance(Locale.getDefault());

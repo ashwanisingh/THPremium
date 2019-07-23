@@ -67,7 +67,7 @@
                 android:textColor="#191919"
                 android:textSize="16sp"
                 android:text="Subscription Benefits Includes"
-                app:font_path="@string/FONT_FIRA_SANS_BOLD"
+                app:font_path="@string/THP_FiraSans_Bold"
 
                 />
 
@@ -106,7 +106,7 @@
                         android:textColor="#191919"
                         android:textSize="14sp"
                         android:text="Personalised Recommendations"
-                        app:font_path="@string/FONT_FIRA_SANS_BOLD"/>
+                        app:font_path="@string/THP_FiraSans_Bold"/>
 
                 </LinearLayout>
 
@@ -133,7 +133,7 @@
                         android:textColor="#191919"
                         android:textSize="14sp"
                         android:text="Dashboard Tool"
-                        app:font_path="@string/FONT_FIRA_SANS_BOLD"/>
+                        app:font_path="@string/THP_FiraSans_Bold"/>
 
                 </LinearLayout>
 
@@ -160,7 +160,7 @@
                         android:textColor="#191919"
                         android:textSize="14sp"
                         android:text="Zero Advertisements"
-                        app:font_path="@string/FONT_FIRA_SANS_BOLD"/>
+                        app:font_path="@string/THP_FiraSans_Bold"/>
 
                 </LinearLayout>
 
@@ -187,7 +187,7 @@
                         android:textColor="#191919"
                         android:textSize="14sp"
                         android:text="Briefing"
-                        app:font_path="@string/FONT_FIRA_SANS_BOLD"/>
+                        app:font_path="@string/THP_FiraSans_Bold"/>
 
                 </LinearLayout>
 
@@ -213,7 +213,7 @@
                         android:textColor="#191919"
                         android:textSize="14sp"
                         android:text="News Editions"
-                        app:font_path="@string/FONT_FIRA_SANS_BOLD"/>
+                        app:font_path="@string/THP_FiraSans_Bold"/>
 
                 </LinearLayout>
 
@@ -230,7 +230,7 @@
                     android:textSize="16sp"
                     android:textColor="#191919"
                     android:text="Customer Support"
-                    app:font_path="@string/FONT_FIRA_SANS_BOLD"/>
+                    app:font_path="@string/THP_FiraSans_Bold"/>
 
                 <com.ns.view.CustomTextView
                     android:layout_marginTop="8dp"
@@ -239,7 +239,7 @@
                     android:textSize="16sp"
                     android:textColor="#191919"
                     android:text="For other queries, please write to"
-                    app:font_path="@string/FONT_FIRA_SANS_REGULAR"/>
+                    app:font_path="@string/THP_FiraSans_Regular"/>
 
                 <com.ns.view.CustomTextView
                     android:id="@+id/tv_mail"
@@ -249,7 +249,7 @@
                     android:textSize="16sp"
                     android:textColor="#195595"
                     android:text="customersupport@thehindu.co.in"
-                    app:font_path="@string/FONT_FIRA_SANS_BOLD"/>
+                    app:font_path="@string/THP_FiraSans_Bold"/>
 
                 <com.ns.view.CustomTextView
                     android:id="@+id/tv_frequent_questions"
@@ -259,7 +259,7 @@
                     android:textSize="16sp"
                     android:textColor="#195595"
                     android:text="Frequently Asked Questions"
-                    app:font_path="@string/FONT_FIRA_SANS_BOLD"/>
+                    app:font_path="@string/THP_FiraSans_Bold"/>
 
 
                 <com.ns.view.CustomTextView
@@ -269,7 +269,7 @@
                     android:textSize="16sp"
                     android:textColor="#191919"
                     android:text="By signing up, you agree to our"
-                    app:font_path="@string/FONT_FIRA_SANS_REGULAR" />
+                    app:font_path="@string/THP_FiraSans_Regular" />
 
                 <com.ns.view.CustomTextView
                     android:id="@+id/tv_terms"
@@ -278,7 +278,7 @@
                     android:textSize="16sp"
                     android:textColor="#195595"
                     android:text="Terms and Conditions"
-                    app:font_path="@string/FONT_FIRA_SANS_BOLD"
+                    app:font_path="@string/THP_FiraSans_Bold"
                     android:paddingBottom="22dp"
                     android:layout_marginBottom="22dp"/>
 

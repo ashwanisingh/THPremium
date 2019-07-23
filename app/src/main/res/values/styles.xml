@@ -62,7 +62,7 @@
         <item name="android:background">@null</item>
         <item name="android:textSize">@dimen/personal_info_textSize_16sp</item>
         <item name="android:textColor">@color/boldBlackColor</item>
-        <item name="font_path">@string/FONT_FIRA_SANS_BOLD</item>
+        <item name="font_path">@string/THP_FiraSans_Bold</item>
         <item name="android:layout_marginLeft">16dp</item>
         <item name="android:layout_marginTop">@dimen/margin_26</item>
         <item name="android:gravity">center_vertical</item>
@@ -89,7 +89,7 @@
     </style>
 
     <style name="tab_text" parent="@android:style/TextAppearance.Widget.TabWidget">
-        <item name="android:fontFamily">@string/FONT_TUNDRA_OFFC_BOLD</item>
+        <item name="android:fontFamily">@string/THP_TundraOffc_Bold</item>
         <item name="android:textSize">20dp</item>
     </style>
 
@@ -117,14 +117,14 @@
         <item name="android:textColorHint">@color/boldBlackColor_50alp</item>
         <item name="colorControlNormal">@color/listing_dividerColor</item>
         <item name="colorControlActivated">@color/boldBlackColor_50alp</item>
-        <item name="font_path">@string/FONT_FIRA_SANS_REGULAR</item>
+        <item name="font_path">@string/THP_FiraSans_Regular</item>
     </style>
 
     <style name="accountInfoET_Style">
         <item name="android:layout_height">@dimen/account_info_et_height</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:textSize">@dimen/personal_info_textSize_16sp</item>
-        <item name="font_path">@string/FONT_FIRA_SANS_REGULAR</item>
+        <item name="font_path">@string/THP_FiraSans_Regular</item>
         <item name="android:textStyle">normal</item>
         <item name="android:textColor">@color/boldBlackColor_50alp</item>
         <item name="android:alpha">0.9</item>
@@ -136,7 +136,7 @@
         <item name="android:layout_height">@dimen/personal_info_et_height</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:textSize">@dimen/personal_info_textSize_16sp</item>
-        <item name="font_path">@string/FONT_FIRA_SANS_REGULAR</item>
+        <item name="font_path">@string/THP_FiraSans_Regular</item>
         <item name="android:textStyle">normal</item>
         <item name="android:textColor">@color/boldBlackColor</item>
         <item name="android:alpha">0.9</item>
@@ -149,7 +149,7 @@
         <item name="android:layout_height">@dimen/add_address_et_height</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:textSize">@dimen/personal_info_textSize_16sp</item>
-        <item name="font_path">@string/FONT_FIRA_SANS_REGULAR</item>
+        <item name="font_path">@string/THP_FiraSans_Regular</item>
         <item name="android:textStyle">normal</item>
         <item name="android:textColor">@color/boldBlackColor</item>
         <item name="android:alpha">0.9</item>
@@ -165,7 +165,7 @@
 
     <style name="HintLabel" parent="TextAppearance.Design.Hint">
         <item name="android:textSize">@dimen/personal_info_textSize_16sp</item>
-        <item name="font_path">@string/FONT_FIRA_SANS_BOLD</item>
+        <item name="font_path">@string/THP_FiraSans_Bold</item>
     </style>
 
     <style name="fwdBtnStyle">

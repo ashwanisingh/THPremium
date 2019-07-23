@@ -103,7 +103,7 @@
             android:layout_marginTop="20dp"
             android:background="@drawable/grey_background"
             android:textColor="@color/blueColor_1"
-            app:font_path="@string/FONT_FIRA_SANS_REGULAR"
+            app:font_path="@string/THP_FiraSans_Regular"
             />
 
 

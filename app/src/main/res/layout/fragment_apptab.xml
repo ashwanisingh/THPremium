@@ -95,7 +95,7 @@
             android:gravity="center"
             android:textSize="13sp"
             android:textColor="#FFFFFF"
-            app:font_path="@string/FONT_FIRA_SANS_REGULAR"
+            app:font_path="@string/THP_FiraSans_Regular"
             />
 
 
@@ -141,7 +141,7 @@
             android:textSize="14sp"
             android:textColor="#ffffff"
             android:text="Become a Premium member now!"
-            app:font_path="@string/FONT_FIRA_SANS_BOLD"
+            app:font_path="@string/THP_FiraSans_Bold"
             android:layout_marginLeft="15dp"
             android:layout_marginStart="15dp"
             />
@@ -154,7 +154,7 @@
             android:textSize="11sp"
             android:textColor="#ffffff"
             android:text="Enjoy member benefits and more…"
-            app:font_path="@string/FONT_FIRA_SANS_REGULAR"
+            app:font_path="@string/THP_FiraSans_Regular"
             android:layout_marginLeft="15dp"
             android:layout_marginStart="15dp"
             />

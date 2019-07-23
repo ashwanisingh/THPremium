@@ -15,7 +15,7 @@
         android:textColor="@color/boldBlackColor"
         android:gravity="center"
         android:text="All Editions"
-        app:font_path="@string/FONT_FIRA_SANS_BOLD"
+        app:font_path="@string/THP_FiraSans_Bold"
         />
 
     <include layout="@layout/listing_divider"/>

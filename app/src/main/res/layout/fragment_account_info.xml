@@ -48,7 +48,7 @@
                 android:text="Account Info"
                 android:textColor="@color/boldBlackColor"
                 android:textSize="18sp"
-                app:font_path="@string/FONT_FIRA_SANS_BOLD" />
+                app:font_path="@string/THP_FiraSans_Bold" />
 
             <com.ns.view.CustomTextView
                 android:id="@+id/mobileNumber_Txt"
@@ -58,7 +58,7 @@
                 tools:text="Edit your account details"
                 android:textColor="@color/boldBlackColor"
                 android:textSize="14sp"
-                app:font_path="@string/FONT_FIRA_SANS_REGULAR" />
+                app:font_path="@string/THP_FiraSans_Regular" />
         </LinearLayout>
 
 

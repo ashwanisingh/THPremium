@@ -48,7 +48,7 @@
                 android:text="Transactions"
                 android:textColor="@color/boldBlackColor"
                 android:textSize="20sp"
-                app:font_path="@string/FONT_FIRA_SANS_BOLD" />
+                app:font_path="@string/THP_FiraSans_Bold" />
 
             <com.ns.view.CustomTextView
                 android:id="@+id/mobileNumber_Txt"
@@ -58,7 +58,7 @@
                 android:text="All your trasactions done with us"
                 android:textColor="@color/boldBlackColor"
                 android:textSize="15sp"
-                app:font_path="@string/FONT_FIRA_SANS_REGULAR" />
+                app:font_path="@string/THP_FiraSans_Regular" />
         </LinearLayout>
 
 

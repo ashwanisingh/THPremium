@@ -36,7 +36,7 @@
             android:textColor="@color/boldBlackColor"
             android:letterSpacing="0.03"
             android:text="OTP Verification"
-            app:font_path="@string/FONT_TUNDRA_OFFC_BOLD"
+            app:font_path="@string/THP_TundraOffc_Bold"
             />
 
         <com.ns.view.CustomTextView
@@ -49,7 +49,7 @@
             android:textColor="@color/boldBlackColor"
             android:letterSpacing="0.03"
             android:text="Enter OTP sent to your mobile number"
-            app:font_path="@string/FONT_FIRA_SANS_REGULAR"
+            app:font_path="@string/THP_FiraSans_Regular"
             />
 
         <com.alimuzaffar.lib.pin.PinEntryEditText
@@ -94,7 +94,7 @@
             android:layout_marginTop="40dp"
             android:background="@drawable/grey_background"
             android:textColor="@color/blueColor_1"
-            app:font_path="@string/FONT_FIRA_SANS_REGULAR"
+            app:font_path="@string/THP_FiraSans_Regular"
             />
 
 

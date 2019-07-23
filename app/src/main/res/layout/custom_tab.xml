@@ -13,7 +13,7 @@
         android:gravity="center"
         android:paddingBottom="10dp"
         android:textColor="@color/greyColor_1"
-        app:font_path="@string/FONT_TUNDRA_OFFC_BOLD">
+        app:font_path="@string/THP_TundraOffc_Bold">
 
     </com.ns.view.CustomTextView>
 

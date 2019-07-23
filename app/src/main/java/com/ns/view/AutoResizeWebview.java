@@ -95,11 +95,10 @@ public class AutoResizeWebview extends WebView {
                 return "";
         }
 
-        String font = "FiraSans-Regular.ttf";
+        String font = "THP_FiraSans-Regular.ttf";
 
         if(isItalic) {
-//            description = "<i>"+description+"</i>";
-            font = "TundraOffc.ttf";
+            font = "THP_TundraOffc-Italic.ttf";
         }
         return "<html><head>"
                 + "<style type=\"text/css\">body{color: #191919; background-color: " +

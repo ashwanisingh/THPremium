@@ -50,7 +50,7 @@
                 android:text="Add Address"
                 android:textColor="@color/boldBlackColor"
                 android:textSize="18sp"
-                app:font_path="@string/FONT_FIRA_SANS_BOLD" />
+                app:font_path="@string/THP_FiraSans_Bold" />
 
             <com.ns.view.CustomTextView
                 android:id="@+id/mobileNumber_Txt"
@@ -60,7 +60,7 @@
                 android:text="Edit your address details"
                 android:textColor="@color/boldBlackColor"
                 android:textSize="14sp"
-                app:font_path="@string/FONT_FIRA_SANS_REGULAR" />
+                app:font_path="@string/THP_FiraSans_Regular" />
         </LinearLayout>
 
 
@@ -249,7 +249,7 @@
             android:gravity="center"
             android:text="Home"
             android:textColor="@color/white"
-            app:font_path="@string/FONT_FIRA_SANS_REGULAR"
+            app:font_path="@string/THP_FiraSans_Regular"
             app:layout_constraintEnd_toStartOf="@+id/officeBtn_Txt"
             app:layout_constraintHorizontal_chainStyle="spread"
             app:layout_constraintStart_toStartOf="parent" />
@@ -263,7 +263,7 @@
             android:gravity="center"
             android:text="Office"
             android:textColor="@color/white"
-            app:font_path="@string/FONT_FIRA_SANS_REGULAR"
+            app:font_path="@string/THP_FiraSans_Regular"
             app:layout_constraintEnd_toStartOf="@+id/othersBtn_Txt"
             app:layout_constraintStart_toEndOf="@+id/homeBtn_Txt" />
 
@@ -276,7 +276,7 @@
             android:gravity="center"
             android:text="Others"
             android:textColor="@color/white"
-            app:font_path="@string/FONT_FIRA_SANS_REGULAR"
+            app:font_path="@string/THP_FiraSans_Regular"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/officeBtn_Txt" />
 
@@ -291,7 +291,7 @@
             android:text="Set as Primary Address"
             android:textColor="#191919"
             android:textSize="12sp"
-            app:font_path="@string/FONT_FIRA_SANS_REGULAR"
+            app:font_path="@string/THP_FiraSans_Regular"
             app:layout_constraintLeft_toLeftOf="@+id/homeBtn_Txt"
             app:layout_constraintTop_toBottomOf="@+id/othersBtn_Txt" />
     </android.support.constraint.ConstraintLayout>
@@ -323,7 +323,7 @@
             android:text="Save Address"
             android:textColor="@color/white"
             android:textSize="18sp"
-            app:font_path="@string/FONT_TUNDRA_OFFC_BOLD" />
+            app:font_path="@string/THP_TundraOffc_Bold" />
 
 
     </FrameLayout>

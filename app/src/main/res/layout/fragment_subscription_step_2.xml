@@ -64,7 +64,7 @@
                 android:text="Starter Pack  - Rs. 99"
                 android:textColor="#ffffff"
                 android:textSize="18sp"
-                app:font_path="@string/FONT_TUNDRA_OFFC_BOLD" />
+                app:font_path="@string/THP_TundraOffc_Bold" />
 
             <com.ns.view.CustomTextView
                 android:id="@+id/planValidity_Txt"
@@ -74,7 +74,7 @@
                 android:text="Valid Till - 21 Mar 2018"
                 android:textColor="#ffffff"
                 android:textSize="14sp"
-                app:font_path="@string/FONT_TUNDRA_OFFC_BOLD"
+                app:font_path="@string/THP_TundraOffc_Bold"
                 />
         </LinearLayout>
 
@@ -87,7 +87,7 @@
             android:text="Change"
             android:textColor="#ffffff"
             android:textSize="18sp"
-            app:font_path="@string/FONT_TUNDRA_OFFC_BOLD"
+            app:font_path="@string/THP_TundraOffc_Bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -121,7 +121,7 @@
             android:alpha="0.8"
             android:textColor="@color/boldBlackColor"
             android:text="Choose Plan"
-            app:font_path="@string/FONT_FIRA_SANS_BOLD"
+            app:font_path="@string/THP_FiraSans_Bold"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             />
@@ -134,7 +134,7 @@
             android:alpha="0.6"
             android:textColor="@color/boldBlackColor"
             android:text="Subscribe to get these features free for"
-            app:font_path="@string/FONT_FIRA_SANS_REGULAR"
+            app:font_path="@string/THP_FiraSans_Regular"
             android:paddingTop="5dp"
             android:layout_marginBottom="@dimen/baseLayoutTopPadding"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -189,7 +189,7 @@
             app:layout_constraintVertical_chainStyle="packed"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:font_path="@string/FONT_FIRA_SANS_REGULAR"
+            app:font_path="@string/THP_FiraSans_Regular"
             android:textColor="@color/boldBlackColor"
             android:layout_marginBottom="30dp"
             />

@@ -75,7 +75,7 @@
         android:drawableRight="@drawable/ic_edition_dropdown"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/yourEditionFor_Txt"
-        app:font_path="@string/FONT_FIRA_SANS_REGULAR"
+        app:font_path="@string/THP_FiraSans_Regular"
         android:maxLines="1"
         />
 

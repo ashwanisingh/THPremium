@@ -28,7 +28,7 @@
             android:text="TH1987F635"
             android:textColor="@color/boldBlackColor"
             android:alpha="0.8"
-            app:font_path="@string/FONT_FIRA_SANS_BOLD"
+            app:font_path="@string/THP_FiraSans_Bold"
             />
 
         <com.ns.view.CustomTextView
@@ -42,7 +42,7 @@
             android:textColor="@color/boldBlackColor"
             android:text="Feb 15, 2019 at 8:05 pm"
             android:alpha="0.6"
-            app:font_path="@string/FONT_FIRA_SANS_REGULAR"
+            app:font_path="@string/THP_FiraSans_Regular"
             />
 
         <include layout="@layout/listing_divider"
@@ -64,7 +64,7 @@
             android:layout_marginTop="6dp"
             android:textColor="@color/yellowColor_1"
             android:text="Plan Name"
-            app:font_path="@string/FONT_FIRA_SANS_REGULAR"
+            app:font_path="@string/THP_FiraSans_Regular"
             />
 
         <com.ns.view.CustomTextView
@@ -77,7 +77,7 @@
             android:layout_marginTop="10dp"
             android:textColor="@color/boldBlackColor"
             android:text="Rs. 399"
-            app:font_path="@string/FONT_FIRA_SANS_REGULAR"
+            app:font_path="@string/THP_FiraSans_Regular"
             />
 
         <include layout="@layout/listing_divider"
@@ -100,7 +100,7 @@
             android:layout_marginTop="14dp"
             android:textColor="@color/boldBlackColor_50alp"
             android:text="Success"
-            app:font_path="@string/FONT_FIRA_SANS_REGULAR"
+            app:font_path="@string/THP_FiraSans_Regular"
             />
 
         <com.ns.view.CustomTextView
@@ -113,7 +113,7 @@
             android:layout_marginTop="14dp"
             android:textColor="@color/boldBlackColor_50alp"
             android:text="Payment Mode"
-            app:font_path="@string/FONT_FIRA_SANS_REGULAR"
+            app:font_path="@string/THP_FiraSans_Regular"
             />
 
         <com.ns.view.CustomTextView
@@ -126,7 +126,7 @@
             android:layout_marginTop="6dp"
             android:textColor="@color/greenColor_1"
             android:text="Success"
-            app:font_path="@string/FONT_FIRA_SANS_REGULAR"
+            app:font_path="@string/THP_FiraSans_Regular"
             />
 
         <com.ns.view.CustomTextView
@@ -139,7 +139,7 @@
             android:layout_marginTop="6dp"
             android:textColor="@color/redColor_1"
             android:text="ICICI"
-            app:font_path="@string/FONT_FIRA_SANS_REGULAR"
+            app:font_path="@string/THP_FiraSans_Regular"
             />
 
 

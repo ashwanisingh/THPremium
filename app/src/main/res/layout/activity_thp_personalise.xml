@@ -48,7 +48,7 @@
             android:textColor="@color/black"
             android:layout_centerInParent="true"
             android:padding="10dp"
-            app:font_path="@string/FONT_FIRA_SANS_BOLD" />
+            app:font_path="@string/THP_FiraSans_Bold" />
 
         <ImageButton
             android:id="@+id/forwardArrow"

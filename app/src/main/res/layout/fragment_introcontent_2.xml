@@ -35,7 +35,7 @@
             android:textColor="#191919"
             android:text="Personalised Content"
             android:layout_marginTop="16dp"
-            app:font_path="@string/FONT_FIRA_SANS_BOLD"
+            app:font_path="@string/THP_FiraSans_Bold"
             android:alpha="0.8"
             android:layout_gravity="center_horizontal"
             />
@@ -47,7 +47,7 @@
             android:textColor="#191919"
             android:lineSpacingExtra="6sp"
             android:gravity="center"
-            app:font_path="@string/FONT_FIRA_SANS_REGULAR"
+            app:font_path="@string/THP_FiraSans_Regular"
             android:layout_gravity="center_horizontal"
             android:alpha="0.8"
             android:text="Cut the clutter! We bring to you a select list of articles that match your interests and tastes"

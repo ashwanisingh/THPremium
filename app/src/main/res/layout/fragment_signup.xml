@@ -129,7 +129,7 @@
         app:layout_constraintVertical_chainStyle="packed"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:font_path="@string/FONT_FIRA_SANS_BOLD"
+        app:font_path="@string/THP_FiraSans_Bold"
         android:textColor="@color/blueColor_1"/>
 
     <com.ns.view.CustomTextView
@@ -145,7 +145,7 @@
         app:layout_constraintVertical_chainStyle="packed"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:font_path="@string/FONT_FIRA_SANS_REGULAR"
+        app:font_path="@string/THP_FiraSans_Regular"
         android:textColor="@color/boldBlackColor"
         android:layout_marginBottom="30dp"
         />
