@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-        <dimen name="baseLayoutLeftPadding">5dp</dimen>
-        <dimen name="baseLayoutRightPadding">5dp</dimen>
+        <dimen name="baseLayoutLeftPadding">11dp</dimen>
+        <dimen name="baseLayoutRightPadding">11dp</dimen>
         <dimen name="baseLayoutTopPadding">10dp</dimen>
 
         <dimen name="backBtnMarginTop">20dp</dimen>
@@ -69,7 +69,7 @@
 
         <dimen name="margin_26">22dp</dimen>
 
-        <dimen name="choose_plan_left_padding">19dp</dimen>
+        <dimen name="subscription_other_content_left_padding">19dp</dimen>
         <dimen name="choose_plan_top_padding">24dp</dimen>
 
 

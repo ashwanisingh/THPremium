@@ -74,8 +74,10 @@
 
     <dimen name="margin_26">26dp</dimen>
 
-    <dimen name="choose_plan_left_padding">1dp</dimen>
-    <dimen name="choose_plan_top_padding">24dp</dimen>
+    <dimen name="subscription_other_content_left_padding">1dp</dimen>
+    <dimen name="choose_plan_top_padding">20dp</dimen>
+    <dimen name="choose_plan_left_padding">24dp</dimen>
+    <dimen name="choose_plan_bottom_padding">10dp</dimen>
 
 
     <dimen name="apptab_listing_top_padding">2dp</dimen>
@@ -89,7 +91,7 @@
     <dimen name="add_address_et_height">49dp</dimen>
     <dimen name="add_address_info_et_gap">15dp</dimen>
 
-    <dimen name="profile_icon_width_height">40dp</dimen>
+    <dimen name="profile_icon_width_height">31dp</dimen>
 
     <dimen name="toolbar_ic_width">30dp</dimen>
     <dimen name="toolbar_ic_height">30dp</dimen>

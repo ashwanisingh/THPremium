@@ -24,7 +24,7 @@
         android:text="The Hindu Subscription"
         android:textColor="@color/boldBlackColor"
         android:textSize="27dp"
-        app:font_path="@string/FONT_TUNDRA_OFFC_BOLD" />
+        app:font_path="@string/THP_TundraOffc_Bold" />
 
 
     <!--Start Part 1 Layout-->
