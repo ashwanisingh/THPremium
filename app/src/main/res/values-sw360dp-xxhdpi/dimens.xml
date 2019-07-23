@@ -12,9 +12,6 @@
 
     <dimen name="introIconWidthHeight">21.5dp</dimen>
 
-    <dimen name="become_member_part1_gap">14dp</dimen>
-    <dimen name="become_member_part2_gap">18dp</dimen>
-
     <dimen name="subscription_layout_step_2_gap">6.5dp</dimen>
     <string name="subscription_layout_step_1_ratio">h,8:12</string>
     <string name="subscription_layout_step_2_ratio">h,10.5:14</string>
@@ -37,15 +34,19 @@
 
     <string name="tc_layout_ratio">h,10:14</string>
 
-    <string name="become_member_part1">h,15:14</string>
-    <string name="become_member_part2">h,30:4</string>
+    <string name="become_member_part1">h,10:8</string>
+    <string name="become_member_part2">h,10:1</string>
 
+    <dimen name="become_member_part1_gap">5dp</dimen>
+    <dimen name="become_member_part2_gap">5dp</dimen>
+    <dimen name="become_member_marginbottom">5dp</dimen>
+    <dimen name="become_member_margintop">5dp</dimen>
 
 
     <dimen name="userprofile_gap_for_1">5dp</dimen>
     <dimen name="userprofile_gap_for_2">6.5dp</dimen>
     <dimen name="userprofile_gap_for_partLayout">5dp</dimen>
-    <string name="userprofile_1_ratio">h,8:9</string>
+    <string name="userprofile_1_ratio">h,8:7.7</string>
 
     <string name="account_info_1_ratio">h,4.5:4</string>
     <dimen name="account_info_et_height">63.5dp</dimen>
@@ -70,7 +71,7 @@
     <dimen name="margin_26">22dp</dimen>
 
     <dimen name="choose_plan_left_padding">14dp</dimen>
-    <dimen name="choose_plan_top_padding">10dp</dimen>
+    <dimen name="choose_plan_top_padding">24dp</dimen>
 
 
     <dimen name="apptab_listing_top_padding">2dp</dimen>

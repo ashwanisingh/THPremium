@@ -14,8 +14,7 @@
 
     <dimen name="introIconWidthHeight">21.5dp</dimen>
 
-    <dimen name="become_member_part1_gap">14dp</dimen>
-    <dimen name="become_member_part2_gap">18dp</dimen>
+
 
     <dimen name="subscription_layout_step_2_gap">6.5dp</dimen>
     <string name="subscription_layout_step_1_ratio">h,8.9:14</string>
@@ -41,6 +40,11 @@
 
     <string name="become_member_part1">h,15:14</string>
     <string name="become_member_part2">h,30:4</string>
+
+    <dimen name="become_member_part1_gap">14dp</dimen>
+    <dimen name="become_member_part2_gap">18dp</dimen>
+    <dimen name="become_member_marginbottom">5dp</dimen>
+    <dimen name="become_member_margintop">15dp</dimen>
 
     <dimen name="userprofile_gap_for_1">5dp</dimen>
     <dimen name="userprofile_gap_for_2">6.5dp</dimen>
