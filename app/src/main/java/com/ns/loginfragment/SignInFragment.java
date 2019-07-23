@@ -533,7 +533,7 @@ public class SignInFragment extends BaseFragmentTHP {
                 //here it will give u only email and rest of other information u can get from TwitterSession
                 //                // Do something with result, which provides a TwitterSession for making API calls
                 TwitterSession session = TwitterCore.getInstance().getSessionManager().getActiveSession();
-                Toast.makeText(getActivity(), "Login Succes", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Login Success", Toast.LENGTH_SHORT).show();
 
                 getTwitterLoginDetails(result, session);
             }
