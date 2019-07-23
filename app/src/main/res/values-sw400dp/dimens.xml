@@ -63,7 +63,7 @@
     <dimen name="personal_info_textSize_16sp">16sp</dimen>
     <dimen name="personal_info_textSize_14sp">14sp</dimen>
 
-    <dimen name="choose_plan_left_padding">19dp</dimen>
+    <dimen name="subscription_other_content_left_padding">19dp</dimen>
     <dimen name="choose_plan_top_padding">24dp</dimen>
 
 

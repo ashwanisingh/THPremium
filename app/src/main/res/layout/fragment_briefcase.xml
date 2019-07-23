@@ -3,12 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:paddingLeft="@dimen/apptab_listing_left_padding"
     android:paddingStart="@dimen/apptab_listing_left_padding"
     android:paddingEnd="@dimen/apptab_listing_right_padding"
     android:paddingRight="@dimen/apptab_listing_right_padding"
-    android:paddingTop="@dimen/apptab_listing_top_padding"
-    >
+    android:paddingTop="@dimen/apptab_listing_top_padding">
 
     <com.ns.view.CustomTextView
         android:id="@+id/userName_Txt"
@@ -17,10 +17,10 @@
         android:textSize="16sp"
         android:textColor="@color/boldBlackColor"
         android:lineSpacingExtra="12sp"
-        android:text=""
+        tools:text="Hi Ashwani"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:font_path="@string/FONT_FIRA_SANS_BOLD"
+        app:font_path="@string/THP_FiraSans_SemiBold"
         />
 
     <com.ns.view.CustomTextView

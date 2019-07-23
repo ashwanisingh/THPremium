@@ -148,7 +148,7 @@
         android:layout_height="0dp"
         android:layout_marginTop="30dp"
         android:background="@drawable/shadow_r12_s6_wh200_ltr"
-        android:padding="@dimen/choose_plan_top_padding"
+        android:padding="@dimen/choose_plan_left_padding"
         android:scrollbars="none"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="@string/userprofile_1_ratio"

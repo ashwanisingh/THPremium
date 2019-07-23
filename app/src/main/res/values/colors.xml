@@ -22,6 +22,7 @@
     <color name="authorNameColor">#4f4f4f</color>
     <color name="timeColor">#818181</color>
     <color name="optionTxtColor">#191919</color>
+    <color name="briefing_desc">#818181</color>
 
 
     <color name="calendarBackgroundColor">#00000000</color>

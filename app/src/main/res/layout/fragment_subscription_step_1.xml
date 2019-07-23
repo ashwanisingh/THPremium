@@ -19,7 +19,7 @@
         android:text="The Hindu Subscription"
         android:textColor="@color/boldBlackColor"
         android:textSize="@dimen/textSize_27sp"
-        app:font_path="@string/FONT_TUNDRA_OFFC_BOLD"
+        app:font_path="@string/THP_TundraOffc_Bold"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/backBtn" />
 
@@ -37,11 +37,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:alpha="0.8"
-            android:padding="@dimen/choose_plan_top_padding"
+            android:paddingLeft="@dimen/choose_plan_left_padding"
+            android:paddingStart="@dimen/choose_plan_left_padding"
+            android:paddingTop="@dimen/choose_plan_top_padding"
+            android:paddingBottom="@dimen/choose_plan_bottom_padding"
             android:text="Choose Plan"
             android:textColor="@color/boldBlackColor"
             android:textSize="16sp"
-            app:font_path="@string/FONT_FIRA_SANS_BOLD" />
+            app:font_path="@string/THP_FiraSans_SemiBold" />
 
         <FrameLayout
             android:layout_marginTop="@dimen/choose_plan_top_padding"
@@ -55,8 +58,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="@dimen/choose_plan_top_padding"
-            android:paddingStart="@dimen/choose_plan_left_padding"
-            android:paddingLeft="@dimen/choose_plan_left_padding">
+            android:paddingStart="@dimen/subscription_other_content_left_padding"
+            android:paddingLeft="@dimen/subscription_other_content_left_padding">
 
             <com.ns.view.CustomTextView
                 android:layout_width="wrap_content"
