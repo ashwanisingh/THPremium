@@ -2,7 +2,7 @@ package com.ns.utils;
 
 public class THPConstants {
 
-    public static final String TnC_URL = "https://www.thehindu.com/termsofuse/";
+    public static final String TnC_URL = "https://www.thehindu.com/app-termsofuse/";
     public static final String FAQ_URL = "https://epaper.thehindu.com/Home/FAQ";
 
     public static final String FROM_SubscriptionStep_1_Fragment = "SubscriptionStep_1_Fragment";
