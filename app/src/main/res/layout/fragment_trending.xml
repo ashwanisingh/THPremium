@@ -17,7 +17,7 @@
         android:textSize="16sp"
         android:lineSpacingExtra="12sp"
         android:textColor="@color/boldBlackColor"
-        app:font_path="@string/FONT_FIRA_SANS_BOLD"
+        app:font_path="@string/THP_FiraSans_SemiBold"
         tools:text="Trending"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="15dp"

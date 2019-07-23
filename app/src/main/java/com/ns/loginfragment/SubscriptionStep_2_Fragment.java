@@ -66,9 +66,9 @@ public class SubscriptionStep_2_Fragment extends BaseFragmentTHP {
                 tc_Txt, R.color.blueColor_1, new TextSpanCallback() {
                     @Override
                     public void onTextSpanClick() {
-                        TCFragment fragment = TCFragment.getInstance(THPConstants.TnC_URL);
+                        TCFragment fragment = TCFragment.getInstance(THPConstants.TnC_URL, "arrowBackImg");
                         FragmentUtil.pushFragmentAnim((AppCompatActivity)getActivity(), R.id.parentLayout,
-                                fragment, FragmentUtil.FRAGMENT_ANIMATION, false);
+                                fragment, FragmentUtil.FRAGMENT_NO_ANIMATION, false);
                     }
                 });
 

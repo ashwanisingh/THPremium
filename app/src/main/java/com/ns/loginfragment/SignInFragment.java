@@ -173,7 +173,7 @@ public class SignInFragment extends BaseFragmentTHP {
                 tc_Txt, R.color.blueColor_1, new TextSpanCallback() {
                     @Override
                     public void onTextSpanClick() {
-                        TCFragment fragment = TCFragment.getInstance(THPConstants.TnC_URL);
+                        TCFragment fragment = TCFragment.getInstance(THPConstants.TnC_URL, "crossBackImg");
                         FragmentUtil.pushFragmentAnim((AppCompatActivity) getActivity(), R.id.parentLayout,
                                 fragment, FragmentUtil.FRAGMENT_ANIMATION, false);
                     }

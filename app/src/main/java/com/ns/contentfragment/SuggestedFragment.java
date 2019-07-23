@@ -78,7 +78,7 @@ public class SuggestedFragment extends BaseFragmentTHP implements RecyclerViewPu
         // Pull To Refresh Listener
         registerPullToRefresh();
 
-        pageTitle_Txt.setText("Suggested");
+        pageTitle_Txt.setText("Your suggested stories");
 
 
     }

@@ -78,7 +78,7 @@ public class TrendingFragment extends BaseFragmentTHP implements RecyclerViewPul
         // Pull To Refresh Listener
         registerPullToRefresh();
 
-        pageTitle_Txt.setText("Trending");
+        pageTitle_Txt.setText("Trending now");
 
 
 

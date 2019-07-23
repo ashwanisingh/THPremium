@@ -66,16 +66,16 @@ public class SubscriptionStep_1_Fragment extends BaseFragmentTHP {
 
         // frequently asked questions click listener
         view.findViewById(R.id.tv_frequent_questions).setOnClickListener(v->{
-            TCFragment tcFragment = TCFragment.getInstance(THPConstants.FAQ_URL);
+            TCFragment tcFragment = TCFragment.getInstance(THPConstants.FAQ_URL, "arrowBackImg");
             FragmentUtil.pushFragmentAnim((AppCompatActivity) getActivity(), R.id.parentLayout,
-                    tcFragment, FragmentUtil.FRAGMENT_ANIMATION, false);
+                    tcFragment, FragmentUtil.FRAGMENT_NO_ANIMATION, false);
         });
 
         // terms and conditions click listener
         view.findViewById(R.id.tv_terms).setOnClickListener(v->{
-            TCFragment tcFragment = TCFragment.getInstance(THPConstants.TnC_URL);
+            TCFragment tcFragment = TCFragment.getInstance(THPConstants.TnC_URL, "arrowBackImg");
             FragmentUtil.pushFragmentAnim((AppCompatActivity) getActivity(), R.id.parentLayout,
-                    tcFragment, FragmentUtil.FRAGMENT_ANIMATION, false);
+                    tcFragment, FragmentUtil.FRAGMENT_NO_ANIMATION, false);
         });
 
 

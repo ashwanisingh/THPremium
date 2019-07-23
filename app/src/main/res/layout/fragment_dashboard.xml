@@ -13,30 +13,28 @@
     <com.ns.view.CustomTextView
         android:id="@+id/userName_Txt"
         android:layout_width="wrap_content"
-        android:layout_height="28dp"
+        android:layout_height="wrap_content"
         android:textSize="16sp"
         android:textColor="@color/boldBlackColor"
-        android:lineSpacingExtra="12sp"
         android:layout_marginTop="5dp"
         tools:text="Ashwani’s Dashboard"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:font_path="@string/FONT_FIRA_SANS_BOLD"
+        app:font_path="@string/THP_FiraSans_SemiBold"
         />
 
     <com.ns.view.CustomTextView
         android:id="@+id/recentStoriesCount_Txt"
         android:layout_width="wrap_content"
-        android:layout_height="28dp"
+        android:layout_height="wrap_content"
         android:gravity="bottom"
         android:textSize="14sp"
         android:textColor="@color/greyColor_1"
-        android:lineSpacingExtra="12sp"
-        android:text="Recent 5 stories at the moment"
+        android:text="Yours personalised stories"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/userName_Txt"
-        app:font_path="@string/FONT_FIRA_SANS_REGULAR"
-        android:visibility="gone"
+        app:font_path="@string/THP_FiraSans_Regular"
+        android:visibility="visible"
         />
 
     <com.ns.view.CustomTextView

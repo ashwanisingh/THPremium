@@ -152,9 +152,9 @@ public class SignUpFragment extends BaseFragmentTHP {
         facebookBtn = view.findViewById(R.id.facebookBtn);
 
         faq_Txt.setOnClickListener(v->{
-            TCFragment fragment = TCFragment.getInstance(THPConstants.FAQ_URL);
+            TCFragment fragment = TCFragment.getInstance(THPConstants.FAQ_URL, "crossBackImg");
             FragmentUtil.pushFragmentAnim((AppCompatActivity)getActivity(), R.id.parentLayout,
-                    fragment, FragmentUtil.FRAGMENT_ANIMATION, false);
+                    fragment, FragmentUtil.FRAGMENT_NO_ANIMATION, false);
         });
 
         // Terms and Conditions Click Listener
@@ -163,9 +163,9 @@ public class SignUpFragment extends BaseFragmentTHP {
                 tc_Txt, R.color.blueColor_1, new TextSpanCallback() {
                     @Override
                     public void onTextSpanClick() {
-                        TCFragment fragment = TCFragment.getInstance(THPConstants.TnC_URL);
+                        TCFragment fragment = TCFragment.getInstance(THPConstants.TnC_URL, "crossBackImg");
                         FragmentUtil.pushFragmentAnim((AppCompatActivity)getActivity(), R.id.parentLayout,
-                                fragment, FragmentUtil.FRAGMENT_ANIMATION, false);
+                                fragment, FragmentUtil.FRAGMENT_NO_ANIMATION, false);
                     }
                 });
 
