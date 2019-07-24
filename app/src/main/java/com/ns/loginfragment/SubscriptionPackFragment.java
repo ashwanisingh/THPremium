@@ -22,7 +22,6 @@ import com.ns.thpremium.R;
 import com.ns.utils.THPConstants;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 
@@ -155,6 +154,7 @@ public class SubscriptionPackFragment extends BaseFragmentTHP  implements OnSubs
                             if(planInfoList == null || planInfoList.size()==0) {
                                 planInfoList = new ArrayList<>();
                                 TxnDataBean bean = new TxnDataBean();
+                                bean.setPlanName("Currently we don't have any recommended subscription plans for you.");
                                 planInfoList.add(bean);
                                 mAdapter.setEmpty(true, planInfoList);
                             }
@@ -166,6 +166,20 @@ public class SubscriptionPackFragment extends BaseFragmentTHP  implements OnSubs
                         },
                         throwable -> {
                             Log.i("", "");
+                            if(getActivity() != null && getView() != null) {
+                                ArrayList planInfoList = new ArrayList<>();
+                                mAdapter = new SubscriptionPackAdapter(mFrom, planInfoList, this);
+                                if(planInfoList == null || planInfoList.size()==0) {
+                                    TxnDataBean bean = new TxnDataBean();
+                                    bean.setPlanName(getString(R.string.please_check_ur_connectivity));
+                                    planInfoList.add(bean);
+                                    mAdapter.setEmpty(true, planInfoList);
+                                }
+                                mRecyclerView.setAdapter(mAdapter);
+                                if(mPlanInfoLoad != null) {
+                                    mPlanInfoLoad.onPlansLoaded(planInfoList);
+                                }
+                            }
                         }));
 
     }

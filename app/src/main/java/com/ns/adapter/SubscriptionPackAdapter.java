@@ -12,6 +12,7 @@ import com.netoperation.model.TxnDataBean;
 import com.ns.activity.BaseRecyclerViewAdapter;
 import com.ns.callbacks.OnSubscribeBtnClick;
 import com.ns.thpremium.R;
+import com.ns.view.CustomTextView;
 
 import java.util.List;
 
@@ -91,6 +92,9 @@ public class SubscriptionPackAdapter extends BaseRecyclerViewAdapter {
         }
         else if(viewHolder instanceof EmptyViewHolder) {
 
+            EmptyViewHolder holder = (EmptyViewHolder) viewHolder;
+            holder.packName_Txt.setText(bean.getPlanName());
+
         }
 
     }
@@ -124,8 +128,11 @@ public class SubscriptionPackAdapter extends BaseRecyclerViewAdapter {
 
     private class EmptyViewHolder extends RecyclerView.ViewHolder {
 
+        CustomTextView packName_Txt;
+
         public EmptyViewHolder(@NonNull View itemView) {
             super(itemView);
+            packName_Txt = itemView.findViewById(R.id.packName_Txt);
         }
     }
 

@@ -76,6 +76,7 @@ public class TransactionHistoryFragment extends BaseFragmentTHP {
                                 mRecyclerViewPullToRefresh.setDataAdapter(adapter);
                             }, throwable -> {
                                 mRecyclerViewPullToRefresh.hideProgressBar();
+                                mRecyclerViewPullToRefresh.showTryAgainBtn(getString(R.string.please_check_ur_connectivity));
                                 Alerts.showErrorDailog(getChildFragmentManager(), getResources().getString(R.string.kindly), getResources().getString(R.string.please_check_ur_connectivity));
                             }, () -> {
                                 mRecyclerViewPullToRefresh.hideProgressBar();
