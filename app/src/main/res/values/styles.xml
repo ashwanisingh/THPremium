@@ -33,8 +33,8 @@
         <item name="android:layout_height">@dimen/backBtnWidthHeight</item>
         <item name="android:background">@null</item>
         <item name="android:scaleType">centerInside</item>
-        <item name="android:src">@drawable/ic_back_copy_42</item>
-        <item name="srcCompat">@drawable/ic_back_copy_42</item>
+        <item name="android:src">@drawable/ic_back_copy_2</item>
+        <item name="srcCompat">@drawable/ic_back_copy_2</item>
     </style>
 
     <style name="crossBtnStyle">

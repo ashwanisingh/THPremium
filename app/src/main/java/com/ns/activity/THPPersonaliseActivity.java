@@ -120,7 +120,8 @@ public class THPPersonaliseActivity extends BaseAcitivityTHP implements THPPerso
         });
 
         backBtn.setOnClickListener(v->{
-            IntentUtil.openContentListingActivity(THPPersonaliseActivity.this, "Personalise");
+            //IntentUtil.openContentListingActivity(THPPersonaliseActivity.this, "Personalise");
+            finish();
         });
 
         getCurrentItemPosition();

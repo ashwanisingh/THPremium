@@ -105,7 +105,7 @@ public class THP_DetailFragment extends BaseFragmentTHP implements RecyclerViewP
 
         mPullToRefreshLayout.setDataAdapter(mRecyclerAdapter);
 
-        mPullToRefreshLayout.setTryAgainBtnClickListener(this);
+        mPullToRefreshLayout.setTryAgainBtnClickListener(this:: tryAgainBtnClick);
 
         mPullToRefreshLayout.enablePullToRefresh(false);
 
