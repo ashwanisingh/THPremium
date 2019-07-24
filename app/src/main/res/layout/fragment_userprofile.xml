@@ -295,7 +295,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/listing_divider_height"
                 android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp" />
+                android:layout_marginBottom="5dp"
+                android:visibility="gone"/>
             <!--End Row 3-->
 
             <!--Start Row 4-->
