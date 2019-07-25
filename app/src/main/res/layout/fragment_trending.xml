@@ -2,27 +2,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:paddingLeft="@dimen/apptab_listing_left_padding"
     android:paddingStart="@dimen/apptab_listing_left_padding"
     android:paddingEnd="@dimen/apptab_listing_right_padding"
     android:paddingRight="@dimen/apptab_listing_right_padding"
     android:orientation="vertical">
-
-    <com.ns.view.CustomTextView
-        android:id="@+id/pageTitle_Txt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:lineSpacingExtra="12sp"
-        android:textColor="@color/boldBlackColor"
-        app:font_path="@string/THP_FiraSans_SemiBold"
-        tools:text="Trending"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="15dp"
-        android:visibility="gone"
-        />
 
     <com.ns.view.RecyclerViewPullToRefresh
         android:id="@+id/recyclerView"

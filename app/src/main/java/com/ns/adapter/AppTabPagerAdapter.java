@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.netoperation.util.NetConstants;
 import com.ns.contentfragment.BriefcaseFragment;
 import com.ns.contentfragment.MyStoriesFragment;
 import com.ns.contentfragment.MoreOptionFragment;
@@ -30,17 +31,18 @@ public class AppTabPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int i) {
+
         if(i==0) {
-            return BriefcaseFragment.getInstance(mUserId);
+            return BriefcaseFragment.getInstance(mUserId, NetConstants.BREIFING_ALL);
         }
         else if(i==1) {
-            return MyStoriesFragment.getInstance(mUserId);
+            return BriefcaseFragment.getInstance(mUserId, NetConstants.RECO_personalised);
         }
         else if(i==2) {
-            return SuggestedFragment.getInstance(mUserId);
+            return BriefcaseFragment.getInstance(mUserId, NetConstants.RECO_suggested);
         }
         else if(i==3) {
-            return TrendingFragment.getInstance(mUserId);
+            return BriefcaseFragment.getInstance(mUserId, NetConstants.RECO_trending);
         }
         else if(i==4) {
             return MoreOptionFragment.getInstance(mUserId);

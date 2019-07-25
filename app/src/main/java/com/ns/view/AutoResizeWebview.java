@@ -79,6 +79,10 @@ public class AutoResizeWebview extends WebView {
     }
 
     public static String shoWebTextDescription(Context context, String description, boolean isItalic) {
+
+        if(description == null) {
+            description = "";
+        }
         final int theme = UserPref.getInstance(context).getThemeVal();
         String color = "#FFFFFF";
         switch (theme) {

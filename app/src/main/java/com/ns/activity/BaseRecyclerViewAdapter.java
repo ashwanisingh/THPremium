@@ -23,7 +23,7 @@ public abstract class BaseRecyclerViewAdapter extends RecyclerView.Adapter {
     public static final int VT_DETAIL_IMAGE_BANNER= 9;
     public static final int VT_DETAIL_VIDEO_PLAYER= 10;
     public static final int VT_DETAIL_AUDIO_PLAYER= 11;
-    public static final int VT_BRIEFCASE_HEADER= 12;
+    public static final int VT_HEADER = 12;
 
 
     /**

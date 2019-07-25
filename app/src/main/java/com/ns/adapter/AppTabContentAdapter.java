@@ -13,7 +13,6 @@ import android.widget.ProgressBar;
 
 import com.netoperation.model.RecoBean;
 import com.netoperation.net.ApiManager;
-import com.netoperation.util.AppDateUtil;
 import com.netoperation.util.NetConstants;
 import com.netoperation.util.UserPref;
 import com.ns.activity.BaseRecyclerViewAdapter;
@@ -27,7 +26,6 @@ import com.ns.utils.ContentUtil;
 import com.ns.utils.GlideUtil;
 import com.ns.utils.IntentUtil;
 import com.ns.utils.ResUtil;
-import com.ns.utils.THPConstants;
 import com.ns.utils.WebViewLinkClick;
 import com.ns.view.AutoResizeWebview;
 import com.ns.viewholder.BookmarkViewHolder;
@@ -38,7 +36,6 @@ import com.ns.viewholder.DetailBannerViewHolder;
 import com.ns.viewholder.DetailDescriptionWebViewHolder;
 
 import java.util.List;
-import java.util.Locale;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 
@@ -76,7 +73,7 @@ public class AppTabContentAdapter extends BaseRecyclerViewAdapter {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
 
-        if(viewType == VT_BRIEFCASE_HEADER) {
+        if(viewType == VT_HEADER) {
             return new BriefingHeaderViewHolder(LayoutInflater.from(viewGroup.getContext())
                     .inflate(R.layout.item_briefing_header, viewGroup, false));
         }

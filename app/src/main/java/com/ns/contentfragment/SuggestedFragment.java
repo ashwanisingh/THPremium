@@ -5,7 +5,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
-import android.widget.LinearLayout;
 
 import com.bumptech.glide.load.HttpException;
 import com.netoperation.model.RecoBean;
@@ -66,7 +65,6 @@ public class SuggestedFragment extends BaseFragmentTHP implements RecyclerViewPu
         super.onViewCreated(view, savedInstanceState);
 
         mPullToRefreshLayout = view.findViewById(R.id.recyclerView);
-        pageTitle_Txt = view.findViewById(R.id.pageTitle_Txt);
 
         mRecyclerAdapter = new AppTabContentAdapter(new ArrayList<>(), NetConstants.RECO_suggested, mUserId);
 
@@ -197,7 +195,7 @@ public class SuggestedFragment extends BaseFragmentTHP implements RecyclerViewPu
 
         }
         profileRecoBean.setSectionName("Your suggested stories");
-        mProfileNameModel = new AppTabContentModel(BaseRecyclerViewAdapter.VT_BRIEFCASE_HEADER);
+        mProfileNameModel = new AppTabContentModel(BaseRecyclerViewAdapter.VT_HEADER);
         mProfileNameModel.setBean(profileRecoBean);
     }
 

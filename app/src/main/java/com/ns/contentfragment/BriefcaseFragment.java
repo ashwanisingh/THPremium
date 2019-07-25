@@ -8,7 +8,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
 
-import com.bumptech.glide.load.HttpException;
 import com.netoperation.model.RecoBean;
 import com.netoperation.net.ApiManager;
 import com.netoperation.util.NetConstants;
@@ -22,17 +21,13 @@ import com.ns.thpremium.R;
 import com.ns.loginfragment.BaseFragmentTHP;
 import com.ns.utils.FragmentUtil;
 import com.ns.utils.THPConstants;
-import com.ns.utils.TextUtil;
 import com.ns.view.CustomTextView;
 import com.ns.view.RecyclerViewPullToRefresh;
 
-import java.net.ConnectException;
-import java.net.SocketTimeoutException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -41,26 +36,23 @@ import io.reactivex.schedulers.Schedulers;
 public class BriefcaseFragment extends BaseFragmentTHP implements RecyclerViewPullToRefresh.TryAgainBtnClickListener, OnEditionBtnClickListener {
 
     private RecyclerViewPullToRefresh mPullToRefreshLayout;
-    private LinearLayout emptyLayout;
     private AppTabContentAdapter mRecyclerAdapter;
-    private CustomTextView yourEditionFor_Txt;
-    private CustomTextView dateBtn_Txt;
-    private CustomTextView userName_Txt;
-    private CustomTextView editionBtn_Txt;
     private String mBreifingType = NetConstants.BREIFING_ALL;
     private AppTabContentModel mProfileNameModel;
+    String mFrom;
 
-    public static BriefcaseFragment getInstance(String userId) {
+    public static BriefcaseFragment getInstance(String userId, String from) {
         BriefcaseFragment fragment = new BriefcaseFragment();
         Bundle bundle = new Bundle();
         bundle.putString("userId", userId);
+        bundle.putString("from", from);
         fragment.setArguments(bundle);
         return fragment;
     }
 
     @Override
     public int getLayoutRes() {
-        return R.layout.fragment_briefcase;
+        return R.layout.fragment_trending;
     }
 
     @Override
@@ -68,6 +60,7 @@ public class BriefcaseFragment extends BaseFragmentTHP implements RecyclerViewPu
         super.onCreate(savedInstanceState);
         if(getArguments() != null) {
             mUserId = getArguments().getString("userId");
+            mFrom = getArguments().getString("from");
         }
     }
 
@@ -76,13 +69,8 @@ public class BriefcaseFragment extends BaseFragmentTHP implements RecyclerViewPu
         super.onViewCreated(view, savedInstanceState);
 
         mPullToRefreshLayout = view.findViewById(R.id.recyclerView);
-        emptyLayout = view.findViewById(R.id.emptyLayout);
-        yourEditionFor_Txt = view.findViewById(R.id.yourEditionFor_Txt);
-        dateBtn_Txt = view.findViewById(R.id.dateBtn_Txt);
-        userName_Txt = view.findViewById(R.id.userName_Txt);
-        editionBtn_Txt = view.findViewById(R.id.editionBtn_Txt);
 
-        mRecyclerAdapter = new AppTabContentAdapter(new ArrayList<>(), mBreifingType, mUserId);
+        mRecyclerAdapter = new AppTabContentAdapter(new ArrayList<>(), mFrom, mUserId);
         mRecyclerAdapter.setOnEditionBtnClickListener(this::OnEditionBtnClickListener);
         mPullToRefreshLayout.setDataAdapter(mRecyclerAdapter);
 
@@ -94,81 +82,31 @@ public class BriefcaseFragment extends BaseFragmentTHP implements RecyclerViewPu
         // Pull To Refresh Listener
         registerPullToRefresh();
 
-        // Edition Btn Click Listener
-        /*editionBtn_Txt.setOnClickListener(v->{
-            EditionOptionFragment fragment = EditionOptionFragment.getInstance();
-            FragmentUtil.addFragmentAnim((AppCompatActivity) getActivity(),
-                    R.id.parentLayout, fragment, FragmentUtil.FRAGMENT_NO_ANIMATION, false);
 
-            fragment.setOnEditionOptionClickListener(value -> {
-                editionBtn_Txt.setText(value);
 
-                // Clearing Edition option Fragment
-                FragmentUtil.clearSingleBackStack((AppCompatActivity) getActivity());
-
-                if(value.equalsIgnoreCase("All Editions")) {
-                    mBreifingType = NetConstants.BREIFING_ALL;
-                } else if(value.equalsIgnoreCase("Morning Editions")) {
-                    mBreifingType = NetConstants.BREIFING_MORNING;
-                } else if(value.equalsIgnoreCase("Noon Editions")) {
-                    mBreifingType = NetConstants.BREIFING_NOON;
-                } else if(value.equalsIgnoreCase("Evening Editions")) {
-                    mBreifingType = NetConstants.BREIFING_EVENING;
-                }
-
-                loadData(false);
-
-            });
-        });*/
-
-        // Date Btn Click Listener
-        dateBtn_Txt.setOnClickListener(v->{
-            CalendarFragment fragment = CalendarFragment.getInstance();
-
-            FragmentUtil.addFragmentAnim((AppCompatActivity) getActivity(),
-                    R.id.parentLayout, fragment, FragmentUtil.FRAGMENT_NO_ANIMATION, false);
-
-            fragment.setOnCalendarDateClickListener(date -> {
-                SimpleDateFormat df = new SimpleDateFormat(THPConstants.date_dd_MM_yyyy);
-                dateBtn_Txt.setText(df.format(date));
-
-                // Clearing Calendar Fragment
-                FragmentUtil.clearSingleBackStack((AppCompatActivity) getActivity());
-
-            });
-        });
-
-        if(mIsVisible) {
             //loadData();
 
             // Shows user name
             ApiManager.getUserProfile(getActivity())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(userProfile -> {
-                        RecoBean profileRecoBean = null;
+                        String title = "";
 
                         if(userProfile != null && !TextUtils.isEmpty(userProfile.getFullName())) {
-                            userName_Txt.setText("Hi "+userProfile.getFullName());
-                            profileRecoBean = new RecoBean();
-                            profileRecoBean.setTitle("Hi "+userProfile.getFullName());
+                            title = "Hi "+userProfile.getFullName();
                         } else if(userProfile != null && !TextUtils.isEmpty(userProfile.getEmailId())) {
-                            userName_Txt.setText(userProfile.getEmailId());
-                            profileRecoBean = new RecoBean();
-                            profileRecoBean.setTitle(userProfile.getEmailId());
+                            title = userProfile.getEmailId();
                         } else if(userProfile != null && !TextUtils.isEmpty(userProfile.getContact())) {
-                            userName_Txt.setText(userProfile.getContact());
-                            profileRecoBean = new RecoBean();
-                            profileRecoBean.setTitle(userProfile.getContact());
+                            title = userProfile.getContact();
                         } else {
-                            userName_Txt.setVisibility(View.GONE);
+
                         }
 
                         // Create Header Model
-                        createHeaderModel(profileRecoBean);
+                        createHeaderModel(title);
 
                         loadData();
                     });
-        }
 
     }
 
@@ -217,18 +155,36 @@ public class BriefcaseFragment extends BaseFragmentTHP implements RecyclerViewPu
 
     private void loadData(boolean isOnline ) {
         Observable<List<RecoBean>> observable = null;
-        if (isOnline) {
-            observable = ApiManager.getBreifingFromServer(getActivity(), BuildConfig.BREIGINE_URL);
-        } else {
-            observable = ApiManager.getBreifingFromDB(getActivity(), mBreifingType);
+        if(mFrom.equalsIgnoreCase(NetConstants.BREIFING_ALL)) {
+            if (isOnline) {
+                observable = ApiManager.getBreifingFromServer(getActivity(), BuildConfig.BREIGINE_URL);
+            } else {
+                observable = ApiManager.getBreifingFromDB(getActivity(), mBreifingType);
+            }
         }
+        else {
+            if (isOnline) {
+                observable = ApiManager.getRecommendationFromServer(getActivity(), mUserId,
+                        mFrom, ""+mSize, BuildConfig.SITEID);
+            } else {
+                observable = ApiManager.getRecommendationFromDB(getActivity(), mFrom);
+            }
+        }
+
+
         mDisposable.add(
                 observable
                         .map(value->{
                             List<AppTabContentModel> content = new ArrayList<>();
                             addHeaderModel(content);
+                            int viewType = BaseRecyclerViewAdapter.VT_DASHBOARD;
+                            if(isBriefingPage()) {
+                                viewType = BaseRecyclerViewAdapter.VT_BRIEFCASE;
+                            } else {
+                                viewType = BaseRecyclerViewAdapter.VT_DASHBOARD;
+                            }
                             for(RecoBean bean : value) {
-                                AppTabContentModel model = new AppTabContentModel(BaseRecyclerViewAdapter.VT_BRIEFCASE);
+                                AppTabContentModel model = new AppTabContentModel(viewType);
                                 model.setBean(bean);
                                 content.add(model);
                             }
@@ -237,7 +193,7 @@ public class BriefcaseFragment extends BaseFragmentTHP implements RecyclerViewPu
                         })
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(value -> {
-                            mRecyclerAdapter.setFrom(mBreifingType);
+                            mRecyclerAdapter.setFrom(mFrom);
                             mRecyclerAdapter.setData(value);
                         }, throwable -> {
                             loadData(false);
@@ -257,15 +213,7 @@ public class BriefcaseFragment extends BaseFragmentTHP implements RecyclerViewPu
                         }));
 
     }
-    private void showEmptyLayout() {
-        if(mRecyclerAdapter.getItemCount() == 0) {
-            emptyLayout.setVisibility(View.VISIBLE);
-            mPullToRefreshLayout.setVisibility(View.GONE);
-        } else {
-            emptyLayout.setVisibility(View.VISIBLE);
-            mPullToRefreshLayout.setVisibility(View.GONE);
-        }
-    }
+
 
     @Override
     public void OnEditionBtnClickListener() {
@@ -295,14 +243,33 @@ public class BriefcaseFragment extends BaseFragmentTHP implements RecyclerViewPu
         });
     }
 
-
-    private void createHeaderModel(RecoBean profileRecoBean) {
-        if(profileRecoBean != null) {
-            profileRecoBean.setSectionName("All Editions");
-            mProfileNameModel = new AppTabContentModel(BaseRecyclerViewAdapter.VT_BRIEFCASE_HEADER);
-            mProfileNameModel.setBean(profileRecoBean);
+    private boolean isBriefingPage() {
+        if(mFrom.equalsIgnoreCase(NetConstants.BREIFING_ALL) || mFrom.equalsIgnoreCase(NetConstants.BREIFING_MORNING)
+                || mFrom.equalsIgnoreCase(NetConstants.BREIFING_NOON) || mFrom.equalsIgnoreCase(NetConstants.BREIFING_EVENING)) {
+            return true;
         }
+        return false;
     }
+
+
+    private void createHeaderModel(String title) {
+        RecoBean profileRecoBean = new RecoBean();
+        if (isBriefingPage()) {
+            profileRecoBean.setSectionName("All Editions");
+        } else if (mFrom.equalsIgnoreCase(NetConstants.RECO_personalised)) {
+            profileRecoBean.setSectionName("Yours personalised stories");
+        } else if (mFrom.equalsIgnoreCase(NetConstants.RECO_suggested)) {
+            profileRecoBean.setSectionName("Your suggested stories");
+            title = "Your suggested stories";
+        } else if (mFrom.equalsIgnoreCase(NetConstants.RECO_trending)) {
+            profileRecoBean.setSectionName("Trending now");
+            title = "Trending now";
+        }
+        profileRecoBean.setTitle(title);
+        mProfileNameModel = new AppTabContentModel(BaseRecyclerViewAdapter.VT_HEADER);
+        mProfileNameModel.setBean(profileRecoBean);
+    }
+
 
     private void addHeaderModel(List<AppTabContentModel> content) {
         if(mProfileNameModel != null) {

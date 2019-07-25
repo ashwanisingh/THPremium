@@ -235,7 +235,7 @@ public class MyStoriesFragment extends BaseFragmentTHP implements RecyclerViewPu
     private void createHeaderModel(RecoBean profileRecoBean) {
         if(profileRecoBean != null) {
             profileRecoBean.setSectionName("Yours personalised stories");
-            mProfileNameModel = new AppTabContentModel(BaseRecyclerViewAdapter.VT_BRIEFCASE_HEADER);
+            mProfileNameModel = new AppTabContentModel(BaseRecyclerViewAdapter.VT_HEADER);
             mProfileNameModel.setBean(profileRecoBean);
         }
     }

@@ -43,7 +43,8 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginRight="@dimen/toolbar_ic_gap"
-        android:layout_marginEnd="@dimen/toolbar_ic_gap"/>
+        android:layout_marginEnd="@dimen/toolbar_ic_gap"
+        android:visibility="gone"/>
 
 
     <FrameLayout
@@ -79,6 +80,7 @@
             android:layout_width="@dimen/toolbar_ic_width"
             android:layout_height="@dimen/toolbar_ic_height"
             style="@android:style/Widget.Holo.ProgressBar.Small"
+            android:visibility="gone"
             />
 
     </FrameLayout>
@@ -120,7 +122,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintRight_toLeftOf="@+id/bookmarkParent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="gone"/>
 
 
 
