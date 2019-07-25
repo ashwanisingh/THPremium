@@ -88,6 +88,7 @@ dependencies {
     implementation deps.calendar
     implementation deps.reactivenetwork
     implementation deps.rxAndroid2
+    // For In App Billing
     implementation 'com.android.billingclient:billing:1.0'
     implementation files('libs/YouTubeAndroidPlayerApi.jar')
 
