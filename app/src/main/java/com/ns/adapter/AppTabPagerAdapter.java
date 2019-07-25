@@ -14,11 +14,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.netoperation.util.NetConstants;
-import com.ns.contentfragment.BriefcaseFragment;
-import com.ns.contentfragment.MyStoriesFragment;
+import com.ns.contentfragment.THPListingFragment;
 import com.ns.contentfragment.MoreOptionFragment;
-import com.ns.contentfragment.SuggestedFragment;
-import com.ns.contentfragment.TrendingFragment;
 import com.ns.thpremium.R;
 
 public class AppTabPagerAdapter extends FragmentStatePagerAdapter {
@@ -33,16 +30,16 @@ public class AppTabPagerAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int i) {
 
         if(i==0) {
-            return BriefcaseFragment.getInstance(mUserId, NetConstants.BREIFING_ALL);
+            return THPListingFragment.getInstance(mUserId, NetConstants.BREIFING_ALL);
         }
         else if(i==1) {
-            return BriefcaseFragment.getInstance(mUserId, NetConstants.RECO_personalised);
+            return THPListingFragment.getInstance(mUserId, NetConstants.RECO_personalised);
         }
         else if(i==2) {
-            return BriefcaseFragment.getInstance(mUserId, NetConstants.RECO_suggested);
+            return THPListingFragment.getInstance(mUserId, NetConstants.RECO_suggested);
         }
         else if(i==3) {
-            return BriefcaseFragment.getInstance(mUserId, NetConstants.RECO_trending);
+            return THPListingFragment.getInstance(mUserId, NetConstants.RECO_trending);
         }
         else if(i==4) {
             return MoreOptionFragment.getInstance(mUserId);
