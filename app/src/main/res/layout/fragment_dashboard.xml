@@ -21,6 +21,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:font_path="@string/THP_FiraSans_SemiBold"
+        android:visibility="gone"
         />
 
     <com.ns.view.CustomTextView
@@ -34,7 +35,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/userName_Txt"
         app:font_path="@string/THP_FiraSans_Regular"
-        android:visibility="visible"
+        android:visibility="gone"
         />
 
     <com.ns.view.CustomTextView

@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     style="@style/parentLayoutPaddingStyle"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <ImageButton
         android:id="@+id/backBtn"
@@ -11,10 +12,20 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
     <!--Start Part 1 Layout-->
     <android.support.constraint.ConstraintLayout
         android:id="@+id/part1Layout"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/userprofile_gap_for_1"
         android:layout_marginLeft="@dimen/userprofile_gap_for_1"
@@ -31,7 +42,7 @@
         app:layout_constraintRight_toRightOf="parent">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
@@ -75,7 +86,7 @@
     <!--Start Part 2 Layout-->
     <android.support.constraint.ConstraintLayout
         android:id="@+id/part2Layout"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/userprofile_gap_for_2"
         android:layout_marginLeft="@dimen/userprofile_gap_for_2"
@@ -142,16 +153,14 @@
     <!--End Part 2 Layout-->
 
     <!--Start Part 3 Layout-->
-    <ScrollView
+    <FrameLayout
         android:id="@+id/part3Layout"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:background="@drawable/shadow_r12_s6_wh200_ltr"
         android:padding="@dimen/choose_plan_left_padding"
         android:scrollbars="none"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintDimensionRatio="@string/userprofile_1_ratio"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent">
 
@@ -481,8 +490,9 @@
 
 
         </TableLayout>
-    </ScrollView>
+    </FrameLayout>
     <!--End Part 3 Layout-->
+    </LinearLayout>
+    </ScrollView>
 
-
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>

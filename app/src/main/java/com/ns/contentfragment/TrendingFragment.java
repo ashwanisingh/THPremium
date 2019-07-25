@@ -37,6 +37,7 @@ public class TrendingFragment extends BaseFragmentTHP implements RecyclerViewPul
     private RecyclerViewPullToRefresh mPullToRefreshLayout;
     private AppTabContentAdapter mRecyclerAdapter;
     private CustomTextView pageTitle_Txt;
+    private AppTabContentModel mProfileNameModel;
 
     public static TrendingFragment getInstance(String userId) {
         TrendingFragment fragment = new TrendingFragment();
@@ -81,7 +82,7 @@ public class TrendingFragment extends BaseFragmentTHP implements RecyclerViewPul
         pageTitle_Txt.setText("Trending now");
 
 
-
+        createHeaderModel(null);
 
     }
 
@@ -156,6 +157,7 @@ public class TrendingFragment extends BaseFragmentTHP implements RecyclerViewPul
                 observable
                         .map(value->{
                             List<AppTabContentModel> content = new ArrayList<>();
+                            addHeaderModel(content);
                             for(RecoBean bean : value) {
                                 AppTabContentModel model = new AppTabContentModel(BaseRecyclerViewAdapter.VT_TRENDING);
                                 model.setBean(bean);
@@ -188,6 +190,23 @@ public class TrendingFragment extends BaseFragmentTHP implements RecyclerViewPul
 
                         }));
 
+    }
+
+    private void createHeaderModel(RecoBean profileRecoBean) {
+        if(profileRecoBean == null) {
+            profileRecoBean = new RecoBean();
+            profileRecoBean.setTitle("Trending now");
+
+        }
+        profileRecoBean.setSectionName("Trending now");
+        mProfileNameModel = new AppTabContentModel(BaseRecyclerViewAdapter.VT_BRIEFCASE_HEADER);
+        mProfileNameModel.setBean(profileRecoBean);
+    }
+
+    private void addHeaderModel(List<AppTabContentModel> content) {
+        if(mProfileNameModel != null) {
+            content.add(mProfileNameModel);
+        }
     }
 
 }

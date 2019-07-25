@@ -18,6 +18,7 @@ import com.netoperation.util.NetConstants;
 import com.netoperation.util.UserPref;
 import com.ns.activity.BaseRecyclerViewAdapter;
 import com.ns.alerts.Alerts;
+import com.ns.callbacks.OnEditionBtnClickListener;
 import com.ns.model.AppTabContentModel;
 import com.ns.thpremium.BuildConfig;
 import com.ns.thpremium.R;
@@ -26,10 +27,12 @@ import com.ns.utils.ContentUtil;
 import com.ns.utils.GlideUtil;
 import com.ns.utils.IntentUtil;
 import com.ns.utils.ResUtil;
+import com.ns.utils.THPConstants;
 import com.ns.utils.WebViewLinkClick;
 import com.ns.view.AutoResizeWebview;
 import com.ns.viewholder.BookmarkViewHolder;
 import com.ns.viewholder.BriefcaseViewHolder;
+import com.ns.viewholder.BriefingHeaderViewHolder;
 import com.ns.viewholder.DashboardViewHolder;
 import com.ns.viewholder.DetailBannerViewHolder;
 import com.ns.viewholder.DetailDescriptionWebViewHolder;
@@ -73,7 +76,11 @@ public class AppTabContentAdapter extends BaseRecyclerViewAdapter {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
 
-        if(viewType == VT_DASHBOARD) {
+        if(viewType == VT_BRIEFCASE_HEADER) {
+            return new BriefingHeaderViewHolder(LayoutInflater.from(viewGroup.getContext())
+                    .inflate(R.layout.item_briefing_header, viewGroup, false));
+        }
+        else if(viewType == VT_DASHBOARD) {
             return new DashboardViewHolder(LayoutInflater.from(viewGroup.getContext())
                     .inflate(R.layout.apptab_item_dashboard, viewGroup, false));
         }
@@ -126,12 +133,20 @@ public class AppTabContentAdapter extends BaseRecyclerViewAdapter {
         else if(viewHolder instanceof DetailDescriptionWebViewHolder) {
             ui_detail_description(viewHolder, bean, position);
         }
+        else if(viewHolder instanceof BriefingHeaderViewHolder) {
+            BriefingHeader(viewHolder, bean);
+        }
 
     }
 
+
     private void ui_Dash_Tren_Book_Populate(RecyclerView.ViewHolder viewHolder, RecoBean bean, int position) {
         DashboardViewHolder holder = (DashboardViewHolder) viewHolder;
-        holder.trendingIcon_Img.setVisibility(View.GONE);
+        if(mFrom.equalsIgnoreCase(NetConstants.RECO_trending)) {
+            holder.trendingIcon_Img.setVisibility(View.VISIBLE);
+        } else {
+            holder.trendingIcon_Img.setVisibility(View.GONE);
+        }
 
         GlideUtil.loadImage(holder.image.getContext(), holder.image, ContentUtil.getThumbUrl(bean.getThumbnailUrl()), R.drawable.th_ph_01);
         holder.authorName_Txt.setText(ContentUtil.getAuthor(bean.getAuthor()));
@@ -330,6 +345,35 @@ public class AppTabContentAdapter extends BaseRecyclerViewAdapter {
         mDescriptionItemPosition = position;
     }
 
+    private void BriefingHeader(RecyclerView.ViewHolder viewHolder, RecoBean bean) {
+        BriefingHeaderViewHolder holder = (BriefingHeaderViewHolder) viewHolder;
+        holder.userName_Txt.setText(bean.getTitle());
+        if(mFrom.equalsIgnoreCase(NetConstants.RECO_personalised)) {
+            holder.yourEditionFor_Txt.setText(bean.getSectionName());
+            holder.yourEditionFor_Txt.setVisibility(View.VISIBLE);
+            holder.editionBtn_Txt.setVisibility(View.GONE);
+        }
+        else if(mFrom.equalsIgnoreCase(NetConstants.BREIFING_ALL) || mFrom.equalsIgnoreCase(NetConstants.BREIFING_MORNING)
+        || mFrom.equalsIgnoreCase(NetConstants.BREIFING_NOON) || mFrom.equalsIgnoreCase(NetConstants.BREIFING_EVENING)) {
+            holder.editionBtn_Txt.setText(bean.getSectionName());
+            holder.editionBtn_Txt.setVisibility(View.VISIBLE);
+            holder.yourEditionFor_Txt.setVisibility(View.GONE);
+        }
+        else if(mFrom.equalsIgnoreCase(NetConstants.RECO_suggested) || mFrom.equalsIgnoreCase(NetConstants.RECO_trending)) {
+            holder.yourEditionFor_Txt.setText(bean.getSectionName());
+            holder.yourEditionFor_Txt.setVisibility(View.GONE);
+            holder.editionBtn_Txt.setVisibility(View.GONE);
+        }
+
+        holder.editionBtn_Txt.setOnClickListener(v->{
+            if(mOnEditionBtnClickListener != null) {
+                mOnEditionBtnClickListener.OnEditionBtnClickListener();
+            }
+        });
+
+    }
+
+
     public void addData(List<AppTabContentModel> content) {
         mContent.addAll(content);
         notifyDataSetChanged();
@@ -493,11 +537,11 @@ public class AppTabContentAdapter extends BaseRecyclerViewAdapter {
                             ApiManager.updateLike(context, bean.getArticleId(), fav).subscribe(boole -> {
 
                                 if(fav == NetConstants.LIKE_YES) {
-                                    Alerts.showToast(context, "You will see more stories like this.");
+                                    Alerts.showToastAtCenter(context, "You will see more stories like this.");
                                     notifyItemChanged(position);
                                 }
                                 else if(fav == NetConstants.LIKE_NO) {
-                                    Alerts.showToast(context, "Show fewer stories like this.");
+                                    Alerts.showToastAtCenter(context, "Show fewer stories like this.");
                                     mContent.remove(position);
                                     notifyDataSetChanged();
                                 } else {
@@ -525,6 +569,12 @@ public class AppTabContentAdapter extends BaseRecyclerViewAdapter {
 
     public int getLastDescriptionTextSize() {
         return mLastDescriptionTextSize;
+    }
+
+    private OnEditionBtnClickListener mOnEditionBtnClickListener;
+
+    public void setOnEditionBtnClickListener(OnEditionBtnClickListener onEditionBtnClickListener) {
+        mOnEditionBtnClickListener = onEditionBtnClickListener;
     }
 
 }

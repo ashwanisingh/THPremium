@@ -206,7 +206,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/add_address_info_et_gap"
-                android:hint="Landmark (in any)"
+                android:hint="Landmark (if any)"
                 android:theme="@style/TextLabel"
                 app:hintTextAppearance="@style/HintLabel"
                 app:layout_constraintLeft_toLeftOf="parent"

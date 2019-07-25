@@ -32,6 +32,12 @@ public class Alerts {
         toast.show();
     }
 
+    public static void showToastAtCenter(Context context, String text) {
+        Toast toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.CENTER, 0, 20);
+        toast.show();
+    }
+
     public static void showToast(Context context, int text) {
         Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
     }

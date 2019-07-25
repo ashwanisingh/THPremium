@@ -35,6 +35,7 @@ public class MyStoriesFragment extends BaseFragmentTHP implements RecyclerViewPu
     private CustomTextView recentBtn_Txt;
     private RecyclerViewPullToRefresh mPullToRefreshLayout;
     private AppTabContentAdapter mRecyclerAdapter;
+    private AppTabContentModel mProfileNameModel;
 
     public static MyStoriesFragment getInstance(String userId) {
         MyStoriesFragment fragment = new MyStoriesFragment();
@@ -74,9 +75,9 @@ public class MyStoriesFragment extends BaseFragmentTHP implements RecyclerViewPu
 
         mPullToRefreshLayout.showProgressBar();
 
-        if(mIsVisible) {
+        /*if(mIsVisible) {
             loadData();
-        }
+        }*/
 
         // Pull To Refresh Listener
         registerPullToRefresh();
@@ -113,19 +114,37 @@ public class MyStoriesFragment extends BaseFragmentTHP implements RecyclerViewPu
         ApiManager.getUserProfile(getActivity())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(userProfile -> {
+                    RecoBean profileRecoBean = null;
+
                     if(userProfile != null && !TextUtils.isEmpty(userProfile.getFullName())) {
-                        userName_Txt.setText("Hi "+userProfile.getFullName().toUpperCase());
+                        userName_Txt.setText("Hi "+userProfile.getFullName());
+                        profileRecoBean = new RecoBean();
+                        profileRecoBean.setTitle("Hi "+userProfile.getFullName());
                     } else if(userProfile != null && !TextUtils.isEmpty(userProfile.getEmailId())) {
-                        userName_Txt.setText("Hi "+userProfile.getEmailId().toUpperCase());
+                        userName_Txt.setText(userProfile.getEmailId());
+                        profileRecoBean = new RecoBean();
+                        profileRecoBean.setTitle(userProfile.getEmailId());
                     } else if(userProfile != null && !TextUtils.isEmpty(userProfile.getContact())) {
-                        userName_Txt.setText("Hi "+userProfile.getContact().toUpperCase());
+                        userName_Txt.setText(userProfile.getContact());
+                        profileRecoBean = new RecoBean();
+                        profileRecoBean.setTitle(userProfile.getContact());
                     } else {
                         userName_Txt.setVisibility(View.GONE);
                     }
 
                     recentStoriesCount_Txt.setText("Yours personalised stories");
+
+                    // Create Header Model
+                    createHeaderModel(profileRecoBean);
+
+                    if(mIsVisible) {
+                        loadData();
+                    }
+
+
                 });
     }
+
 
     /**
      * Adding Pull To Refresh Listener
@@ -177,6 +196,7 @@ public class MyStoriesFragment extends BaseFragmentTHP implements RecyclerViewPu
                 observable
                         .map(value->{
                             List<AppTabContentModel> content = new ArrayList<>();
+                            addHeaderModel(content);
                             for(RecoBean bean : value) {
                                 AppTabContentModel model = new AppTabContentModel(BaseRecyclerViewAdapter.VT_DASHBOARD);
                                 model.setBean(bean);
@@ -210,6 +230,20 @@ public class MyStoriesFragment extends BaseFragmentTHP implements RecyclerViewPu
 
                         }));
 
+    }
+
+    private void createHeaderModel(RecoBean profileRecoBean) {
+        if(profileRecoBean != null) {
+            profileRecoBean.setSectionName("Yours personalised stories");
+            mProfileNameModel = new AppTabContentModel(BaseRecyclerViewAdapter.VT_BRIEFCASE_HEADER);
+            mProfileNameModel.setBean(profileRecoBean);
+        }
+    }
+
+    private void addHeaderModel(List<AppTabContentModel> content) {
+        if(mProfileNameModel != null) {
+            content.add(mProfileNameModel);
+        }
     }
 
 

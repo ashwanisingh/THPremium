@@ -74,7 +74,9 @@
         style="@style/bottomLayoutStyle"
         android:id="@+id/part3"
         android:layout_marginTop="@dimen/become_member_part2_gap"
-        app:layout_constraintTop_toBottomOf="@+id/part2">
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="180dp"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"

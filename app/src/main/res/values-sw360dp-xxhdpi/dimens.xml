@@ -45,8 +45,6 @@
 
     <dimen name="userprofile_gap_for_1">5dp</dimen>
     <dimen name="userprofile_gap_for_2">6.5dp</dimen>
-    <dimen name="userprofile_gap_for_partLayout">5dp</dimen>
-    <string name="userprofile_1_ratio">h,8:7.7</string>
 
     <string name="account_info_1_ratio">h,4.5:4</string>
     <dimen name="account_info_et_height">63.5dp</dimen>

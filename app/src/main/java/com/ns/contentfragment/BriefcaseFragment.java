@@ -15,6 +15,7 @@ import com.netoperation.util.NetConstants;
 import com.ns.activity.BaseRecyclerViewAdapter;
 import com.ns.adapter.AppTabContentAdapter;
 import com.ns.alerts.Alerts;
+import com.ns.callbacks.OnEditionBtnClickListener;
 import com.ns.model.AppTabContentModel;
 import com.ns.thpremium.BuildConfig;
 import com.ns.thpremium.R;
@@ -37,7 +38,7 @@ import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-public class BriefcaseFragment extends BaseFragmentTHP implements RecyclerViewPullToRefresh.TryAgainBtnClickListener {
+public class BriefcaseFragment extends BaseFragmentTHP implements RecyclerViewPullToRefresh.TryAgainBtnClickListener, OnEditionBtnClickListener {
 
     private RecyclerViewPullToRefresh mPullToRefreshLayout;
     private LinearLayout emptyLayout;
@@ -47,6 +48,7 @@ public class BriefcaseFragment extends BaseFragmentTHP implements RecyclerViewPu
     private CustomTextView userName_Txt;
     private CustomTextView editionBtn_Txt;
     private String mBreifingType = NetConstants.BREIFING_ALL;
+    private AppTabContentModel mProfileNameModel;
 
     public static BriefcaseFragment getInstance(String userId) {
         BriefcaseFragment fragment = new BriefcaseFragment();
@@ -81,18 +83,19 @@ public class BriefcaseFragment extends BaseFragmentTHP implements RecyclerViewPu
         editionBtn_Txt = view.findViewById(R.id.editionBtn_Txt);
 
         mRecyclerAdapter = new AppTabContentAdapter(new ArrayList<>(), mBreifingType, mUserId);
-
+        mRecyclerAdapter.setOnEditionBtnClickListener(this::OnEditionBtnClickListener);
         mPullToRefreshLayout.setDataAdapter(mRecyclerAdapter);
 
         mPullToRefreshLayout.setTryAgainBtnClickListener(this);
 
         mPullToRefreshLayout.showProgressBar();
 
+
         // Pull To Refresh Listener
         registerPullToRefresh();
 
         // Edition Btn Click Listener
-        editionBtn_Txt.setOnClickListener(v->{
+        /*editionBtn_Txt.setOnClickListener(v->{
             EditionOptionFragment fragment = EditionOptionFragment.getInstance();
             FragmentUtil.addFragmentAnim((AppCompatActivity) getActivity(),
                     R.id.parentLayout, fragment, FragmentUtil.FRAGMENT_NO_ANIMATION, false);
@@ -116,7 +119,7 @@ public class BriefcaseFragment extends BaseFragmentTHP implements RecyclerViewPu
                 loadData(false);
 
             });
-        });
+        });*/
 
         // Date Btn Click Listener
         dateBtn_Txt.setOnClickListener(v->{
@@ -136,28 +139,39 @@ public class BriefcaseFragment extends BaseFragmentTHP implements RecyclerViewPu
         });
 
         if(mIsVisible) {
-            loadData();
+            //loadData();
 
             // Shows user name
             ApiManager.getUserProfile(getActivity())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(userProfile -> {
+                        RecoBean profileRecoBean = null;
+
                         if(userProfile != null && !TextUtils.isEmpty(userProfile.getFullName())) {
                             userName_Txt.setText("Hi "+userProfile.getFullName());
+                            profileRecoBean = new RecoBean();
+                            profileRecoBean.setTitle("Hi "+userProfile.getFullName());
                         } else if(userProfile != null && !TextUtils.isEmpty(userProfile.getEmailId())) {
                             userName_Txt.setText(userProfile.getEmailId());
+                            profileRecoBean = new RecoBean();
+                            profileRecoBean.setTitle(userProfile.getEmailId());
                         } else if(userProfile != null && !TextUtils.isEmpty(userProfile.getContact())) {
                             userName_Txt.setText(userProfile.getContact());
+                            profileRecoBean = new RecoBean();
+                            profileRecoBean.setTitle(userProfile.getContact());
                         } else {
                             userName_Txt.setVisibility(View.GONE);
                         }
+
+                        // Create Header Model
+                        createHeaderModel(profileRecoBean);
+
+                        loadData();
                     });
         }
 
-
-
-
     }
+
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
@@ -212,11 +226,13 @@ public class BriefcaseFragment extends BaseFragmentTHP implements RecyclerViewPu
                 observable
                         .map(value->{
                             List<AppTabContentModel> content = new ArrayList<>();
+                            addHeaderModel(content);
                             for(RecoBean bean : value) {
                                 AppTabContentModel model = new AppTabContentModel(BaseRecyclerViewAdapter.VT_BRIEFCASE);
                                 model.setBean(bean);
                                 content.add(model);
                             }
+
                             return content;
                         })
                         .observeOn(AndroidSchedulers.mainThread())
@@ -234,7 +250,7 @@ public class BriefcaseFragment extends BaseFragmentTHP implements RecyclerViewPu
                             mPullToRefreshLayout.setRefreshing(false);
 
                             // Showing Empty Msg.
-                            if (mRecyclerAdapter != null && mRecyclerAdapter.getItemCount() == 0) {
+                            if (mRecyclerAdapter != null && mRecyclerAdapter.getItemCount() == 1) {
                                 mPullToRefreshLayout.showTryAgainBtn("Please Try Again.");
                             }
 
@@ -248,6 +264,49 @@ public class BriefcaseFragment extends BaseFragmentTHP implements RecyclerViewPu
         } else {
             emptyLayout.setVisibility(View.VISIBLE);
             mPullToRefreshLayout.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void OnEditionBtnClickListener() {
+        EditionOptionFragment fragment = EditionOptionFragment.getInstance();
+        FragmentUtil.addFragmentAnim((AppCompatActivity) getActivity(),
+                R.id.parentLayout, fragment, FragmentUtil.FRAGMENT_NO_ANIMATION, false);
+
+        fragment.setOnEditionOptionClickListener(value -> {
+            if(mProfileNameModel != null) {
+                mProfileNameModel.getBean().setSectionName(value);
+            }
+            // Clearing Edition option Fragment
+            FragmentUtil.clearSingleBackStack((AppCompatActivity) getActivity());
+
+            if(value.equalsIgnoreCase("All Editions")) {
+                mBreifingType = NetConstants.BREIFING_ALL;
+            } else if(value.equalsIgnoreCase("Morning Editions")) {
+                mBreifingType = NetConstants.BREIFING_MORNING;
+            } else if(value.equalsIgnoreCase("Noon Editions")) {
+                mBreifingType = NetConstants.BREIFING_NOON;
+            } else if(value.equalsIgnoreCase("Evening Editions")) {
+                mBreifingType = NetConstants.BREIFING_EVENING;
+            }
+
+            loadData(false);
+
+        });
+    }
+
+
+    private void createHeaderModel(RecoBean profileRecoBean) {
+        if(profileRecoBean != null) {
+            profileRecoBean.setSectionName("All Editions");
+            mProfileNameModel = new AppTabContentModel(BaseRecyclerViewAdapter.VT_BRIEFCASE_HEADER);
+            mProfileNameModel.setBean(profileRecoBean);
+        }
+    }
+
+    private void addHeaderModel(List<AppTabContentModel> content) {
+        if(mProfileNameModel != null) {
+            content.add(mProfileNameModel);
         }
     }
 }

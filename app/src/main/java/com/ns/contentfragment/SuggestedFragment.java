@@ -37,6 +37,7 @@ public class SuggestedFragment extends BaseFragmentTHP implements RecyclerViewPu
     private RecyclerViewPullToRefresh mPullToRefreshLayout;
     private AppTabContentAdapter mRecyclerAdapter;
     private CustomTextView pageTitle_Txt;
+    private AppTabContentModel mProfileNameModel;
 
 
     public static SuggestedFragment getInstance(String userId) {
@@ -80,7 +81,7 @@ public class SuggestedFragment extends BaseFragmentTHP implements RecyclerViewPu
 
         pageTitle_Txt.setText("Your suggested stories");
 
-
+        createHeaderModel(null);
     }
 
     @Override
@@ -154,6 +155,7 @@ public class SuggestedFragment extends BaseFragmentTHP implements RecyclerViewPu
                 observable
                         .map(value->{
                             List<AppTabContentModel> content = new ArrayList<>();
+                            addHeaderModel(content);
                             for(RecoBean bean : value) {
                                 AppTabContentModel model = new AppTabContentModel(BaseRecyclerViewAdapter.VT_TRENDING);
                                 model.setBean(bean);
@@ -186,6 +188,23 @@ public class SuggestedFragment extends BaseFragmentTHP implements RecyclerViewPu
 
                         }));
 
+    }
+
+    private void createHeaderModel(RecoBean profileRecoBean) {
+        if(profileRecoBean == null) {
+            profileRecoBean = new RecoBean();
+            profileRecoBean.setTitle("Your suggested stories");
+
+        }
+        profileRecoBean.setSectionName("Your suggested stories");
+        mProfileNameModel = new AppTabContentModel(BaseRecyclerViewAdapter.VT_BRIEFCASE_HEADER);
+        mProfileNameModel.setBean(profileRecoBean);
+    }
+
+    private void addHeaderModel(List<AppTabContentModel> content) {
+        if(mProfileNameModel != null) {
+            content.add(mProfileNameModel);
+        }
     }
 
 }
