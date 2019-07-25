@@ -127,11 +127,12 @@
                 android:id="@+id/signIn_Txt"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
+                android:gravity="bottom"
                 android:letterSpacing="0.02"
                 android:text="Already have an account? Sign In"
                 android:textColor="@color/boldBlackColor"
                 android:textSize="15sp"
-                android:layout_marginBottom="@dimen/become_member_marginbottom"/>
+                />
 
         </LinearLayout>
 

@@ -44,7 +44,6 @@
 
     <dimen name="become_member_part1_gap">14dp</dimen>
     <dimen name="become_member_part2_gap">18dp</dimen>
-    <dimen name="become_member_marginbottom">5dp</dimen>
     <dimen name="become_member_margintop">15dp</dimen>
 
     <dimen name="userprofile_gap_for_1">5dp</dimen>
