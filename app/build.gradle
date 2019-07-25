@@ -39,6 +39,8 @@ android {
             buildConfigField "String", "LOCALE", "\"en\""
             buildConfigField "String", "BREIGINE_URL", "\"https://alphath.thehindu.co.in/briefing/?requestSource=app\""
             buildConfigField "String", "VUUKLE_API_KEY", "\"432081eb-6e8e-4abc-a88f-ca5357aa7244\""
+            buildConfigField "String", "CONSUMER_API_KEY", "\"R4aG29tZVOgu3t8bIA2t7T9by\""
+            buildConfigField "String", "CONSUMER_API_SECRET_KEY", "\"1YIayOnN05m8dPdYHV87n5luuZOl7aVJbYjo6h8guDFXISZNOH\""
             versionName "S1.0"
 
         }
