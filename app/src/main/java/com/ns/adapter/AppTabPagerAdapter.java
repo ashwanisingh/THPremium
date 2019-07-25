@@ -14,7 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.netoperation.util.NetConstants;
-import com.ns.contentfragment.THPListingFragment;
+import com.ns.contentfragment.AppTabListingFragment;
 import com.ns.contentfragment.MoreOptionFragment;
 import com.ns.thpremium.R;
 
@@ -30,16 +30,16 @@ public class AppTabPagerAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int i) {
 
         if(i==0) {
-            return THPListingFragment.getInstance(mUserId, NetConstants.BREIFING_ALL);
+            return AppTabListingFragment.getInstance(mUserId, NetConstants.BREIFING_ALL);
         }
         else if(i==1) {
-            return THPListingFragment.getInstance(mUserId, NetConstants.RECO_personalised);
+            return AppTabListingFragment.getInstance(mUserId, NetConstants.RECO_personalised);
         }
         else if(i==2) {
-            return THPListingFragment.getInstance(mUserId, NetConstants.RECO_suggested);
+            return AppTabListingFragment.getInstance(mUserId, NetConstants.RECO_suggested);
         }
         else if(i==3) {
-            return THPListingFragment.getInstance(mUserId, NetConstants.RECO_trending);
+            return AppTabListingFragment.getInstance(mUserId, NetConstants.RECO_trending);
         }
         else if(i==4) {
             return MoreOptionFragment.getInstance(mUserId);

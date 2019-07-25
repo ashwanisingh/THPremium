@@ -354,7 +354,8 @@ public class AppTabContentAdapter extends BaseRecyclerViewAdapter {
         || mFrom.equalsIgnoreCase(NetConstants.BREIFING_NOON) || mFrom.equalsIgnoreCase(NetConstants.BREIFING_EVENING)) {
             holder.editionBtn_Txt.setText(bean.getSectionName());
             holder.editionBtn_Txt.setVisibility(View.VISIBLE);
-            holder.yourEditionFor_Txt.setVisibility(View.GONE);
+            holder.yourEditionFor_Txt.setVisibility(View.VISIBLE);
+            holder.yourEditionFor_Txt.setText("Today's Briefing");
         }
         else if(mFrom.equalsIgnoreCase(NetConstants.RECO_suggested) || mFrom.equalsIgnoreCase(NetConstants.RECO_trending)) {
             holder.yourEditionFor_Txt.setText(bean.getSectionName());

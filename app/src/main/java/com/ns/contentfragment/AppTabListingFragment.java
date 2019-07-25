@@ -29,7 +29,7 @@ import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-public class THPListingFragment extends BaseFragmentTHP implements RecyclerViewPullToRefresh.TryAgainBtnClickListener, OnEditionBtnClickListener {
+public class AppTabListingFragment extends BaseFragmentTHP implements RecyclerViewPullToRefresh.TryAgainBtnClickListener, OnEditionBtnClickListener {
 
     private RecyclerViewPullToRefresh mPullToRefreshLayout;
     private AppTabContentAdapter mRecyclerAdapter;
@@ -37,8 +37,8 @@ public class THPListingFragment extends BaseFragmentTHP implements RecyclerViewP
     private AppTabContentModel mProfileNameModel;
     String mFrom;
 
-    public static THPListingFragment getInstance(String userId, String from) {
-        THPListingFragment fragment = new THPListingFragment();
+    public static AppTabListingFragment getInstance(String userId, String from) {
+        AppTabListingFragment fragment = new AppTabListingFragment();
         Bundle bundle = new Bundle();
         bundle.putString("userId", userId);
         bundle.putString("from", from);
