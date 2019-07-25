@@ -39,7 +39,7 @@
 
     <string name="tc_layout_ratio">h,10:14</string>
 
-    <string name="become_member_part1">h,15:14</string>
+    <string name="become_member_part1">h,10:10</string>
     <string name="become_member_part2">h,30:4</string>
 
     <dimen name="become_member_part1_gap">14dp</dimen>

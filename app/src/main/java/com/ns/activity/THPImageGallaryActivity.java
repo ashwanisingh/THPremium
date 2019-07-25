@@ -14,8 +14,8 @@ import com.ns.thpremium.R;
 import java.util.ArrayList;
 
 
-public class ImageGallaryActivity extends BaseAcitivityTHP {
-    private final String TAG = "ImageGallaryActivity";
+public class THPImageGallaryActivity extends BaseAcitivityTHP {
+    private final String TAG = "THPImageGallaryActivity";
     private ViewPager mImageViewPager;
     private TextView mErrorText;
     private ProgressBar mProgressBar;

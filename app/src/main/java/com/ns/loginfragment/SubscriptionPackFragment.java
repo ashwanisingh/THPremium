@@ -12,7 +12,7 @@ import android.view.View;
 
 import com.netoperation.model.TxnDataBean;
 import com.netoperation.net.ApiManager;
-import com.ns.activity.UserProfileActivity;
+import com.ns.activity.THPUserProfileActivity;
 import com.ns.adapter.SubscriptionPackAdapter;
 import com.ns.callbacks.OnPlanInfoLoad;
 import com.ns.callbacks.OnSubscribeBtnClick;
@@ -34,7 +34,7 @@ public class SubscriptionPackFragment extends BaseFragmentTHP  implements OnSubs
 
     private String mFrom;
 
-    private UserProfileActivity mUserProfileActivity;
+    private THPUserProfileActivity mTHPUserProfileActivity;
 
 
     private OnSubscribeBtnClick mOnSubscribeBtnClick;
@@ -64,16 +64,16 @@ public class SubscriptionPackFragment extends BaseFragmentTHP  implements OnSubs
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if(context instanceof UserProfileActivity) {
-            mUserProfileActivity = (UserProfileActivity) context;
+        if(context instanceof THPUserProfileActivity) {
+            mTHPUserProfileActivity = (THPUserProfileActivity) context;
         }
     }
 
     @Override
     public void onAttach(Activity context) {
         super.onAttach(context);
-        if(context instanceof UserProfileActivity) {
-            mUserProfileActivity = (UserProfileActivity) context;
+        if(context instanceof THPUserProfileActivity) {
+            mTHPUserProfileActivity = (THPUserProfileActivity) context;
         }
     }
 
@@ -92,13 +92,13 @@ public class SubscriptionPackFragment extends BaseFragmentTHP  implements OnSubs
         mRecyclerView = view.findViewById(R.id.recyclerView);
 
         // Setting Listener subscription Button Click
-        setOnSubscribeBtnClick(mUserProfileActivity);
+        setOnSubscribeBtnClick(mTHPUserProfileActivity);
 
         // Setting Lisener to listen, when Plan is loaded
-        setOnPlanInfoLoad(mUserProfileActivity);
+        setOnPlanInfoLoad(mTHPUserProfileActivity);
 
         // Listens Subscription Payment Success and Failure
-        mUserProfileActivity.setOnSubscribeEvent(new OnSubscribeEvent() {
+        mTHPUserProfileActivity.setOnSubscribeEvent(new OnSubscribeEvent() {
             @Override
             public void onSubscribeEvent(boolean isSuccess) {
 

@@ -36,7 +36,7 @@
             android:screenOrientation="portrait"/>
         <activity android:name="com.ns.activity.SignInAndUpActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name="com.ns.activity.UserProfileActivity"
+        <activity android:name="com.ns.activity.THPUserProfileActivity"
             android:screenOrientation="portrait"/>
         <activity android:name="com.ns.activity.BecomeMemberActivity"
             android:screenOrientation="portrait"/>
@@ -44,9 +44,9 @@
             android:screenOrientation="portrait"/>
         <activity android:name="com.ns.activity.THP_WebActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name="com.ns.activity.ImageGallaryVerticleActivity"
+        <activity android:name="com.ns.activity.THPImageGallaryVerticleActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name="com.ns.activity.ImageGallaryActivity"
+        <activity android:name="com.ns.activity.THPImageGallaryActivity"
             android:screenOrientation="portrait"/>
         <activity android:name="com.ns.activity.THP_BookmarkActivity"
             android:screenOrientation="portrait"/>

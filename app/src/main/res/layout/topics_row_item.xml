@@ -38,8 +38,8 @@
 
     <com.ns.view.CustomTextView
         android:id="@+id/tv_topics_cities"
-        android:maxLines="2"
-        android:minLines="2"
+        android:minLines="1"
+        android:ellipsize="marquee"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"

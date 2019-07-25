@@ -5,9 +5,5 @@
          screen margins) for sw600dp devices (e.g. 7" tablets) here.
     -->
 
-    <string name="become_member_part1">h,10:10</string>
-    <string name="become_member_part2">h,10:2</string>
-    <dimen name="become_member_part1_gap">1dp</dimen>
-    <dimen name="become_member_part2_gap">5dp</dimen>
 
 </resources>

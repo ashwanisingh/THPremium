@@ -33,7 +33,7 @@ import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 
-public class UserProfileActivity extends AppLocationActivity implements OnSubscribeBtnClick, OnPlanInfoLoad {
+public class THPUserProfileActivity extends AppLocationActivity implements OnSubscribeBtnClick, OnPlanInfoLoad {
 
     private String mSelectedPlanId;
     private static final int INAPP_SUBSCRIPTION_REQUEST_CODE = 10001;
@@ -110,7 +110,7 @@ public class UserProfileActivity extends AppLocationActivity implements OnSubscr
     }
 
     private void initIabHelper() {
-        mHelper = new IabHelper(UserProfileActivity.this, THPConstants.SUBSCRIPTION_BASE64);
+        mHelper = new IabHelper(THPUserProfileActivity.this, THPConstants.SUBSCRIPTION_BASE64);
         mHelper.enableDebugLogging(true);
         mHelper.startSetup(new IabHelper.OnIabSetupFinishedListener() {
             @Override
@@ -173,7 +173,7 @@ public class UserProfileActivity extends AppLocationActivity implements OnSubscr
                 Log.i("", "");
                 if (result.isFailure()) {
                     //Handle error
-                    Alerts.showAlertDialogOKBtn(UserProfileActivity.this, "Purchase Error!", result.getMessage());
+                    Alerts.showAlertDialogOKBtn(THPUserProfileActivity.this, "Purchase Error!", result.getMessage());
                     return;
                 } else if (purchase.getSku().equals(mSelectedPlanId)) {
                     loadInventory();
@@ -187,7 +187,7 @@ public class UserProfileActivity extends AppLocationActivity implements OnSubscr
 
         boolean isSubscription = mHelper.subscriptionsSupported();
         Log.i("", "");
-        mHelper.launchSubscriptionPurchaseFlow(UserProfileActivity.this, mSelectedPlanId, INAPP_SUBSCRIPTION_REQUEST_CODE,
+        mHelper.launchSubscriptionPurchaseFlow(THPUserProfileActivity.this, mSelectedPlanId, INAPP_SUBSCRIPTION_REQUEST_CODE,
                 mPurchaseFinishedListener);
 
         //Testing create subscription
@@ -225,7 +225,7 @@ public class UserProfileActivity extends AppLocationActivity implements OnSubscr
 
         }, throwable -> {
             //Handle Error and network interruption
-            Log.i("UserProfileActivity", throwable.getMessage());
+            Log.i("THPUserProfileActivity", throwable.getMessage());
             Alerts.showErrorDailog(getSupportFragmentManager(),
                     getString(R.string.api_create_subscription_failure_title),
                     getString(R.string.api_create_subscription_failure_message));

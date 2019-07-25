@@ -26,8 +26,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class ImageGallaryVerticleActivity extends BaseAcitivityTHP implements GalleryVerticleAdapter.OnCheckPermisssion{
-    private final String TAG = "ImageGallaryActivity";
+public class THPImageGallaryVerticleActivity extends BaseAcitivityTHP implements GalleryVerticleAdapter.OnCheckPermisssion{
+    private final String TAG = "THPImageGallaryActivity";
     private TextView mErrorText;
     private ProgressBar mProgressBar;
     private LinearLayout mProgressContainer;
@@ -60,7 +60,7 @@ public class ImageGallaryVerticleActivity extends BaseAcitivityTHP implements Ga
 
 
         // Check Permission
-        int permission = ContextCompat.checkSelfPermission(ImageGallaryVerticleActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        int permission = ContextCompat.checkSelfPermission(THPImageGallaryVerticleActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
         if (permission == 0) {
             mImageListToFolder = CommonUtil.getFolderImageList();
         } else {

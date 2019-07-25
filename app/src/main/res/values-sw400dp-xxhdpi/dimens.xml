@@ -1,11 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="become_member_part1">h,10:8</string>
-    <string name="become_member_part2">h,10:2</string>
-    <dimen name="become_member_part1_gap">1dp</dimen>
-    <dimen name="become_member_part2_gap">5dp</dimen>
-    <dimen name="become_member_marginbottom">10dp</dimen>
-    <dimen name="become_member_margintop">15dp</dimen>
 
 </resources>

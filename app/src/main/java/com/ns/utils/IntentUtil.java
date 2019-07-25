@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.provider.Settings;
 import android.speech.tts.TextToSpeech;
-import android.text.TextUtils;
 import android.util.Log;
 
 import com.netoperation.model.MeBean;
@@ -14,15 +13,15 @@ import com.netoperation.model.RecoBean;
 import com.ns.activity.AppTabActivity;
 import com.ns.activity.BecomeMemberActivity;
 import com.ns.activity.DemoActivity;
-import com.ns.activity.ImageGallaryActivity;
-import com.ns.activity.ImageGallaryVerticleActivity;
+import com.ns.activity.THPImageGallaryActivity;
+import com.ns.activity.THPImageGallaryVerticleActivity;
 import com.ns.activity.SignInAndUpActivity;
 import com.ns.activity.THPPersonaliseActivity;
+import com.ns.activity.THPUserProfileActivity;
 import com.ns.activity.THP_BookmarkActivity;
 import com.ns.activity.THP_DetailActivity;
 import com.ns.activity.THP_WebActivity;
 import com.ns.activity.THP_YouTubeFullScreenActivity;
-import com.ns.activity.UserProfileActivity;
 import com.ns.model.ImageGallaryUrl;
 import com.ns.thpremium.BuildConfig;
 import com.ns.thpremium.R;
@@ -45,7 +44,7 @@ public class IntentUtil {
     }
 
     public static void openUserProfileActivity(Context context, String from) {
-        Intent intent = new Intent(context, UserProfileActivity.class);
+        Intent intent = new Intent(context, THPUserProfileActivity.class);
         intent.putExtra("from", from);
         context.startActivity(intent);
     }
@@ -57,7 +56,7 @@ public class IntentUtil {
     }
 
     public static void openSubscriptionActivity(Context context, String from) {
-        Intent intent = new Intent(context, UserProfileActivity.class);
+        Intent intent = new Intent(context, THPUserProfileActivity.class);
         intent.putExtra("from", from);
         context.startActivity(intent);
     }
@@ -132,7 +131,7 @@ public class IntentUtil {
         }
 
         if (imageGallaryUrls != null) {
-            Intent intent = new Intent(context, ImageGallaryActivity.class);
+            Intent intent = new Intent(context, THPImageGallaryActivity.class);
             intent.putParcelableArrayListExtra("ImageUrl", imageGallaryUrls);
             intent.putExtra("selectedPosition", position);
             context.startActivity(intent);
@@ -151,7 +150,7 @@ public class IntentUtil {
             }
         }
         if (mImageUrlList != null) {
-            Intent intent = new Intent(context, ImageGallaryVerticleActivity.class);
+            Intent intent = new Intent(context, THPImageGallaryVerticleActivity.class);
             intent.putParcelableArrayListExtra("ImageUrl", mImageUrlList);
             intent.putExtra("title", title);
             context.startActivity(intent);

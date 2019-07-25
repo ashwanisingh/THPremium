@@ -10,22 +10,17 @@ import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
-import android.widget.DatePicker;
 import android.widget.TextView;
 
 import com.bumptech.glide.load.HttpException;
-import com.netoperation.db.THPDB;
-import com.netoperation.db.UserProfileTable;
 import com.netoperation.model.KeyValueModel;
 import com.netoperation.model.UserProfile;
 import com.netoperation.net.ApiManager;
 import com.netoperation.util.NetConstants;
-import com.ns.activity.UserProfileActivity;
+import com.ns.activity.THPUserProfileActivity;
 import com.ns.alerts.Alerts;
 import com.ns.callbacks.AppLocationListener;
-import com.ns.contentfragment.CalendarFragment;
 import com.ns.loginfragment.BaseFragmentTHP;
 import com.ns.loginfragment.OTPVerificationFragment;
 import com.ns.thpremium.BuildConfig;
@@ -36,22 +31,15 @@ import com.ns.utils.ResUtil;
 import com.ns.utils.THPConstants;
 import com.ns.view.CustomProgressBar;
 import com.ns.view.CustomTextView;
-import com.ns.view.StandardPopupWindow;
 
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;
-import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
 import java.util.concurrent.TimeoutException;
 
-import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 
 public class PersonalInfoFragment extends BaseFragmentTHP {
 
@@ -82,7 +70,7 @@ public class PersonalInfoFragment extends BaseFragmentTHP {
 
     private UserProfile mUserProfile;
 
-    private UserProfileActivity mActivity;
+    private THPUserProfileActivity mActivity;
 
     @Override
     public int getLayoutRes() {
@@ -100,16 +88,16 @@ public class PersonalInfoFragment extends BaseFragmentTHP {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if(context instanceof UserProfileActivity) {
-            mActivity = (UserProfileActivity) context;
+        if(context instanceof THPUserProfileActivity) {
+            mActivity = (THPUserProfileActivity) context;
         }
     }
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        if(activity instanceof UserProfileActivity) {
-            mActivity = (UserProfileActivity) activity;
+        if(activity instanceof THPUserProfileActivity) {
+            mActivity = (THPUserProfileActivity) activity;
         }
     }
 
