@@ -32,8 +32,6 @@ public class AccountCreatedFragment extends BaseFragmentTHP {
     }
 
 
-
-
     @Override
     public int getLayoutRes() {
         return R.layout.fragment_account_created;

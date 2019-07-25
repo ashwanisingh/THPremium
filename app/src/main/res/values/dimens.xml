@@ -28,7 +28,7 @@
     <dimen name="subscription_pack_item_rupee_gap">1dp</dimen>
 
 
-    <string name="account_created_layout_ratio">h,12:10</string>
+    <string name="account_created_layout_ratio">h,12:11.3</string>
     <string name="bottom_popup_layout_ratio">h,12:14</string>
     <string name="edition_popup_layout_ratio">h,10.9:9</string>
     <string name="more_popup_layout_ratio">h,14:9</string>

@@ -2,7 +2,6 @@
 <resources>
     <dimen name="baseLayoutLeftPadding">11dp</dimen>
     <dimen name="baseLayoutRightPadding">11dp</dimen>
-    <dimen name="baseLayoutTopPadding">26dp</dimen>
 
     <dimen name="backBtnMarginTop">20dp</dimen>
     <dimen name="backBtnWidthHeight">45dp</dimen>

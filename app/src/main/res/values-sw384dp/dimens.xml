@@ -3,5 +3,5 @@
 
 
     <string name="become_member_part1">h,10:11</string>
-
+    <string name="account_created_layout_ratio">h,12:10.5</string>
 </resources>

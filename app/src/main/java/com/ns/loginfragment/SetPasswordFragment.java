@@ -123,12 +123,11 @@ public class SetPasswordFragment extends BaseFragmentTHP {
 
         // Submit button click listener
         submit_Txt.setOnClickListener(v->{
-            if(mFrom != null && mFrom.equalsIgnoreCase(THPConstants.FROM_FORGOT_PASSWORD)) {
-                resetPassword();
-            } else {
-                sigupApiRequest();
-            }
-
+                if (mFrom != null && mFrom.equalsIgnoreCase(THPConstants.FROM_FORGOT_PASSWORD)) {
+                    resetPassword();
+                } else {
+                    sigupApiRequest();
+                }
         });
 
     }

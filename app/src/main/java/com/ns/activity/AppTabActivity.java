@@ -42,7 +42,7 @@ public class AppTabActivity extends BaseAcitivityTHP {
                     FragmentUtil.pushFragmentAnim(this, R.id.parentLayout, fragment, FragmentUtil.FRAGMENT_NO_ANIMATION, true);
 
                     // THis below condition will be executed when user creates normal Sign-UP
-                    if(mFrom != null && !TextUtils.isEmpty(mFrom) && mFrom.equalsIgnoreCase("SignUp")) {
+                    if(mFrom != null && !TextUtils.isEmpty(mFrom)/* && mFrom.equalsIgnoreCase("SignUp")*/) {
                         AccountCreatedFragment accountCreated = AccountCreatedFragment.getInstance("");
 
                         FragmentUtil.addFragmentAnim(this, R.id.parentLayout, accountCreated, FragmentUtil.FRAGMENT_NO_ANIMATION, false);

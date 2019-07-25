@@ -7,7 +7,6 @@
 
     <dimen name="baseLayoutLeftPadding">5dp</dimen>
     <dimen name="baseLayoutRightPadding">5dp</dimen>
-    <dimen name="baseLayoutTopPadding">10dp</dimen>
 
     <dimen name="backBtnMarginTop">20dp</dimen>
     <dimen name="backBtnWidthHeight">45dp</dimen>
