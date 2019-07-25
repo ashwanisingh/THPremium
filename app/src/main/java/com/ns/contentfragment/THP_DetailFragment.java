@@ -46,8 +46,6 @@ public class THP_DetailFragment extends BaseFragmentTHP implements RecyclerViewP
     private String mArticleId;
     private String mFrom;
 
-    protected final CompositeDisposable mDisposable = new CompositeDisposable();
-
 
     public static THP_DetailFragment getInstance(RecoBean recoBean, String articleId, String userId, String from) {
         THP_DetailFragment fragment = new THP_DetailFragment();
@@ -230,9 +228,9 @@ public class THP_DetailFragment extends BaseFragmentTHP implements RecyclerViewP
     }
 
 
-
-    ////////// Start For Bookmark, Fav, Like & Dislike ///////////////////////////////
-
+    ///////////////////////////////////////////////////////////////////////////////////
+    ////////////////// Start For Bookmark, Fav, Like & Dislike ////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////
     private void updateBookmarkFavLike(final Context context,  RecoBean bean, String from) {
         int bookmark = bean.getIsBookmark();
         int favourite = bean.getIsFavourite();
@@ -271,7 +269,7 @@ public class THP_DetailFragment extends BaseFragmentTHP implements RecyclerViewP
         final int fav = favourite;
 
         // To Create and Remove at server end
-        ApiManager.createBookmarkFavLike(mUserId, BuildConfig.SITEID, bean.getArticleId(), bookmark, favourite)
+        mDisposable.add(ApiManager.createBookmarkFavLike(mUserId, BuildConfig.SITEID, bean.getArticleId(), bookmark, favourite)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(val-> {
                             if (val) {
@@ -329,20 +327,18 @@ public class THP_DetailFragment extends BaseFragmentTHP implements RecyclerViewP
                         val-> {
                             if(getActivity() != null && getView() != null) {
                                 mActivity.getToolbar().isFavOrLike(context, bean, bean.getArticleId());
+                                isExistInBookmark(bean.getArticleId());
                                 Alerts.showAlertDialogOKBtn(getActivity(),
                                         getActivity().getResources().getString(R.string.failed_to_connect),
                                         getActivity().getResources().getString(R.string.please_check_ur_connectivity));
                             }
                         }
-                );
+                ));
     }
 
-
-
-
-
-
-    //////////End For Bookmark, Fav, Like & Dislike ///////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////
+    //////////////////End For Bookmark, Fav, Like & Dislike ////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////
 
 
 

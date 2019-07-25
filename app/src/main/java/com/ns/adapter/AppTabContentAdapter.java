@@ -540,7 +540,10 @@ public class AppTabContentAdapter extends BaseRecyclerViewAdapter {
                                 else if(fav == NetConstants.LIKE_NO) {
                                     Alerts.showToastAtCenter(context, "Show fewer stories like this.");
                                     mContent.remove(position);
-                                    notifyDataSetChanged();
+                                    //notifyDataSetChanged();
+                                    notifyItemRemoved(position);
+                                    notifyItemRangeChanged(position, mContent.size());
+
                                 } else {
                                     notifyItemChanged(position);
                                 }
