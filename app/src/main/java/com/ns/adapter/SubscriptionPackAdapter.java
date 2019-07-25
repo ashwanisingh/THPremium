@@ -1,6 +1,7 @@
 package com.ns.adapter;
 
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -63,6 +64,13 @@ public class SubscriptionPackAdapter extends BaseRecyclerViewAdapter {
         if(viewHolder instanceof PlanViewHolder) {
             PlanViewHolder holder = (PlanViewHolder) viewHolder;
 
+            if(i % 2 == 1) {
+                holder.itemContentMainLayout.setBackgroundResource(R.drawable.item_blue_backgraoud);
+            } else {
+                holder.itemContentMainLayout.setBackgroundResource(R.drawable.item_red_backgraoud);
+            }
+
+
             holder.packName_Txt.setText(bean.getPlanName());
             holder.planValidity_Txt.setText(bean.getValidity());
             if (bean.getAmount() == 0.0) {
@@ -91,10 +99,8 @@ public class SubscriptionPackAdapter extends BaseRecyclerViewAdapter {
             });
         }
         else if(viewHolder instanceof EmptyViewHolder) {
-
             EmptyViewHolder holder = (EmptyViewHolder) viewHolder;
             holder.packName_Txt.setText(bean.getPlanName());
-
         }
 
     }
@@ -113,6 +119,7 @@ public class SubscriptionPackAdapter extends BaseRecyclerViewAdapter {
         TextView planOffer_Txt;
         TextView subscribeBtn_Txt;
         LinearLayout currencyLayout;
+        ConstraintLayout itemContentMainLayout;
 
         public PlanViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -122,6 +129,7 @@ public class SubscriptionPackAdapter extends BaseRecyclerViewAdapter {
             planOffer_Txt = itemView.findViewById(R.id.planOffer_Txt);
             subscribeBtn_Txt = itemView.findViewById(R.id.subscribeBtn_Txt);
             currencyLayout = itemView.findViewById(R.id.currencyLayout);
+            itemContentMainLayout = itemView.findViewById(R.id.itemContentMainLayout);
 
         }
     }

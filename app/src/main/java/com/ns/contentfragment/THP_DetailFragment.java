@@ -327,10 +327,12 @@ public class THP_DetailFragment extends BaseFragmentTHP implements RecyclerViewP
                             }
                         },
                         val-> {
-                            //notifyItemChanged(position);
-                            Alerts.showAlertDialogOKBtn(getActivity(),
-                                    getActivity().getResources().getString(R.string.failed_to_connect),
-                                    getActivity().getResources().getString(R.string.please_check_ur_connectivity));
+                            if(getActivity() != null && getView() != null) {
+                                mActivity.getToolbar().isFavOrLike(context, bean, bean.getArticleId());
+                                Alerts.showAlertDialogOKBtn(getActivity(),
+                                        getActivity().getResources().getString(R.string.failed_to_connect),
+                                        getActivity().getResources().getString(R.string.please_check_ur_connectivity));
+                            }
                         }
                 );
     }

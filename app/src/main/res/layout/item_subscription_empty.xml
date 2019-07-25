@@ -11,7 +11,7 @@
         android:id="@+id/itemContentMainLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/item_red_backgraoud"
+        android:background="@drawable/item_blue_backgraoud"
         android:paddingStart="31dp"
         android:paddingLeft="31dp"
         android:paddingTop="16dp"
