@@ -70,11 +70,10 @@ dependencies {
     implementation deps.supportCardView
     implementation deps.constraintLayout
     implementation deps.backend
-    implementation deps.glide
+    implementation deps.picasso
     implementation 'com.google.android.gms:play-services-maps:16.1.0'
     implementation 'com.google.firebase:firebase-auth:16.0.5'
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
-    annotationProcessor deps.glide_annotationProcessor
     // Google Location
     implementation deps.googleLocation
     // Multidex
@@ -83,7 +82,7 @@ dependencies {
     // Dot Indicator
     implementation 'com.tbuonomo.andrui:viewpagerdotsindicator:3.0.3'
     //Image Zooming
-    implementation project(':photoview')
+    implementation deps.photoview
     implementation deps.otpEntryEditText
     implementation deps.reactivenetwork
     implementation deps.rxAndroid2

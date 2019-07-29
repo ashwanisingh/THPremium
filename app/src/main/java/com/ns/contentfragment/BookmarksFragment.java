@@ -6,7 +6,6 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.LinearLayout;
 
-import com.bumptech.glide.load.HttpException;
 import com.netoperation.model.RecoBean;
 import com.netoperation.net.ApiManager;
 import com.netoperation.util.NetConstants;
@@ -154,7 +153,7 @@ public class BookmarksFragment extends BaseFragmentTHP implements RecyclerViewPu
                         .subscribe(value -> {
                             mRecyclerAdapter.addData(value);
                         }, throwable -> {
-                            if (throwable instanceof HttpException || throwable instanceof ConnectException
+                            if (throwable instanceof ConnectException
                                     || throwable instanceof SocketTimeoutException || throwable instanceof TimeoutException
                                     || throwable instanceof NullPointerException) {
                                 loadData(false);

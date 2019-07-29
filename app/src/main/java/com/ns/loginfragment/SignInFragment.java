@@ -3,30 +3,21 @@ package com.ns.loginfragment;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.Signature;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.text.method.PasswordTransformationMethod;
-import android.util.Base64;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
-import com.bumptech.glide.load.HttpException;
 import com.facebook.AccessToken;
-import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
-import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.login.LoginManager;
@@ -39,9 +30,7 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.netoperation.net.ApiManager;
-import com.netoperation.net.RequestCallback;
 import com.ns.activity.SignInAndUpActivity;
-import com.ns.activity.THPPersonaliseActivity;
 import com.ns.alerts.Alerts;
 import com.ns.thpremium.BuildConfig;
 import com.ns.thpremium.R;
@@ -59,7 +48,6 @@ import com.twitter.sdk.android.core.DefaultLogger;
 import com.twitter.sdk.android.core.Result;
 import com.twitter.sdk.android.core.Twitter;
 import com.twitter.sdk.android.core.TwitterAuthConfig;
-import com.twitter.sdk.android.core.TwitterAuthToken;
 import com.twitter.sdk.android.core.TwitterConfig;
 import com.twitter.sdk.android.core.TwitterCore;
 import com.twitter.sdk.android.core.TwitterException;
@@ -71,8 +59,6 @@ import org.json.JSONObject;
 
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.concurrent.TimeoutException;
 
@@ -261,7 +247,7 @@ public class SignInFragment extends BaseFragmentTHP {
 
                                             }, throwable -> {
                                                 enableButton(true);
-                                                if (throwable instanceof HttpException || throwable instanceof ConnectException
+                                                if (throwable instanceof ConnectException
                                                         || throwable instanceof SocketTimeoutException || throwable instanceof TimeoutException) {
                                                     Alerts.showErrorDailog(getChildFragmentManager(), getResources().getString(R.string.kindly), getResources().getString(R.string.please_check_ur_connectivity));
                                                 } else {
@@ -276,7 +262,7 @@ public class SignInFragment extends BaseFragmentTHP {
                             }, throwable -> {
                                 if (getActivity() != null && getView() != null) {
                                     enableButton(true);
-                                    if (throwable instanceof HttpException || throwable instanceof ConnectException
+                                    if (throwable instanceof ConnectException
                                             || throwable instanceof SocketTimeoutException || throwable instanceof TimeoutException) {
                                         Alerts.showErrorDailog(getChildFragmentManager(), getResources().getString(R.string.kindly), getResources().getString(R.string.please_check_ur_connectivity));
                                     }
@@ -428,7 +414,7 @@ public class SignInFragment extends BaseFragmentTHP {
 
                                                     }, throwable -> {
                                                         enableButton(true);
-                                                        if (throwable instanceof HttpException || throwable instanceof ConnectException
+                                                        if (throwable instanceof ConnectException
                                                                 || throwable instanceof SocketTimeoutException || throwable instanceof TimeoutException) {
                                                             Alerts.showErrorDailog(getChildFragmentManager(), getResources().getString(R.string.kindly), getResources().getString(R.string.please_check_ur_connectivity));
                                                         }
@@ -444,7 +430,7 @@ public class SignInFragment extends BaseFragmentTHP {
                                     }, throwable -> {
                                         if (getActivity() != null && getView() != null) {
                                             enableButton(true);
-                                            if (throwable instanceof HttpException || throwable instanceof ConnectException
+                                            if (throwable instanceof ConnectException
                                                     || throwable instanceof SocketTimeoutException || throwable instanceof TimeoutException) {
                                                 Alerts.showErrorDailog(getChildFragmentManager(), getResources().getString(R.string.kindly), getResources().getString(R.string.please_check_ur_connectivity));
                                             }
@@ -582,7 +568,7 @@ public class SignInFragment extends BaseFragmentTHP {
 
                                         }, throwable -> {
                                             enableButton(true);
-                                            if (throwable instanceof HttpException || throwable instanceof ConnectException
+                                            if (throwable instanceof ConnectException
                                                     || throwable instanceof SocketTimeoutException || throwable instanceof TimeoutException) {
                                                 Alerts.showErrorDailog(getChildFragmentManager(), getResources().getString(R.string.kindly), getResources().getString(R.string.please_check_ur_connectivity));
                                             }
@@ -598,7 +584,7 @@ public class SignInFragment extends BaseFragmentTHP {
                         }, throwable -> {
                             if (getActivity() != null && getView() != null) {
                                 enableButton(true);
-                                if (throwable instanceof HttpException || throwable instanceof ConnectException
+                                if (throwable instanceof ConnectException
                                         || throwable instanceof SocketTimeoutException || throwable instanceof TimeoutException) {
                                     Alerts.showErrorDailog(getChildFragmentManager(), getResources().getString(R.string.kindly), getResources().getString(R.string.please_check_ur_connectivity));
                                 }
@@ -670,7 +656,7 @@ public class SignInFragment extends BaseFragmentTHP {
 
                                         }, throwable -> {
                                             enableButton(true);
-                                            if (throwable instanceof HttpException || throwable instanceof ConnectException
+                                            if (throwable instanceof ConnectException
                                                     || throwable instanceof SocketTimeoutException || throwable instanceof TimeoutException) {
                                                 Alerts.showErrorDailog(getChildFragmentManager(), getResources().getString(R.string.kindly), getResources().getString(R.string.please_check_ur_connectivity));
                                             }
@@ -686,7 +672,7 @@ public class SignInFragment extends BaseFragmentTHP {
                         }, throwable -> {
                             if (getActivity() != null && getView() != null) {
                                 enableButton(true);
-                                if (throwable instanceof HttpException || throwable instanceof ConnectException
+                                if (throwable instanceof ConnectException
                                         || throwable instanceof SocketTimeoutException || throwable instanceof TimeoutException) {
                                     Alerts.showErrorDailog(getChildFragmentManager(), getResources().getString(R.string.kindly), getResources().getString(R.string.please_check_ur_connectivity));
                                 }

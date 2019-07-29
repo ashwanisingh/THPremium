@@ -9,7 +9,6 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 
-import com.bumptech.glide.load.HttpException;
 import com.netoperation.model.UserProfile;
 import com.netoperation.net.ApiManager;
 import com.netoperation.util.NetConstants;
@@ -204,7 +203,7 @@ public class AddAddressFragment extends BaseFragmentTHP {
                         Alerts.showAlertDialogOKBtn(getActivity(), "Sorry!", keyValueModel.getName());
                     }
                 }, throwable -> {
-                    if (throwable instanceof HttpException || throwable instanceof ConnectException
+                    if (throwable instanceof ConnectException
                             || throwable instanceof SocketTimeoutException || throwable instanceof TimeoutException) {
                         Alerts.showErrorDailog(getChildFragmentManager(), getResources().getString(R.string.kindly), getResources().getString(R.string.please_check_ur_connectivity));
                     }
