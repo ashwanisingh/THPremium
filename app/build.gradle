@@ -1,10 +1,10 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion "$COMPILED_SDK".toInteger()
+    compileSdkVersion "$COMPILE_SDK_VERSION".toInteger()
     defaultConfig {
-        minSdkVersion "$MIN_SDK".toInteger()
-        targetSdkVersion "$TARGET_SDK".toInteger()
+        minSdkVersion "$MINIMUM_SDK_VERSION".toInteger()
+        targetSdkVersion "$TARGETED_SDK_VERSION".toInteger()
         applicationId "com.ashwa.edu"
         versionCode 6
         vectorDrawables.useSupportLibrary = true
@@ -85,7 +85,6 @@ dependencies {
     //Image Zooming
     implementation project(':photoview')
     implementation deps.otpEntryEditText
-    implementation deps.calendar
     implementation deps.reactivenetwork
     implementation deps.rxAndroid2
     // For In App Billing

@@ -2,9 +2,9 @@
 
 
 ext {
-    COMPILED_SDK = 28
-    TARGET_SDK = 28
-    MIN_SDK = 16
+    COMPILE_SDK_VERSION = 28
+    TARGETED_SDK_VERSION = 28
+    MINIMUM_SDK_VERSION = 16
     SUPPORT_VC = '28.0.0'
 
     GSON_VC = '2.8.2'
@@ -44,9 +44,6 @@ ext.deps = [
 
         // For OTP Input
         otpEntryEditText : project(':pinentryedittext'),
-
-        // For Calendar View
-        calendar  : project(':calendar'),
 
         // For Network Connectivity
         reactivenetwork  : project(':reactivenetwork'),
