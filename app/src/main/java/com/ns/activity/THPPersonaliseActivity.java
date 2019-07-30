@@ -12,7 +12,6 @@ import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.bumptech.glide.load.HttpException;
 import com.netoperation.model.PersonaliseDetails;
 import com.netoperation.model.PersonaliseModel;
 import com.netoperation.model.PrefListModel;
@@ -391,7 +390,7 @@ public class THPPersonaliseActivity extends BaseAcitivityTHP implements THPPerso
                             Alerts.showAlertDialogOKBtn(THPPersonaliseActivity.this, "Sorry!", keyValueModel.getName());
                         }
                     }, throwable -> {
-                        if (throwable instanceof HttpException || throwable instanceof ConnectException
+                        if (throwable instanceof ConnectException
                                 || throwable instanceof SocketTimeoutException || throwable instanceof TimeoutException) {
                             Alerts.showErrorDailog(getSupportFragmentManager(), getResources().getString(R.string.kindly), getResources().getString(R.string.please_check_ur_connectivity));
                         }

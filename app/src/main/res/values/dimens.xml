@@ -105,5 +105,6 @@
     <dimen name="personalise_author_margin_top">10dp</dimen>
     <dimen name="personalise_author_width_height">41dp</dimen>
     <dimen name="personalise_margin_left">5dp</dimen>
+    <dimen name="padding">8dp</dimen>
 
 </resources>

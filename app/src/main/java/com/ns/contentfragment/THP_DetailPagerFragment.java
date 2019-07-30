@@ -9,12 +9,10 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
 
-import com.bumptech.glide.load.HttpException;
 import com.netoperation.model.RecoBean;
 import com.netoperation.net.ApiManager;
 import com.netoperation.util.NetConstants;
 import com.netoperation.util.UserPref;
-import com.ns.activity.BaseAcitivityTHP;
 import com.ns.activity.THP_DetailActivity;
 import com.ns.adapter.DetailPagerAdapter;
 import com.ns.loginfragment.BaseFragmentTHP;
@@ -189,7 +187,7 @@ public class THP_DetailPagerFragment extends BaseFragmentTHP {
                     setCurrentPage(mClickedPosition, false);
 
                 }, throwable -> {
-                    if (throwable instanceof HttpException || throwable instanceof ConnectException
+                    if (throwable instanceof ConnectException
                             || throwable instanceof SocketTimeoutException || throwable instanceof TimeoutException) {
                         // TODO,
                     }

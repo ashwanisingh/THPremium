@@ -2,10 +2,10 @@
 
 
 ext {
-    COMPILED_SDK = 28
-    TARGET_SDK = 28
-    MIN_SDK = 16
-    SUPPORT_VC = '28.0.0'
+    COMPILE_SDK_VERSION = 28
+    TARGETED_SDK_VERSION = 28
+    MINIMUM_SDK_VERSION = 16
+    SUPPORT_VERSION = '28.0.0'
 
     GSON_VC = '2.8.2'
     RETROFIT_VC = '2.3.0'
@@ -30,12 +30,12 @@ ext.deps = [
         retrofitGsonConverter: "com.squareup.retrofit2:converter-gson:$CONVERTER_GSON_VC",
 
 
-        appcompatv7          : "com.android.support:appcompat-v7:$SUPPORT_VC",
-        supportAnnotations   : "com.android.support:support-annotations:$SUPPORT_VC",
-        supportDesign        : "com.android.support:design:$SUPPORT_VC",
-        supportCardView      : "com.android.support:cardview-v7:$SUPPORT_VC",
+        appcompatv7          : "com.android.support:appcompat-v7:$SUPPORT_VERSION",
+        supportAnnotations   : "com.android.support:support-annotations:$SUPPORT_VERSION",
+        supportDesign        : "com.android.support:design:$SUPPORT_VERSION",
+        supportCardView      : "com.android.support:cardview-v7:$SUPPORT_VERSION",
         constraintLayout     : 'com.android.support.constraint:constraint-layout:1.0.2',
-        support_dynamic_animation:  "com.android.support:support-dynamic-animation:$SUPPORT_VC",
+        support_dynamic_animation:  "com.android.support:support-dynamic-animation:$SUPPORT_VERSION",
 
         googleLocation:  "com.google.android.gms:play-services-location:16.0.0",
 
@@ -45,15 +45,10 @@ ext.deps = [
         // For OTP Input
         otpEntryEditText : project(':pinentryedittext'),
 
-        // For Calendar View
-        calendar  : project(':calendar'),
-
         // For Network Connectivity
         reactivenetwork  : project(':reactivenetwork'),
-
-        // Glide For Image Caching
-        glide :"com.github.bumptech.glide:glide:4.8.0",
-        glide_annotationProcessor :"com.github.bumptech.glide:compiler:4.8.0",
+        // Photoview
+        photoview : project(':photoview'),
 
         // For Date and Time
         jodaTime : 'net.danlew:android.joda:2.9.9.3',
@@ -71,6 +66,13 @@ ext.deps = [
 
         // Firebase-jobdispatcher
         firebase_jobdispatcher:"com.firebase:firebase-jobdispatcher:0.8.5",
+
+        // Picasso Image Cashing Library
+        picasso: "com.squareup.picasso:picasso:2.5.2",
+
+        // Glide For Image Caching
+        //glide :"com.github.bumptech.glide:glide:4.8.0",
+        //glide_annotationProcessor :"com.github.bumptech.glide:compiler:4.8.0",
 
 
 ]
