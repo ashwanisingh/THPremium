@@ -44,13 +44,12 @@
     <string name="api_create_subscription_success_title">Payment confirmed</string>
 
     <!-- For Facebook Login-->
-    <string name="facebook_app_id">429571521229925</string>
-    <string name="fb_login_protocol_scheme">fb429571521229925</string>
-
-    <!-- For twitter Login-->
-    <!--<string name="com.twitter.sdk.android.CONSUMER_KEY" tools:ignore="ExtraTranslation">R4aG29tZVOgu3t8bIA2t7T9by</string>
-    <string name="com.twitter.sdk.android.CONSUMER_SECRET" tools:ignore="ExtraTranslation">1YIayOnN05m8dPdYHV87n5luuZOl7aVJbYjo6h8guDFXISZNOH</string>-->
-
+    <!--Old
+    <string name="facebook_app_id">429571521229925</string>-->
+    <!--Old
+    <string name="fb_login_protocol_scheme">fb429571521229925</string>-->
+    <string name="facebook_app_id" translatable="false">467175884091779</string>
+    <string name="fb_login_protocol_scheme">fb467175884091779</string>
 
     <string name="no_geocoder_available">No geocoder available</string>
     <string name="address_found">Address found</string>
