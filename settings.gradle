@@ -1,1 +1,1 @@
-include ':app', ':netoperation', ':pinentryedittext', ':reactivenetwork', ':photoview'
+include ':THPSub', ':netoperation', ':pinentryedittext', ':reactivenetwork', ':photoview'
